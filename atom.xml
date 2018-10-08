@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-29T02:44:12.901Z</updated>
+  <updated>2018-10-08T01:01:08.627Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,12 +21,14 @@
     <link href="http://yoursite.com/2018/09/29/page%E9%9A%8F%E7%AC%94/"/>
     <id>http://yoursite.com/2018/09/29/page随笔/</id>
     <published>2018-09-29T02:44:12.000Z</published>
-    <updated>2018-09-29T02:44:12.901Z</updated>
+    <updated>2018-10-08T01:01:08.627Z</updated>
     
     <summary type="html">
     
     </summary>
     
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -35,12 +37,14 @@
     <link href="http://yoursite.com/2018/09/28/%E9%82%A3%E5%B9%B4%E9%82%A3%E4%B8%AA%E5%A4%A7%E4%B8%89/"/>
     <id>http://yoursite.com/2018/09/28/那年那个大三/</id>
     <published>2018-09-28T09:24:32.000Z</published>
-    <updated>2018-09-28T09:24:32.585Z</updated>
+    <updated>2018-10-08T01:00:40.345Z</updated>
     
     <summary type="html">
     
     </summary>
     
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
