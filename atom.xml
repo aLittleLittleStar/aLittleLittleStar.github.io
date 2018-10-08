@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-08T08:12:12.685Z</updated>
+  <updated>2018-10-08T12:39:02.567Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,17 @@
     <link href="http://yoursite.com/2018/09/29/page%E9%9A%8F%E7%AC%94/"/>
     <id>http://yoursite.com/2018/09/29/page随笔/</id>
     <published>2018-09-29T02:44:12.000Z</published>
-    <updated>2018-10-08T08:12:12.685Z</updated>
+    <updated>2018-10-08T12:39:02.567Z</updated>
+    
+    <content type="html"><![CDATA[<p>import ‘gitment/style/default.css’<br>import Gitment from ‘gitment’</p><p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;import ‘gitment/style/default.css’&lt;br&gt;import Gitment from ‘gitment’&lt;/p&gt;
+&lt;p&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/s
+      
     
     </summary>
     
