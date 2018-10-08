@@ -15,19 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/","mailto"],"image":"user-photo/user.jpg"},"articleBody":"import ‘gitment/style/default.css’import Gitment from ‘gitment’\n\n","dateCreated":"2018-09-29T10:44:12+08:00","dateModified":"2018-10-08T20:39:02+08:00","datePublished":"2018-09-29T10:44:12+08:00","description":"","headline":"page随笔","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/09/29/page随笔/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/09/29/page随笔/","keywords":"随笔"}</script>
-    <meta name="description" content="import ‘gitment/style/default.css’import Gitment from ‘gitment’">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n\n\n\nvar gitment = new Gitment({\n  id: '页面 ID', // 可选。默认为 location.href\n  owner: '29087813',\n  repo: 'https://alittlelittlestar.github.io',\n  oauth: {\n    client_id: '30364d4958c61460269a',\n    client_secret: '992f7a96343cfeaa96ad78af1922ca195354efeb',\n  },\n})\ngitment.render('container')\n","dateCreated":"2018-09-29T10:44:12+08:00","dateModified":"2018-10-08T21:25:29+08:00","datePublished":"2018-09-29T10:44:12+08:00","description":"","headline":"page随笔","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/09/29/page随笔/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/09/29/page随笔/","keywords":"随笔"}</script>
+    <meta name="description" content="var gitment = new Gitment({   id: &apos;页面 ID&apos;, // 可选。默认为 location.href   owner: &apos;29087813&apos;,   repo: &apos;https://alittlelittlestar.github.io&apos;,   oauth: {     client_id: &apos;30364d4958c61460269a&apos;,     client_">
 <meta name="keywords" content="随笔">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="page随笔">
 <meta property="og:url" content="http://yoursite.com/2018/09/29/page随笔/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="import ‘gitment/style/default.css’import Gitment from ‘gitment’">
+<meta property="og:description" content="var gitment = new Gitment({   id: &apos;页面 ID&apos;, // 可选。默认为 location.href   owner: &apos;29087813&apos;,   repo: &apos;https://alittlelittlestar.github.io&apos;,   oauth: {     client_id: &apos;30364d4958c61460269a&apos;,     client_">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-10-08T12:39:02.567Z">
+<meta property="og:updated_time" content="2018-10-08T13:25:29.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="page随笔">
-<meta name="twitter:description" content="import ‘gitment/style/default.css’import Gitment from ‘gitment’">
+<meta name="twitter:description" content="var gitment = new Gitment({   id: &apos;页面 ID&apos;, // 可选。默认为 location.href   owner: &apos;29087813&apos;,   repo: &apos;https://alittlelittlestar.github.io&apos;,   oauth: {     client_id: &apos;30364d4958c61460269a&apos;,     client_">
     
     
         
@@ -254,9 +254,21 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>import ‘gitment/style/default.css’<br>import Gitment from ‘gitment’</p>
+            <p><div id="container"></div></p>
 <p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: '页面 ID', // 可选。默认为 location.href
+  owner: '29087813',
+  repo: 'https://alittlelittlestar.github.io',
+  oauth: {
+    client_id: '30364d4958c61460269a',
+    client_secret: '992f7a96343cfeaa96ad78af1922ca195354efeb',
+  },
+})
+gitment.render('container')
+</script>
             
 
         </div>
@@ -522,7 +534,7 @@
                 function render() {
                     new Gitment({
                         id: 'http://yoursite.com/2018/09/29/page随笔/',
-                        owner: '29087813',
+                        owner: 'alittlelittlestar',
                         repo: 'https://alittlelittlestar.github.io',
                         oauth: {
                             client_id: '30364d4958c61460269a',
