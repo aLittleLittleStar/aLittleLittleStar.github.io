@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-08T03:18:37.102Z</updated>
+  <updated>2018-10-08T03:20:49.469Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,18 +21,9 @@
     <link href="http://yoursite.com/2018/09/29/page%E9%9A%8F%E7%AC%94/"/>
     <id>http://yoursite.com/2018/09/29/page随笔/</id>
     <published>2018-09-29T02:44:12.000Z</published>
-    <updated>2018-10-08T03:18:37.102Z</updated>
-    
-    <content type="html"><![CDATA[<p><div id="container"></div></p><p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({  id: '页面 ID', // 可选。默认为 location.href  比如我本人的就删除了  owner: 'alittlelittlestar',              //比如我的叫anTtutu  repo: 'alittlelittlestar.github.io',                 //比如我的叫anTtutu.github.io  oauth: {    client_id: 'bc3f67a858bcfb8e8557',          //比如我的828***********    client_secret: 'c7b854bd45e943af7f453bf3a87c27fce7376f02',  //比如我的49e************************  },})gitment.render('container')</script>]]></content>
+    <updated>2018-10-08T03:20:49.469Z</updated>
     
     <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;&lt;/p&gt;
-&lt;script src=&quot;https
-      
     
     </summary>
     
