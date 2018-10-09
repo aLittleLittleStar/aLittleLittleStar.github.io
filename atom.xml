@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-09T02:33:27.318Z</updated>
+  <updated>2018-10-09T10:39:53.677Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,18 @@
     <link href="http://yoursite.com/2018/09/29/page%E9%9A%8F%E7%AC%94/"/>
     <id>http://yoursite.com/2018/09/29/page随笔/</id>
     <published>2018-09-29T02:44:12.000Z</published>
-    <updated>2018-10-09T02:33:27.318Z</updated>
+    <updated>2018-10-09T10:39:53.677Z</updated>
+    
+    <content type="html"><![CDATA[<p><div id="container"></div></p><p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({  id: 'location.href', // 可选。默认为 location.href  owner: '29087813',  repo: 'https://alittlelittlestar.github.io',  oauth: {    client_id: '87f258443d550d64eaaa',    client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',  },})gitment.render('container')</script>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;&lt;/p&gt;
+&lt;script src=&quot;https
+      
     
     </summary>
     
