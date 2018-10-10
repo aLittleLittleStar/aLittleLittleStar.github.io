@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>标签: cookit session 面试题 - 昨夜小楼又东风</title>
+    <title>标签: JS - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -19,7 +19,7 @@
     <meta name="description" content="雨打梨花深闭门，忘了青春，误了青春">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="昨夜小楼又东风">
-<meta property="og:url" content="http://yoursite.com/tags/cookit-session-面试题/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/JS/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:description" content="雨打梨花深闭门，忘了青春，误了青春">
 <meta property="og:locale" content="zh-cn">
@@ -223,13 +223,13 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/cookit和session/">
-                            cookit和session
+                        <a class="link-unstyled" href="/2018/10/10/冒泡和捕获/">
+                            冒泡和捕获
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time datetime="2018-10-10T17:40:59+08:00">
+    <time datetime="2018-10-10T18:53:19+08:00">
 	
 		    10月 10, 2018
     	
@@ -246,49 +246,32 @@
             </div>
             
                 <div class="postShorten-content">
-                    <h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><blockquote>
-<p><strong>cookie机制采用的是在客户端保持状态的方案</strong><br>Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.</p>
-</blockquote>
-<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><blockquote>
-<p><strong>session机制采用的是在服务器端保持状态的方案</strong><br>存在服务器的一种用来存放用户数据的类HashTable结构。<br>浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的</p>
-<p>Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。</p>
-</blockquote>
-<h4 id="cookie-和-session-的区别"><a href="#cookie-和-session-的区别" class="headerlink" title="cookie 和 session 的区别"></a>cookie 和 session 的区别</h4><ul>
-<li>cookie数据存放在客户的浏览器上，session数据放在服务器上。</li>
-<li>session 中保存的是对象，cookie 中保存的是字符串。</li>
-<li>session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。</li>
-<li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。</li>
-<li>session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。</li>
-<li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</li>
-</ul>
-<h4 id="cookie-和-webStorage-的区别"><a href="#cookie-和-webStorage-的区别" class="headerlink" title="cookie 和 webStorage 的区别"></a>cookie 和 webStorage 的区别</h4><ul>
-<li>webStorage 的优势<ul>
-<li>从容量上讲WebStorage一般浏览器提供5M的存储空间。</li>
-<li>安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。</li>
-<li>从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 </li>
-<li>数据的有效期不同<ul>
-<li>Webstorage:1.localstorage 2.sessionstorage </li>
-<li>sessionStorage：仅在当前的浏览器窗口关闭有效；</li>
-<li>localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除；</li>
-<li>cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭</li>
-</ul>
-</li>
-<li>作用域不同<ul>
-<li>sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面；</li>
-<li>localStorage：在所有同源窗口都是共享的；</li>
-<li>cookie：也是在所有同源窗口中共享的</li>
-</ul>
-</li>
-<li>webStorage支持事件通知机制，可以将数据更新的通知发生给监听者</li>
-<li><img src="/assets/images/session.png" alt="WebStorage"></li>
-</ul>
-</li>
-</ul>
-<h4 id="如果-cookie-被篡改了怎么办？"><a href="#如果-cookie-被篡改了怎么办？" class="headerlink" title="如果 cookie 被篡改了怎么办？"></a>如果 cookie 被篡改了怎么办？</h4><blockquote>
-<p>预防 Cookie 被篡改<br>set-cookie时加上防篡改验证码。 </p>
-</blockquote>
+                    <p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？</p>
+<h4 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h4><p>  冒泡型事件：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。<br>事件冒泡可以形象地比喻为把一颗石头投入水中，泡泡会一直从水底冒出水面。也就是说，事件会从最内层的元素开始发生，一直向上传播，直到document对象。<br>因此上面的例子在事件冒泡的概念下发生click事件的顺序应该是p -&gt; div -&gt; body -&gt; html -&gt; document</p>
+<h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><p>捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)<br>上面的例子在事件捕获的概念下发生click事件的顺序应该是document -&gt; html -&gt; body -&gt; div -&gt; p</p>
+<p>IE只支持事件冒泡，Chrome,Mozilla, Opera 7 和 Konqueror两种都支持，旧版本的Opera’s 和 iCab两种都不支持 。</p>
+<h4 id="捕获和冒泡过程图"><a href="#捕获和冒泡过程图" class="headerlink" title="捕获和冒泡过程图"></a>捕获和冒泡过程图</h4><p><img src="/assets/images/maopao.png" alt="冒泡和捕获"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>event<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"obj1"</span>&gt;</span></span><br><span class="line">        welcome</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj2"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj3"</span>&gt;</span>world<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        var obj1=document.getElementById('obj1');</span></span><br><span class="line"><span class="undefined">        var obj2=document.getElementById('obj2');</span></span><br><span class="line"><span class="undefined">        obj1.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="undefined">            alert('hello');</span></span><br><span class="line"><span class="undefined">        &#125;,false);</span></span><br><span class="line"><span class="undefined">        obj2.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="undefined">            alert('world');</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>并且分别在obj1,obj2上绑定了一个点击事件，由于addEventListener的第三个参数为false,所以页面是在冒泡阶段处理绑定事件。此时整个页面可以有三种行为出现</p>
+<ol>
+<li>点击文字welcome时，弹出hello。<br>此时就只触发了绑定在obj1上的点击事件。具体冒泡实现过程如下：welcome 属于文本节点，点击后，开始从文本节点查找，当前文本节点没有绑定点击事件，继续向上找，找到父级（id为obj1的div），有绑定的点击事件，执行，再向上找，body，没有绑定点击事件，再到html,document,都没再有绑定的点击事件，好，整个冒泡过程结束。</li>
+<li>点击文字hello时，先弹出world，再弹出hello</li>
+<li>点击world时，弹出hello。</li>
+</ol>
+<h4 id="addEventListener的第三个参数"><a href="#addEventListener的第三个参数" class="headerlink" title="addEventListener的第三个参数"></a>addEventListener的第三个参数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lement.addEventListener(event, <span class="function"><span class="keyword">function</span>, <span class="title">useCapture</span>)</span></span><br></pre></td></tr></table></figure>
+<p>第一个参数是需要绑定的事件，第二个参数是触发事件后要执行的函数。而第三个参数默认值是false，表示在事件冒泡的阶段调用事件处理函数，如果参数为true，则表示在事件捕获阶段调用处理函数。</p>
+<p>我们想要在点击每个h5标签时，弹出对应的innerHTML 。常规做法是遍历每个h5,然后在每个h5上绑定一个点击事件，这种做法在h5较少的时候可以使用，但如果有一万个h5，那就会导致性能降低。这时就需要事件代理出场了。 </p>
+<h4 id="事件代理"><a href="#事件代理" class="headerlink" title="事件代理"></a>事件代理</h4><p>使用事件代理的好处不仅在于将多个事件处理函数减为一个，而且对于不同的元素可以有不同的处理方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obj1.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> e=e||<span class="built_in">window</span>.event;</span><br><span class="line">  <span class="keyword">if</span>(e.target.nodeName.toLowerCase()==<span class="string">'h5'</span>)&#123;</span><br><span class="line">      alert(e.target.innerHTML);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>由于事件冒泡机制，点击了h5后会冒泡到div,此时就会触发绑定在div上的点击事件，再利用target找到事件实际发生的元素，就可以达到预期的效果。</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><h5 id="阻止冒泡的方法，阻止默认事件的方法-兼容IE"><a href="#阻止冒泡的方法，阻止默认事件的方法-兼容IE" class="headerlink" title="阻止冒泡的方法，阻止默认事件的方法(兼容IE)"></a>阻止冒泡的方法，阻止默认事件的方法(兼容IE)</h5><p>阻止事件的传播兼容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> e=e||<span class="built_in">window</span>.event;</span><br><span class="line">    e.stopPropagation();<span class="comment">//阻止事件的传播(包括捕获也包括冒泡)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 兼容处理</span></span><br><span class="line">    <span class="keyword">if</span> (e.stopPropagation) &#123;</span><br><span class="line">        e.stopPropagation();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// IE浏览器</span></span><br><span class="line">        e.cancelBubble=<span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>阻止冒泡事件的兼容性处理<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stopBubble</span>(<span class="params">e</span>) </span>&#123; </span><br><span class="line">  <span class="keyword">if</span>(e &amp;&amp; e.stopPropagation) &#123; <span class="comment">//非IE </span></span><br><span class="line">    e.stopPropagation(); </span><br><span class="line">  &#125; <span class="keyword">else</span> &#123; <span class="comment">//IE </span></span><br><span class="line">    <span class="built_in">window</span>.event.cancelBubble = <span class="literal">true</span>; </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们给一个dom同时绑定两个点击事件，一个用捕获，一个用冒泡，会执行几次事件，会先执行冒泡还是捕获？</p>
+<p>首是进入捕获阶段，直到达到目标元素，再进入冒泡阶段</p>
 <blockquote>
-<p>参考文章 <a href="https://blog.csdn.net/statham_li/article/details/80226447" target="_blank" rel="noopener">cookie和session, cookie和webStorage的区别</a></p>
+<p>参考文章 <a href="https://blog.csdn.net/chenjuan1993/article/details/81347590" target="_blank" rel="noopener">终于弄懂了事件冒泡和事件捕获</a>、<a href="https://segmentfault.com/a/1190000000749838" target="_blank" rel="noopener">浅谈事件冒泡与事件捕获</a></p>
 </blockquote>
 
                     
@@ -297,7 +280,7 @@
                     
                     
                         <p>
-                            <a href="/2018/10/10/cookit和session/#post-footer" class="postShorten-excerpt_link link">
+                            <a href="/2018/10/10/冒泡和捕获/#post-footer" class="postShorten-excerpt_link link">
                                 评论和共享
                             </a>
                         </p>
