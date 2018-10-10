@@ -223,6 +223,217 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2018/10/10/渐进增强和优雅降级/">
+                            渐进增强和优雅降级
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-10-10T18:21:49+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h3 id="渐进增强"><a href="#渐进增强" class="headerlink" title="渐进增强"></a>渐进增强</h3><blockquote>
+<p>一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.transition</span> &#123; <span class="comment">/*渐进增强写法*/</span></span><br><span class="line">  <span class="attribute">-webkit-transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">     <span class="attribute">-moz-transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">       <span class="attribute">-o-transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">          <span class="attribute">transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h3><blockquote>
+<p>一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.transition</span> &#123; <span class="comment">/*优雅降级写法*/</span></span><br><span class="line">          <span class="attribute">transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">       <span class="attribute">-o-transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">     <span class="attribute">-moz-transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">  <span class="attribute">-webkit-transition</span>: all .<span class="number">5s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="渐进增强和优雅降级的区别"><a href="#渐进增强和优雅降级的区别" class="headerlink" title="渐进增强和优雅降级的区别"></a>渐进增强和优雅降级的区别</h3><blockquote>
+<p>渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的</p>
+</blockquote>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
+<li>渐进增强和优雅降级如何抉择<ul>
+<li>如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。</li>
+<li>那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。</li>
+<li>采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。</li>
+<li>绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考文章 <a href="https://blog.csdn.net/jnshu_it/article/details/77016996" target="_blank" rel="noopener">渐进增强和优雅降级之间有什么不同?</a></p>
+</blockquote>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/10/10/渐进增强和优雅降级/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/10/10/跨域的方法/">
+                            跨域的方法
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-10-10T18:20:33+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/10/10/跨域的方法/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/10/10/cookit和session/">
+                            cookit和session
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-10-10T17:40:59+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><blockquote>
+<p><strong>cookie机制采用的是在客户端保持状态的方案</strong><br>Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.</p>
+</blockquote>
+<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><blockquote>
+<p><strong>session机制采用的是在服务器端保持状态的方案</strong><br>存在服务器的一种用来存放用户数据的类HashTable结构。<br>浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的</p>
+<p>Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。</p>
+</blockquote>
+<h4 id="cookie-和-session-的区别"><a href="#cookie-和-session-的区别" class="headerlink" title="cookie 和 session 的区别"></a>cookie 和 session 的区别</h4><ul>
+<li>cookie数据存放在客户的浏览器上，session数据放在服务器上。</li>
+<li>session 中保存的是对象，cookie 中保存的是字符串。</li>
+<li>session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。</li>
+<li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。</li>
+<li>session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。</li>
+<li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</li>
+</ul>
+<h4 id="cookie-和-webStorage-的区别"><a href="#cookie-和-webStorage-的区别" class="headerlink" title="cookie 和 webStorage 的区别"></a>cookie 和 webStorage 的区别</h4><ul>
+<li>webStorage 的优势<ul>
+<li>从容量上讲WebStorage一般浏览器提供5M的存储空间。</li>
+<li>安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。</li>
+<li>从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 </li>
+<li>数据的有效期不同<ul>
+<li>Webstorage:1.localstorage 2.sessionstorage </li>
+<li>sessionStorage：仅在当前的浏览器窗口关闭有效；</li>
+<li>localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除；</li>
+<li>cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭</li>
+</ul>
+</li>
+<li>作用域不同<ul>
+<li>sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面；</li>
+<li>localStorage：在所有同源窗口都是共享的；</li>
+<li>cookie：也是在所有同源窗口中共享的</li>
+</ul>
+</li>
+<li>webStorage支持事件通知机制，可以将数据更新的通知发生给监听者</li>
+<li><img src="/assets/images/session.png" alt="WebStorage"></li>
+</ul>
+</li>
+</ul>
+<h4 id="如果-cookie-被篡改了怎么办？"><a href="#如果-cookie-被篡改了怎么办？" class="headerlink" title="如果 cookie 被篡改了怎么办？"></a>如果 cookie 被篡改了怎么办？</h4><blockquote>
+<p>预防 Cookie 被篡改<br>set-cookie时加上防篡改验证码。 </p>
+</blockquote>
+<blockquote>
+<p>参考文章 <a href="https://blog.csdn.net/statham_li/article/details/80226447" target="_blank" rel="noopener">cookie和session, cookie和webStorage的区别</a></p>
+</blockquote>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/10/10/cookit和session/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2018/10/10/排序算法/">
                             排序算法
                         </a>
@@ -234,6 +445,12 @@
 		    10月 10, 2018
     	
     </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/算法/">算法</a>
+
+
     
 </div>
 
@@ -413,6 +630,63 @@
                     <hr>
                 </div>
                 
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/cookit和session/">
+                            <h3 class="media-heading">cookit和session</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -420,7 +694,7 @@
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 4 篇文章
+                找到 7 篇文章
             </p>
         </div>
     </div>
