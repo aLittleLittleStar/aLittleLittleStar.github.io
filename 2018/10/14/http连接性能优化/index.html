@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>标签: http - 昨夜小楼又东风</title>
+    <title>http连接性能优化 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,17 +15,23 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{}</script>
-    <meta name="description" content="雨打梨花深闭门，忘了青春，误了青春">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\nHTTP和TCP/IP的关系HTTP—&gt;(TSL/SSL)—&gt;TCP—&gt;IPHTTP处于应用层、TCP处于传输层、IP处于网络层\n\nHTTP将所需要传输的数据以流的形式传递给TCP程序\nTCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等\nTCP程序将包装好的TCP数据段叫给IP程序，IP程序在此基础上封装进去IP分组首部，如源IP地址、目的IP地址，数据报总长度、分组ID、首部长度、首部校验和等等\n最后交给数据链路层去发送这个IP分组数据段\n\nTCP性能的考虑HTTP紧挨着TCP，所以TCP的链接性能考虑直接影响的HTTP事务的性能。\nHTTP事务时延一次HTTP请求可分为 DNS查询、连接、请求、事务处理、响应、关闭连接。每一步都会产生时延。其中，相对于连接、请求所消耗的时间，事务处理的时间是很短的。\n对HTTP程序员产生影响的时延 \n\nTCP握手建立链接 \nTCP慢启动拥塞控制 \n数据聚集的Nagle算法 \n用于捎带确认的TCP延迟确认算法 \nTIME_WAIT 时延和端口耗尽\n\nHTTP连接处理Connection首部真正用途HTTP允许客户端和源服务器之间存在多个代理服务器或高速缓存服务器，进行HTTP连接通信时，可以将HTTP首部逐跳的经过这些设备。这个时候，怎么在相邻的HTTP应用程序之间的连接应用一些特殊的选项呢？— Connection首部，可以承载3种不同类型的标签，这些标签不会传播到其它连接中去。a、HTTP首部字段名，列出了只与此连接有关的选项b、任意标签，用于描述此连接的非标准选项c、值close，说明操作完成之后需关闭这条持久连接由于添加Connection首部的其它首部字段，不能随着报文转发出去。因此将逐跳首部放入Connection首部，就可以达到对首部的保护。例：1234HTTP/1.1 200 OKCache-control: max-age=3600Connection: meter,close,bill-my-credit-cardMeter: max-uses=3,max-refuses=6,dont-report\n实例说明：不应该转发Meter首部，要应用假想的bill-my-credit-card选项，且本次事务后应关闭持久连接。\n串行事务处理延迟如果只对HTTP事务进行简单管理，TCP的性能时延可能会叠加起来，包括多次的建立连接和断开连接。\n提高HTTP连接性能的四个方法：并行连接通过多条TCP连接发起并发的HTTP请求并行连接从理论上回提高页面的加载速度，因为多个请求同时发出，时延可以重叠起来。但并行连接并不是一点更快，原因可能是：客户端带宽限制、消耗更多的内存和计算资源。现代浏览器确实使用并行连接，但会限制连接数在一个较小的值（通常是4），并且服务器可以关闭来自特定客户端的超量连接。\n持久连接重用TCP连接，以消除连接及关闭的时延重用连接：HTTP/1.1(HTTP/1.0增强版)允许HTTP设备在事务处理结束后将TCP连接保持在打开状态，以便为未来的HTTP请求重用现存的连接。\n持久连接+并行连接持久的连接的管理很重要，不小心会累积出大量的空闲连接\nHTTP/1.0 + Keep-alive连接Connection： Keep-alive属性出现在1996年HTTP/1.0版本中，当初也是被当做实验型持久连接。\n可以用通用首部Keep-Alive属性指定由逗号分隔的选项来调节keep-alive的行为。例：12Connection：Keep-aliveKeep-Alive: max=5,timeout=120\n说明：服务器还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲后2分钟。\nConnection属于逐跳首部，只适用于单条传输链路。\n现在HTTP/1.1不再需要此属性，默认开启持久连接的。\nHTTP/1.1 持久连接HTTP/1.1逐渐停止了对keep-alive连接的支持，用一种名为持久连接(persistentconnection)的改进型设计取代了它。\n必须显示指定Connection: close才会指定TCP连接在响应后立即关闭。当客户端发送了Connection: close请求首部之后，客户端就无法在那条连接上发送更多请求了。只有当连接上所有的报文都有正确的、自定义报文长度时，连接才能持久保持。\n管道化连接通过共享的TCP连接发起并发的HTTP请求\nHTTP/1.1 允许在持久连接上可选的使用请求管道。在响应到达之前，可以将多条请求放入队列，降低网络回环时间。\n注：HTTP客户端不应该用管道化的方式发送会产生副作用的请求（比如POST），因为出错时，无法安全的重试POST这样的非幂请求。\n复用的连接交替传送请求和相应报文（实验阶段）\nHTTP1.1 的特点持久连接每个TCP连接开始都有三次握手，要经历一次客户端与服务器间完整的往返，而开启了持久连接就不需要每次都要握手在连接中有这个属性的就是打开了持久化连接。下图展示了通过持久 TCP 连接取得 HTML 和 CSS 文件：\nHTTP2.0 的特点HTTP 长连接与短连接HTTP  是无状态的也就是说，浏览器和服务器每进行一次HTTP操作，就建立一次连接，但任务结束就中断连接。如果客户端浏览器访问的某个HTML或其他类型的Web页中包含有其他的Web资源，如JavaScript文件、图像文件、CSS文件等；当浏览器每遇到这样一个Web资源，就会建立一个HTTP会话.http1.0中默认是关闭的，需要在http头加入”Connection: Keep-Alive”，才能启用Keep-Alivehttp 1.1中默认启用Keep-Alive，如果加入”Connection: close”才关闭。目前大部分浏览器都是用http1.1协议，也就是说默认都会发起Keep-Alive的连接请求了，所以是否能完成一个完整的Keep- Alive连接就看服务器设置情况。下图是普通模式和长连接模式的请求对比：\n开启Keep-Alive的优缺点优点： Keep-Alive模式更加高效，因为避免了连接建立和释放的开销缺点： 长时间的Tcp连接容易导致资源无效占用，浪费系统资源\n当保持长连接时，如何判断一次请求已经完成？当保持长连接时，如何判断一次请求已经完成？ \nContent-LengthContent-Length表示实体内容的长度。浏览器通过这个字段来判断当前请求的数据是否已经全部接收。所以，当浏览器请求的是一个静态资源时，即服务器能明确知道返回内容的长度时，可以设置Content-Length来控制请求的结束。但当服务器并不知道请求结果的长度时，如一个动态的页面或者数据，Content-Length就无法解决上面的问题，这个时候就需要用到Transfer-Encoding字段。\nTransfer-EncodingTransfer-Encoding是指传输编码，在上面的问题中，当服务端无法知道实体内容的长度时，就可以通过指定Transfer-Encoding: chunked来告知浏览器当前的编码是将数据分成一块一块传递的。当然, 还可以指定Transfer-Encoding: gzip, chunked表明实体内容不仅是gzip压缩的，还是分块传递的。最后，当浏览器接收到一个长度为0的chunked时， 知道当前请求内容已全部接收。\nKeep-Alive timeout：Httpd守护进程，一般都提供了keep-alive timeout时间设置参数。比如nginx的keepalive_timeout，和Apache的KeepAliveTimeout。这个keepalive_timout时间值意味着：一个http产生的tcp连接在传送完最后一个响应后，还需要hold住keepalive_timeout秒后，才开始关闭这个连接。当httpd守护进程发送完一个响应后，理应马上主动关闭相应的tcp连接，设置 keepalive_timeout后，httpd守护进程会想说：”再等等吧，看看浏览器还有没有请求过来”，这一等，便是keepalive_timeout时间。如果守护进程在这个等待的时间里，一直没有收到浏览器发过来http请求，则关闭这个http连接。\nTcp的Keepalive：连接建立之后，如果客户端一直不发送数据，或者隔很长时间才发送一次数据，当连接很久没有数据报文传输时如何去确定对方还在线，到底是掉线了还是确实没有数据传输，连接还需不需要保持，这种情况在TCP协议设计中是需要考虑到的。TCP协议通过一种巧妙的方式去解决这个问题，当超过一段时间之后，TCP自动发送一个数据为空的报文（侦测包）给对方，如果对方回应了这个报文，说明对方还在线，连接可以继续保持，如果对方没有报文返回，并且重试了多次之后则认为链接丢失，没有必要保持连接。\ntcp keep-alive是TCP的一种检测TCP连接状况的保鲜机制。tcp keep-alive保鲜定时器，支持三个系统内核配置参数：net.ipv4.tcp_keepalive_intvl = 15net.ipv4.tcp_keepalive_probes = 5net.ipv4.tcp_keepalive_time = 1800keepalive是TCP保鲜定时器，当网络两端建立了TCP连接之后，闲置（双方没有任何数据流发送往来）了tcp_keepalive_time后，服务器就会尝试向客户端发送侦测包，来判断TCP连接状况(有可能客户端崩溃、强制关闭了应用、主机不可达等等)。如果没有收到对方的回答(ack包)，则会在 tcp_keepalive_intvl后再次尝试发送侦测包，直到收到对方的ack,如果一直没有收到对方的ack,一共会尝试 tcp_keepalive_probes次，每次的间隔时间在这里分别是15s, 30s, 45s, 60s, 75s。如果尝试tcp_keepalive_probes,依然没有收到对方的ack包，则会丢弃该TCP连接。TCP连接默认闲置时间是2小时，一般设置为30分钟足够了。\n参考文章： 浅谈Http长连接和Keep-Alive以及Tcp的Keepalive、http性能优化\n","dateCreated":"2018-10-14T10:23:06+08:00","dateModified":"2018-10-15T08:43:44+08:00","datePublished":"2018-10-14T10:23:06+08:00","description":"","headline":"http连接性能优化","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/14/http连接性能优化/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/14/http连接性能优化/","keywords":"http"}</script>
+    <meta name="description" content="HTTP和TCP/IP的关系HTTP—&amp;gt;(TSL/SSL)—&amp;gt;TCP—&amp;gt;IPHTTP处于应用层、TCP处于传输层、IP处于网络层  HTTP将所需要传输的数据以流的形式传递给TCP程序 TCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等 TCP程序将包装好的TCP数据段叫给IP程序">
+<meta name="keywords" content="http">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="昨夜小楼又东风">
-<meta property="og:url" content="http://yoursite.com/tags/http/index.html">
+<meta property="og:title" content="http连接性能优化">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/http连接性能优化/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="雨打梨花深闭门，忘了青春，误了青春">
+<meta property="og:description" content="HTTP和TCP/IP的关系HTTP—&amp;gt;(TSL/SSL)—&amp;gt;TCP—&amp;gt;IPHTTP处于应用层、TCP处于传输层、IP处于网络层  HTTP将所需要传输的数据以流的形式传递给TCP程序 TCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等 TCP程序将包装好的TCP数据段叫给IP程序">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://yoursite.com/assets/images/keep-alive.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/keep-alive1.jpg">
+<meta property="og:image" content="http://yoursite.com/assets/images/keep-alive2.png">
+<meta property="og:updated_time" content="2018-10-15T00:43:44.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昨夜小楼又东风">
-<meta name="twitter:description" content="雨打梨花深闭门，忘了青春，误了青春">
+<meta name="twitter:title" content="http连接性能优化">
+<meta name="twitter:description" content="HTTP和TCP/IP的关系HTTP—&amp;gt;(TSL/SSL)—&amp;gt;TCP—&amp;gt;IPHTTP处于应用层、TCP处于传输层、IP处于网络层  HTTP将所需要传输的数据以流的形式传递给TCP程序 TCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等 TCP程序将包装好的TCP数据段叫给IP程序">
+<meta name="twitter:image" content="http://yoursite.com/assets/images/keep-alive.png">
     
     
         
@@ -55,7 +61,7 @@
         
     
 
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
@@ -79,7 +85,7 @@
         
     
 
-<nav id="sidebar" data-behavior="2">
+<nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -209,26 +215,22 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="5"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/14/http连接性能优化/">
-                            http连接性能优化
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            http连接性能优化
+        </h1>
+    
+    
+        <div class="post-meta">
     <time datetime="2018-10-14T10:23:06+08:00">
 	
 		    10月 14, 2018
@@ -243,10 +245,13 @@
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content">
-                    <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP和TCP-IP的关系"><span class="toc-text">HTTP和TCP/IP的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP性能的考虑"><span class="toc-text">TCP性能的考虑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP事务时延"><span class="toc-text">HTTP事务时延</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP连接处理"><span class="toc-text">HTTP连接处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Connection首部真正用途"><span class="toc-text">Connection首部真正用途</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#串行事务处理延迟"><span class="toc-text">串行事务处理延迟</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提高HTTP连接性能的四个方法："><span class="toc-text">提高HTTP连接性能的四个方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#并行连接"><span class="toc-text">并行连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#持久连接"><span class="toc-text">持久连接</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#持久连接-并行连接"><span class="toc-text">持久连接+并行连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP-1-0-Keep-alive连接"><span class="toc-text">HTTP/1.0 + Keep-alive连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP-1-1-持久连接"><span class="toc-text">HTTP/1.1 持久连接</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#管道化连接"><span class="toc-text">管道化连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#复用的连接"><span class="toc-text">复用的连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP1-1-的特点"><span class="toc-text">HTTP1.1 的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#持久连接-1"><span class="toc-text">持久连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP2-0-的特点"><span class="toc-text">HTTP2.0 的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-长连接与短连接"><span class="toc-text">HTTP 长连接与短连接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#开启Keep-Alive的优缺点"><span class="toc-text">开启Keep-Alive的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#当保持长连接时，如何判断一次请求已经完成？"><span class="toc-text">当保持长连接时，如何判断一次请求已经完成？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Content-Length"><span class="toc-text">Content-Length</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Transfer-Encoding"><span class="toc-text">Transfer-Encoding</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Keep-Alive-timeout："><span class="toc-text">Keep-Alive timeout：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tcp的Keepalive："><span class="toc-text">Tcp的Keepalive：</span></a></li></ol></li></ol>
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP和TCP-IP的关系"><span class="toc-text">HTTP和TCP/IP的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP性能的考虑"><span class="toc-text">TCP性能的考虑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP事务时延"><span class="toc-text">HTTP事务时延</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP连接处理"><span class="toc-text">HTTP连接处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Connection首部真正用途"><span class="toc-text">Connection首部真正用途</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#串行事务处理延迟"><span class="toc-text">串行事务处理延迟</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提高HTTP连接性能的四个方法："><span class="toc-text">提高HTTP连接性能的四个方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#并行连接"><span class="toc-text">并行连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#持久连接"><span class="toc-text">持久连接</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#持久连接-并行连接"><span class="toc-text">持久连接+并行连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP-1-0-Keep-alive连接"><span class="toc-text">HTTP/1.0 + Keep-alive连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP-1-1-持久连接"><span class="toc-text">HTTP/1.1 持久连接</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#管道化连接"><span class="toc-text">管道化连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#复用的连接"><span class="toc-text">复用的连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP1-1-的特点"><span class="toc-text">HTTP1.1 的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#持久连接-1"><span class="toc-text">持久连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP2-0-的特点"><span class="toc-text">HTTP2.0 的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-长连接与短连接"><span class="toc-text">HTTP 长连接与短连接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#开启Keep-Alive的优缺点"><span class="toc-text">开启Keep-Alive的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#当保持长连接时，如何判断一次请求已经完成？"><span class="toc-text">当保持长连接时，如何判断一次请求已经完成？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Content-Length"><span class="toc-text">Content-Length</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Transfer-Encoding"><span class="toc-text">Transfer-Encoding</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Keep-Alive-timeout："><span class="toc-text">Keep-Alive timeout：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tcp的Keepalive："><span class="toc-text">Tcp的Keepalive：</span></a></li></ol></li></ol>
 <h3 id="HTTP和TCP-IP的关系"><a href="#HTTP和TCP-IP的关系" class="headerlink" title="HTTP和TCP/IP的关系"></a>HTTP和TCP/IP的关系</h3><p>HTTP—&gt;(TSL/SSL)—&gt;TCP—&gt;IP<br>HTTP处于应用层、TCP处于传输层、IP处于网络层</p>
 <ol>
 <li>HTTP将所需要传输的数据以流的形式传递给TCP程序</li>
@@ -292,157 +297,102 @@
 <p>tcp keep-alive是TCP的一种检测TCP连接状况的保鲜机制。tcp keep-alive保鲜定时器，支持三个系统内核配置参数：<br>net.ipv4.tcp_keepalive_intvl = 15<br>net.ipv4.tcp_keepalive_probes = 5<br>net.ipv4.tcp_keepalive_time = 1800<br>keepalive是TCP保鲜定时器，当网络两端建立了TCP连接之后，闲置（双方没有任何数据流发送往来）了tcp_keepalive_time后，服务器就会尝试向客户端发送侦测包，来判断TCP连接状况(有可能客户端崩溃、强制关闭了应用、主机不可达等等)。如果没有收到对方的回答(ack包)，则会在 tcp_keepalive_intvl后再次尝试发送侦测包，直到收到对方的ack,如果一直没有收到对方的ack,一共会尝试 tcp_keepalive_probes次，每次的间隔时间在这里分别是15s, 30s, 45s, 60s, 75s。如果尝试tcp_keepalive_probes,依然没有收到对方的ack包，则会丢弃该TCP连接。TCP连接默认闲置时间是2小时，一般设置为30分钟足够了。</p>
 <p>参考文章： <a href="https://blog.csdn.net/weixin_37672169/article/details/80283935" target="_blank" rel="noopener">浅谈Http长连接和Keep-Alive以及Tcp的Keepalive</a>、<a href="https://blog.csdn.net/joye123/article/details/51931375?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">http性能优化</a></p>
 
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/10/14/http连接性能优化/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
             
+
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/10/常用的状态响应码/">
-                            常用的状态响应码
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:56:44+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/http/">http</a>
 
             </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- 设置目录 -->
-<!-- toc -->
-<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">状态码</th>
-<th style="text-align:right">说明</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">1XX</td>
-<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
-<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
-</tr>
-<tr>
-<td style="text-align:left">2XX</td>
-<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
-<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
-</tr>
-<tr>
-<td style="text-align:left">3XX</td>
-<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
-<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
-</tr>
-<tr>
-<td style="text-align:left">4XX</td>
-<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
-<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
-</tr>
-<tr>
-<td style="text-align:left">5XX</td>
-<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
-<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote>
-                    
-                        <a href="/2018/10/10/常用的状态响应码/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/10/get和post请求/">
-                            get和post请求
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:52:53+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <p>在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。<br></p>
-                    
-                        <a href="/2018/10/10/get和post请求/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
         
         
-        <li class="pagination-number">第 1 页 共 1 页</li>
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/12/git常用命令/" data-tooltip="git常用命令" aria-label="下一篇: git常用命令">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/14/http连接性能优化/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/14/http连接性能优化/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/14/http连接性能优化/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
 
 
                 <footer id="footer" class="main-content-wrap">
@@ -452,6 +402,113 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/12/git常用命令/" data-tooltip="git常用命令" aria-label="下一篇: git常用命令">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/14/http连接性能优化/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/14/http连接性能优化/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/14/http连接性能优化/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/14/http连接性能优化/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/14/http连接性能优化/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/14/http连接性能优化/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
             
         </div>
         
@@ -761,6 +818,37 @@
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2018/10/14/http连接性能优化/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
 
 
 
