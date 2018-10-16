@@ -8,7 +8,7 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>js</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -92,6 +92,17 @@
     <title><![CDATA[渐进增强和优雅降级]]></title>
     <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
     <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[清除浮动]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
       <categories>
         <category>前端</category>
       </categories>
