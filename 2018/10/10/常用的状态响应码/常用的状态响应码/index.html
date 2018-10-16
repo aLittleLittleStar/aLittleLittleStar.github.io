@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>常用的状态响应码 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n\n状态码大类\n\n\n状态码\n说明\n解释\n\n\n\n\n1XX\n响应中——表示请求已经接受，继续处理\n消息：一般是告诉客户端请求已经收到了，正在处理，别急\n\n\n2XX\n成功——表示请求已经被成功接收、理解、接受。\n 处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息\n\n\n3XX\n 重定向——要完成请求必须进行更进一步的操作\n重定向到其它地方：它让客户端再发起一个请求以完成整个处理\n\n\n4XX\n客户端错误——请求有语法错误或请求无法实现\n处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。\n\n\n5XX\n 服务器端错误——服务器未能实现合法的请求。\n处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等\n\n\n\n\nHTTP响应状态码有很多，但是实际经常使用的大概只有14个。\n\n状态码\n200 OK            //表示从客户端发来的请求在服务器端被正常处理了。\n204 No Content该状态码表示服务器接收的请求已成功处理 ，但在返回的响应报文中不含实体的主体部分。\n比如，当从浏览器发出请求处理后，返回204响应，那么浏览器显示的页面不发生更新。\n\n\n206 Partial Content 该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的GET请求。\n301 Moved Permanently 永久性重定向。该状态码表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI。\n像下方给出的请求URI，当指定的资源路径的最后忘记添加斜杠”/“，就会产生301状态码\n\n\n302 Found 临时性重定向。该状态码表示请求的资源已被分配了新的URI，希望用户(本次)能使用新的URI访问。\n303 Other         //我把你redirect到其它的页面，目标的URL通过响应报文头的Location告诉你。\nSee Other 该状态码表示由于请求对应的资源存在另外一个URI，应使用GET方法定向获取请求的资源。 303状态码和302状态码有着相同的功能，但303状态码明确表明客户端应当采用GET方法获取资源。 当301，302，303响应状态码返回时，几乎所有的浏览器都会把POST改成GET，并删除请求报文的主体，之后请求会自动再次发送。 301，302标准是禁止将POST方法改变成GET方法的，但实际上使用时大家都会这么做。\n\n\n304 Not Modified  // 该状态码表示客户端发送附带条件的请求时，服务器端允许请求访问资源，但未满足条件的情况。\n304状态码返回时，不包含任何响应的主体部分。304虽然被划分在3XX类别中，但是和重定向没有关系。\n\n\n307 Temporary Redirect 临时重定向。该状态码与302 Found有着相同的含义。307会遵照浏览器标准，不会从POST变成GET\n400 Bad Request   //客户端请求有语法错误，不能被服务器所理解\n401 Unauthorized  //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用\n该状态码表示发送的请求需要有通过HTTP认证的认证信息，另外若之前已进行过1此请求，则表示用户认证失败。\n\n\n403 Forbidden     //服务器收到请求，但是拒绝提供服务\n404 Not Found     //该状态码表明服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。\n500 Internal Server Error //该状态码表明服务器端在执行请求时发生了错误。\n503 Server Unavailable    //该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。\n\n\n参考文章 常见的HTTP响应状态码解析、常见的响应状态码\n\n","dateCreated":"2018-10-10T18:56:44+08:00","dateModified":"2018-10-12T16:48:09+08:00","datePublished":"2018-10-10T18:56:44+08:00","description":"\n\n状态码大类\n\n\n状态码\n说明\n解释\n\n\n\n\n1XX\n响应中——表示请求已经接受，继续处理\n消息：一般是告诉客户端请求已经收到了，正在处理，别急\n\n\n2XX\n成功——表示请求已经被成功接收、理解、接受。\n 处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息\n\n\n3XX\n 重定向——要完成请求必须进行更进一步的操作\n重定向到其它地方：它让客户端再发起一个请求以完成整个处理\n\n\n4XX\n客户端错误——请求有语法错误或请求无法实现\n处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。\n\n\n5XX\n 服务器端错误——服务器未能实现合法的请求。\n处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等\n\n\n\n\nHTTP响应状态码有很多，但是实际经常使用的大概只有14个。","headline":"常用的状态响应码","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/","keywords":"http"}</script>
+    <meta name="description" content="状态码大类   状态码 说明 解释     1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急   2XX 成功——表示请求已经被成功接收、理解、接受。  处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息   3XX  重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理">
+<meta name="keywords" content="http">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="常用的状态响应码">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:description" content="状态码大类   状态码 说明 解释     1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急   2XX 成功——表示请求已经被成功接收、理解、接受。  处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息   3XX  重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-10-12T08:48:09.649Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用的状态响应码">
+<meta name="twitter:description" content="状态码大类   状态码 说明 解释     1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急   2XX 成功——表示请求已经被成功接收、理解、接受。  处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息   3XX  重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            常用的状态响应码
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-10-10T18:56:44+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <!-- 设置目录 -->
+<h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态码大类"><span class="toc-text">状态码大类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态码"><span class="toc-text">状态码</span></a></li></ol>
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br><a id="more"></a></p>
+</blockquote>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><ul>
+<li>200 OK            //表示从客户端发来的请求在服务器端被正常处理了。</li>
+<li>204 No Content该状态码表示服务器接收的请求已成功处理 ，但在返回的响应报文中不含实体的主体部分。<ul>
+<li>比如，当从浏览器发出请求处理后，返回204响应，那么浏览器显示的页面不发生更新。</li>
+</ul>
+</li>
+<li>206 Partial Content 该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的GET请求。</li>
+<li>301 Moved Permanently 永久性重定向。该状态码表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI。<ul>
+<li>像下方给出的请求URI，当指定的资源路径的最后忘记添加斜杠”/“，就会产生301状态码</li>
+</ul>
+</li>
+<li>302 Found 临时性重定向。该状态码表示请求的资源已被分配了新的URI，希望用户(本次)能使用新的URI访问。</li>
+<li>303 Other         //我把你redirect到其它的页面，目标的URL通过响应报文头的Location告诉你。<ul>
+<li>See Other 该状态码表示由于请求对应的资源存在另外一个URI，应使用GET方法定向获取请求的资源。 303状态码和302状态码有着相同的功能，但303状态码明确表明客户端应当采用GET方法获取资源。 当301，302，303响应状态码返回时，几乎所有的浏览器都会把POST改成GET，并删除请求报文的主体，之后请求会自动再次发送。 301，302标准是禁止将POST方法改变成GET方法的，但实际上使用时大家都会这么做。</li>
+</ul>
+</li>
+<li>304 Not Modified  // 该状态码表示客户端发送附带条件的请求时，服务器端允许请求访问资源，但未满足条件的情况。<ul>
+<li>304状态码返回时，不包含任何响应的主体部分。304虽然被划分在3XX类别中，但是和重定向没有关系。</li>
+</ul>
+</li>
+<li>307 Temporary Redirect 临时重定向。该状态码与302 Found有着相同的含义。307会遵照浏览器标准，不会从POST变成GET</li>
+<li>400 Bad Request   //客户端请求有语法错误，不能被服务器所理解</li>
+<li>401 Unauthorized  //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用<ul>
+<li>该状态码表示发送的请求需要有通过HTTP认证的认证信息，另外若之前已进行过1此请求，则表示用户认证失败。</li>
+</ul>
+</li>
+<li>403 Forbidden     //服务器收到请求，但是拒绝提供服务</li>
+<li>404 Not Found     //该状态码表明服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。</li>
+<li>500 Internal Server Error //该状态码表明服务器端在执行请求时发生了错误。</li>
+<li>503 Server Unavailable    //该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</li>
+</ul>
+<blockquote>
+<p>参考文章 <a href="https://www.cnblogs.com/jpdoutop/p/HTTP-Status-Code.html" target="_blank" rel="noopener">常见的HTTP响应状态码解析</a>、<a href="https://www.jianshu.com/p/e358607a3e1b" target="_blank" rel="noopener">常见的响应状态码</a></p>
+</blockquote>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/http/">http</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/12/git常用命令/git常用命令/" data-tooltip="git常用命令" aria-label="上一篇: git常用命令">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/JS/冒泡和捕获/" data-tooltip="冒泡和捕获" aria-label="下一篇: 冒泡和捕获">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 LittleStar. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/12/git常用命令/git常用命令/" data-tooltip="git常用命令" aria-label="上一篇: git常用命令">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/JS/冒泡和捕获/" data-tooltip="冒泡和捕获" aria-label="下一篇: 冒泡和捕获">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/09/28/hello-world/">
+                            <h3 class="media-heading">Hello World</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年9月28日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/09/28/那年那个大三/">
+                            <h3 class="media-heading">喂！内个大三</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年9月28日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/09/29/page随笔/">
+                            <h3 class="media-heading">page随笔</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年9月29日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/排序算法/排序算法/">
+                            <h3 class="media-heading">排序算法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/cookit和session/">
+                            <h3 class="media-heading">cookit和session</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
+                            <h3 class="media-heading">get和post请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 15 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
