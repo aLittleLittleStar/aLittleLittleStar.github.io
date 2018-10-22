@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-18T12:04:28.680Z</updated>
+  <updated>2018-10-22T11:25:06.477Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>README</title>
+    <link href="http://yoursite.com/2018/10/22/README/"/>
+    <id>http://yoursite.com/2018/10/22/README/</id>
+    <published>2018-10-22T11:23:46.000Z</published>
+    <updated>2018-10-22T11:25:06.477Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>It just a test music, but i like it </p>        <div id="aplayer-TFDfUpbW" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-TFDfUpbW"),            narrow: false,            autoplay: true,            showlrc: false,            music: {              title: "起风了",              author: "买辣椒也用券",              url: "/assets/music/music.mp3",              pic: "/assets/music/music.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="情感" scheme="http://yoursite.com/tags/%E6%83%85%E6%84%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>深浅拷贝</title>
@@ -376,7 +401,7 @@
     <link href="http://yoursite.com/2018/09/29/page%E9%9A%8F%E7%AC%94/"/>
     <id>http://yoursite.com/2018/09/29/page随笔/</id>
     <published>2018-09-29T02:44:12.000Z</published>
-    <updated>2018-10-12T08:39:10.711Z</updated>
+    <updated>2018-10-22T11:24:56.896Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>[TOC]</p><h3 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h3>]]></content>
     
@@ -392,32 +417,7 @@
       <category term="随笔" scheme="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>喂！内个大三</title>
-    <link href="http://yoursite.com/2018/09/28/%E5%96%82%EF%BC%81%E5%86%85%E4%B8%AA%E5%A4%A7%E4%B8%89/"/>
-    <id>http://yoursite.com/2018/09/28/喂！内个大三/</id>
-    <published>2018-09-28T09:24:32.000Z</published>
-    <updated>2018-10-22T10:54:32.220Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>It just a test music, but i like it </p>        <div id="aplayer-myNjDyfT" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-myNjDyfT"),            narrow: false,            autoplay: true,            showlrc: false,            music: {              title: "起风了",              author: "买辣椒也用券",              url: "/assets/music/music.mp3",              pic: "/assets/music/music.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="README" scheme="http://yoursite.com/categories/README/"/>
-    
-    
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
+      <category term="情感" scheme="http://yoursite.com/tags/%E6%83%85%E6%84%9F/"/>
     
   </entry>
   
