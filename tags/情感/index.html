@@ -42,6 +42,8 @@
     
 
     
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
 </head>
 
     <body>
@@ -248,6 +250,26 @@
                 <div class="postShorten-content">
                     <p>It just a test music, but i like it </p>
 
+        <div id="aplayer-PrBYejje" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-PrBYejje"),
+            narrow: false,
+            autoplay: true,
+            showlrc: false,
+            music: {
+              title: "起风了",
+              author: "买辣椒也用券",
+              url: "/assets/music/music.mp3",
+              pic: "/assets/music/music.jpg",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
                     
                         
 
@@ -629,7 +651,7 @@
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 16 篇文章
+                找到 17 篇文章
             </p>
         </div>
     </div>
