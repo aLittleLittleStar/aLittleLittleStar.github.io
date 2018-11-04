@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>面试题-思维 - 昨夜小楼又东风</title>
+    <title>css模块化 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,19 +15,21 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值方法一：123a = a + b;b = a - b;a = a - b;\n方法二：123a = a^b;b = a^b;a = a^b;\n题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水方法：\n\n6升装满倒入5升杯子，6升杯子里剩1升水；\n6升杯子中的1升倒入5升杯子；\n6升杯子装满水倒入5升杯子，6升杯子里剩2升水；把5升杯子水倒掉；\n6升杯子中的2升倒入5升杯子；\n6升杯子装满水倒入5升杯子，6升杯子里剩3升水，完成。\n\n题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子方法：二分法：用天平左右各五个进行称量，10 =&gt; 5较轻的一组留下一个，继续进行分开称量，如果左右相等，则剩余的那一个为最轻的，否则剩下的两个继续进行比较5 =&gt; 1 || 5 =&gt; 2最后一次比较 2 =&gt; 1\n","dateCreated":"2018-10-16T17:53:08+08:00","dateModified":"2018-10-16T18:11:32+08:00","datePublished":"2018-10-16T17:53:08+08:00","description":"","headline":"面试题-思维","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/","keywords":"面试题"}</script>
-    <meta name="description" content="题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值方法一：123a = a + b;b = a - b;a = a - b; 方法二：123a = a^b;b = a^b;a = a^b; 题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水方法：  6升装满倒入5升杯子，6升杯子里剩1升水； 6升杯子中的1升倒入5升杯子； 6升杯子装满水倒入5升杯子，6升杯子">
-<meta name="keywords" content="面试题">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"未完成ing…..\n\n设计原则\n可复用能继承要完整\n周期性迭代\n优秀的代码是模仿/设计/重构出来的\n\n\n\n\n设计方法\n先整体后部分再颗粒化\n布局-&gt; 页面 -&gt; 功能-&gt;业务\n\n\n先抽象再具体\n\n\n\ncss模块化设计\nreset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮\nglobal的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。\n\n优点：\n提高代码重用率\n提高开发效率、减少沟通成本\n降低耦合\n降低发布风险\n减少Bug定位时间和Fix成本\n提高页面容错\n更好的实现快速迭代\n更好的支持灰度发布\n\n\n\n参考: CSS模块化如何实现？\n","dateCreated":"2018-10-10T18:21:49+08:00","dateModified":"2018-11-04T19:14:49+08:00","datePublished":"2018-10-10T18:21:49+08:00","description":"","headline":"css模块化","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/CSS3/css模块化/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/CSS3/css模块化/","keywords":"CSS3"}</script>
+    <meta name="description" content="未完成ing…..  设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的     设计方法 先整体后部分再颗粒化 布局-&amp;gt; 页面 -&amp;gt; 功能-&amp;gt;业务   先抽象再具体    css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮">
+<meta name="keywords" content="CSS3">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="面试题-思维">
-<meta property="og:url" content="http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/index.html">
+<meta property="og:title" content="css模块化">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/CSS3/css模块化/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值方法一：123a = a + b;b = a - b;a = a - b; 方法二：123a = a^b;b = a^b;a = a^b; 题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水方法：  6升装满倒入5升杯子，6升杯子里剩1升水； 6升杯子中的1升倒入5升杯子； 6升杯子装满水倒入5升杯子，6升杯子">
+<meta property="og:description" content="未完成ing…..  设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的     设计方法 先整体后部分再颗粒化 布局-&amp;gt; 页面 -&amp;gt; 功能-&amp;gt;业务   先抽象再具体    css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-10-16T10:11:32.528Z">
+<meta property="og:image" content="http://yoursite.com/assets/images/css模块化.webp">
+<meta property="og:updated_time" content="2018-11-04T11:14:49.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面试题-思维">
-<meta name="twitter:description" content="题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值方法一：123a = a + b;b = a - b;a = a - b; 方法二：123a = a^b;b = a^b;a = a^b; 题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水方法：  6升装满倒入5升杯子，6升杯子里剩1升水； 6升杯子中的1升倒入5升杯子； 6升杯子装满水倒入5升杯子，6升杯子">
+<meta name="twitter:title" content="css模块化">
+<meta name="twitter:description" content="未完成ing…..  设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的     设计方法 先整体后部分再颗粒化 布局-&amp;gt; 页面 -&amp;gt; 功能-&amp;gt;业务   先抽象再具体    css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮">
+<meta name="twitter:image" content="http://yoursite.com/assets/images/css模块化.webp">
     
     
         
@@ -222,20 +224,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            面试题-思维
+            css模块化
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2018-10-16T17:53:08+08:00">
+    <time datetime="2018-10-10T18:21:49+08:00">
 	
-		    10月 16, 2018
+		    10月 10, 2018
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/思维能力/">思维能力</a>
+    <a class="category-link" href="/categories/前端/">前端</a>
 
 
     
@@ -247,18 +249,42 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#题目：-给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值"><span class="toc-text">题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目：-给两个杯子，一个5升，一个6升，水随便用，最后取出3升水"><span class="toc-text">题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目：-给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子"><span class="toc-text">题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子</span></a></li></ol>
-<h4 id="题目：-给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值"><a href="#题目：-给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值" class="headerlink" title="题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值"></a>题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值</h4><p>方法一：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a + b;</span><br><span class="line">b = a - b;</span><br><span class="line">a = a - b;</span><br></pre></td></tr></table></figure></p>
-<p>方法二：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a^b;</span><br><span class="line">b = a^b;</span><br><span class="line">a = a^b;</span><br></pre></td></tr></table></figure></p>
-<h4 id="题目：-给两个杯子，一个5升，一个6升，水随便用，最后取出3升水"><a href="#题目：-给两个杯子，一个5升，一个6升，水随便用，最后取出3升水" class="headerlink" title="题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水"></a>题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水</h4><p>方法：</p>
-<ol>
-<li>6升装满倒入5升杯子，6升杯子里剩1升水；</li>
-<li>6升杯子中的1升倒入5升杯子；</li>
-<li>6升杯子装满水倒入5升杯子，6升杯子里剩2升水；把5升杯子水倒掉；</li>
-<li>6升杯子中的2升倒入5升杯子；</li>
-<li>6升杯子装满水倒入5升杯子，6升杯子里剩3升水，完成。</li>
-</ol>
-<h4 id="题目：-给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子"><a href="#题目：-给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子" class="headerlink" title="题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子"></a>题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子</h4><p>方法：<br>二分法：<br>用天平左右各五个进行称量，10 =&gt; 5<br>较轻的一组留下一个，继续进行分开称量，如果左右相等，则剩余的那一个为最轻的，否则剩下的两个继续进行比较5 =&gt; 1 || 5 =&gt; 2<br>最后一次比较 2 =&gt; 1</p>
+            <p>未完成ing…..</p>
+<ul>
+<li>设计原则<ul>
+<li>可复用能继承要完整</li>
+<li>周期性迭代<ul>
+<li>优秀的代码是模仿/设计/重构出来的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设计方法<ul>
+<li>先整体后部分再颗粒化<ul>
+<li>布局-&gt; 页面 -&gt; 功能-&gt;业务</li>
+</ul>
+</li>
+<li>先抽象再具体</li>
+</ul>
+</li>
+</ul>
+<p>css模块化设计<br><img src="/assets/images/css模块化.webp" alt="模块化"></p>
+<p>reset.scss：<br>浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。<br>layout.scss:<br>布局抽象成这个<br>element.scss:<br>列表、按钮</p>
+<p>global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。<br>scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。</p>
+<ul>
+<li>优点：<ul>
+<li>提高代码重用率</li>
+<li>提高开发效率、减少沟通成本</li>
+<li>降低耦合</li>
+<li>降低发布风险</li>
+<li>减少Bug定位时间和Fix成本</li>
+<li>提高页面容错</li>
+<li>更好的实现快速迭代</li>
+<li>更好的支持灰度发布</li>
+</ul>
+</li>
+</ul>
+<p>参考: <a href="https://www.aliyun.com/jiaocheng/693575.html" target="_blank" rel="noopener">CSS模块化如何实现？</a></p>
 
             
 
@@ -269,7 +295,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/面试题/">面试题</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS3/">CSS3</a>
 
             </div>
         
@@ -280,7 +306,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/16/JS/深浅拷贝/" data-tooltip="深浅拷贝" aria-label="上一篇: 深浅拷贝">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/HTTP/get和post请求/" data-tooltip="get和post请求" aria-label="上一篇: get和post请求">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -289,7 +315,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/15/HTTP/HTTP和HTTPS的区别/" data-tooltip="HTTP和HTTPS的区别" aria-label="下一篇: HTTP和HTTPS的区别">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/CSS3/渐进增强和优雅降级/" data-tooltip="渐进增强和优雅降级" aria-label="下一篇: 渐进增强和优雅降级">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -307,7 +333,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/CSS3/css模块化/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -315,7 +341,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/CSS3/css模块化/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -323,7 +349,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/CSS3/css模块化/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -339,7 +365,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -374,7 +400,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/16/JS/深浅拷贝/" data-tooltip="深浅拷贝" aria-label="上一篇: 深浅拷贝">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/HTTP/get和post请求/" data-tooltip="get和post请求" aria-label="上一篇: get和post请求">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -383,7 +409,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/15/HTTP/HTTP和HTTPS的区别/" data-tooltip="HTTP和HTTPS的区别" aria-label="下一篇: HTTP和HTTPS的区别">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/CSS3/渐进增强和优雅降级/" data-tooltip="渐进增强和优雅降级" aria-label="下一篇: 渐进增强和优雅降级">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -401,7 +427,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/CSS3/css模块化/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -409,7 +435,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/CSS3/css模块化/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -417,7 +443,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/CSS3/css模块化/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -433,7 +459,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -450,7 +476,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/CSS3/css模块化/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -458,7 +484,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/CSS3/css模块化/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -466,7 +492,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/CSS3/css模块化/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -750,7 +776,7 @@
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2018/10/16/面试题-思维/面试题-思维/',
+                        id: 'http://yoursite.com/2018/10/10/CSS3/css模块化/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
