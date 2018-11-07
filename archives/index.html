@@ -225,6 +225,260 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2018/11/16/CSS3/伪元素和伪类/">
+                            伪元素和伪类
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-16T19:34:19+08:00">
+	
+		    11月 16, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p><strong>伪类</strong>包含两种：<strong>状态伪类</strong>和<strong>结构性伪类</strong>。<br><strong>状态伪类</strong>是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。<br>当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：</p>
+<p>:link 应用于未被访问过的链接；<br>:hover 应用于鼠标悬停到的元素；<br>:active 应用于被激活的元素；<br>:visited 应用于被访问过的链接，与:link互斥。<br>:focus 应用于拥有键盘输入焦点的元素。<br><strong>结构性伪类</strong>是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：</p>
+<p>:first-child 选择某个元素的第一个子元素；<br>:last-child 选择某个元素的最后一个子元素；<br>:nth-child() 选择某个元素的一个或多个特定的子元素；<br>:nth-last-child() 选择某个元素的一个或多个特定的子元素，从这个元素的最后一个子元素开始算；<br>:nth-of-type() 选择指定的元素；<br>:nth-last-of-type() 选择指定的元素，从元素的最后一个开始计算；<br>:first-of-type 选择一个上级元素下的第一个同类子元素；<br>:last-of-type 选择一个上级元素的最后一个同类子元素；<br>:only-child 选择的元素是它的父元素的唯一一个子元素；<br>:only-of-type 选择一个元素是它的上级元素的唯一一个相同类型的子元素；<br>:empty 选择的元素里面没有任何内容。</p>
+<p><strong>伪元素</strong>是对元素中的特定内容进行操作，而不是描述状态。它的操作层次比伪类更深一层，因此动态性比伪类低很多。实际上，伪元素就是选取某些元素前面或后面这种普通选择器无法完成的工作。控制的内容和元素是相同的，但它本身是基于元素的抽象，并不存在于文档结构中！常见的伪元素选择器包括：</p>
+<p>:first-letter 选择元素文本的第一个字（母）。<br>:first-line 选择元素文本的第一行。<br>:before 在元素内容的最前面添加新内容。<br>:after 在元素内容的最后面添加新内容。</p>
+<p>注意事项<br>有时你会发现伪类元素使用了两个冒号 (::) 而不是一个冒号 (:)，这是 CSS3 规范中的一部分要求，目的是为了区分伪类和伪元素，大多数浏览器都支持这两种表示方式。单冒号(:)用于 CSS3 伪类，双冒号(::)用于 CSS3 伪元素。对于 CSS2 中已经有的伪元素，例如 :before，单冒号和双冒号的写法 ::before 作用是一样的。</p>
+<p>所以，如果你的网站只需要兼容 webkit、firefox、opera 等浏览器，建议对于伪元素采用双冒号的写法，如果不得不兼容 IE 浏览器，还是用 CSS2 的单冒号写法比较安全。</p>
+<p>参考文章： <a href="https://segmentfault.com/a/1190000012156828" target="_blank" rel="noopener">谈谈css伪类与伪元素</a></p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/16/CSS3/伪元素和伪类/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/11/06/CSS3/盒子模型/">
+                            盒子模型
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-06T20:10:06+08:00">
+	
+		    11月 06, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>width和height：内容的宽度、高度（不是盒子的宽度、高度）<br>padding：内边距。<br>border：边框。<br>margin：外边距。<br>盒子模型是css中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是 ie 盒子模型和标准 w3c 盒子模型。他们对盒子模型的解释各不相同:<br>标准 W3C 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。<br>IE 盒子模型的范围也包括 margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 content 部分包含了 border 和 pading。</p>
+<p>ie8以上都是w3c标准盒模型    ie5极其以下都是ie盒子模型，ie6、ie7、ie8在混杂模式下ie盒模型，在标准模式下是w3c标准盒模型<br>(注意：ie6在混杂模式下一定是Ie盒模型，而ie7、ie8在混杂模式下不一定是ie盒模型)</p>
+<p>box-sizing 属性可以被用来调整这些表现:</p>
+<p>content-box  是默认值。如果你设置一个元素的宽为100px，那么这个元素的内容区会有100px宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。</p>
+<p>border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px,那么这100px会包含其它的border和padding，内容区的实际宽度会是width减去border + padding的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。<br>border-box定义的盒子，不会随着padding和boder的加入而增大盒子的占用空间</p>
+<p>border-box  width 和 height 属性包括内容，内边距和边框，但不包括外边距。这是当文档处于 Quirks模式 时Internet Explorer使用的盒模型。注意，填充和边框将在盒子内 , 例如, .box {width: 350px; border: 10px solid black;} 导致在浏览器中呈现的宽度为350px的盒子。内容框不能为负，并且被分配到0，使得不可能使用border-box使元素消失。<br>这里的维度计算为： width = border + padding + 内容的  width， height = border + padding + 内容的 height。</p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/06/CSS3/盒子模型/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/11/06/H5/H5/">
+                            (无标题)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-06T20:10:06+08:00">
+	
+		    11月 06, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/06/H5/H5/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/11/06/CSS3/语义化标签/">
+                            H5语义化标签
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-06T18:30:06+08:00">
+	
+		    11月 06, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt">
+                    <p></p><h3>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h3><p></p>
+<h4>1. H5中关于语义化的标签有哪些</h4>
+
+<p>title  简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p>
+                    
+                        <a href="/2018/11/06/CSS3/语义化标签/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/11/06/CSS3/块级元素行内元素/">
+                            块级元素行内元素
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-06T18:21:49+08:00">
+	
+		    11月 06, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。<br>块级元素写完后会自动换行，有宽高可以修改。<br>还有一种特殊的元素叫做行内联元素。</p>
+<p>行内元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、<br>u（下划线）、button（默认display：inline-block<br>块级元素有：div、p、h1~h6、ul、ol、dl、li、dd、table、hr、blockquote、address、table、menu、pre，HTML5新增的header、section、aside、footer<br>内联元素： a , b , br , em , font , img , input , label , select , small , span , textarea </p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/06/CSS3/块级元素行内元素/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2018/10/22/Vue/">
                             Vue
                         </a>
@@ -298,12 +552,12 @@
                 <div class="postShorten-content">
                     <p>It just a test music, but i like it </p>
 
-        <div id="aplayer-MqzlqruG" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-OCCQJUmk" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-MqzlqruG"),
+            element: document.getElementById("aplayer-OCCQJUmk"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -485,268 +739,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/14/HTTP/http连接性能优化/">
-                            http连接性能优化
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-14T10:23:06+08:00">
-	
-		    10月 14, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-<h3 id="HTTP和TCP-IP的关系"><a href="#HTTP和TCP-IP的关系" class="headerlink" title="HTTP和TCP/IP的关系"></a>HTTP和TCP/IP的关系</h3><p>HTTP—&gt;(TSL/SSL)—&gt;TCP—&gt;IP<br>HTTP处于应用层、TCP处于传输层、IP处于网络层</p>
-<ol>
-<li>HTTP将所需要传输的数据以流的形式传递给TCP程序</li>
-<li>TCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等</li>
-<li>TCP程序将包装好的TCP数据段叫给IP程序，IP程序在此基础上封装进去IP分组首部，如源IP地址、目的IP地址，数据报总长度、分组ID、首部长度、首部校验和等等</li>
-<li>最后交给数据链路层去发送这个IP分组数据段</li></ol>
-                    
-                        <a href="/2018/10/14/HTTP/http连接性能优化/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/12/git常用命令/git常用命令/">
-                            git常用命令
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-12T14:16:09+08:00">
-	
-		    10月 12, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-<h3 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h3>
-                    
-                        <a href="/2018/10/12/git常用命令/git常用命令/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/10/常用的状态响应码/常用的状态响应码/">
-                            常用的状态响应码
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:56:44+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- 设置目录 -->
-<!-- toc -->
-<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">状态码</th>
-<th style="text-align:right">说明</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">1XX</td>
-<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
-<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
-</tr>
-<tr>
-<td style="text-align:left">2XX</td>
-<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
-<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
-</tr>
-<tr>
-<td style="text-align:left">3XX</td>
-<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
-<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
-</tr>
-<tr>
-<td style="text-align:left">4XX</td>
-<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
-<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
-</tr>
-<tr>
-<td style="text-align:left">5XX</td>
-<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
-<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote>
-                    
-                        <a href="/2018/10/10/常用的状态响应码/常用的状态响应码/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/10/JS/冒泡和捕获/">
-                            冒泡和捕获
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:53:19+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br>
-                    
-                        <a href="/2018/10/10/JS/冒泡和捕获/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/10/HTTP/get和post请求/">
-                            get和post请求
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:52:53+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <p>在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。<br></p>
-                    
-                        <a href="/2018/10/10/HTTP/get和post请求/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -758,7 +750,7 @@
             </a>
           </li>
         
-        <li class="pagination-number">第 1 页 共 2 页</li>
+        <li class="pagination-number">第 1 页 共 3 页</li>
     </ul>
 </div>
 
@@ -931,25 +923,6 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
                             <h3 class="media-heading">清除浮动</h3>
                         </a>
@@ -988,8 +961,8 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
-                            <h3 class="media-heading">get和post请求</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -998,7 +971,9 @@
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><p>在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。<br></p></div>
+                        <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
+<ol>
+<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1007,8 +982,8 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/冒泡和捕获/">
-                            <h3 class="media-heading">冒泡和捕获</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -1017,8 +992,26 @@
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1031,7 +1024,7 @@
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 18 篇文章
+                找到 25 篇文章
             </p>
         </div>
     </div>
