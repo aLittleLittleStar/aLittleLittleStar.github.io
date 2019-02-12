@@ -279,60 +279,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/11/06/CSS3/盒子模型/">
-                            盒子模型
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-11-06T20:10:06+08:00">
-	
-		    11月 06, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>width和height：内容的宽度、高度（不是盒子的宽度、高度）<br>padding：内边距。<br>border：边框。<br>margin：外边距。<br>盒子模型是css中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是 ie 盒子模型和标准 w3c 盒子模型。他们对盒子模型的解释各不相同:<br>标准 W3C 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。<br>IE 盒子模型的范围也包括 margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 content 部分包含了 border 和 pading。</p>
-<p>ie8以上都是w3c标准盒模型    ie5极其以下都是ie盒子模型，ie6、ie7、ie8在混杂模式下ie盒模型，在标准模式下是w3c标准盒模型<br>(注意：ie6在混杂模式下一定是Ie盒模型，而ie7、ie8在混杂模式下不一定是ie盒模型)</p>
-<p>box-sizing 属性可以被用来调整这些表现:</p>
-<p>content-box  是默认值。如果你设置一个元素的宽为100px，那么这个元素的内容区会有100px宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。</p>
-<p>border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px,那么这100px会包含其它的border和padding，内容区的实际宽度会是width减去border + padding的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。<br>border-box定义的盒子，不会随着padding和boder的加入而增大盒子的占用空间</p>
-<p>border-box  width 和 height 属性包括内容，内边距和边框，但不包括外边距。这是当文档处于 Quirks模式 时Internet Explorer使用的盒模型。注意，填充和边框将在盒子内 , 例如, .box {width: 350px; border: 10px solid black;} 导致在浏览器中呈现的宽度为350px的盒子。内容框不能为负，并且被分配到0，使得不可能使用border-box使元素消失。<br>这里的维度计算为： width = border + padding + 内容的  width， height = border + padding + 内容的 height。</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/11/06/CSS3/盒子模型/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
                         <a class="link-unstyled" href="/2018/11/06/H5/H5/">
                             (无标题)
                         </a>
@@ -364,6 +310,67 @@
                     
                         <p>
                             <a href="/2018/11/06/H5/H5/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/11/06/CSS3/盒子模型/">
+                            盒子模型
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-06T20:10:06+08:00">
+	
+		    11月 06, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h4 id="盒子样式介绍"><a href="#盒子样式介绍" class="headerlink" title="盒子样式介绍"></a>盒子样式介绍</h4><ul>
+<li>width和height：内容的宽度、高度（不是盒子的宽度、高度）</li>
+<li>padding：内边距。</li>
+<li>border：边框。</li>
+<li>margin：外边距。</li>
+</ul>
+<hr>
+<h4 id="盒子模型的分类与概念"><a href="#盒子模型的分类与概念" class="headerlink" title="盒子模型的分类与概念"></a>盒子模型的分类与概念</h4><p>　　盒子模型是css中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是<strong><em>IE盒子模型</em></strong>和<strong><em>标准 w3c 盒子模型</em></strong>。<br>他们对盒子模型的解释各不相同:<br>　　IE 盒子模型的范围也包括 <strong><em>margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 content 部分包含了 border 和 pading</em></strong>。<br><img src="/assets/images/盒子模型-IE.jpg" alt="IE盒子模型"><br>　　标准 W3C 盒子模型的范围包括 <strong><em>margin、border、padding、content，并且 content 部分不包含其他部分</em></strong>。<br><img src="/assets/images/盒子模型-标准.jpg" alt="标准盒子模型"></p>
+<p><strong>ps</strong>:<br>　　1. ie8以上都是w3c标准盒模型 　　<br>　　2. ie5极其以下都是ie盒子模型，ie6、ie7、ie8在混杂模式下ie盒模型，<br>　　3. 在标准模式下是w3c标准盒模型<br>　　4. 注意：ie6在混杂模式下一定是Ie盒模型，而ie7、ie8在混杂模式下不一定是ie盒模型</p>
+<p>box-sizing 属性可以被用来调整这些表现:<br>　　1. content-box 是默认值。<br>如果你设置一个元素的宽为100px，那么这个元素的内容区会有100px宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。<br>　　2. border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的。<br>也就是说，如果你将一个元素的width设为100px,那么这100px会包含其它的border和padding，内容区的实际宽度会是width减去border + padding的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。<br>　　3. border-box定义的盒子，不会随着padding和boder的加入而增大盒子的占用空间</p>
+<blockquote>
+<p>border-box  width 和 height 属性包括内容，内边距和边框，但不包括外边距。<br>这是当文档处于 Quirks模式 时Internet Explorer使用的盒模型。注意，填充和边框将在盒子内 。<br>例如, .box {width: 350px; border: 10px solid black;} 导致在浏览器中呈现的宽度为350px<br>的盒子。内容框不能为负，并且被分配到0，使得不可能使用border-box使元素消失。<br>这里的维度计算为：<br>width = border + padding + 内容的  width，<br>height = border + padding + 内容的 height。</p>
+</blockquote>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/06/CSS3/盒子模型/#post-footer" class="postShorten-excerpt_link link">
                                 评论和共享
                             </a>
                         </p>
@@ -756,7 +763,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2018 LittleStar. All Rights Reserved.
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
     </span>
 </footer>
 
@@ -919,27 +926,8 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -997,8 +985,27 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
