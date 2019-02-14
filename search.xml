@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[像素：(px、pt、em、rem、rpx)]]></title>
+    <url>%2F2019%2F02%2F14%2F%E5%83%8F%E7%B4%A0%2F%E5%83%8F%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[参考资料：px、em、rem区别介绍字体大小之px、em、rem、pt,字号详解 px: px像素（Pixel）。相对长度单位。像素px是相对于显示器屏幕分辨率而言的。 PX特点: 1. IE无法调整那些使用px作为单位的字体大小； 2. 国外的大部分网站能够调整的原因在于其使用了em或rem作为字体单位； 3. Firefox能够调整px和em，rem，但是96%以上的中国网民使用IE浏览器(或内核)。pt: pt(point，磅)：是一个物理长度单位，指的是72分之一英寸。表示绝对长度。em: em是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。 em特点： 1. em的值并不是固定的； 2. em会继承父级元素的字体大小。 注意：任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1em=16px。那么12px=0.75em,10px=0.625em。为了简化font-size的换算，需要在css中的body选择器中声明Font-size=62.5%，这就使em值变为 16px62.5%=10px, 这样12px=1.2em, 10px=1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。所以我们在写CSS的时候，需要注意两点： 1. body选择器中声明Font-size=62.5%； 2. 将你的原来的px数值除以10，然后换上em作为单位； 3. 重新计算那些被放大的字体的em数值。避免字体大小的重复声明。也就是避免1.2 1.2= 1.44的现象。比如说你在#content中声明了字体大小为1.2em，那么在声明p的字体大小时就只能是1em，而不是1.2em, 因为此em非彼em，它因继承#content的字体高而变为了1em=12px。 rem: rem（root em，根em）：是CSS3新增的一个相对单位，相对的只是HTML根元素，可以只修改根元素就可以成比例地调整所有字体大小，又可以避免字体大小逐层复合的连锁反应。兼容性IE9+都可以兼容，对于不兼容的浏览器写一个绝对单位的声明就可以了。rpx: rpx单位是微信小程序中css的尺寸单位，rpx可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>像素</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[重绘(repaint)与回流(reflow)]]></title>
     <url>%2F2019%2F02%2F14%2F%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%2F%E9%87%8D%E7%BB%98(repaint)%E4%B8%8E%E5%9B%9E%E6%B5%81(reflow)%2F</url>
     <content type="text"><![CDATA[文章转载： 浏览器重绘和重排文章参考： 重构与回流 浏览器的重绘与重排 探讨css中repaint和reflow 前言： 页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。 概述： 重排(回流), 顾名思义就是重新排版的意思; 重绘, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。 只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。回流必将引起重绘，而重绘不一定会引起回流，repaint和reflow的目的是：展示一个新的页面样貌。 浏览器执行流： 浏览器每次从服务器下载完页面后就会对页面进行渲染(Render), 这里面就包含了重绘以及重排。每种浏览器虽然工作原理略有差别, 但也遵循以下流程: 览器引擎会解析HTML文档来构建DOM树。树的每个节点都是标签, 有大小边距等等的属性, 这是因为每个HTML元素都遵循盒子模型(隐藏元素不包括在文档树中, 浏览器不会将其渲染)。 渲染树构建完毕后, 浏览器就能够确定每个元素的位置并将元素放到正确的位置上, 再根据树节点的样式属性绘制出页面元素。 由于浏览器的流布局的方式, 对渲染树的计算通常只需要遍历一遍即可。但table及其内部元素除外, 可能需要执行多次计算才能确定好在渲染树中的属性,这个过程通常要耗费3倍以上的时间。 这也是我们要避免使用table标签的其中一个原因。 简言之浏览器执行顺序为： 1. 首先获取html，然后构建dom树 ，DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。 2. 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。 3. DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现。 4. 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。 严重性： 在性能优先的前提下，性能消耗 reflow大于repaint。 体现： repaint是某个DOM元素进行重绘；reflow是整个页面进行重排，也就是页面所有DOM元素渲染。 如何触发： style变动造成repaint和reflow。 不涉及任何DOM元素的排版问题的变动为repaint，例如元素的color/text-align/text-decoration等等属性的变动。 除上面所提到的DOM元素style的修改基本为reflow。例如元素的任何涉及长、宽、行高、边框、display等style的修改。 常见触发场景： 重绘是一个元素外观的改变所触发的浏览器行为，例如改变visibility、outline、背景色等属性。浏览器会根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随重排。重排(回流)是更明显的一种改变，可以理解为渲染树需要重新计算。 触发repaint： color的修改，如color=#ddd； text-align的修改，如text-align=center； a:hover也会造成重绘。 :hover引起的颜色等不导致页面回流的style变动。 触发reflow： width/height/border/margin/padding的修改，如width=778px； 动画，:hover等伪类引起的元素表现改动，display=none等造成页面回流； appendChild等DOM元素操作； font类style的修改； background的修改，注意着字面上可能以为是重绘，但是浏览器确实回流了，经过浏览器厂家的优化，部分background的修改只触发repaint，当然IE不用考虑； scroll页面，这个不可避免； resize页面，桌面版本的进行浏览器大小的缩放，移动端的话，还没玩过能拖动程序，resize程序窗口大小的多窗口操作系统。 读取元素的属性(这个无法理解，但是技术达人是这么说的，那就把它当做定理吧)：读取元素的某些属性(offsetLeft、offsetTop、offsetHeight、offsetWidth、scrollTop/Left/Width/Height、clientTop/Left/Width/Height、getComputedStyle()、currentStyle(in IE)) 如何避免： 说避免那是不可能的，不然就是以前古老的静态页面了，没有交互，那在现在看来，就是一个失败的作品。所以，在我们进行网页设计的时候，就必须尽量减少页面的repaint和reflow。repaint和reflow的目的是为了展示一个新的页面，那么我们在进行页面交互时，尽量通过各种方法减少repaint和reflow但又能展示一个新的页面的目的。所以下面将结合其他技术达人的建议，通过自己的理解，给大家讲解如何避免和优化repaint和reflow： 尽可能在DOM末梢通过改变class来修改元素的style属性： 将多次改变样式属性的操作合并成一次操作，尽可能的减少受影响的DOM元素。 避免设置多项内联样式：使用常用的class的方式进行设置样式，以避免设置样式时访问DOM的低效率。 设置动画元素position属性为fixed或者absolute：由于当前元素从DOM流中独立出来，因此受影响的只有当前元素，元素repaint。 牺牲平滑度满足性能：动画精度太强，会造成更多次的repaint/reflow，牺牲精度，能满足性能的损耗，获取性能和平滑度的平衡。 避免使用table进行布局：table的每个元素的大小以及内容的改动，都会导致整个table进行重新计算，造成大幅度的repaint或者reflow。改用div则可以进行针对性的repaint和避免不必要的reflow。 避免在CSS中使用运算式：学习CSS的时候就知道，这个应该避免，不应该加深到这一层再去了解，因为这个的后果确实非常严重，一旦存在动画性的repaint/reflow，那么每一帧动画都会进行计算，性能消耗不容小觑。]]></content>
@@ -91,7 +102,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-TLclOtpT"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-LOVntZsg"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -188,28 +199,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[语义化标签]]></title>
-    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
-    <content type="text"><![CDATA[H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签? H5中关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。 footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容= =||是这么理解的，表示文档、页面、应用或一个独立的容器ahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 语义化标签有什么作用？为什么要使用语义化标签？在HTML5出现之前，我们一般采用div+css布局我们的页面。但是这样的布局方式不仅使我们的文档结构不够清晰，而且不利于搜索引擎爬虫对我们页面的爬取。为了解决上述缺点，HTML5新增了很多新的语义化标签。 引入语义化标签的好处主要有 比div标签有更加丰富的含义，方便开发与维护 搜索引擎能更方便的识别页面的每个部分 方便其他设备解析（如移动设备、盲人阅读器等） H5新增的语义化标签 headerfooterarticleaside 定义页面的侧边栏内容timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色navprogresssectionvideo 定义视频，属性src引入资源，controls视频的控制控件audio 该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>H5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[渐进增强和优雅降级]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[css模块化]]></title>
     <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
     <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
@@ -232,6 +221,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[语义化标签]]></title>
+    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
+    <content type="text"><![CDATA[H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签? H5中关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。 footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容= =||是这么理解的，表示文档、页面、应用或一个独立的容器ahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 语义化标签有什么作用？为什么要使用语义化标签？在HTML5出现之前，我们一般采用div+css布局我们的页面。但是这样的布局方式不仅使我们的文档结构不够清晰，而且不利于搜索引擎爬虫对我们页面的爬取。为了解决上述缺点，HTML5新增了很多新的语义化标签。 引入语义化标签的好处主要有 比div标签有更加丰富的含义，方便开发与维护 搜索引擎能更方便的识别页面的每个部分 方便其他设备解析（如移动设备、盲人阅读器等） H5新增的语义化标签 headerfooterarticleaside 定义页面的侧边栏内容timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色navprogresssectionvideo 定义视频，属性src引入资源，controls视频的控制控件audio 该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>H5</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[bind、apply和call的区别]]></title>
     <url>%2F2018%2F10%2F10%2FJS%2Fbind%E5%92%8Ccall%2F</url>
     <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
@@ -240,6 +240,17 @@
       </categories>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[渐进增强和优雅降级]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
