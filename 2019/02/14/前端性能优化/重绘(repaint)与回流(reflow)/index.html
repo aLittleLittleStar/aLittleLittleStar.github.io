@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title> - 昨夜小楼又东风</title>
+    <title>重绘(repaint)与回流(reflow) - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,16 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"","dateCreated":"2018-11-06T20:10:06+08:00","dateModified":"2018-11-06T20:14:21+08:00","datePublished":"2018-11-06T20:10:06+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/11/06/H5/H5/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/11/06/H5/H5/","keywords":"CSS3"}</script>
-    <meta name="keywords" content="CSS3">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n文章转载：　浏览器重绘和重排文章参考：　重构与回流　浏览器的重绘与重排　探讨css中repaint和reflow\n前言：　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。\n概述：　　重排(回流), 顾名思义就是重新排版的意思; 重绘, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。回流必将引起重绘，而重绘不一定会引起回流，repaint和reflow的目的是：展示一个新的页面样貌。\n浏览器执行流：　　浏览器每次从服务器下载完页面后就会对页面进行渲染(Render), 这里面就包含了重绘以及重排。每种浏览器虽然工作原理略有差别, 但也遵循以下流程:　　览器引擎会解析HTML文档来构建DOM树。树的每个节点都是标签, 有大小边距等等的属性, 这是因为每个HTML元素都遵循盒子模型(隐藏元素不包括在文档树中, 浏览器不会将其渲染)。　　渲染树构建完毕后, 浏览器就能够确定每个元素的位置并将元素放到正确的位置上, 再根据树节点的样式属性绘制出页面元素。　　由于浏览器的流布局的方式, 对渲染树的计算通常只需要遍历一遍即可。但table及其内部元素除外, 可能需要执行多次计算才能确定好在渲染树中的属性,这个过程通常要耗费3倍以上的时间。　　这也是我们要避免使用table标签的其中一个原因。　　简言之浏览器执行顺序为：  　　1. 首先获取html，然后构建dom树 ，DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。  　　2. 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。  　　3. DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现。  　　4. 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。\n　　\n严重性：　在性能优先的前提下，性能消耗 reflow大于repaint。\n体现：　repaint是某个DOM元素进行重绘；reflow是整个页面进行重排，也就是页面所有DOM元素渲染。\n如何触发：　style变动造成repaint和reflow。　不涉及任何DOM元素的排版问题的变动为repaint，例如元素的color/text-align/text-decoration等等属性的变动。　除上面所提到的DOM元素style的修改基本为reflow。例如元素的任何涉及长、宽、行高、边框、display等style的修改。\n常见触发场景：　　重绘是一个元素外观的改变所触发的浏览器行为，例如改变visibility、outline、背景色等属性。浏览器会根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随重排。重排(回流)是更明显的一种改变，可以理解为渲染树需要重新计算。\n\n触发repaint：\ncolor的修改，如color=#ddd；\ntext-align的修改，如text-align=center；\na:hover也会造成重绘。\n:hover引起的颜色等不导致页面回流的style变动。\n\n\n触发reflow：\nwidth/height/border/margin/padding的修改，如width=778px；\n动画，:hover等伪类引起的元素表现改动，display=none等造成页面回流；\nappendChild等DOM元素操作；\nfont类style的修改；\nbackground的修改，注意着字面上可能以为是重绘，但是浏览器确实回流了，经过浏览器厂家的优化，部分background的修改只触发repaint，当然IE不用考虑；\nscroll页面，这个不可避免；\nresize页面，桌面版本的进行浏览器大小的缩放，移动端的话，还没玩过能拖动程序，resize程序窗口大小的多窗口操作系统。\n读取元素的属性(这个无法理解，但是技术达人是这么说的，那就把它当做定理吧)：读取元素的某些属性(offsetLeft、offsetTop、offsetHeight、offsetWidth、scrollTop/Left/Width/Height、clientTop/Left/Width/Height、getComputedStyle()、currentStyle(in IE))\n\n\n\n如何避免：　　说避免那是不可能的，不然就是以前古老的静态页面了，没有交互，那在现在看来，就是一个失败的作品。所以，在我们进行网页设计的时候，就必须尽量减少页面的repaint和reflow。repaint和reflow的目的是为了展示一个新的页面，那么我们在进行页面交互时，尽量通过各种方法减少repaint和reflow但又能展示一个新的页面的目的。所以下面将结合其他技术达人的建议，通过自己的理解，给大家讲解如何避免和优化repaint和reflow：\n\n尽可能在DOM末梢通过改变class来修改元素的style属性： 将多次改变样式属性的操作合并成一次操作，尽可能的减少受影响的DOM元素。\n避免设置多项内联样式：使用常用的class的方式进行设置样式，以避免设置样式时访问DOM的低效率。\n设置动画元素position属性为fixed或者absolute：由于当前元素从DOM流中独立出来，因此受影响的只有当前元素，元素repaint。\n牺牲平滑度满足性能：动画精度太强，会造成更多次的repaint/reflow，牺牲精度，能满足性能的损耗，获取性能和平滑度的平衡。\n避免使用table进行布局：table的每个元素的大小以及内容的改动，都会导致整个table进行重新计算，造成大幅度的repaint或者reflow。改用div则可以进行针对性的repaint和避免不必要的reflow。\n避免在CSS中使用运算式：学习CSS的时候就知道，这个应该避免，不应该加深到这一层再去了解，因为这个的后果确实非常严重，一旦存在动画性的repaint/reflow，那么每一帧动画都会进行计算，性能消耗不容小觑。\n\n","dateCreated":"2019-02-14T15:07:34+08:00","dateModified":"2019-02-14T19:43:43+08:00","datePublished":"2019-02-14T15:07:34+08:00","description":"\n文章转载：　浏览器重绘和重排文章参考：　重构与回流　浏览器的重绘与重排　探讨css中repaint和reflow\n前言：　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。\n概述：　　重排(回流), 顾名思义就是重新排版的意思; 重绘, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。回流必将引起重绘，而重绘不一定会引起回流，repaint和reflow的目的是：展示一个新的页面样貌。","headline":"重绘(repaint)与回流(reflow)","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/","keywords":"前端性能优化"}</script>
+    <meta name="description" content="文章转载：　浏览器重绘和重排文章参考：　重构与回流　浏览器的重绘与重排　探讨css中repaint和reflow 前言：　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。 概述：　　重排(回流), 顾名思义就是重新排">
+<meta name="keywords" content="前端性能优化">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="昨夜小楼又东风">
-<meta property="og:url" content="http://yoursite.com/2018/11/06/H5/H5/index.html">
+<meta property="og:title" content="重绘(repaint)与回流(reflow)">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:description" content="文章转载：　浏览器重绘和重排文章参考：　重构与回流　浏览器的重绘与重排　探讨css中repaint和reflow 前言：　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。 概述：　　重排(回流), 顾名思义就是重新排">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-11-06T12:14:21.186Z">
+<meta property="og:updated_time" content="2019-02-14T11:43:43.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昨夜小楼又东风">
+<meta name="twitter:title" content="重绘(repaint)与回流(reflow)">
+<meta name="twitter:description" content="文章转载：　浏览器重绘和重排文章参考：　重构与回流　浏览器的重绘与重排　探讨css中repaint和reflow 前言：　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。 概述：　　重排(回流), 顾名思义就是重新排">
     
     
         
@@ -219,20 +222,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            (无标题)
+            重绘(repaint)与回流(reflow)
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2018-11-06T20:10:06+08:00">
+    <time datetime="2019-02-14T15:07:34+08:00">
 	
-		    11月 06, 2018
+		    2月 14, 2019
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/前端/">前端</a>
+    <a class="category-link" href="/categories/前端优化/">前端优化</a>
 
 
     
@@ -244,7 +247,46 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#前言："><span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#概述："><span class="toc-text">概述：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#浏览器执行流："><span class="toc-text">浏览器执行流：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#严重性："><span class="toc-text">严重性：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#体现："><span class="toc-text">体现：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何触发："><span class="toc-text">如何触发：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见触发场景："><span class="toc-text">常见触发场景：</span></a></li></ol>
+<p>文章转载：<br>　<a href="http://www.cnblogs.com/blackmanba/p/browser-repaint-reflow.html" target="_blank" rel="noopener">浏览器重绘和重排</a><br>文章参考：<br>　<a href="https://www.cnblogs.com/jiayuexuan/p/7490140.html" target="_blank" rel="noopener">重构与回流</a><br>　<a href="https://kb.cnblogs.com/page/169820/" target="_blank" rel="noopener">浏览器的重绘与重排</a><br>　<a href="http://www.cnblogs.com/shenqi0920/p/3545820.html" target="_blank" rel="noopener">探讨css中repaint和reflow</a></p>
+<h5 id="前言："><a href="#前言：" class="headerlink" title="前言："></a><strong>前言：</strong></h5><p>　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。</p>
+<h5 id="概述："><a href="#概述：" class="headerlink" title="概述："></a><strong>概述：</strong></h5><p>　　<strong>重排(回流)</strong>, 顾名思义就是重新排版的意思; <strong>重绘</strong>, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。<br>　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。<strong>回流必将引起重绘，而重绘不一定会引起回流</strong>，repaint和reflow的目的是：展示一个新的页面样貌。<a id="more"></a></p>
+<h5 id="浏览器执行流："><a href="#浏览器执行流：" class="headerlink" title="浏览器执行流："></a><strong>浏览器执行流：</strong></h5><p>　　浏览器每次从服务器下载完页面后就会对页面进行渲染(Render), 这里面就包含了重绘以及重排。每种浏览器虽然工作原理略有差别, 但也遵循以下流程:<br>　　览器引擎会解析HTML文档来构建DOM树。树的每个节点都是标签, 有大小边距等等的属性, 这是因为每个HTML元素都遵循<strong>盒子模型</strong>(隐藏元素不包括在文档树中, 浏览器不会将其渲染)。<br>　　渲染树构建完毕后, 浏览器就能够确定每个元素的位置并将元素放到正确的位置上, 再根据<strong><em>树节点的样式属性</em></strong>绘制出页面元素。<br>　　由于浏览器的流布局的方式, 对渲染树的计算通常只需要遍历一遍即可。但table及其内部元素除外, 可能需要执行多次计算才能确定好在渲染树中的属性,这个过程通常要耗费3倍以上的时间。<br>　　这也是我们要避免使用table标签的其中一个原因。<br>　　简言之浏览器执行顺序为：<br>  　　1. 首先获取html，然后构建dom树 ，DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。<br>  　　2. 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。<br>  　　3. DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现。<br>  　　4. 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。
+　　</p>
+<h5 id="严重性："><a href="#严重性：" class="headerlink" title="严重性："></a><strong>严重性：</strong></h5><p>　在性能优先的前提下，性能消耗 reflow大于repaint。</p>
+<h5 id="体现："><a href="#体现：" class="headerlink" title="体现："></a><strong>体现：</strong></h5><p>　repaint是某个DOM元素进行重绘；reflow是整个页面进行重排，也就是页面所有DOM元素渲染。</p>
+<h5 id="如何触发："><a href="#如何触发：" class="headerlink" title="如何触发："></a><strong>如何触发：</strong></h5><p>　style变动造成repaint和reflow。<br>　不涉及任何DOM元素的排版问题的变动为repaint，例如元素的color/text-align/text-decoration等等属性的变动。<br>　除上面所提到的DOM元素style的修改基本为reflow。例如元素的任何涉及长、宽、行高、边框、display等style的修改。</p>
+<h5 id="常见触发场景："><a href="#常见触发场景：" class="headerlink" title="常见触发场景："></a><strong>常见触发场景：</strong></h5><p>　　重绘是一个元素外观的改变所触发的浏览器行为，例如改变visibility、outline、背景色等属性。浏览器会根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随重排。重排(回流)是更明显的一种改变，可以理解为渲染树需要重新计算。</p>
+<ol>
+<li>触发repaint：<ol>
+<li>color的修改，如color=#ddd；</li>
+<li>text-align的修改，如text-align=center；</li>
+<li>a:hover也会造成重绘。</li>
+<li>:hover引起的颜色等不导致页面回流的style变动。</li>
+</ol>
+</li>
+<li>触发reflow：<ol>
+<li>width/height/border/margin/padding的修改，如width=778px；</li>
+<li>动画，:hover等伪类引起的元素表现改动，display=none等造成页面回流；</li>
+<li>appendChild等DOM元素操作；</li>
+<li>font类style的修改；</li>
+<li>background的修改，注意着字面上可能以为是重绘，但是浏览器确实回流了，经过浏览器厂家的优化，部分background的修改只触发repaint，当然IE不用考虑；</li>
+<li>scroll页面，这个不可避免；</li>
+<li>resize页面，桌面版本的进行浏览器大小的缩放，移动端的话，还没玩过能拖动程序，resize程序窗口大小的多窗口操作系统。</li>
+<li>读取元素的属性(这个无法理解，但是技术达人是这么说的，那就把它当做定理吧)：读取元素的某些属性(offsetLeft、offsetTop、offsetHeight、offsetWidth、scrollTop/Left/Width/Height、clientTop/Left/Width/Height、getComputedStyle()、currentStyle(in IE))</li>
+</ol>
+</li>
+</ol>
+<p><strong>如何避免：</strong><br>　　说避免那是不可能的，不然就是以前古老的静态页面了，没有交互，那在现在看来，就是一个失败的作品。所以，在我们进行网页设计的时候，就必须尽量减少页面的repaint和reflow。repaint和reflow的目的是为了展示一个新的页面，那么我们在进行页面交互时，尽量通过各种方法减少repaint和reflow但又能展示一个新的页面的目的。所以下面将结合其他技术达人的建议，通过自己的理解，给大家讲解如何避免和优化repaint和reflow：</p>
+<ol>
+<li>尽可能在DOM末梢通过改变class来修改元素的style属性： 将多次改变样式属性的操作合并成一次操作，尽可能的减少受影响的DOM元素。</li>
+<li>避免设置多项内联样式：使用常用的class的方式进行设置样式，以避免设置样式时访问DOM的低效率。</li>
+<li>设置动画元素position属性为fixed或者absolute：由于当前元素从DOM流中独立出来，因此受影响的只有当前元素，元素repaint。</li>
+<li>牺牲平滑度满足性能：动画精度太强，会造成更多次的repaint/reflow，牺牲精度，能满足性能的损耗，获取性能和平滑度的平衡。</li>
+<li>避免使用table进行布局：table的每个元素的大小以及内容的改动，都会导致整个table进行重新计算，造成大幅度的repaint或者reflow。改用div则可以进行针对性的repaint和避免不必要的reflow。</li>
+<li>避免在CSS中使用运算式：学习CSS的时候就知道，这个应该避免，不应该加深到这一层再去了解，因为这个的后果确实非常严重，一旦存在动画性的repaint/reflow，那么每一帧动画都会进行计算，性能消耗不容小觑。</li>
+</ol>
+
             
 
         </div>
@@ -254,7 +296,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/CSS3/">CSS3</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/前端性能优化/">前端性能优化</a>
 
             </div>
         
@@ -264,8 +306,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/16/CSS3/伪元素和伪类/" data-tooltip="伪元素和伪类" aria-label="上一篇: 伪元素和伪类">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -274,7 +315,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/盒子模型/" data-tooltip="盒子模型" aria-label="下一篇: 盒子模型">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/02/13/前端性能优化/前端性能优化/" data-tooltip="前端性能优化" aria-label="下一篇: 前端性能优化">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -292,7 +333,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/11/06/H5/H5/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -300,7 +341,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/11/06/H5/H5/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -308,7 +349,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/11/06/H5/H5/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -324,7 +365,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -358,8 +399,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/16/CSS3/伪元素和伪类/" data-tooltip="伪元素和伪类" aria-label="上一篇: 伪元素和伪类">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -368,7 +408,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/盒子模型/" data-tooltip="盒子模型" aria-label="下一篇: 盒子模型">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/02/13/前端性能优化/前端性能优化/" data-tooltip="前端性能优化" aria-label="下一篇: 前端性能优化">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -386,7 +426,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/11/06/H5/H5/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -394,7 +434,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/11/06/H5/H5/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -402,7 +442,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/11/06/H5/H5/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -418,7 +458,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -435,7 +475,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/11/06/H5/H5/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -443,7 +483,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/11/06/H5/H5/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -451,7 +491,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/11/06/H5/H5/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -736,7 +776,7 @@
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2018/11/06/H5/H5/',
+                        id: 'http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
