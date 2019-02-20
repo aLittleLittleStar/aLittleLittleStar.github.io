@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Vue.js基础]]></title>
     <url>%2F2019%2F02%2F15%2FVue%2F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%2F</url>
-    <content type="text"><![CDATA[Vue.js基础，模块化，单文件组件，路由，与服务器通信，状态管理，单元测试与生产发布，服务端渲染SSR与Nuxt.js，基于Vue.js企业级项目开发(Mint UI, Element UI)等]]></content>
+    <content type="text"><![CDATA[Vue.js基础，模块化，单文件组件，路由，与服务器通信，状态管理，单元测试与生产发布，服务端渲染SSR与Nuxt.js，基于Vue.js企业级项目开发(Mint UI, Element UI)等132131]]></content>
       <categories>
         <category>Vue</category>
       </categories>
@@ -67,9 +67,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[盒子模型]]></title>
-    <url>%2F2018%2F11%2F06%2FCSS3%2F%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%2F</url>
-    <content type="text"><![CDATA[盒子样式介绍 width和height：内容的宽度、高度（不是盒子的宽度、高度） padding：内边距。 border：边框。 margin：外边距。 盒子模型的分类与概念 盒子模型是css中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是IE盒子模型和标准 w3c 盒子模型。他们对盒子模型的解释各不相同: IE 盒子模型的范围也包括 margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 content 部分包含了 border 和 pading。 标准 W3C 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。 ps: 1. ie8以上都是w3c标准盒模型 2. ie5极其以下都是ie盒子模型，ie6、ie7、ie8在混杂模式下ie盒模型， 3. 在标准模式下是w3c标准盒模型 4. 注意：ie6在混杂模式下一定是Ie盒模型，而ie7、ie8在混杂模式下不一定是ie盒模型 box-sizing 属性可以被用来调整这些表现: 1. content-box 是默认值。如果你设置一个元素的宽为100px，那么这个元素的内容区会有100px宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。 2. border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px,那么这100px会包含其它的border和padding，内容区的实际宽度会是width减去border + padding的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。 3. border-box定义的盒子，不会随着padding和boder的加入而增大盒子的占用空间 border-box width 和 height 属性包括内容，内边距和边框，但不包括外边距。这是当文档处于 Quirks模式 时Internet Explorer使用的盒模型。注意，填充和边框将在盒子内 。例如, .box {width: 350px; border: 10px solid black;} 导致在浏览器中呈现的宽度为350px的盒子。内容框不能为负，并且被分配到0，使得不可能使用border-box使元素消失。这里的维度计算为：width = border + padding + 内容的 width，height = border + padding + 内容的 height。]]></content>
+    <title></title>
+    <url>%2F2018%2F11%2F06%2FH5%2FH5%2F</url>
+    <content type="text"><![CDATA[]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -78,9 +78,9 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>%2F2018%2F11%2F06%2FH5%2FH5%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <title><![CDATA[盒子模型]]></title>
+    <url>%2F2018%2F11%2F06%2FCSS3%2F%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[盒子样式介绍 width和height：内容的宽度、高度（不是盒子的宽度、高度） padding：内边距。 border：边框。 margin：外边距。 盒子模型的分类与概念 盒子模型是css中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是IE盒子模型和标准 w3c 盒子模型。他们对盒子模型的解释各不相同: IE 盒子模型的范围也包括 margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 content 部分包含了 border 和 pading。 标准 W3C 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。 ps: 1. ie8以上都是w3c标准盒模型 2. ie5极其以下都是ie盒子模型，ie6、ie7、ie8在混杂模式下ie盒模型， 3. 在标准模式下是w3c标准盒模型 4. 注意：ie6在混杂模式下一定是Ie盒模型，而ie7、ie8在混杂模式下不一定是ie盒模型 box-sizing 属性可以被用来调整这些表现: 1. content-box 是默认值。如果你设置一个元素的宽为100px，那么这个元素的内容区会有100px宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。 2. border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px,那么这100px会包含其它的border和padding，内容区的实际宽度会是width减去border + padding的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。 3. border-box定义的盒子，不会随着padding和boder的加入而增大盒子的占用空间 border-box width 和 height 属性包括内容，内边距和边框，但不包括外边距。这是当文档处于 Quirks模式 时Internet Explorer使用的盒模型。注意，填充和边框将在盒子内 。例如, .box {width: 350px; border: 10px solid black;} 导致在浏览器中呈现的宽度为350px的盒子。内容框不能为负，并且被分配到0，使得不可能使用border-box使元素消失。这里的维度计算为：width = border + padding + 内容的 width，height = border + padding + 内容的 height。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -124,7 +124,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-eVfKXfTQ"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-pIJzMDJp"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -221,14 +221,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[bind、apply和call的区别]]></title>
-    <url>%2F2018%2F10%2F10%2FJS%2Fbind%E5%92%8Ccall%2F</url>
-    <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
+    <title><![CDATA[css模块化]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
@@ -265,14 +265,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[css模块化]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
+    <title><![CDATA[bind、apply和call的区别]]></title>
+    <url>%2F2018%2F10%2F10%2FJS%2Fbind%E5%92%8Ccall%2F</url>
+    <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>CSS3</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>

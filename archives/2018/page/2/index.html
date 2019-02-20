@@ -485,8 +485,8 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/JS/bind和call/">
-                            bind、apply和call的区别
+                        <a class="link-unstyled" href="/2018/10/10/CSS3/css模块化/">
+                            css模块化
                         </a>
                     
                 </h1>
@@ -508,7 +508,42 @@
             </div>
             
                 <div class="postShorten-content">
-                    <p>ing…<br>bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，<br>他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下<br>来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，<br>bind是返回一个改变this指向的函数。<br>apply方法和call方法有些相似，它也可以改变this的指向<br>同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组</p>
+                    <p>未完成ing…</p>
+<ul>
+<li>设计原则<ul>
+<li>可复用能继承要完整</li>
+<li>周期性迭代<ul>
+<li>优秀的代码是模仿/设计/重构出来的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设计方法<ul>
+<li>先整体后部分再颗粒化<ul>
+<li>布局-&gt; 页面 -&gt; 功能-&gt;业务</li>
+</ul>
+</li>
+<li>先抽象再具体</li>
+</ul>
+</li>
+</ul>
+<p>css模块化设计<br><img src="/assets/images/css模块化.webp" alt="模块化"></p>
+<p>reset.scss：<br>浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。<br>layout.scss:<br>布局抽象成这个<br>element.scss:<br>列表、按钮</p>
+<p>global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。<br>scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。</p>
+<ul>
+<li>优点：<ul>
+<li>提高代码重用率</li>
+<li>提高开发效率、减少沟通成本</li>
+<li>降低耦合</li>
+<li>降低发布风险</li>
+<li>减少Bug定位时间和Fix成本</li>
+<li>提高页面容错</li>
+<li>更好的实现快速迭代</li>
+<li>更好的支持灰度发布</li>
+</ul>
+</li>
+</ul>
+<p>参考: <a href="https://www.aliyun.com/jiaocheng/693575.html" target="_blank" rel="noopener">CSS模块化如何实现？</a></p>
 
                     
                         
@@ -516,7 +551,7 @@
                     
                     
                         <p>
-                            <a href="/2018/10/10/JS/bind和call/#post-footer" class="postShorten-excerpt_link link">
+                            <a href="/2018/10/10/CSS3/css模块化/#post-footer" class="postShorten-excerpt_link link">
                                 评论和共享
                             </a>
                         </p>
@@ -715,8 +750,8 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/CSS3/css模块化/">
-                            css模块化
+                        <a class="link-unstyled" href="/2018/10/10/JS/bind和call/">
+                            bind、apply和call的区别
                         </a>
                     
                 </h1>
@@ -738,42 +773,7 @@
             </div>
             
                 <div class="postShorten-content">
-                    <p>未完成ing…</p>
-<ul>
-<li>设计原则<ul>
-<li>可复用能继承要完整</li>
-<li>周期性迭代<ul>
-<li>优秀的代码是模仿/设计/重构出来的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>设计方法<ul>
-<li>先整体后部分再颗粒化<ul>
-<li>布局-&gt; 页面 -&gt; 功能-&gt;业务</li>
-</ul>
-</li>
-<li>先抽象再具体</li>
-</ul>
-</li>
-</ul>
-<p>css模块化设计<br><img src="/assets/images/css模块化.webp" alt="模块化"></p>
-<p>reset.scss：<br>浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。<br>layout.scss:<br>布局抽象成这个<br>element.scss:<br>列表、按钮</p>
-<p>global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。<br>scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。</p>
-<ul>
-<li>优点：<ul>
-<li>提高代码重用率</li>
-<li>提高开发效率、减少沟通成本</li>
-<li>降低耦合</li>
-<li>降低发布风险</li>
-<li>减少Bug定位时间和Fix成本</li>
-<li>提高页面容错</li>
-<li>更好的实现快速迭代</li>
-<li>更好的支持灰度发布</li>
-</ul>
-</li>
-</ul>
-<p>参考: <a href="https://www.aliyun.com/jiaocheng/693575.html" target="_blank" rel="noopener">CSS模块化如何实现？</a></p>
+                    <p>ing…<br>bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，<br>他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下<br>来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，<br>bind是返回一个改变this指向的函数。<br>apply方法和call方法有些相似，它也可以改变this的指向<br>同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组</p>
 
                     
                         
@@ -781,7 +781,7 @@
                     
                     
                         <p>
-                            <a href="/2018/10/10/CSS3/css模块化/#post-footer" class="postShorten-excerpt_link link">
+                            <a href="/2018/10/10/JS/bind和call/#post-footer" class="postShorten-excerpt_link link">
                                 评论和共享
                             </a>
                         </p>
@@ -983,27 +983,8 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -1040,8 +1021,27 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
