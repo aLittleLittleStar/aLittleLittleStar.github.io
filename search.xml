@@ -166,20 +166,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Vue]]></title>
-    <url>%2F2018%2F10%2F22%2FVue%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>前端框架</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-YhFYtEik"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-dMhHqXTf"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -276,17 +265,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[css模块化]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[bind、apply和call的区别]]></title>
     <url>%2F2018%2F10%2F10%2FJS%2Fbind%E5%92%8Ccall%2F</url>
     <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
@@ -295,6 +273,17 @@
       </categories>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[清除浮动]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
@@ -320,9 +309,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[清除浮动]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
-    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
+    <title><![CDATA[css模块化]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -361,28 +350,6 @@
       </categories>
       <tags>
         <tag>排序算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[page随笔]]></title>
-    <url>%2F2018%2F09%2F29%2Fpage%E9%9A%8F%E7%AC%94%2F</url>
-    <content type="text"><![CDATA[[TOC] ###]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>情感</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F09%2F28%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-      <categories>
-        <category>TEST</category>
-      </categories>
-      <tags>
-        <tag>案例</tag>
       </tags>
   </entry>
 </search>
