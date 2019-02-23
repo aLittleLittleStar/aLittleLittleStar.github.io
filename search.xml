@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[MVVM开发模式的理解]]></title>
+    <url>%2F2019%2F02%2F23%2FVue%2FMVVM%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3%2F</url>
+    <content type="text"><![CDATA[MVVM MVVM（模型视图ViewModel 是一种基于MVC和MVP的架构模式，它试图更清楚地将用户界面（UI）的开发与应用程序中的业务逻辑和行为的开发分开。为此，此模式的许多实现都使用声明性数据绑定，以允许将视图上的工作与其他层分离。 Model、View、ViewModel MVVM分为Model、View、ViewModel三者。 Model 代表数据模型，数据和业务逻辑都在Model层中定义； View 代表UI视图，负责数据的展示，是用户在屏幕上看到的结构； ViewModel 负责监听 Model 中数据的改变并且控制视图的更新，处理用户交互操作； Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。 设计模式编辑 因为WPF技术出现，从而使MVC架构模式有所改进，MVVM 模式便是使用的是数据绑定基础架构。它们可以轻松构建UI的必要元素。可以参考The Composite Application Guidance for WPF(prism)View绑定到ViewModel，然后执行一些命令在向它请求一个动作。而反过来，ViewModel跟Model通讯，告诉它更新来响应UI。这样便使得为应用构建UI非常的容易。往一个应用程序上贴一个界面越容易，外观设计师就越容易使用Blend来创建一个漂亮的界面。同时，当UI和功能越来越松耦合的时候，功能的可测试性就越来越强。在MVP模式中，为了让UI层能够从逻辑层上分离下来，设计师们在UI层与逻辑层之间加了一层interface。无论是UI开发人员还是数据开发人员，都要尊重这个契约、按照它进行设计和开发。这样，理想状态下无论是Web UI还是Window UI就都可以使用同一套数据逻辑了。借鉴MVP的IView层，养成习惯。View Model听起来比Presenter要贴切得多；会把一些跟事件、命令相关的东西放在MVC的’C’,或者是MVVM的’Vm’。 优点和缺点优点 MVVM模式和MVC模式一样，主要目的是分离视图（View）和模型（Model），有几大优点: 低耦合: 视图（View）可以独立于 Model 变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。 可重用性: 你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。 独立开发:开发人员可以专注于业务逻辑和数据的开发(ViewModel), 设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。 可测试:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。 MVVM有助于更轻松地并行开发UI以及为其提供支持的构建块 抽象视图，从而减少其背后的代码所需的业务逻辑（或粘合剂）的数量 ViewModel比事件驱动的代码更容易进行单元测试 可以在不关心UI自动化和交互的情况下测试ViewModel（比View更多的模型） 缺点 对于更简单的UI，MVVM可能过度 虽然数据绑定可以是声明性的并且很好用，但它们比我们简单设置断点的命令式代码更难调试 非平凡应用程序中的数据绑定可以创建大量的簿记。您也不希望在绑定比绑定的对象更重的情况下结束 在较大的应用程序中，预先设计ViewModel以获得必要的泛化量可能更加困难 参考文章： 前后端分手大师——MVVM 模式 简单理解MVVM–实现Vue的MVVM模式 了解MVVM - JavaScript开发人员指南]]></content>
+      <categories>
+        <category>开发模式</category>
+      </categories>
+      <tags>
+        <tag>MVVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[redis基础]]></title>
+    <url>%2F2019%2F02%2F22%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2Fredis%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[stylus基础]]></title>
+    <url>%2F2019%2F02%2F22%2FCSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8%2Fstylus%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>stylus</category>
+      </categories>
+      <tags>
+        <tag>stylus基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mongoose]]></title>
+    <url>%2F2019%2F02%2F22%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2Fmongoose%2F</url>
+    <content type="text"><![CDATA[mongoosemongodb 的概念 &amp; 安装mongod mongodb 可视化工具 RoRo 3T 安装及应用mongoose 的作用mongoose 的应用]]></content>
+      <categories>
+        <category>mongoose</category>
+      </categories>
+      <tags>
+        <tag>mongoose</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Koa2基础]]></title>
     <url>%2F2019%2F02%2F21%2FKoa2%2FKoa2%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%2F</url>
-    <content type="text"><![CDATA[使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn -e 添加ejs模板引擎支持(默认是jade) koa2-learn 项目名123456789101112131415161718192021222324$ koa2 -e koa2-learning create : koa2-learning create : koa2-learning/package.json create : koa2-learning/app.js create : koa2-learning/public/javascripts create : koa2-learning/routes create : koa2-learning/routes/index.js create : koa2-learning/routes/users.js create : koa2-learning/public/images create : koa2-learning/public/stylesheets create : koa2-learning/public/stylesheets/style.css create : koa2-learning/public create : koa2-learning/views create : koa2-learning/views/index.ejs create : koa2-learning/views/error.ejs create : koa2-learning/bin create : koa2-learning/bin/www install dependencies: $ cd koa2-learning &amp;&amp; npm install run the app: $ DEBUG=koa2-learning:* npm start PS: 如果出现 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;}) 不用担心。出现原因：fsevents 不在 package.json里，但是仍然安装了，是因为你的系统是Windows系统，fsevents是苹果系统的可选依赖,你的项目有可能是团队项目，别人在他的mac上安装了fsevents相关依赖库，所以到这边你也就安装到你的windows上边了。你可以检查你的package.json 文件中是不是有fsevents相关依赖，删除即好！如果没有，其他的npm包也会有依赖fsevents的！！！这是warning错误，是因为mac下需要fsevents，这里是在windows环境，所以可以忽略这个警告，对你没什么影响的。运行: DEBUG=koa2-learning:* npm start || npm run dev效果： 出现 node bin/www 访问 http://localhost:3000/注意： npm start 、 npm test 、 npm run dev 、 npm run prd async 和 await 语法异步概念 是指一个进程在执行某个请求的时候，如果这个请求没有执行完毕，进程不会等待，而是继续执行下面的请求。 理解async 和 awaitKoa2 中间件koa2 中间件的原理 自定义 koa2 中间件koa2 路由路由写法接口举例推荐： 从头实现一个koa框架 浅析koa的洋葱模型实现]]></content>
+    <content type="text"><![CDATA[Koa官网《Koa2进阶学习笔记》已完结 使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn -e 添加ejs模板引擎支持(默认是jade) koa2-learn 项目名123456789101112131415161718192021222324$ koa2 -e koa2-learning create : koa2-learning create : koa2-learning/package.json create : koa2-learning/app.js create : koa2-learning/public/javascripts create : koa2-learning/routes create : koa2-learning/routes/index.js create : koa2-learning/routes/users.js create : koa2-learning/public/images create : koa2-learning/public/stylesheets create : koa2-learning/public/stylesheets/style.css create : koa2-learning/public create : koa2-learning/views create : koa2-learning/views/index.ejs create : koa2-learning/views/error.ejs create : koa2-learning/bin create : koa2-learning/bin/www install dependencies: $ cd koa2-learning &amp;&amp; npm install run the app: $ DEBUG=koa2-learning:* npm start PS: 如果出现 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;}) 不用担心。出现原因：fsevents 不在 package.json里，但是仍然安装了，是因为你的系统是Windows系统，fsevents是苹果系统的可选依赖,你的项目有可能是团队项目，别人在他的mac上安装了fsevents相关依赖库，所以到这边你也就安装到你的windows上边了。你可以检查你的package.json 文件中是不是有fsevents相关依赖，删除即好！如果没有，其他的npm包也会有依赖fsevents的！！！这是warning错误，是因为mac下需要fsevents，这里是在windows环境，所以可以忽略这个警告，对你没什么影响的。运行: DEBUG=koa2-learning:* npm start || npm run dev效果： 出现 node bin/www 访问 http://localhost:3000/注意： npm start 、 npm test 、 npm run dev 、 npm run prd async 和 await 语法异步概念 是指一个进程在执行某个请求的时候，如果这个请求没有执行完毕，进程不会等待，而是继续执行下面的请求。 理解async 和 awaitKoa2 中间件koa2 中间件的原理 自定义 koa2 中间件koa2 路由路由写法接口举例cookie 和 sessioncookie 和 session 的定义cookie 和 session 的作用推荐： 从头实现一个koa框架 浅析koa的洋葱模型实现]]></content>
       <categories>
         <category>Koa2</category>
       </categories>
@@ -135,7 +179,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-pdZdzflg"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-YhFYtEik"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -232,31 +276,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[渐进增强和优雅降级]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[css模块化]]></title>
     <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
     <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[清除浮动]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
-    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -276,6 +298,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[渐进增强和优雅降级]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[语义化标签]]></title>
     <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
     <content type="text"><![CDATA[H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签? H5中关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。 footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容= =||是这么理解的，表示文档、页面、应用或一个独立的容器ahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 语义化标签有什么作用？为什么要使用语义化标签？在HTML5出现之前，我们一般采用div+css布局我们的页面。但是这样的布局方式不仅使我们的文档结构不够清晰，而且不利于搜索引擎爬虫对我们页面的爬取。为了解决上述缺点，HTML5新增了很多新的语义化标签。 引入语义化标签的好处主要有 比div标签有更加丰富的含义，方便开发与维护 搜索引擎能更方便的识别页面的每个部分 方便其他设备解析（如移动设备、盲人阅读器等） H5新增的语义化标签 headerfooterarticleaside 定义页面的侧边栏内容timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色navprogresssectionvideo 定义视频，属性src引入资源，controls视频的控制控件audio 该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果]]></content>
@@ -284,6 +317,17 @@
       </categories>
       <tags>
         <tag>H5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[清除浮动]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
