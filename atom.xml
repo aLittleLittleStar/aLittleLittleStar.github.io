@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-02-23T13:38:28.676Z</updated>
+  <updated>2019-02-25T12:24:21.080Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,20 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>网页从输入网址到渲染完成经历了哪些过程</title>
+    <link href="http://yoursite.com/2019/02/23/HTTP/%E7%BD%91%E9%A1%B5%E4%BB%8E%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E5%88%B0%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90%E7%BB%8F%E5%8E%86%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%87%E7%A8%8B/"/>
+    <id>http://yoursite.com/2019/02/23/HTTP/网页从输入网址到渲染完成经历了哪些过程/</id>
+    <published>2019-02-23T14:45:31.000Z</published>
+    <updated>2019-02-25T12:24:21.080Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><h4 id="过程概述"><a href="#过程概述" class="headerlink" title="过程概述"></a>过程概述</h4><p>　　从输入域名到网页打开的简单过程如下：<br><strong>1. DNS域名解析</strong><br>　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址<br><strong>2. 建立TCP连接</strong><br>　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即<font color="blue"><strong>tcp三次握手</strong></font>连接， 建立起TCP/IP网络连接， 具体过程如下：<a id="more"></a><br>　　第一次握手：<br>　　　　<font color="orange">主机向服务器发送一个建立连接的请求（您好，我想认识您）</font><br>　　　　<font color="red">建立连接时，客户端发送syn包(syn=j)到服务器，并进入<strong><em>SYN_SEND</em></strong>状态，等待服务器确认</font><br>　　第二次握手：<br>　　　　<font color="orange">服务器接到请求后发送同意连接的信号（好的，很高兴认识您）</font><br>　　　　<font color="red">服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器 进入SYN_RECV状态；</font><br>　　第三次握手：<br>　　　　<font color="orange">主机接到同意连接的信号后，再次向服务器发送了确认信号（我也很高兴认识您），自此，主机与服务器两者建立了连接</font><br>　　　　<font color="red">客户端收到服务器的SYN＋ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入 ESTABLISHED状态，完成三次握手。<br>通过这样的三次握手，客户端与服务端建立起可靠的双工的连接，开始传送数据。</font><br><strong>补充说明:</strong><br>　　　　TCP 协议：三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求重新发送信号。<br><strong>3. 发送HTTP请求</strong><br>　　与服务器建立连接之后，就可以向服务器发送请求了，请求需要遵循http协议<br><strong>4.服务器处理请求；</strong><br>　　被请求的服务器解析用户请求的有哪些资源，通过服务器返回数据给客户端<br><strong>5.返回响应结果；</strong><br>　　给客户端返回请求的状态码，通过状态码可以知道服务器端的处理是否正常<br><strong>6.浏览器渲染：</strong><br>　　返回成功之后，浏览器拿到请求页面的代码，将其解析渲染出来。解析和渲染的过程主要由浏览器的渲染引擎实现。</p><h5 id="根据域名查找-IP-地址"><a href="#根据域名查找-IP-地址" class="headerlink" title="根据域名查找 IP 地址"></a>根据域名查找 IP 地址</h5><h6 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h6><p>　　<strong>IP 地址</strong>：IP 协议为互联网上的每一个网络和每一台主机分配的一个逻辑地址。IP 地址如同门牌号码，通过 IP 地址才能确定一台主机位置。服务器本质也是一台主机，想要访问某个服务器，必须先知道它的 IP 地址；<br>　　<strong>域名(DN)</strong>：IP 地址由四个数字组成，中间用点号连接，在使用过程中难记忆且易输入错误，所以用我们熟悉的字母和数字组合来代替纯数字的 IP 地址，比如我们只会记住 <code>www.baidu.com</code>（百度域名） 而不是 <code>220.181.112.244</code>（百度的其中一个 IP 地址）；<br>　　<strong>DNS</strong>： 每个域名都对应一个或多个提供相同服务服务器的 IP 地址，只有知道服务器 IP 地址才能建立连接，所以需要通过 DNS 把域名解析成一个 IP 地址。</p><p>　　知道了上面的概念，大概就知道了想要获得服务器的门牌号码，需要先将域名转换成 IP 地址。转换过程如下（以查询 <code>www.baidu.com</code> 的 IP 地址为例，其中2、3、4步均在上一步未查询成功的情况下进行）：</p><h6 id="查找过程"><a href="#查找过程" class="headerlink" title="查找过程"></a>查找过程</h6><ol><li>浏览器搜索自己的 DNS 缓存（维护一张域名与 IP 地址的对应表）；</li><li>搜索操作系统中的 DNS 缓存（维护一张域名与 IP 地址的对应表）；</li><li>搜索操作系统的 hosts 文件（ Windows 环境下，维护一张域名与 IP 地址的对应表）；</li><li>操作系统将域名发送至 LDNS（本地区域名服务器，如果你在学校接入互联网，则 LDNS 服务器就在学校，如果通过电信接入互联网，则 LDNS 服务器就在你当地的电信那里。）LDNS 查询自己的 DNS 缓存（一般查找成功率在 80% 左右），查找成功则返回结果，失败则发起一个迭代 DNS 解析请求；<ol><li>LDNS 向 <code>Root Name Server</code>（根域名服务器，其虽然没有每个域名的的具体信息，但存储了负责每个域，如 com、net、org等的解析的顶级域名服务器的地址）发起请求，此处，<code>Root Name Server</code>返回 com 域的顶级域名服务器的地址；</li><li>LDNS 向 com 域的顶级域名服务器发起请求，返回 <code>baidu.com</code>域名服务器地址；</li><li>LDNS 向 baidu.com 域名服务器发起请求，得到 <code>www.baidu.com</code>的 IP 地址；</li></ol></li><li>LDNS 将得到的 IP 地址返回给操作系统，同时自己也将 IP 地址缓存起来；</li><li>操作系统将 IP 地址返回给浏览器，同时自己也将 IP 地址缓存起来；</li><li>至此，浏览器已经得到了域名对应的 IP 地址。</li></ol><p><strong>补充说明</strong><br>　　域名与 URL 是两个概念：域名是一台或一组服务器的名称，用来确定服务器在 Internet 上的位置；URL 是统一资源定位符，用来确定某一个文件的具体位置，例如，<code>zhihu.com</code> 是 知乎的域名，根据这个域名可以找到知乎的服务器，<code>zhihu.com/people/CompileYouth</code> 是 URL ，可以根据这个 URL 定位我的知乎主页；<br>　　IP 地址与域名不是一一对应的关系：可以把多个提供相同服务的服务器 IP 设置为同一个域名，但在同一时刻一个域名只能解析出一个 IP地址；同时，一个 IP 地址可以绑定多个域名，数量不限；</p><h5 id="网页请求与显示"><a href="#网页请求与显示" class="headerlink" title="网页请求与显示"></a>网页请求与显示</h5><p>　　当服务器与主机建立了连接之后，下面主机便与服务器进行通信。网页请求是一个单向请求的过程，即是一个主机向服务器请求数据，服务器返回相应的数据的过程。</p><ol><li>服务器接到请求后，会根据 HTTP 请求中的内容来决定如何获取相应的 HTML 文件；</li><li>服务器将得到的 HTML 文件发送给浏览器；</li><li>在浏览器还没有完全接收 HTML 文件时便开始渲染、显示网页；</li><li>在执行 HTML 中代码时，根据需要，浏览器会继续请求图片、CSS、JavsScript等文件，过程同请求 HTML </li></ol><h4 id="断开连接–四次挥手"><a href="#断开连接–四次挥手" class="headerlink" title="断开连接–四次挥手"></a>断开连接–四次挥手</h4><ol><li>主机向服务器发送一个断开连接的请求（不早了，我该走了）；</li><li>服务器接到请求后发送确认收到请求的信号（知道了）；</li><li>服务器向主机发送断开通知（我也该走了）；</li><li>主机接到断开通知后断开连接并反馈一个确认信号（嗯，好的），服务器收到确认信号后断开连接；</li></ol><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>　　一个完整的URL地址由：<strong>协议</strong>、<strong>服务器地址(主机)</strong>、<strong>端口</strong>、<strong>资源路径(文件)</strong>。其中网络地址指示该连接网络上哪一台计算机，可以是域名或者IP地址，可以包括端口号；协议是从 该计算机获取资源的方式，常见的是HTTP、FTP，不同协议有不同的通讯内容格式；资源路径指示从服务器上获取哪一项资源。<br>例如：<code>http://www.guokr.com/question/554991/</code><br>超文本传输协议：<code>http</code><br>服务器地址：<code>www.guokr.com</code><br>端口： http协议的默认<strong>端口</strong>为80<br>资源路径：是指要活的的文件的路径 -&gt;<code>/question/554991/</code></p><p>转载：<br>　　<a href="https://www.cnblogs.com/ishuanghe/p/5200775.html" target="_blank" rel="noopener">一个页面从输入url,到页面显示加载完成,这个过程中都发生了什么?</a><br>　　<a href="https://zhuanlan.zhihu.com/p/23155051" target="_blank" rel="noopener">从输入 URL 到页面加载完成的过程中都发生了什么</a><br>参考文章：<br>　　<a href="http://www.cnblogs.com/beyond-Acm/p/4309983.html" target="_blank" rel="noopener">从键入网址到页面显示经历了那些过程</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+&lt;h4 id=&quot;过程概述&quot;&gt;&lt;a href=&quot;#过程概述&quot; class=&quot;headerlink&quot; title=&quot;过程概述&quot;&gt;&lt;/a&gt;过程概述&lt;/h4&gt;&lt;p&gt;　　从输入域名到网页打开的简单过程如下：&lt;br&gt;&lt;strong&gt;1. DNS域名解析&lt;/strong&gt;&lt;br&gt;　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址&lt;br&gt;&lt;strong&gt;2. 建立TCP连接&lt;/strong&gt;&lt;br&gt;　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即&lt;font color=&quot;blue&quot;&gt;&lt;strong&gt;tcp三次握手&lt;/strong&gt;&lt;/font&gt;连接， 建立起TCP/IP网络连接， 具体过程如下：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="网页从输入网址到渲染完成经历了哪些过程" scheme="http://yoursite.com/tags/%E7%BD%91%E9%A1%B5%E4%BB%8E%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E5%88%B0%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90%E7%BB%8F%E5%8E%86%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%87%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MVVM开发模式的理解</title>
     <link href="http://yoursite.com/2019/02/23/Vue/MVVM%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/"/>
     <id>http://yoursite.com/2019/02/23/Vue/MVVM开发模式的理解/</id>
     <published>2019-02-23T06:28:24.000Z</published>
-    <updated>2019-02-23T13:38:28.676Z</updated>
+    <updated>2019-02-23T14:15:49.508Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- 目录 --><!-- toc --><h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>　　MVVM（模型视图ViewModel 是一种基于MVC和MVP的架构模式，<font color="FF0000">它试图更清楚地将用户界面（UI）的开发与应用程序中的业务逻辑和行为的开发分开</font>。为此，此模式的许多实现都使用声明性数据绑定，以允许将视图上的工作与其他层分离。</p><h4 id="Model、View、ViewModel"><a href="#Model、View、ViewModel" class="headerlink" title="Model、View、ViewModel"></a>Model、View、ViewModel</h4><p>　　MVVM分为Model、View、ViewModel三者。</p><ul><li>Model 代表数据模型，数据和业务逻辑都在Model层中定义；</li><li>View 代表UI视图，负责数据的展示，是用户在屏幕上看到的结构；</li><li>ViewModel 负责监听 Model 中数据的改变并且控制视图的更新，处理用户交互操作；<br>　　Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。<br>这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。<br><img src="/assets/images/mvvm2.png" alt="mvvm"><br><img src="/assets/images/mvvm.png" alt="mvvm"></li></ul><h3 id="设计模式编辑"><a href="#设计模式编辑" class="headerlink" title="设计模式编辑"></a>设计模式编辑</h3><p>　　因为WPF技术出现，从而使MVC架构模式有所改进，MVVM 模式便是使用的是数据绑定基础架构。它们可以轻松构建UI的必要元素。<br>可以参考The Composite Application Guidance for WPF(prism)<br>View绑定到ViewModel，然后执行一些命令在向它请求一个动作。而反过来，ViewModel跟Model通讯，告诉它更新来响应UI。这样便使得为应用构建UI非常的容易。往一个应用程序上贴一个界面越容易，外观设计师就越容易使用Blend来创建一个漂亮的界面。同时，当UI和功能越来越松耦合的时候，功能的可测试性就越来越强。<br>在MVP模式中，为了让UI层能够从逻辑层上分离下来，设计师们在UI层与逻辑层之间加了一层interface。无论是UI开发人员还是数据开发人员，都要尊重这个契约、按照它进行设计和开发。这样，理想状态下无论是Web UI还是Window UI就都可以使用同一套数据逻辑了。借鉴MVP的IView层，养成习惯。View Model听起来比Presenter要贴切得多；会把一些跟事件、命令相关的东西放在MVC的’C’,或者是MVVM的’Vm’。</p><h3 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>　　MVVM模式和MVC模式一样，主要目的是<font color="#FF0000">分离视图（View）</font>和<font color="#FF0000">模型（Model）</font>，有几大优点:</p><ol><li><strong>低耦合</strong>: <strong>视图（View）</strong>可以独立于 <strong>Model</strong> 变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li><li><strong>可重用性</strong>: 你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li><li><strong>独立开发</strong>:开发人员可以专注于业务逻辑和数据的开发(ViewModel), 设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。</li><li><strong>可测试</strong>:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</li><li>MVVM有助于更轻松地并行开发UI以及为其提供支持的构建块</li><li>抽象视图，从而减少其背后的代码所需的业务逻辑（或粘合剂）的数量</li><li>ViewModel比事件驱动的代码更容易进行单元测试</li><li>可以在不关心UI自动化和交互的情况下测试ViewModel（比View更多的模型）</li></ol><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol><li>对于更简单的UI，MVVM可能过度</li><li>虽然数据绑定可以是声明性的并且很好用，但它们比我们简单设置断点的命令式代码更难调试</li><li>非平凡应用程序中的数据绑定可以创建大量的簿记。您也不希望在绑定比绑定的对象更重的情况下结束</li><li>在较大的应用程序中，预先设计ViewModel以获得必要的泛化量可能更加困难</li></ol><p>参考文章：<br>　　<a href="https://www.cnblogs.com/iovec/p/7840228.html" target="_blank" rel="noopener">前后端分手大师——MVVM 模式</a><br>　　<a href="https://zhuanlan.zhihu.com/p/38296857" target="_blank" rel="noopener">简单理解MVVM–实现Vue的MVVM模式</a><br>　　<a href="https://addyosmani.com/blog/understanding-mvvm-a-guide-for-javascript-developers/" target="_blank" rel="noopener">了解MVVM - JavaScript开发人员指南</a></p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- 目录 --><!-- toc --><h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>　　MVVM（模型视图ViewModel 是一种基于MVC和MVP的架构模式，<font color="FF0000">它试图更清楚地将用户界面（UI）的开发与应用程序中的业务逻辑和行为的开发分开</font>。为此，此模式的许多实现都使用声明性数据绑定，以允许将视图上的工作与其他层分离。<a id="more"></a></p><h4 id="Model、View、ViewModel"><a href="#Model、View、ViewModel" class="headerlink" title="Model、View、ViewModel"></a>Model、View、ViewModel</h4><p>　　MVVM分为Model、View、ViewModel三者。</p><ul><li>Model 代表数据模型，数据和业务逻辑都在Model层中定义；</li><li>View 代表UI视图，负责数据的展示，是用户在屏幕上看到的结构；</li><li>ViewModel 负责监听 Model 中数据的改变并且控制视图的更新，处理用户交互操作；<br>　　Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。<br>这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。<br><img src="/assets/images/mvvm2.png" alt="mvvm"><br><img src="/assets/images/mvvm.png" alt="mvvm"></li></ul><h3 id="设计模式编辑"><a href="#设计模式编辑" class="headerlink" title="设计模式编辑"></a>设计模式编辑</h3><p>　　因为WPF技术出现，从而使MVC架构模式有所改进，MVVM 模式便是使用的是数据绑定基础架构。它们可以轻松构建UI的必要元素。<br>可以参考The Composite Application Guidance for WPF(prism)<br>View绑定到ViewModel，然后执行一些命令在向它请求一个动作。而反过来，ViewModel跟Model通讯，告诉它更新来响应UI。这样便使得为应用构建UI非常的容易。往一个应用程序上贴一个界面越容易，外观设计师就越容易使用Blend来创建一个漂亮的界面。同时，当UI和功能越来越松耦合的时候，功能的可测试性就越来越强。<br>在MVP模式中，为了让UI层能够从逻辑层上分离下来，设计师们在UI层与逻辑层之间加了一层interface。无论是UI开发人员还是数据开发人员，都要尊重这个契约、按照它进行设计和开发。这样，理想状态下无论是Web UI还是Window UI就都可以使用同一套数据逻辑了。借鉴MVP的IView层，养成习惯。View Model听起来比Presenter要贴切得多；会把一些跟事件、命令相关的东西放在MVC的’C’,或者是MVVM的’Vm’。</p><h3 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>　　MVVM模式和MVC模式一样，主要目的是<font color="#FF0000">分离视图（View）</font>和<font color="#FF0000">模型（Model）</font>，有几大优点:</p><ol><li><strong>低耦合</strong>: <strong>视图（View）</strong>可以独立于 <strong>Model</strong> 变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li><li><strong>可重用性</strong>: 你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li><li><strong>独立开发</strong>:开发人员可以专注于业务逻辑和数据的开发(ViewModel), 设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。</li><li><strong>可测试</strong>:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</li><li>MVVM有助于更轻松地并行开发UI以及为其提供支持的构建块</li><li>抽象视图，从而减少其背后的代码所需的业务逻辑（或粘合剂）的数量</li><li>ViewModel比事件驱动的代码更容易进行单元测试</li><li>可以在不关心UI自动化和交互的情况下测试ViewModel（比View更多的模型）</li></ol><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol><li>对于更简单的UI，MVVM可能过度</li><li>虽然数据绑定可以是声明性的并且很好用，但它们比我们简单设置断点的命令式代码更难调试</li><li>非平凡应用程序中的数据绑定可以创建大量的簿记。您也不希望在绑定比绑定的对象更重的情况下结束</li><li>在较大的应用程序中，预先设计ViewModel以获得必要的泛化量可能更加困难</li></ol><p>参考文章：<br>　　<a href="https://www.cnblogs.com/iovec/p/7840228.html" target="_blank" rel="noopener">前后端分手大师——MVVM 模式</a><br>　　<a href="https://zhuanlan.zhihu.com/p/38296857" target="_blank" rel="noopener">简单理解MVVM–实现Vue的MVVM模式</a><br>　　<a href="https://addyosmani.com/blog/understanding-mvvm-a-guide-for-javascript-developers/" target="_blank" rel="noopener">了解MVVM - JavaScript开发人员指南</a></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
+      &lt;!-- 目录 --&gt;
+&lt;!-- toc --&gt;
+&lt;h3 id=&quot;MVVM&quot;&gt;&lt;a href=&quot;#MVVM&quot; class=&quot;headerlink&quot; title=&quot;MVVM&quot;&gt;&lt;/a&gt;MVVM&lt;/h3&gt;&lt;p&gt;　　MVVM（模型视图ViewModel 是一种基于MVC和MVP的架构模式，&lt;font color=&quot;FF0000&quot;&gt;它试图更清楚地将用户界面（UI）的开发与应用程序中的业务逻辑和行为的开发分开&lt;/font&gt;。为此，此模式的许多实现都使用声明性数据绑定，以允许将视图上的工作与其他层分离。&lt;/p&gt;
     
     </summary>
     
@@ -38,31 +60,6 @@
     
     
       <category term="MVVM" scheme="http://yoursite.com/tags/MVVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis基础</title>
-    <link href="http://yoursite.com/2019/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/"/>
-    <id>http://yoursite.com/2019/02/22/数据库/redis/</id>
-    <published>2019-02-22T13:47:36.000Z</published>
-    <updated>2019-02-22T13:29:06.914Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="redis" scheme="http://yoursite.com/categories/redis/"/>
-    
-    
-      <category term="redis基础" scheme="http://yoursite.com/tags/redis%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
@@ -88,6 +85,31 @@
     
     
       <category term="stylus基础" scheme="http://yoursite.com/tags/stylus%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis基础</title>
+    <link href="http://yoursite.com/2019/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/"/>
+    <id>http://yoursite.com/2019/02/22/数据库/redis/</id>
+    <published>2019-02-22T13:47:36.000Z</published>
+    <updated>2019-02-22T13:29:06.914Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="redis" scheme="http://yoursite.com/categories/redis/"/>
+    
+    
+      <category term="redis基础" scheme="http://yoursite.com/tags/redis%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
@@ -394,7 +416,7 @@
     <published>2018-10-22T11:23:46.000Z</published>
     <updated>2018-10-22T13:28:38.542Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>It just a test music, but i like it </p>        <div id="aplayer-dMhHqXTf" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-dMhHqXTf"),            narrow: false,            autoplay: true,            showlrc: false,            music: {              title: "起风了",              author: "买辣椒也用券",              url: "/assets/music/music.mp3",              pic: "/assets/music/music.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>It just a test music, but i like it </p>        <div id="aplayer-gTXYmpZC" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-gTXYmpZC"),            narrow: false,            autoplay: true,            showlrc: false,            music: {              title: "起风了",              author: "买辣椒也用券",              url: "/assets/music/music.mp3",              pic: "/assets/music/music.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script>]]></content>
     
     <summary type="html">
     
@@ -475,34 +497,6 @@
     
       &lt;!-- toc --&gt;
 &lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;超文本传输协议HTTP协议被用于在Web浏览器和网站服务器之间传递信息，&lt;strong&gt;HTTP协议以明文方式发送内容&lt;/strong&gt;，不提供任何方式的数据加密，如果攻击者截取了Web浏览器和网站服务器之间的传输报文，就可以直接读懂其中的信息，因此，HTTP协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS，为了数据传输的安全，&lt;strong&gt;HTTPS在HTTP的基础上加入了SSL协议&lt;/strong&gt;，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="http" scheme="http://yoursite.com/tags/http/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>http连接性能优化</title>
-    <link href="http://yoursite.com/2018/10/14/HTTP/http%E8%BF%9E%E6%8E%A5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    <id>http://yoursite.com/2018/10/14/HTTP/http连接性能优化/</id>
-    <published>2018-10-14T02:23:06.000Z</published>
-    <updated>2018-10-15T00:50:59.177Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><h3 id="HTTP和TCP-IP的关系"><a href="#HTTP和TCP-IP的关系" class="headerlink" title="HTTP和TCP/IP的关系"></a>HTTP和TCP/IP的关系</h3><p>HTTP—&gt;(TSL/SSL)—&gt;TCP—&gt;IP<br>HTTP处于应用层、TCP处于传输层、IP处于网络层</p><ol><li>HTTP将所需要传输的数据以流的形式传递给TCP程序</li><li>TCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等</li><li>TCP程序将包装好的TCP数据段叫给IP程序，IP程序在此基础上封装进去IP分组首部，如源IP地址、目的IP地址，数据报总长度、分组ID、首部长度、首部校验和等等</li><li>最后交给数据链路层去发送这个IP分组数据段<a id="more"></a><h3 id="TCP性能的考虑"><a href="#TCP性能的考虑" class="headerlink" title="TCP性能的考虑"></a>TCP性能的考虑</h3><strong>HTTP紧挨着TCP，所以TCP的链接性能考虑直接影响的HTTP事务的性能。</strong></li></ol><h4 id="HTTP事务时延"><a href="#HTTP事务时延" class="headerlink" title="HTTP事务时延"></a>HTTP事务时延</h4><p>一次HTTP请求可分为 <strong>DNS查询</strong>、<strong>连接</strong>、<strong>请求</strong>、<strong>事务处理</strong>、<strong>响应</strong>、<strong>关闭连接</strong>。每一步都会产生时延。其中，相对于<strong>连接</strong>、<strong>请求</strong>所消耗的时间，<strong><em>事务处理</em></strong>的时间是很短的。</p><p>对HTTP程序员产生影响的时延 </p><ul><li>TCP握手建立链接 </li><li>TCP慢启动拥塞控制 </li><li>数据聚集的Nagle算法 </li><li>用于捎带确认的TCP延迟确认算法 </li><li>TIME_WAIT 时延和端口耗尽</li></ul><h4 id="HTTP连接处理"><a href="#HTTP连接处理" class="headerlink" title="HTTP连接处理"></a>HTTP连接处理</h4><h5 id="Connection首部真正用途"><a href="#Connection首部真正用途" class="headerlink" title="Connection首部真正用途"></a>Connection首部真正用途</h5><p>HTTP允许客户端和源服务器之间存在多个代理服务器或高速缓存服务器，进行HTTP连接通信时，可以将HTTP首部逐跳的经过这些设备。这个时候，怎么在相邻的HTTP应用程序之间的连接应用一些特殊的选项呢？— Connection首部，可以承载3种不同类型的标签，这些标签不会传播到其它连接中去。<br>a、HTTP首部字段名，列出了只与此连接有关的选项<br>b、任意标签，用于描述此连接的非标准选项<br>c、值close，说明操作完成之后需关闭这条持久连接<br>由于添加Connection首部的其它首部字段，不能随着报文转发出去。因此将逐跳首部放入Connection首部，就可以达到对首部的保护。<br>例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Cache-control: max-age=<span class="number">3600</span></span><br><span class="line">Connection: meter,close,bill-my-credit-card</span><br><span class="line">Meter: max-uses=<span class="number">3</span>,max-refuses=<span class="number">6</span>,dont-report</span><br></pre></td></tr></table></figure></p><p>实例说明：不应该转发Meter首部，要应用假想的bill-my-credit-card选项，且本次事务后应关闭持久连接。</p><h5 id="串行事务处理延迟"><a href="#串行事务处理延迟" class="headerlink" title="串行事务处理延迟"></a>串行事务处理延迟</h5><p>如果只对HTTP事务进行简单管理，TCP的性能时延可能会叠加起来，包括多次的建立连接和断开连接。</p><h4 id="提高HTTP连接性能的四个方法："><a href="#提高HTTP连接性能的四个方法：" class="headerlink" title="提高HTTP连接性能的四个方法："></a>提高HTTP连接性能的四个方法：</h4><h5 id="并行连接"><a href="#并行连接" class="headerlink" title="并行连接"></a>并行连接</h5><p>通过多条TCP连接发起并发的HTTP请求<br>并行连接从理论上回提高页面的加载速度，因为多个请求同时发出，时延可以重叠起来。<br>但并行连接并不是一点更快，原因可能是：客户端带宽限制、消耗更多的内存和计算资源。<br>现代浏览器确实使用并行连接，但会限制连接数在一个较小的值（通常是4），并且服务器可以关闭来自特定客户端的超量连接。</p><h5 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h5><p>重用TCP连接，以消除连接及关闭的时延<br>重用连接：HTTP/1.1(HTTP/1.0增强版)允许HTTP设备在事务处理结束后将TCP连接保持在打开状态，以便为未来的HTTP请求重用现存的连接。</p><h6 id="持久连接-并行连接"><a href="#持久连接-并行连接" class="headerlink" title="持久连接+并行连接"></a>持久连接+并行连接</h6><p>持久的连接的管理很重要，不小心会累积出大量的空闲连接</p><h6 id="HTTP-1-0-Keep-alive连接"><a href="#HTTP-1-0-Keep-alive连接" class="headerlink" title="HTTP/1.0 + Keep-alive连接"></a>HTTP/1.0 + Keep-alive连接</h6><p>Connection： Keep-alive属性出现在1996年HTTP/1.0版本中，当初也是被当做实验型持久连接。</p><p>可以用通用首部Keep-Alive属性指定由逗号分隔的选项来调节keep-alive的行为。例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Connection：Keep-alive</span><br><span class="line">Keep-Alive: max=<span class="number">5</span>,timeout=<span class="number">120</span></span><br></pre></td></tr></table></figure></p><p>说明：服务器还会为另外5个事务保持连接的打开状态，或者将打开状态保持到连接空闲后2分钟。</p><p>Connection属于逐跳首部，只适用于单条传输链路。</p><p>现在HTTP/1.1不再需要此属性，默认开启持久连接的。</p><h6 id="HTTP-1-1-持久连接"><a href="#HTTP-1-1-持久连接" class="headerlink" title="HTTP/1.1 持久连接"></a>HTTP/1.1 持久连接</h6><p>HTTP/1.1逐渐停止了对keep-alive连接的支持，用一种名为持久连接(persistentconnection)的改进型设计取代了它。</p><p>必须显示指定Connection: close才会指定TCP连接在响应后立即关闭。当客户端发送了Connection: close请求首部之后，客户端就无法在那条连接上发送更多请求了。<br>只有当连接上所有的报文都有正确的、自定义报文长度时，连接才能持久保持。</p><h5 id="管道化连接"><a href="#管道化连接" class="headerlink" title="管道化连接"></a>管道化连接</h5><p>通过共享的TCP连接发起并发的HTTP请求</p><p>HTTP/1.1 允许在持久连接上可选的使用请求管道。在响应到达之前，可以将多条请求放入队列，降低网络回环时间。</p><p>注：HTTP客户端不应该用管道化的方式发送会产生副作用的请求（比如POST），因为出错时，无法安全的重试POST这样的非幂请求。</p><h5 id="复用的连接"><a href="#复用的连接" class="headerlink" title="复用的连接"></a>复用的连接</h5><p>交替传送请求和相应报文（实验阶段）</p><h3 id="HTTP1-1-的特点"><a href="#HTTP1-1-的特点" class="headerlink" title="HTTP1.1 的特点"></a>HTTP1.1 的特点</h3><h4 id="持久连接-1"><a href="#持久连接-1" class="headerlink" title="持久连接"></a>持久连接</h4><p>每个TCP连接开始都有三次握手，要经历一次客户端与服务器间完整的往返，而开启了持久连接就不需要每次都要握手<br><img src="/assets/images/keep-alive.png" alt="开启Keep-Alive"><br>在连接中有这个属性的就是打开了持久化连接。下图展示了通过持久 TCP 连接取得 HTML 和 CSS 文件：<br><img src="/assets/images/keep-alive1.jpg" alt="开启Keep-Alive"></p><h3 id="HTTP2-0-的特点"><a href="#HTTP2-0-的特点" class="headerlink" title="HTTP2.0 的特点"></a>HTTP2.0 的特点</h3><h3 id="HTTP-长连接与短连接"><a href="#HTTP-长连接与短连接" class="headerlink" title="HTTP 长连接与短连接"></a>HTTP 长连接与短连接</h3><p><strong>HTTP  是无状态的</strong><br>也就是说，浏览器和服务器每进行一次HTTP操作，就建立一次连接，但任务结束就中断连接。如果客户端浏览器访问的某个HTML或其他类型的Web页中包含有其他的Web资源，如JavaScript文件、图像文件、CSS文件等；当浏览器每遇到这样一个Web资源，就会建立一个HTTP会话.<br>http1.0中默认是关闭的，需要在http头加入”Connection: Keep-Alive”，才能启用Keep-Alive<br>http 1.1中默认启用Keep-Alive，如果加入”Connection: close”才关闭。<br>目前大部分浏览器都是用http1.1协议，也就是说默认都会发起Keep-Alive的连接请求了，所以是否能完成一个完整的Keep- Alive连接就看服务器设置情况。<br>下图是普通模式和长连接模式的请求对比：<br><img src="/assets/images/keep-alive2.png" alt="普通模式和长连接模式的请求对比"></p><h4 id="开启Keep-Alive的优缺点"><a href="#开启Keep-Alive的优缺点" class="headerlink" title="开启Keep-Alive的优缺点"></a>开启Keep-Alive的优缺点</h4><p>优点： Keep-Alive模式更加高效，因为避免了连接建立和释放的开销<br>缺点： 长时间的Tcp连接容易导致资源无效占用，浪费系统资源</p><h4 id="当保持长连接时，如何判断一次请求已经完成？"><a href="#当保持长连接时，如何判断一次请求已经完成？" class="headerlink" title="当保持长连接时，如何判断一次请求已经完成？"></a>当保持长连接时，如何判断一次请求已经完成？</h4><p>当保持长连接时，如何判断一次请求已经完成？ </p><h5 id="Content-Length"><a href="#Content-Length" class="headerlink" title="Content-Length"></a>Content-Length</h5><p>Content-Length表示实体内容的长度。浏览器通过这个字段来判断当前请求的数据是否已经全部接收。<br>所以，当浏览器请求的是一个静态资源时，即服务器能明确知道返回内容的长度时，可以设置Content-Length来控制请求的结束。但当服务器并不知道请求结果的长度时，如一个动态的页面或者数据，Content-Length就无法解决上面的问题，这个时候就需要用到Transfer-Encoding字段。</p><h5 id="Transfer-Encoding"><a href="#Transfer-Encoding" class="headerlink" title="Transfer-Encoding"></a>Transfer-Encoding</h5><p>Transfer-Encoding是指<strong>传输编码</strong>，在上面的问题中，当服务端无法知道实体内容的长度时，就可以通过指定Transfer-Encoding: chunked来告知浏览器当前的编码是将数据分成一块一块传递的。当然, 还可以指定Transfer-Encoding: gzip, chunked表明实体内容不仅是gzip压缩的，还是分块传递的。最后，当浏览器接收到一个长度为0的chunked时， 知道当前请求内容已全部接收。</p><h4 id="Keep-Alive-timeout："><a href="#Keep-Alive-timeout：" class="headerlink" title="Keep-Alive timeout："></a>Keep-Alive timeout：</h4><p>Httpd守护进程，一般都提供了keep-alive timeout时间设置参数。比如nginx的keepalive_timeout，和Apache的KeepAliveTimeout。这个keepalive_timout时间值意味着：一个http产生的tcp连接在传送完最后一个响应后，还需要hold住keepalive_timeout秒后，才开始关闭这个连接。<br>当httpd守护进程发送完一个响应后，理应马上主动关闭相应的tcp连接，设置 keepalive_timeout后，httpd守护进程会想说：”再等等吧，看看浏览器还有没有请求过来”，这一等，便是keepalive_timeout时间。如果守护进程在这个等待的时间里，一直没有收到浏览器发过来http请求，则关闭这个http连接。</p><h4 id="Tcp的Keepalive："><a href="#Tcp的Keepalive：" class="headerlink" title="Tcp的Keepalive："></a>Tcp的Keepalive：</h4><p>连接建立之后，如果客户端一直不发送数据，或者隔很长时间才发送一次数据，当连接很久没有数据报文传输时如何去确定对方还在线，到底是掉线了还是确实没有数据传输，连接还需不需要保持，这种情况在TCP协议设计中是需要考虑到的。<br>TCP协议通过一种巧妙的方式去解决这个问题，当超过一段时间之后，TCP自动发送一个数据为空的报文（侦测包）给对方，如果对方回应了这个报文，说明对方还在线，连接可以继续保持，如果对方没有报文返回，并且重试了多次之后则认为链接丢失，没有必要保持连接。</p><p>tcp keep-alive是TCP的一种检测TCP连接状况的保鲜机制。tcp keep-alive保鲜定时器，支持三个系统内核配置参数：<br>net.ipv4.tcp_keepalive_intvl = 15<br>net.ipv4.tcp_keepalive_probes = 5<br>net.ipv4.tcp_keepalive_time = 1800<br>keepalive是TCP保鲜定时器，当网络两端建立了TCP连接之后，闲置（双方没有任何数据流发送往来）了tcp_keepalive_time后，服务器就会尝试向客户端发送侦测包，来判断TCP连接状况(有可能客户端崩溃、强制关闭了应用、主机不可达等等)。如果没有收到对方的回答(ack包)，则会在 tcp_keepalive_intvl后再次尝试发送侦测包，直到收到对方的ack,如果一直没有收到对方的ack,一共会尝试 tcp_keepalive_probes次，每次的间隔时间在这里分别是15s, 30s, 45s, 60s, 75s。如果尝试tcp_keepalive_probes,依然没有收到对方的ack包，则会丢弃该TCP连接。TCP连接默认闲置时间是2小时，一般设置为30分钟足够了。</p><p>参考文章： <a href="https://blog.csdn.net/weixin_37672169/article/details/80283935" target="_blank" rel="noopener">浅谈Http长连接和Keep-Alive以及Tcp的Keepalive</a>、<a href="https://blog.csdn.net/joye123/article/details/51931375?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">http性能优化</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- toc --&gt;
-&lt;h3 id=&quot;HTTP和TCP-IP的关系&quot;&gt;&lt;a href=&quot;#HTTP和TCP-IP的关系&quot; class=&quot;headerlink&quot; title=&quot;HTTP和TCP/IP的关系&quot;&gt;&lt;/a&gt;HTTP和TCP/IP的关系&lt;/h3&gt;&lt;p&gt;HTTP—&amp;gt;(TSL/SSL)—&amp;gt;TCP—&amp;gt;IP&lt;br&gt;HTTP处于应用层、TCP处于传输层、IP处于网络层&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;HTTP将所需要传输的数据以流的形式传递给TCP程序&lt;/li&gt;
-&lt;li&gt;TCP解析数据中的IP地址和端口号，将数据流分割成数据段，并添加上TCP段首部，如TCP握手（ACK、SYNC等），源端口，目的端口、TCP校验和等&lt;/li&gt;
-&lt;li&gt;TCP程序将包装好的TCP数据段叫给IP程序，IP程序在此基础上封装进去IP分组首部，如源IP地址、目的IP地址，数据报总长度、分组ID、首部长度、首部校验和等等&lt;/li&gt;
-&lt;li&gt;最后交给数据链路层去发送这个IP分组数据段&lt;/li&gt;&lt;/ol&gt;
     
     </summary>
     
