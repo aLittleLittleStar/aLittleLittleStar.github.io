@@ -246,9 +246,14 @@
 </div>
 
     
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：2.7k字
+    </span>
 </div>
 
     
+
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP和TCP-IP的关系"><span class="toc-text">HTTP和TCP/IP的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP性能的考虑"><span class="toc-text">TCP性能的考虑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP事务时延"><span class="toc-text">HTTP事务时延</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP连接处理"><span class="toc-text">HTTP连接处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Connection首部真正用途"><span class="toc-text">Connection首部真正用途</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#串行事务处理延迟"><span class="toc-text">串行事务处理延迟</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提高HTTP连接性能的四个方法："><span class="toc-text">提高HTTP连接性能的四个方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#并行连接"><span class="toc-text">并行连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#持久连接"><span class="toc-text">持久连接</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#持久连接-并行连接"><span class="toc-text">持久连接+并行连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP-1-0-Keep-alive连接"><span class="toc-text">HTTP/1.0 + Keep-alive连接</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTTP-1-1-持久连接"><span class="toc-text">HTTP/1.1 持久连接</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#管道化连接"><span class="toc-text">管道化连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#复用的连接"><span class="toc-text">复用的连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP1-1-的特点"><span class="toc-text">HTTP1.1 的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#持久连接-1"><span class="toc-text">持久连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP2-0-的特点"><span class="toc-text">HTTP2.0 的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-长连接与短连接"><span class="toc-text">HTTP 长连接与短连接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#开启Keep-Alive的优缺点"><span class="toc-text">开启Keep-Alive的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#当保持长连接时，如何判断一次请求已经完成？"><span class="toc-text">当保持长连接时，如何判断一次请求已经完成？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Content-Length"><span class="toc-text">Content-Length</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Transfer-Encoding"><span class="toc-text">Transfer-Encoding</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Keep-Alive-timeout："><span class="toc-text">Keep-Alive timeout：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tcp的Keepalive："><span class="toc-text">Tcp的Keepalive：</span></a></li></ol></li></ol>
@@ -651,6 +656,25 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
                             <h3 class="media-heading">清除浮动</h3>
                         </a>
@@ -689,8 +713,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -721,25 +745,6 @@ setInterval("createtime()",250);
                         <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
 <ol>
 <li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
