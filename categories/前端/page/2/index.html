@@ -485,55 +485,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/JS/bind和call/">
-                            bind、apply和call的区别
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:21:49+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>ing…<br>bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，<br>他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下<br>来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，<br>bind是返回一个改变this指向的函数。<br>apply方法和call方法有些相似，它也可以改变this的指向<br>同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/10/10/JS/bind和call/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
                         <a class="link-unstyled" href="/2018/10/10/CSS3/css模块化/">
                             css模块化
                         </a>
@@ -601,6 +552,55 @@
                     
                         <p>
                             <a href="/2018/10/10/CSS3/css模块化/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/10/10/JS/bind和call/">
+                            bind、apply和call的区别
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-10-10T18:21:49+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>ing…<br>bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，<br>他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下<br>来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，<br>bind是返回一个改变this指向的函数。<br>apply方法和call方法有些相似，它也可以改变this的指向<br>同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组</p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/10/10/JS/bind和call/#post-footer" class="postShorten-excerpt_link link">
                                 评论和共享
                             </a>
                         </p>
@@ -822,7 +822,27 @@
     <span class="copyrights">
         Copyrights &copy; 2019 LittleStar. All Rights Reserved.
     </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：28.8k</span>
 </footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
 
             </div>
             
