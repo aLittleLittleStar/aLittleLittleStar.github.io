@@ -73,4 +73,4 @@ HTTPS协议的主要作用可以分为两种：一种是建立一个***信息安
 + https协议需要到ca申请证书，一般免费证书很少，需要交费。 
 + 
 
-参考文章：[HTTP和HTTPS的区别](http://www.mahaixiang.cn/internet/1233.html)、[HTTP与HTTPS的区别](https://www.cnblogs.com/wudaoyongchang/p/6253451.html)
+参考文章：[HTTP和HTTPS的区别](http://www.mahaixiang.cn/internet/1233.html)、[HTTP与HTTPS的区别](https://www.cnblogs.com/wudaoyongchang/p/6253451.html) 、[HTTP详解](http://www.alloyteam.com/2016/07/httphttp2-0spdyhttps-reading-this-is-enough/)

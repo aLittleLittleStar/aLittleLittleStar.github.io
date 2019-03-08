@@ -11,6 +11,9 @@ author: LittleStar
 language: zh-cn #语言
 timezone:  #时区，此处不填写，hexo会以你目前电脑的时区为默认值
 
+
+
+
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
@@ -42,7 +45,7 @@ highlight:
   enable: true
   line_number: true
   auto_detect: false
-  tab_replace:
+  tab_replace: 
   
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -107,3 +110,11 @@ jsonContent:
     categories: false
     tags: true
 
+# Post wordcount display settings
+# Dependencies: https://github.com/willin/hexo-wordcount
+post_wordcount:
+  item_text: true
+  wordcount: true         # 单篇 字数统计
+  min2read: true          # 单篇 阅读时长
+  totalcount: false       # 网站 字数统计
+  separated_meta: true

@@ -36,6 +36,8 @@
                 <a class="archive-post-title" href="<%- url_for(post.path) %>"><%= post.title || '(' + __('post.no_title') + ')' %></a>
                 <span class="archive-post-date"><%= ' - ' + post.date.locale(page.lang).format(__('date_format')).toLowerCase() %></span>
             </li>
+                        <% if(theme.word_count && !post.no_word_count) %>
+            <% partial('post/word') %>
         <% }) %>
     </section>
 </div>

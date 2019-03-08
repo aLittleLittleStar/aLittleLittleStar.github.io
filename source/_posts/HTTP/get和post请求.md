@@ -40,11 +40,5 @@ GET只接受ASCII字符的参数的数据类型，而POST没有限制
 ##### 其他 HTTP 请求方法
 ![get post](/assets/images/http.png)
 
-> 
-> 参考文章 [HTTP 方法：GET 对比 POST](http://www.w3school.com.cn/tags/html_ref_httpmethods.asp) 、[get和post的区别--面试经常被问到！](https://blog.csdn.net/qq_26360877/article/details/70665820)
-> 
-
-
-
-
-
+参考文章 
+[HTTP 方法：GET 对比 POST](http://www.w3school.com.cn/tags/html_ref_httpmethods.asp) 、[get和post的区别--面试经常被问到！](https://blog.csdn.net/qq_26360877/article/details/70665820)
