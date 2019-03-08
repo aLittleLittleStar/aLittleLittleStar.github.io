@@ -179,7 +179,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-ZwjLUsXs"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-jUMwasxs"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -267,12 +267,23 @@
   <entry>
     <title><![CDATA[get和post请求]]></title>
     <url>%2F2018%2F10%2F10%2FHTTP%2Fget%E5%92%8Cpost%E8%AF%B7%E6%B1%82%2F</url>
-    <content type="text"><![CDATA[在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。 get 和 post 的区别get把请求的数据放在url上，即HTTP协议头上，其格式为： 以?分割URL和传输数据，参数之间以&amp;相连。 数据如果是英文字母/数字，原样发送， 如果是空格，转换为+， 如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。post把数据放在HTTP的包体内（requrest body）。 get提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。 GET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。 GET在浏览器回退时是无害的，POST会再次提交请求。 GET产生的URL地址可以被Bookmark，而POST不可以。 GET请求会被浏览器主动cache，而POST不会，除非手动设置。 GET请求只能进行url编码，而POST支持多种编码方式。 GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。 GET只接受ASCII字符的参数的数据类型，而POST没有限制 那么，post那么好为什么还用get？get效率高！。 其他 HTTP 请求方法 参考文章 HTTP 方法：GET 对比 POST 、get和post的区别–面试经常被问到！]]></content>
+    <content type="text"><![CDATA[在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。 get 和 post 的区别get把请求的数据放在url上，即HTTP协议头上，其格式为： 以?分割URL和传输数据，参数之间以&amp;相连。 数据如果是英文字母/数字，原样发送， 如果是空格，转换为+， 如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。post把数据放在HTTP的包体内（requrest body）。 get提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。 GET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。 GET在浏览器回退时是无害的，POST会再次提交请求。 GET产生的URL地址可以被Bookmark，而POST不可以。 GET请求会被浏览器主动cache，而POST不会，除非手动设置。 GET请求只能进行url编码，而POST支持多种编码方式。 GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。 GET只接受ASCII字符的参数的数据类型，而POST没有限制 那么，post那么好为什么还用get？get效率高！。 其他 HTTP 请求方法 参考文章HTTP 方法：GET 对比 POST 、get和post的区别–面试经常被问到！]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
         <tag>http</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[css模块化]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
@@ -306,17 +317,6 @@
       </categories>
       <tags>
         <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[css模块化]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>

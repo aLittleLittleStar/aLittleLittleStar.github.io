@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。\nget 和 post 的区别get把请求的数据放在url上，即HTTP协议头上，其格式为：    以?分割URL和传输数据，参数之间以&amp;相连。    数据如果是英文字母/数字，原样发送，    如果是空格，转换为+，    如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。post把数据放在HTTP的包体内（requrest body）。\nget提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。\nGET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。\nGET在浏览器回退时是无害的，POST会再次提交请求。 \nGET产生的URL地址可以被Bookmark，而POST不可以。 \nGET请求会被浏览器主动cache，而POST不会，除非手动设置。 \nGET请求只能进行url编码，而POST支持多种编码方式。 \nGET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。 \nGET只接受ASCII字符的参数的数据类型，而POST没有限制\n那么，post那么好为什么还用get？get效率高！。\n\n其他 HTTP 请求方法\n\n参考文章 HTTP 方法：GET 对比 POST 、get和post的区别–面试经常被问到！\n\n","dateCreated":"2018-10-10T18:52:53+08:00","dateModified":"2018-10-12T16:50:00+08:00","datePublished":"2018-10-10T18:52:53+08:00","description":"在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。","headline":"get和post请求","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/HTTP/get和post请求/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/HTTP/get和post请求/","keywords":"http"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。\nget 和 post 的区别get把请求的数据放在url上，即HTTP协议头上，其格式为：    以?分割URL和传输数据，参数之间以&amp;相连。    数据如果是英文字母/数字，原样发送，    如果是空格，转换为+，    如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。post把数据放在HTTP的包体内（requrest body）。\nget提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。\nGET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。\nGET在浏览器回退时是无害的，POST会再次提交请求。 \nGET产生的URL地址可以被Bookmark，而POST不可以。 \nGET请求会被浏览器主动cache，而POST不会，除非手动设置。 \nGET请求只能进行url编码，而POST支持多种编码方式。 \nGET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。 \nGET只接受ASCII字符的参数的数据类型，而POST没有限制\n那么，post那么好为什么还用get？get效率高！。\n\n其他 HTTP 请求方法\n参考文章HTTP 方法：GET 对比 POST 、get和post的区别–面试经常被问到！\n","dateCreated":"2018-10-10T18:52:53+08:00","dateModified":"2019-03-08T14:59:21+08:00","datePublished":"2018-10-10T18:52:53+08:00","description":"在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。","headline":"get和post请求","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/HTTP/get和post请求/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/HTTP/get和post请求/","keywords":"http"}</script>
     <meta name="description" content="在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。">
 <meta name="keywords" content="http">
 <meta property="og:type" content="blog">
@@ -26,7 +26,7 @@
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/assets/images/get-post.png">
 <meta property="og:image" content="http://yoursite.com/assets/images/http.png">
-<meta property="og:updated_time" content="2018-10-12T08:50:00.119Z">
+<meta property="og:updated_time" content="2019-03-08T06:59:21.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="get和post请求">
 <meta name="twitter:description" content="在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。">
@@ -268,9 +268,7 @@
 <p>那么，post那么好为什么还用get？get效率高！。</p>
 <p><img src="/assets/images/get-post.png" alt="get post"></p>
 <h5 id="其他-HTTP-请求方法"><a href="#其他-HTTP-请求方法" class="headerlink" title="其他 HTTP 请求方法"></a>其他 HTTP 请求方法</h5><p><img src="/assets/images/http.png" alt="get post"></p>
-<blockquote>
-<p>参考文章 <a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">HTTP 方法：GET 对比 POST</a> 、<a href="https://blog.csdn.net/qq_26360877/article/details/70665820" target="_blank" rel="noopener">get和post的区别–面试经常被问到！</a></p>
-</blockquote>
+<p>参考文章<br><a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">HTTP 方法：GET 对比 POST</a> 、<a href="https://blog.csdn.net/qq_26360877/article/details/70665820" target="_blank" rel="noopener">get和post的区别–面试经常被问到！</a></p>
 
             
 
@@ -301,7 +299,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/CSS3/清除浮动/" data-tooltip="清除浮动" aria-label="下一篇: 清除浮动">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/CSS3/css模块化/" data-tooltip="css模块化" aria-label="下一篇: css模块化">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -415,7 +413,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/CSS3/清除浮动/" data-tooltip="清除浮动" aria-label="下一篇: 清除浮动">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/CSS3/css模块化/" data-tooltip="css模块化" aria-label="下一篇: css模块化">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -626,27 +624,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -666,6 +645,25 @@ setInterval("createtime()",250);
                     <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
                             <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -704,8 +702,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
