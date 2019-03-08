@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n过程概述　　从输入域名到网页打开的简单过程如下：1. DNS域名解析　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址2. 建立TCP连接　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即tcp三次握手连接， 建立起TCP/IP网络连接， 具体过程如下：　　第一次握手：　　　　主机向服务器发送一个建立连接的请求（您好，我想认识您）　　　　建立连接时，客户端发送syn包(syn=j)到服务器，并进入SYN_SEND状态，等待服务器确认　　第二次握手：　　　　服务器接到请求后发送同意连接的信号（好的，很高兴认识您）　　　　服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器 进入SYN_RECV状态；　　第三次握手：　　　　主机接到同意连接的信号后，再次向服务器发送了确认信号（我也很高兴认识您），自此，主机与服务器两者建立了连接　　　　客户端收到服务器的SYN＋ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入 ESTABLISHED状态，完成三次握手。通过这样的三次握手，客户端与服务端建立起可靠的双工的连接，开始传送数据。补充说明:　　　　TCP 协议：三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求重新发送信号。3. 发送HTTP请求　　与服务器建立连接之后，就可以向服务器发送请求了，请求需要遵循http协议4.服务器处理请求；　　被请求的服务器解析用户请求的有哪些资源，通过服务器返回数据给客户端5.返回响应结果；　　给客户端返回请求的状态码，通过状态码可以知道服务器端的处理是否正常6.浏览器渲染：　　返回成功之后，浏览器拿到请求页面的代码，将其解析渲染出来。解析和渲染的过程主要由浏览器的渲染引擎实现。\n根据域名查找 IP 地址概念解释　　IP 地址：IP 协议为互联网上的每一个网络和每一台主机分配的一个逻辑地址。IP 地址如同门牌号码，通过 IP 地址才能确定一台主机位置。服务器本质也是一台主机，想要访问某个服务器，必须先知道它的 IP 地址；　　域名(DN)：IP 地址由四个数字组成，中间用点号连接，在使用过程中难记忆且易输入错误，所以用我们熟悉的字母和数字组合来代替纯数字的 IP 地址，比如我们只会记住 www.baidu.com（百度域名） 而不是 220.181.112.244（百度的其中一个 IP 地址）；　　DNS： 每个域名都对应一个或多个提供相同服务服务器的 IP 地址，只有知道服务器 IP 地址才能建立连接，所以需要通过 DNS 把域名解析成一个 IP 地址。\n　　知道了上面的概念，大概就知道了想要获得服务器的门牌号码，需要先将域名转换成 IP 地址。转换过程如下（以查询 www.baidu.com 的 IP 地址为例，其中2、3、4步均在上一步未查询成功的情况下进行）：\n查找过程\n浏览器搜索自己的 DNS 缓存（维护一张域名与 IP 地址的对应表）；\n搜索操作系统中的 DNS 缓存（维护一张域名与 IP 地址的对应表）；\n搜索操作系统的 hosts 文件（ Windows 环境下，维护一张域名与 IP 地址的对应表）；\n操作系统将域名发送至 LDNS（本地区域名服务器，如果你在学校接入互联网，则 LDNS 服务器就在学校，如果通过电信接入互联网，则 LDNS 服务器就在你当地的电信那里。）LDNS 查询自己的 DNS 缓存（一般查找成功率在 80% 左右），查找成功则返回结果，失败则发起一个迭代 DNS 解析请求；\nLDNS 向 Root Name Server（根域名服务器，其虽然没有每个域名的的具体信息，但存储了负责每个域，如 com、net、org等的解析的顶级域名服务器的地址）发起请求，此处，Root Name Server返回 com 域的顶级域名服务器的地址；\nLDNS 向 com 域的顶级域名服务器发起请求，返回 baidu.com域名服务器地址；\nLDNS 向 baidu.com 域名服务器发起请求，得到 www.baidu.com的 IP 地址；\n\n\nLDNS 将得到的 IP 地址返回给操作系统，同时自己也将 IP 地址缓存起来；\n操作系统将 IP 地址返回给浏览器，同时自己也将 IP 地址缓存起来；\n至此，浏览器已经得到了域名对应的 IP 地址。\n\n补充说明　　域名与 URL 是两个概念：域名是一台或一组服务器的名称，用来确定服务器在 Internet 上的位置；URL 是统一资源定位符，用来确定某一个文件的具体位置，例如，zhihu.com 是 知乎的域名，根据这个域名可以找到知乎的服务器，zhihu.com/people/CompileYouth 是 URL ，可以根据这个 URL 定位我的知乎主页；　　IP 地址与域名不是一一对应的关系：可以把多个提供相同服务的服务器 IP 设置为同一个域名，但在同一时刻一个域名只能解析出一个 IP地址；同时，一个 IP 地址可以绑定多个域名，数量不限；\n网页请求与显示　　当服务器与主机建立了连接之后，下面主机便与服务器进行通信。网页请求是一个单向请求的过程，即是一个主机向服务器请求数据，服务器返回相应的数据的过程。\n\n服务器接到请求后，会根据 HTTP 请求中的内容来决定如何获取相应的 HTML 文件；\n服务器将得到的 HTML 文件发送给浏览器；\n在浏览器还没有完全接收 HTML 文件时便开始渲染、显示网页；\n在执行 HTML 中代码时，根据需要，浏览器会继续请求图片、CSS、JavsScript等文件，过程同请求 HTML \n\n断开连接–四次挥手\n主机向服务器发送一个断开连接的请求（不早了，我该走了）；\n服务器接到请求后发送确认收到请求的信号（知道了）；\n服务器向主机发送断开通知（我也该走了）；\n主机接到断开通知后断开连接并反馈一个确认信号（嗯，好的），服务器收到确认信号后断开连接；\n\nURL　　一个完整的URL地址由：协议、服务器地址(主机)、端口、资源路径(文件)。其中网络地址指示该连接网络上哪一台计算机，可以是域名或者IP地址，可以包括端口号；协议是从 该计算机获取资源的方式，常见的是HTTP、FTP，不同协议有不同的通讯内容格式；资源路径指示从服务器上获取哪一项资源。例如：http://www.guokr.com/question/554991/超文本传输协议：http服务器地址：www.guokr.com端口： http协议的默认端口为80资源路径：是指要活的的文件的路径 -&gt;/question/554991/\n转载：　　一个页面从输入url,到页面显示加载完成,这个过程中都发生了什么?　　从输入 URL 到页面加载完成的过程中都发生了什么参考文章：　　从键入网址到页面显示经历了那些过程\n","dateCreated":"2019-02-23T22:45:31+08:00","dateModified":"2019-02-25T20:24:21+08:00","datePublished":"2019-02-23T22:45:31+08:00","description":"\n过程概述　　从输入域名到网页打开的简单过程如下：1. DNS域名解析　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址2. 建立TCP连接　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即tcp三次握手连接， 建立起TCP/IP网络连接， 具体过程如下：","headline":"网页从输入网址到渲染完成经历了哪些过程","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/02/23/HTTP/网页从输入网址到渲染完成经历了哪些过程/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2019/02/23/HTTP/网页从输入网址到渲染完成经历了哪些过程/","keywords":"网页从输入网址到渲染完成经历了哪些过程"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n过程概述　　从输入域名到网页打开的简单过程如下：1. DNS域名解析　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址2. 建立TCP连接　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即tcp三次握手连接， 建立起TCP/IP网络连接， 具体过程如下：　　第一次握手：　　　　主机向服务器发送一个建立连接的请求（您好，我想认识您）　　　　建立连接时，客户端发送syn包(syn=j)到服务器，并进入SYN_SEND状态，等待服务器确认　　第二次握手：　　　　服务器接到请求后发送同意连接的信号（好的，很高兴认识您）　　　　服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器 进入SYN_RECV状态；　　第三次握手：　　　　主机接到同意连接的信号后，再次向服务器发送了确认信号（我也很高兴认识您），自此，主机与服务器两者建立了连接　　　　客户端收到服务器的SYN＋ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入 ESTABLISHED状态，完成三次握手。通过这样的三次握手，客户端与服务端建立起可靠的双工的连接，开始传送数据。补充说明:　　　　TCP 协议：三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求重新发送信号。3. 发送HTTP请求　　与服务器建立连接之后，就可以向服务器发送请求了，请求需要遵循http协议4.服务器处理请求；　　被请求的服务器解析用户请求的有哪些资源，通过服务器返回数据给客户端5.返回响应结果；　　给客户端返回请求的状态码，通过状态码可以知道服务器端的处理是否正常6.浏览器渲染：　　返回成功之后，浏览器拿到请求页面的代码，将其解析渲染出来。解析和渲染的过程主要由浏览器的渲染引擎实现。\n根据域名查找 IP 地址概念解释　　IP 地址：IP 协议为互联网上的每一个网络和每一台主机分配的一个逻辑地址。IP 地址如同门牌号码，通过 IP 地址才能确定一台主机位置。服务器本质也是一台主机，想要访问某个服务器，必须先知道它的 IP 地址；　　域名(DN)：IP 地址由四个数字组成，中间用点号连接，在使用过程中难记忆且易输入错误，所以用我们熟悉的字母和数字组合来代替纯数字的 IP 地址，比如我们只会记住 www.baidu.com（百度域名） 而不是 220.181.112.244（百度的其中一个 IP 地址）；　　DNS： 每个域名都对应一个或多个提供相同服务服务器的 IP 地址，只有知道服务器 IP 地址才能建立连接，所以需要通过 DNS 把域名解析成一个 IP 地址。\n　　知道了上面的概念，大概就知道了想要获得服务器的门牌号码，需要先将域名转换成 IP 地址。转换过程如下（以查询 www.baidu.com 的 IP 地址为例，其中2、3、4步均在上一步未查询成功的情况下进行）：\n查找过程\n浏览器搜索自己的 DNS 缓存（维护一张域名与 IP 地址的对应表）；\n搜索操作系统中的 DNS 缓存（维护一张域名与 IP 地址的对应表）；\n搜索操作系统的 hosts 文件（ Windows 环境下，维护一张域名与 IP 地址的对应表）；\n操作系统将域名发送至 LDNS（本地区域名服务器，如果你在学校接入互联网，则 LDNS 服务器就在学校，如果通过电信接入互联网，则 LDNS 服务器就在你当地的电信那里。）LDNS 查询自己的 DNS 缓存（一般查找成功率在 80% 左右），查找成功则返回结果，失败则发起一个迭代 DNS 解析请求；\nLDNS 向 Root Name Server（根域名服务器，其虽然没有每个域名的的具体信息，但存储了负责每个域，如 com、net、org等的解析的顶级域名服务器的地址）发起请求，此处，Root Name Server返回 com 域的顶级域名服务器的地址；\nLDNS 向 com 域的顶级域名服务器发起请求，返回 baidu.com域名服务器地址；\nLDNS 向 baidu.com 域名服务器发起请求，得到 www.baidu.com的 IP 地址；\n\n\nLDNS 将得到的 IP 地址返回给操作系统，同时自己也将 IP 地址缓存起来；\n操作系统将 IP 地址返回给浏览器，同时自己也将 IP 地址缓存起来；\n至此，浏览器已经得到了域名对应的 IP 地址。\n\n补充说明　　域名与 URL 是两个概念：域名是一台或一组服务器的名称，用来确定服务器在 Internet 上的位置；URL 是统一资源定位符，用来确定某一个文件的具体位置，例如，zhihu.com 是 知乎的域名，根据这个域名可以找到知乎的服务器，zhihu.com/people/CompileYouth 是 URL ，可以根据这个 URL 定位我的知乎主页；　　IP 地址与域名不是一一对应的关系：可以把多个提供相同服务的服务器 IP 设置为同一个域名，但在同一时刻一个域名只能解析出一个 IP地址；同时，一个 IP 地址可以绑定多个域名，数量不限；\n网页请求与显示　　当服务器与主机建立了连接之后，下面主机便与服务器进行通信。网页请求是一个单向请求的过程，即是一个主机向服务器请求数据，服务器返回相应的数据的过程。\n\n服务器接到请求后，会根据 HTTP 请求中的内容来决定如何获取相应的 HTML 文件；\n服务器将得到的 HTML 文件发送给浏览器；\n在浏览器还没有完全接收 HTML 文件时便开始渲染、显示网页；\n在执行 HTML 中代码时，根据需要，浏览器会继续请求图片、CSS、JavsScript等文件，过程同请求 HTML \n\n断开连接–四次挥手\n主机向服务器发送一个断开连接的请求（不早了，我该走了）；\n服务器接到请求后发送确认收到请求的信号（知道了）；\n服务器向主机发送断开通知（我也该走了）；\n主机接到断开通知后断开连接并反馈一个确认信号（嗯，好的），服务器收到确认信号后断开连接；\n\nURL　　一个完整的URL地址由：协议、服务器地址(主机)、端口、资源路径(文件)。其中网络地址指示该连接网络上哪一台计算机，可以是域名或者IP地址，可以包括端口号；协议是从 该计算机获取资源的方式，常见的是HTTP、FTP，不同协议有不同的通讯内容格式；资源路径指示从服务器上获取哪一项资源。例如：http://www.guokr.com/question/554991/超文本传输协议：http服务器地址：www.guokr.com端口： http协议的默认端口为80资源路径：是指要活的的文件的路径 -&gt;/question/554991/\n转载：　　一个页面从输入url,到页面显示加载完成,这个过程中都发生了什么?　　从输入 URL 到页面加载完成的过程中都发生了什么参考文章：　　从键入网址到页面显示经历了那些过程\n","dateCreated":"2019-02-23T22:45:31+08:00","dateModified":"2019-02-25T20:24:21+08:00","datePublished":"2019-02-23T22:45:31+08:00","description":"\n过程概述　　从输入域名到网页打开的简单过程如下：1. DNS域名解析　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址2. 建立TCP连接　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即tcp三次握手连接， 建立起TCP/IP网络连接， 具体过程如下：","headline":"网页从输入网址到渲染完成经历了哪些过程","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/02/23/HTTP/网页从输入网址到渲染完成经历了哪些过程/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/02/23/HTTP/网页从输入网址到渲染完成经历了哪些过程/","keywords":"网页从输入网址到渲染完成经历了哪些过程"}</script>
     <meta name="description" content="过程概述　　从输入域名到网页打开的简单过程如下：1. DNS域名解析　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址2. 建立TCP连接　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即tcp三次握手连接， 建立起TCP/IP网络连接， 具体过程如下：">
 <meta name="keywords" content="网页从输入网址到渲染完成经历了哪些过程">
 <meta property="og:type" content="blog">
@@ -325,7 +325,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -438,7 +438,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -639,46 +639,27 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
                             <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -717,8 +698,27 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -787,7 +787,7 @@ setInterval("createtime()",250);
 
         
         
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->

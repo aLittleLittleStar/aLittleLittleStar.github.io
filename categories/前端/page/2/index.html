@@ -485,71 +485,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/CSS3/清除浮动/">
-                            清除浮动
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:21:49+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h5 id="清除浮动的方法"><a href="#清除浮动的方法" class="headerlink" title="清除浮动的方法"></a>清除浮动的方法</h5><ol>
-<li>使用带clear属性的空元素 div、hr、br都可以<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"clear"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span> <span class="attr">class</span>=<span class="string">"clear"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span> <span class="attr">class</span>=<span class="string">"clear"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.clear &#123;</span><br><span class="line">  clear: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">优点：通俗易懂，容易掌握</span><br><span class="line">缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。</span><br><span class="line">2. 使用CSS的overflow属性</span><br><span class="line">给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发</span><br><span class="line">hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容</span><br><span class="line">器层，把容器高度撑起，达到了清理浮动的效果。</span><br><span class="line"></span><br><span class="line">``` css</span><br><span class="line">.news &#123;</span><br><span class="line">  background-color: gray;</span><br><span class="line">  border: solid 1px black;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  *zoom: 1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news img &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news p &#123;</span><br><span class="line">  float: right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;news&quot;&gt;</span><br><span class="line">&lt;img src=&quot;news-pic.jpg&quot; /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">优点：不存在结构和语义化问题，代码量极少</span><br><span class="line">缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.</span><br><span class="line">3. 父元素也设置浮动(给浮动的元素的容器添加浮动)</span><br><span class="line">优点：不存在结构和语义化问题，代码量极少</span><br><span class="line">缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。</span><br><span class="line">4. 使用邻接元素处理</span><br><span class="line">什么都不做，给浮动元素后面的元素添加clear属性。</span><br><span class="line">``` css</span><br><span class="line">.news &#123;</span><br><span class="line">  background-color: gray;</span><br><span class="line">  border: solid 1px black;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news img &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news p &#123;</span><br><span class="line">  float: right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.content&#123;</span><br><span class="line">  clear:both;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;news&quot;&gt;</span><br><span class="line">&lt;img src=&quot;news-pic.jpg&quot; /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;/p&gt;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>使用:after 伪元素<br>结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。<br>给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。</li>
-</ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.news</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: gray;</span><br><span class="line">  <span class="attribute">border</span>: solid <span class="number">1px</span> black;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.news</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.news</span> <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">"020"</span>; </span><br><span class="line">  <span class="attribute">display</span>: block; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>; </span><br><span class="line">  <span class="attribute">clear</span>: both; </span><br><span class="line">  <span class="attribute">visibility</span>: hidden;  </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;</span><br><span class="line">  <span class="comment">/* 触发 hasLayout */</span> </span><br><span class="line">  <span class="attribute">zoom</span>: <span class="number">1</span>; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;div class="news clearfix"&gt;</span><br><span class="line">&lt;img src="news-pic.jpg" /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；<br>闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。</p>
-<p>通过上面的例子，我们不难发现清除浮动的方法可以分成两类：</p>
-<p>一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。</p>
-<p>二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。</p>
-<p>在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。</p>
-<p>最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/10/10/CSS3/清除浮动/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
                         <a class="link-unstyled" href="/2018/10/10/JS/bind和call/">
                             bind、apply和call的区别
                         </a>
@@ -585,6 +520,51 @@
                                 评论和共享
                             </a>
                         </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/10/10/H5/语义化标签/">
+                            语义化标签
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-10-10T18:21:49+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt">
+                    <p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
+<ol>
+<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol>
+                    
+                        <a href="/2018/10/10/H5/语义化标签/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
+                        
                     
                 </div>
             
@@ -748,14 +728,14 @@
     </article>
     
     
-    <article class="postShorten postShorten--thumbnailimg-right">
+    <article class="postShorten postShorten--thumbnailimg-bottom">
         <div class="postShorten-wrap">
             
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/H5/语义化标签/">
-                            语义化标签
+                        <a class="link-unstyled" href="/2018/10/10/CSS3/清除浮动/">
+                            清除浮动
                         </a>
                     
                 </h1>
@@ -776,15 +756,35 @@
 
             </div>
             
-                <div class="postShorten-excerpt">
-                    <p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
-<ol>
-<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol>
+                <div class="postShorten-content">
+                    <p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="清除浮动的方法"><a href="#清除浮动的方法" class="headerlink" title="清除浮动的方法"></a>清除浮动的方法</h5><ol>
+<li>使用带clear属性的空元素 div、hr、br都可以<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"clear"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span> <span class="attr">class</span>=<span class="string">"clear"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span> <span class="attr">class</span>=<span class="string">"clear"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.clear &#123;</span><br><span class="line">  clear: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">优点：通俗易懂，容易掌握</span><br><span class="line">缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。</span><br><span class="line">2. 使用CSS的overflow属性</span><br><span class="line">给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发</span><br><span class="line">hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容</span><br><span class="line">器层，把容器高度撑起，达到了清理浮动的效果。</span><br><span class="line"></span><br><span class="line">``` css</span><br><span class="line">.news &#123;</span><br><span class="line">  background-color: gray;</span><br><span class="line">  border: solid 1px black;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  *zoom: 1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news img &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news p &#123;</span><br><span class="line">  float: right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;news&quot;&gt;</span><br><span class="line">&lt;img src=&quot;news-pic.jpg&quot; /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">优点：不存在结构和语义化问题，代码量极少</span><br><span class="line">缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.</span><br><span class="line">3. 父元素也设置浮动(给浮动的元素的容器添加浮动)</span><br><span class="line">优点：不存在结构和语义化问题，代码量极少</span><br><span class="line">缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。</span><br><span class="line">4. 使用邻接元素处理</span><br><span class="line">什么都不做，给浮动元素后面的元素添加clear属性。</span><br><span class="line">``` css</span><br><span class="line">.news &#123;</span><br><span class="line">  background-color: gray;</span><br><span class="line">  border: solid 1px black;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news img &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news p &#123;</span><br><span class="line">  float: right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.content&#123;</span><br><span class="line">  clear:both;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;news&quot;&gt;</span><br><span class="line">&lt;img src=&quot;news-pic.jpg&quot; /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;/p&gt;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>使用:after 伪元素<br>结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。<br>给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.news</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: gray;</span><br><span class="line">  <span class="attribute">border</span>: solid <span class="number">1px</span> black;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.news</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.news</span> <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">"020"</span>; </span><br><span class="line">  <span class="attribute">display</span>: block; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>; </span><br><span class="line">  <span class="attribute">clear</span>: both; </span><br><span class="line">  <span class="attribute">visibility</span>: hidden;  </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;</span><br><span class="line">  <span class="comment">/* 触发 hasLayout */</span> </span><br><span class="line">  <span class="attribute">zoom</span>: <span class="number">1</span>; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;div class="news clearfix"&gt;</span><br><span class="line">&lt;img src="news-pic.jpg" /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；<br>闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。</p>
+<p>通过上面的例子，我们不难发现清除浮动的方法可以分成两类：</p>
+<p>一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。</p>
+<p>二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。</p>
+<p>在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。</p>
+<p>最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。</p>
+
                     
-                        <a href="/2018/10/10/H5/语义化标签/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
                         
+
+                    
+                    
+                        <p>
+                            <a href="/2018/10/10/CSS3/清除浮动/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
                     
                 </div>
             
@@ -965,46 +965,27 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
                             <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -1043,8 +1024,27 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -1113,7 +1113,7 @@ setInterval("createtime()",250);
 
         
         
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->
