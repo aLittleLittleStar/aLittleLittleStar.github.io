@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？\n为什么需要前端性能优化[优化的好处/目的]好处： \n\n从用户角度而言，优化能够让页面加载得更快、对用户的操作响应得更及时，能够给用户提供更为友好的体验。\n从服务商角度而言，优化能够减少页面请求数、或者减小请求所占带宽，能够节省可观的资源。\n\n前端优化的途径有很多，按粒度大致可以分为两类，第一类是页面级别的优化，例如 HTTP请求数、脚本的无阻塞加载、内联脚本的位置优化等 ;第二类则是代码级别的优化，例如 Javascript中的DOM 操作优化、CSS选择符优化、图片优化以及 HTML结构优化等等。另外，本着提高投入产出比的目的，后文提到的各种优化策略大致按照投入产出比从大到小的顺序排列。\n怎么进行优化\n内容优化\n\n减少Http请求次数\n原因: 这条策略是最重要最有效的，因为一个完整的请求要经过DNS寻址，与服务器建立连接，发送数据，等待服务器响应，接收数据这样一个消耗时间成本和资源成本的复杂的过程。\n使用方法：\n从设计实现层面简化页面\n合并多个CSS文件和js文件\n利用CSS Sprites整合图像\nInline Images(使用 data：URL scheme在实际的页面嵌入图像数据 )\n合理设置HTTP缓存等。\n使用懒加载进行图片的加载\n\n\n\n\n减少DNS查询\n原因: DNS查询也消耗响应时间，如果我们的网页内容来自各个不同的domain (比如嵌入了开放广告，引用了外部图片或脚本)，那么客户端首次解析这些domain也需要消耗一定的时间。DNS查询结果缓存在本地系统和浏览器中一段时间，所以DNS查询一般是对首次访问响应速度有所影响。\n使用方法: 优化网站设计（九）：减少DNS查找的次数\n减少DNS查找次数，最理想的方法就是将所有的内容资源都放在同一个域(Domain)下面，这样访问整个网站就只需要进行一次DNS查找，这样可以提高性能。\n但理想总归是理想，上面的理想做法会带来另外一个问题，就是由于这些资源都在同一个域，而HTTP /1.1 中推荐客户端针对每个域只有一定数量的并行度（它的建议是2），那么就会出现下载资源时的排队现象，这样就会降低性能。\n所以，折衷的做法是：建议在一个网站里面使用至少2个域，但不多于4个域来提供资源。我认为这条建议是很合理的，也值得我们在项目实践中去应用。\n\n\n\n\n避免重定向\n\n当客户端收到服务器的跳转回复时，客户端再次根据服务器回复中的location指定的地址再次发送请求，例如以下跳转回复:\n123HTTP/1.1 301 Moved PermanentlyLocation: http://example.com/newuriContent-Type: text/html\n\n当客户端遇到这种回复的时候，用户只能等待客户端再次发送请求，有的网站甚至会一直跳n次，跳到他想带你去的地方…当然在这个时候用户看不到任何页面内容，只有浏览器的进度条一直在刷新。\n\n\n\n使用Ajax缓存\nAjax可以帮助我们异步的下载网页内容，但是有些网页内容即使是异步的，用户还是在等待它的返回结果，例如ajax的返回是用户联系人的下拉列表。所以我们还是要注意尽量应用以下规则提高ajax的响应速度。\n使用方法：\n添加Expires 或 Cache-Control报文头使回复可以被客户端缓存\n压缩回复内容\n减少dns查询\n精简javascript\n避免跳转\n配置Etags\n\n\n\n\n延迟加载组件,预加载组件\n延迟加载\n这里讨论延迟加载需要我们知道我们的网页最初加载需要的最小内容集是什么。剩下的内容就可以推到延迟加载的集合中。\nJavascript是典型的可以延迟加载内容。一个比较激进的做法是开发网页时先确保网页在没有Javascript的时候也可以基本工作，然后通过延迟加载脚本来完成一些高级的功能。\n\n\n预加载\n与延迟加载目的相反，提前加载的是为了提前加载接下来网页中访问的资源，下面是提前加载的类型\n无条件提前加载：当前网页加载完成后，马上去下载一些其他的内容。例如google会在页面加载成功之后马上去下载一个所有结果中会用到的image sprite。\n有预期的的加载：这种情况一般发生在网页重新设计时，由于用户经常访问旧网页，本地对旧的网页内容缓存充分从而显得旧网页速度很快，而新的网页内容却没有缓存，设计者可以在旧网页的内容中预先加载一些新网页中可能用到的内容，这样新的网页就会生下来一些需要下载的资源。\n\n\n\n\n减少DOM元素数量:\n页面中存在大量DOM元素,会导致javascript遍历DOM的效率变慢。\n网页中元素过多对网页的加载和脚本的执行都是沉重的负担，500个元素和5000个元素在加载速度上会有很大差别。\n想知道你的网页中有多少元素，通过在浏览器中的一条简单命令就可以算出document.getElementsByTagName(&#39;*&#39;).length\n\n\n最小化iframe的数量：\niframes 提供了一个简单的方式把一个网站的内容嵌入到另一个网站中。但其创建速度比其他包括JavaScript和CSS的DOM元素的创建慢了1-2个数量级。\n优点\n可以用来加载速度较慢的内容，例如广告。\n安全沙箱保护。浏览器会对iframe中的内容进行安全控制。\n脚本可以并行下载\n\n\n缺点\n即使iframe内容为空也消耗加载时间\n会阻止页面加载\n没有语义\n\n\n\n\n避免404：HTTP请求时间消耗是很大的，因此使用HTTP请求来获得一个没有用处的响应（例如404没有找到页面）是完全没有必要的，它只会降低用户体验而不会有一点好处。\n404我们都不陌生，代表服务器没有找到资源，我们要特别要注意404的情况不要在我们提供的网页资源上，客户端发送一个请求但是服务器却返回一个无用的结果，时间浪费掉了。更糟糕的是我们网页中需要加载一个外部脚本，结果返回一个404，不仅阻塞了其他脚本下载，下载回来的内容(404)客户端还会将其当成Javascript去解析。\n\n\n\n\n服务器优化\n(1)使用内容分发网络（CDN）：把网站内容分散到多个、处于不同地域位置的服务器上可以加快下载速度。\n再次强调第一条黄金定律，减少网页内容的下载时间。提高下载速度还可以通过CDN(内容分发网络)来提升。CDN通过部署在不同地区的服务器来提高客户的下载速度。如果你的网站上有大量的静态内容，世界各地的用户都在访问，我说的是youtube么？那CDN是必不可少的。事实上大多数互联网中的巨头们都有自己的CDN。我们自己的网站可以先通过免费的CDN供应商来分发网页资源。\n添加Expires 或Cache-Control报文头(这条规则分为两个方面)\n对于静态内容添加Expires，将静态内容设为永不过期，或者很长时间以后。在IIS中设置Expires可以看Configure the HTTP Expires Response Header (IIS 7)。\n对于动态内容应用合适的Cache-Control，让浏览器根据条件来发送请求。关于asp.net的caching，可以看asp.net cache feature和asp.net caching best practices。\n\n\n\n\n(2)GZIP压缩\nGzip通常可以减少70%网页内容的大小，包括脚本、样式表、图片等文件。Gzip比deflate更高效，主流服务器都有相应的压缩支持模块。\n\n\n(3)设置ETag：ETags（Entity tags，实体标签）是web服务器和浏览器用于判断浏览器缓存中的内容和服务器中的原始内容是否匹配的一种机制。\n虽然标题叫配制ETags，但是这里你要根据具体情况进行一些判断。首先Etag简单来说是通过一个文件版本标识使得服务器可以轻松判断该请求的内容是否有所更新，如果没有就回复304 (not modified)，从而避免下载整个文件。\n\n\n(4)提前刷新缓冲区+ \n(5)对Ajax请求使用GET方法\n浏览器在实现XMLHttpRequest POST的时候分成两步，先发header，然后发送数据。而GET却可以用一个TCP报文完成请求。另外GET从语义上来讲是去服务器取数据，而POST则是向服务器发送数据，所以我们使用Ajax请求数据的时候尽量通过GET来完成。\n\n\n(6)避免空的图像src\n空的图片src仍然会使浏览器发送请求到服务器，这样完全是浪费时间，而且浪费服务器的资源。尤其是你的网站每天被很多人访问的时候，这种空请求造成的伤害不容忽略。\n\n\n\n\nCookie优化\n(1)减小Cookie大小\n去除没有必要的cookie，如果网页不需要cookie就完全禁掉\n将cookie的大小减到最小\n注意cookie设置的domain级别，没有必要情况下不要影响到sub-domain\n设置合适的过期时间，比较长的过期时间可以提高响应速度。\n\n\n(2)针对Web组件使用域名无关的Cookie\n大多数网站的静态资源都没必要cookie，我们可以采用不同的domain来单独存放这些静态文件，这样做不仅可以减少cookie大小从而提高响应速度，还有一个好处是有些proxy拒绝缓存带有cookie的内容，如果能将这些静态资源cookie去除，那就可以得到这些proxy的缓存支持。\n常见的划分domain的方式是将静态文件放在static.example.com，动态内容放在www.example.com。\n也有一些网站需要在二级域名上应用cookie，所有的子域都会继承，这种情况下一般会再购买一个专门的域名来存放cookie-free的静态资源。例如Yahoo!的yimg.com，YouTube的ytimg.com等。\n\n\n\n\nCSS优化\n(1)将CSS代码放在HTML页面的顶部\n经样式表(css)放在网页的HEAD中会让网页显得加载速度更快，因为这样做可以使浏览器逐步加载已将下载的网页内容。这对内容比较多的网页尤其重要，用户不用一直等待在一个白屏上，而是可以先看已经下载的内容。\n如果将样式表放在底部，浏览器会拒绝渲染已经下载的网页，因为大多数浏览器在实现时都努力避免重绘，样式表中的内容是绘制网页的关键信息，没有下载下来之前只好对不起观众了。\n\n\n(2)避免使用CSS表达式\nCSS表达式可以动态的设置CSS属性，在IE5-IE8中支持，其他浏览器中表达式会被忽略。例如下面表达式在不同时间设置不同的背景颜色。\nCSS表达式的问题在于它被重新计算的次数远比我们想象的要多，不仅在网页绘制或大小改变时计算，即使我们滚动屏幕或者移动鼠标的时候也在计算，因此我们还是尽量避免使用它来防止使用不当而造成的性能损耗。\n\n\n(3)使用来代替@import\n避免使用@import的原因很简单，因为它相当于将css放在网页内容底部。\n\n\n(4)避免使用Filters\nAlphaImageLoad也是IE5.5 - IE8中支持，这种滤镜的使用会导致图片在下载的时候阻塞网页绘制，另外使用这种滤镜会导致内存使用量的问题。IE9中已经不再支持。\n\n\n\n\nJS优化\n(1)将JavaScript脚本放在页面的底部。\nHTTP/1.1 specification建议浏览器对同一个hostname不要超过两个并行下载连接， 所以当你从多个domain下载图片的时候可以提高并行下载连接数量。但是当脚本在下载的时候，即使是来自不同的hostname浏览器也不会下载其他资源，因为浏览器要在脚本下载之后依次解析和执行。\n因此对于脚本提速，我们可以考虑以下方式，\n把脚本置底，这样可以让网页渲染所需要的内容尽快加载显示给用户。\n现在主流浏览器都支持defer关键字，可以指定脚本在文档加载后执行。\nHTML5中新加了async关键字，可以让脚本异步执行。\n\n\n\n\n(2)将JavaScript和CSS作为外部文件来引用：\n使用外部Javascript和CSS文件可以使这些文件被浏览器缓存，从而在不同的请求内容之间重用。\n同时将Javascript和CSS从inline变为external也减小了网页内容的大小。\n使用外部Javascript和CSS文件的决定因素在于这些外部文件的重用率，如果用户在浏览我们的页面时会访问多次相同页面或者可以重用脚本的不同页面，那么外部文件形式可以为你带来很大的好处。但对于用户通常只会访问一次的页面，例如microsoft.com首页，那inline的javascript和css相对来说可以提供更高的效率。\n\n\n(3)缩小JavaScript和CSS\n精简就是将Javascript或CSS中的空格和注释全去掉，\n\n\n(4)删除重复的脚本\n重复的脚本不仅浪费浏览器的下载时间，而且浪费解析和执行时间。一般用来避免引入重复脚本的做法是使用统一的脚本管理模块，这样不仅可以避免重复脚本引入，还可以兼顾脚本依赖管理和版本管理。\n\n\n(5)最小化DOM的访问：使用JavaScript访问DOM元素比较慢。\n通过Javascript访问DOM元素没有我们想象中快，元素多的网页尤其慢，对于Javascript对DOM的访问我们要注意\n缓存已经访问过的元素\nOffline更新节点然后再加回DOM Tree\n避免通过Javascript修复layout\n\n\n\n\n(6)开发智能的事件处理程序\n这里说智能的事件处理需要开发者对事件处理有更深入的了解，通过不同的方式尽量少去触发事件，如果必要就尽早的去处理事件。\n比如一个div中10个按钮都需要事件句柄，那么我们可以将事件放在div上，在事件冒泡过程中捕获该事件然后判断事件来源。\n\n\n(7)javascript代码注意：\n谨慎使用with,避免使用eval Function函数,减少作用域链查找。\nwith(obj){ p = 1}; 代码块的行为实际上是修改了代码块中的 执行环境 ，将obj放在了其作用域链的最前端，在 with代码块中访问非局部变量是都是先从 obj上开始查找，如果没有再依次按作用域链向上查找，因此使用 with相当于增加了作用域链长度。而每次查找作用域链都是要消耗时间的，过长的作用域链会导致查找性能下降。\n因此，除非你能肯定在 with代码中只访问 obj中的属性，否则慎用 with，替代的可以使用局部变量缓存需要访问的属性。\n\n\n\n\n\n\n图像优化\n(1)优化图片大小\n检查GIF图片中图像颜色的数量是否和调色板规格一致。如果你发现图片中只用到了4种颜色，而在调色板的中显示的256色的颜色槽，那么这张图片就还有压缩的空间。可以使用imagemagick检查：identify -verbose image.gif\n尝试把GIF格式转换成PNG格式，看看是否节省空间。大多数情况下是可以压缩的。下面这条简单的命令可以安全地把GIF格式转换为PNG格式： convert image.gif image.png\n在所有的PNG图片上运行pngcrush（或者其它PNG优化工具）。例如： pngcrush image.png -rem alla -reduce -brute result.png\n在所有的JPEG图片上运行jpegtran。这个工具可以对图片中的出现的锯齿等做无损操作，同时它还可以用于优化和清除图片中的注释以及其它无用信息 jpegtran -copy none -optimize -perfect src.jpg dest.jpg\n\n\n(2)通过CSS Sprites优化图片\nSpirite中水平排列图片，垂直排列会增加文件大小；\nSpirite中把颜色较近的组合在一起可以降低颜色数，理想状况是低于256色以便适用PNG8格式；\n不要在Spirite的图像中间留有较大空隙。这虽然不大会增加文件大小,但对于用户代理来说它需要更少的内存来把图片解压为像素地图。100×100的图片为1万像素，1000×1000就是100万像素。\n\n\n(3)不要在HTML中使用缩放图片\n不要通过图片缩放来适应页面，如果你需要小图片，就直接使用小图片吧。\n\n\n(4)favicon.ico要小而且可缓存\n网站图标文件favicon.ico，不管你服务器有还是没有，浏览器都会去尝试请求这个图标。所以我们要确保这个图标\n存在\n文件尽量小，最好小于1k\n设置一个长的过期时间\n\n\n\n\n\n\n移动客户端\n保持单个内容小于25KB\n这限制是因为iphone，他只能缓存小于25K，注意这是解压后的大小。所以单纯gzip不一定够用，精简文件工具要用上了。\n\n\n打包组建成符合文档\n把页面内容打包成复合文本就如同带有多附件的Email，它能够使你在一个HTTP请求中取得多个组建。当你使用这条规则时，首先要确定用户代理是否支持（iPhone不支持）。\n\n\n\n\n\n待解决的方面\n转载别人，如有错误请指出。\n\n","dateCreated":"2019-02-13T20:37:12+08:00","dateModified":"2019-02-14T03:02:24+08:00","datePublished":"2019-02-13T20:37:12+08:00","description":"\n\n转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？","headline":"前端性能优化","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/02/13/前端性能优化/前端性能优化/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/02/13/前端性能优化/前端性能优化/","keywords":"前端性能优化"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n\n转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？\n为什么需要前端性能优化[优化的好处/目的]好处： \n\n从用户角度而言，优化能够让页面加载得更快、对用户的操作响应得更及时，能够给用户提供更为友好的体验。\n从服务商角度而言，优化能够减少页面请求数、或者减小请求所占带宽，能够节省可观的资源。\n\n前端优化的途径有很多，按粒度大致可以分为两类，第一类是页面级别的优化，例如 HTTP请求数、脚本的无阻塞加载、内联脚本的位置优化等 ;第二类则是代码级别的优化，例如 Javascript中的DOM 操作优化、CSS选择符优化、图片优化以及 HTML结构优化等等。另外，本着提高投入产出比的目的，后文提到的各种优化策略大致按照投入产出比从大到小的顺序排列。\n怎么进行优化\n内容优化\n\n减少Http请求次数\n原因: 这条策略是最重要最有效的，因为一个完整的请求要经过DNS寻址，与服务器建立连接，发送数据，等待服务器响应，接收数据这样一个消耗时间成本和资源成本的复杂的过程。\n使用方法：\n从设计实现层面简化页面\n合并多个CSS文件和js文件\n利用CSS Sprites整合图像\nInline Images(使用 data：URL scheme在实际的页面嵌入图像数据 )\n合理设置HTTP缓存等。\n使用懒加载进行图片的加载\n\n\n\n\n减少DNS查询\n原因: DNS查询也消耗响应时间，如果我们的网页内容来自各个不同的domain (比如嵌入了开放广告，引用了外部图片或脚本)，那么客户端首次解析这些domain也需要消耗一定的时间。DNS查询结果缓存在本地系统和浏览器中一段时间，所以DNS查询一般是对首次访问响应速度有所影响。\n使用方法: 优化网站设计（九）：减少DNS查找的次数\n减少DNS查找次数，最理想的方法就是将所有的内容资源都放在同一个域(Domain)下面，这样访问整个网站就只需要进行一次DNS查找，这样可以提高性能。\n但理想总归是理想，上面的理想做法会带来另外一个问题，就是由于这些资源都在同一个域，而HTTP /1.1 中推荐客户端针对每个域只有一定数量的并行度（它的建议是2），那么就会出现下载资源时的排队现象，这样就会降低性能。\n所以，折衷的做法是：建议在一个网站里面使用至少2个域，但不多于4个域来提供资源。我认为这条建议是很合理的，也值得我们在项目实践中去应用。\n\n\n\n\n避免重定向\n\n当客户端收到服务器的跳转回复时，客户端再次根据服务器回复中的location指定的地址再次发送请求，例如以下跳转回复:\n123HTTP/1.1 301 Moved PermanentlyLocation: http://example.com/newuriContent-Type: text/html\n\n当客户端遇到这种回复的时候，用户只能等待客户端再次发送请求，有的网站甚至会一直跳n次，跳到他想带你去的地方…当然在这个时候用户看不到任何页面内容，只有浏览器的进度条一直在刷新。\n\n\n\n使用Ajax缓存\nAjax可以帮助我们异步的下载网页内容，但是有些网页内容即使是异步的，用户还是在等待它的返回结果，例如ajax的返回是用户联系人的下拉列表。所以我们还是要注意尽量应用以下规则提高ajax的响应速度。\n使用方法：\n添加Expires 或 Cache-Control报文头使回复可以被客户端缓存\n压缩回复内容\n减少dns查询\n精简javascript\n避免跳转\n配置Etags\n\n\n\n\n延迟加载组件,预加载组件\n延迟加载\n这里讨论延迟加载需要我们知道我们的网页最初加载需要的最小内容集是什么。剩下的内容就可以推到延迟加载的集合中。\nJavascript是典型的可以延迟加载内容。一个比较激进的做法是开发网页时先确保网页在没有Javascript的时候也可以基本工作，然后通过延迟加载脚本来完成一些高级的功能。\n\n\n预加载\n与延迟加载目的相反，提前加载的是为了提前加载接下来网页中访问的资源，下面是提前加载的类型\n无条件提前加载：当前网页加载完成后，马上去下载一些其他的内容。例如google会在页面加载成功之后马上去下载一个所有结果中会用到的image sprite。\n有预期的的加载：这种情况一般发生在网页重新设计时，由于用户经常访问旧网页，本地对旧的网页内容缓存充分从而显得旧网页速度很快，而新的网页内容却没有缓存，设计者可以在旧网页的内容中预先加载一些新网页中可能用到的内容，这样新的网页就会生下来一些需要下载的资源。\n\n\n\n\n减少DOM元素数量:\n页面中存在大量DOM元素,会导致javascript遍历DOM的效率变慢。\n网页中元素过多对网页的加载和脚本的执行都是沉重的负担，500个元素和5000个元素在加载速度上会有很大差别。\n想知道你的网页中有多少元素，通过在浏览器中的一条简单命令就可以算出document.getElementsByTagName(&#39;*&#39;).length\n\n\n最小化iframe的数量：\niframes 提供了一个简单的方式把一个网站的内容嵌入到另一个网站中。但其创建速度比其他包括JavaScript和CSS的DOM元素的创建慢了1-2个数量级。\n优点\n可以用来加载速度较慢的内容，例如广告。\n安全沙箱保护。浏览器会对iframe中的内容进行安全控制。\n脚本可以并行下载\n\n\n缺点\n即使iframe内容为空也消耗加载时间\n会阻止页面加载\n没有语义\n\n\n\n\n避免404：HTTP请求时间消耗是很大的，因此使用HTTP请求来获得一个没有用处的响应（例如404没有找到页面）是完全没有必要的，它只会降低用户体验而不会有一点好处。\n404我们都不陌生，代表服务器没有找到资源，我们要特别要注意404的情况不要在我们提供的网页资源上，客户端发送一个请求但是服务器却返回一个无用的结果，时间浪费掉了。更糟糕的是我们网页中需要加载一个外部脚本，结果返回一个404，不仅阻塞了其他脚本下载，下载回来的内容(404)客户端还会将其当成Javascript去解析。\n\n\n\n\n服务器优化\n(1)使用内容分发网络（CDN）：把网站内容分散到多个、处于不同地域位置的服务器上可以加快下载速度。\n再次强调第一条黄金定律，减少网页内容的下载时间。提高下载速度还可以通过CDN(内容分发网络)来提升。CDN通过部署在不同地区的服务器来提高客户的下载速度。如果你的网站上有大量的静态内容，世界各地的用户都在访问，我说的是youtube么？那CDN是必不可少的。事实上大多数互联网中的巨头们都有自己的CDN。我们自己的网站可以先通过免费的CDN供应商来分发网页资源。\n添加Expires 或Cache-Control报文头(这条规则分为两个方面)\n对于静态内容添加Expires，将静态内容设为永不过期，或者很长时间以后。在IIS中设置Expires可以看Configure the HTTP Expires Response Header (IIS 7)。\n对于动态内容应用合适的Cache-Control，让浏览器根据条件来发送请求。关于asp.net的caching，可以看asp.net cache feature和asp.net caching best practices。\n\n\n\n\n(2)GZIP压缩\nGzip通常可以减少70%网页内容的大小，包括脚本、样式表、图片等文件。Gzip比deflate更高效，主流服务器都有相应的压缩支持模块。\n\n\n(3)设置ETag：ETags（Entity tags，实体标签）是web服务器和浏览器用于判断浏览器缓存中的内容和服务器中的原始内容是否匹配的一种机制。\n虽然标题叫配制ETags，但是这里你要根据具体情况进行一些判断。首先Etag简单来说是通过一个文件版本标识使得服务器可以轻松判断该请求的内容是否有所更新，如果没有就回复304 (not modified)，从而避免下载整个文件。\n\n\n(4)提前刷新缓冲区+ \n(5)对Ajax请求使用GET方法\n浏览器在实现XMLHttpRequest POST的时候分成两步，先发header，然后发送数据。而GET却可以用一个TCP报文完成请求。另外GET从语义上来讲是去服务器取数据，而POST则是向服务器发送数据，所以我们使用Ajax请求数据的时候尽量通过GET来完成。\n\n\n(6)避免空的图像src\n空的图片src仍然会使浏览器发送请求到服务器，这样完全是浪费时间，而且浪费服务器的资源。尤其是你的网站每天被很多人访问的时候，这种空请求造成的伤害不容忽略。\n\n\n\n\nCookie优化\n(1)减小Cookie大小\n去除没有必要的cookie，如果网页不需要cookie就完全禁掉\n将cookie的大小减到最小\n注意cookie设置的domain级别，没有必要情况下不要影响到sub-domain\n设置合适的过期时间，比较长的过期时间可以提高响应速度。\n\n\n(2)针对Web组件使用域名无关的Cookie\n大多数网站的静态资源都没必要cookie，我们可以采用不同的domain来单独存放这些静态文件，这样做不仅可以减少cookie大小从而提高响应速度，还有一个好处是有些proxy拒绝缓存带有cookie的内容，如果能将这些静态资源cookie去除，那就可以得到这些proxy的缓存支持。\n常见的划分domain的方式是将静态文件放在static.example.com，动态内容放在www.example.com。\n也有一些网站需要在二级域名上应用cookie，所有的子域都会继承，这种情况下一般会再购买一个专门的域名来存放cookie-free的静态资源。例如Yahoo!的yimg.com，YouTube的ytimg.com等。\n\n\n\n\nCSS优化\n(1)将CSS代码放在HTML页面的顶部\n经样式表(css)放在网页的HEAD中会让网页显得加载速度更快，因为这样做可以使浏览器逐步加载已将下载的网页内容。这对内容比较多的网页尤其重要，用户不用一直等待在一个白屏上，而是可以先看已经下载的内容。\n如果将样式表放在底部，浏览器会拒绝渲染已经下载的网页，因为大多数浏览器在实现时都努力避免重绘，样式表中的内容是绘制网页的关键信息，没有下载下来之前只好对不起观众了。\n\n\n(2)避免使用CSS表达式\nCSS表达式可以动态的设置CSS属性，在IE5-IE8中支持，其他浏览器中表达式会被忽略。例如下面表达式在不同时间设置不同的背景颜色。\nCSS表达式的问题在于它被重新计算的次数远比我们想象的要多，不仅在网页绘制或大小改变时计算，即使我们滚动屏幕或者移动鼠标的时候也在计算，因此我们还是尽量避免使用它来防止使用不当而造成的性能损耗。\n\n\n(3)使用来代替@import\n避免使用@import的原因很简单，因为它相当于将css放在网页内容底部。\n\n\n(4)避免使用Filters\nAlphaImageLoad也是IE5.5 - IE8中支持，这种滤镜的使用会导致图片在下载的时候阻塞网页绘制，另外使用这种滤镜会导致内存使用量的问题。IE9中已经不再支持。\n\n\n\n\nJS优化\n(1)将JavaScript脚本放在页面的底部。\nHTTP/1.1 specification建议浏览器对同一个hostname不要超过两个并行下载连接， 所以当你从多个domain下载图片的时候可以提高并行下载连接数量。但是当脚本在下载的时候，即使是来自不同的hostname浏览器也不会下载其他资源，因为浏览器要在脚本下载之后依次解析和执行。\n因此对于脚本提速，我们可以考虑以下方式，\n把脚本置底，这样可以让网页渲染所需要的内容尽快加载显示给用户。\n现在主流浏览器都支持defer关键字，可以指定脚本在文档加载后执行。\nHTML5中新加了async关键字，可以让脚本异步执行。\n\n\n\n\n(2)将JavaScript和CSS作为外部文件来引用：\n使用外部Javascript和CSS文件可以使这些文件被浏览器缓存，从而在不同的请求内容之间重用。\n同时将Javascript和CSS从inline变为external也减小了网页内容的大小。\n使用外部Javascript和CSS文件的决定因素在于这些外部文件的重用率，如果用户在浏览我们的页面时会访问多次相同页面或者可以重用脚本的不同页面，那么外部文件形式可以为你带来很大的好处。但对于用户通常只会访问一次的页面，例如microsoft.com首页，那inline的javascript和css相对来说可以提供更高的效率。\n\n\n(3)缩小JavaScript和CSS\n精简就是将Javascript或CSS中的空格和注释全去掉，\n\n\n(4)删除重复的脚本\n重复的脚本不仅浪费浏览器的下载时间，而且浪费解析和执行时间。一般用来避免引入重复脚本的做法是使用统一的脚本管理模块，这样不仅可以避免重复脚本引入，还可以兼顾脚本依赖管理和版本管理。\n\n\n(5)最小化DOM的访问：使用JavaScript访问DOM元素比较慢。\n通过Javascript访问DOM元素没有我们想象中快，元素多的网页尤其慢，对于Javascript对DOM的访问我们要注意\n缓存已经访问过的元素\nOffline更新节点然后再加回DOM Tree\n避免通过Javascript修复layout\n\n\n\n\n(6)开发智能的事件处理程序\n这里说智能的事件处理需要开发者对事件处理有更深入的了解，通过不同的方式尽量少去触发事件，如果必要就尽早的去处理事件。\n比如一个div中10个按钮都需要事件句柄，那么我们可以将事件放在div上，在事件冒泡过程中捕获该事件然后判断事件来源。\n\n\n(7)javascript代码注意：\n谨慎使用with,避免使用eval Function函数,减少作用域链查找。\nwith(obj){ p = 1}; 代码块的行为实际上是修改了代码块中的 执行环境 ，将obj放在了其作用域链的最前端，在 with代码块中访问非局部变量是都是先从 obj上开始查找，如果没有再依次按作用域链向上查找，因此使用 with相当于增加了作用域链长度。而每次查找作用域链都是要消耗时间的，过长的作用域链会导致查找性能下降。\n因此，除非你能肯定在 with代码中只访问 obj中的属性，否则慎用 with，替代的可以使用局部变量缓存需要访问的属性。\n\n\n\n\n\n\n图像优化\n(1)优化图片大小\n检查GIF图片中图像颜色的数量是否和调色板规格一致。如果你发现图片中只用到了4种颜色，而在调色板的中显示的256色的颜色槽，那么这张图片就还有压缩的空间。可以使用imagemagick检查：identify -verbose image.gif\n尝试把GIF格式转换成PNG格式，看看是否节省空间。大多数情况下是可以压缩的。下面这条简单的命令可以安全地把GIF格式转换为PNG格式： convert image.gif image.png\n在所有的PNG图片上运行pngcrush（或者其它PNG优化工具）。例如： pngcrush image.png -rem alla -reduce -brute result.png\n在所有的JPEG图片上运行jpegtran。这个工具可以对图片中的出现的锯齿等做无损操作，同时它还可以用于优化和清除图片中的注释以及其它无用信息 jpegtran -copy none -optimize -perfect src.jpg dest.jpg\n\n\n(2)通过CSS Sprites优化图片\nSpirite中水平排列图片，垂直排列会增加文件大小；\nSpirite中把颜色较近的组合在一起可以降低颜色数，理想状况是低于256色以便适用PNG8格式；\n不要在Spirite的图像中间留有较大空隙。这虽然不大会增加文件大小,但对于用户代理来说它需要更少的内存来把图片解压为像素地图。100×100的图片为1万像素，1000×1000就是100万像素。\n\n\n(3)不要在HTML中使用缩放图片\n不要通过图片缩放来适应页面，如果你需要小图片，就直接使用小图片吧。\n\n\n(4)favicon.ico要小而且可缓存\n网站图标文件favicon.ico，不管你服务器有还是没有，浏览器都会去尝试请求这个图标。所以我们要确保这个图标\n存在\n文件尽量小，最好小于1k\n设置一个长的过期时间\n\n\n\n\n\n\n移动客户端\n保持单个内容小于25KB\n这限制是因为iphone，他只能缓存小于25K，注意这是解压后的大小。所以单纯gzip不一定够用，精简文件工具要用上了。\n\n\n打包组建成符合文档\n把页面内容打包成复合文本就如同带有多附件的Email，它能够使你在一个HTTP请求中取得多个组建。当你使用这条规则时，首先要确定用户代理是否支持（iPhone不支持）。\n\n\n\n\n\n待解决的方面\n转载别人，如有错误请指出。\n\n","dateCreated":"2019-02-13T20:37:12+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2019-02-13T20:37:12+08:00","description":"\n\n转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？","headline":"前端性能优化","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/02/13/前端性能优化/前端性能优化/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2019/02/13/前端性能优化/前端性能优化/","keywords":"前端性能优化"}</script>
     <meta name="description" content="转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？">
 <meta name="keywords" content="前端性能优化">
 <meta property="og:type" content="blog">
@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:description" content="转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-02-13T19:02:24.742Z">
+<meta property="og:updated_time" content="2019-03-08T13:36:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端性能优化">
 <meta name="twitter:description" content="转载：前端性能优化–yahoo前端性能团队总结的35条黄金定律参考文章：Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎WEB前端性能优化常见方法　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？">
@@ -242,14 +242,9 @@
 </div>
 
     
-    <i class="fas fa-chart-area"></i> 
-    <span class="post-count">
-        字数统计：4.9k字
-    </span>
 </div>
 
     
-
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- 目录 -->
@@ -550,7 +545,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -614,27 +609,7 @@
     <span class="copyrights">
         Copyrights &copy; 2019 LittleStar. All Rights Reserved.
     </span>
-		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
-		<br/>
-		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：32.5k</span>
 </footer>
-<script>
-    var now = new Date(); 
-    function createtime() { 
-        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
-        now.setTime(now.getTime()+250); 
-        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
-        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
-        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
-        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
-        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
-        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
-        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
-        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
-    } 
-setInterval("createtime()",250);
-</script>
 
             </div>
             
@@ -664,7 +639,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -865,25 +840,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
                             <h3 class="media-heading">清除浮动</h3>
                         </a>
@@ -962,6 +918,25 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
                             <h3 class="media-heading">get和post请求</h3>
                         </a>
@@ -1013,7 +988,7 @@ setInterval("createtime()",250);
 
         
         
-<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->

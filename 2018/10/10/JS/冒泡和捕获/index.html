@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n事件冒泡  冒泡型事件：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。事件冒泡可以形象地比喻为把一颗石头投入水中，泡泡会一直从水底冒出水面。也就是说，事件会从最内层的元素开始发生，一直向上传播，直到document对象。因此上面的例子在事件冒泡的概念下发生click事件的顺序应该是p -&gt; div -&gt; body -&gt; html -&gt; document\n事件捕获捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)上面的例子在事件捕获的概念下发生click事件的顺序应该是document -&gt; html -&gt; body -&gt; div -&gt; p\nIE只支持事件冒泡，Chrome,Mozilla, Opera 7 和 Konqueror两种都支持，旧版本的Opera’s 和 iCab两种都不支持 。\n捕获和冒泡过程图\n1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;title&gt;event&lt;/title&gt;&lt;/head&gt;&lt;body&gt;    &lt;div id=\"obj1\"&gt;        welcome        &lt;h5 id=\"obj2\"&gt;hello&lt;/h5&gt;        &lt;h5 id=\"obj3\"&gt;world&lt;/h5&gt;    &lt;/div&gt;    &lt;script type=\"text/javascript\"&gt;        var obj1=document.getElementById('obj1');        var obj2=document.getElementById('obj2');        obj1.addEventListener('click',function()&#123;            alert('hello');        &#125;,false);        obj2.addEventListener('click',function()&#123;            alert('world');        &#125;)    &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;\n并且分别在obj1,obj2上绑定了一个点击事件，由于addEventListener的第三个参数为false,所以页面是在冒泡阶段处理绑定事件。此时整个页面可以有三种行为出现\n\n点击文字welcome时，弹出hello。此时就只触发了绑定在obj1上的点击事件。具体冒泡实现过程如下：welcome 属于文本节点，点击后，开始从文本节点查找，当前文本节点没有绑定点击事件，继续向上找，找到父级（id为obj1的div），有绑定的点击事件，执行，再向上找，body，没有绑定点击事件，再到html,document,都没再有绑定的点击事件，好，整个冒泡过程结束。\n点击文字hello时，先弹出world，再弹出hello\n点击world时，弹出hello。\n\naddEventListener的第三个参数1lement.addEventListener(event, function, useCapture)\n第一个参数是需要绑定的事件，第二个参数是触发事件后要执行的函数。而第三个参数默认值是false，表示在事件冒泡的阶段调用事件处理函数，如果参数为true，则表示在事件捕获阶段调用处理函数。\n我们想要在点击每个h5标签时，弹出对应的innerHTML 。常规做法是遍历每个h5,然后在每个h5上绑定一个点击事件，这种做法在h5较少的时候可以使用，但如果有一万个h5，那就会导致性能降低。这时就需要事件代理出场了。 \n事件代理使用事件代理的好处不仅在于将多个事件处理函数减为一个，而且对于不同的元素可以有不同的处理方法\n123456obj1.addEventListener('click',function(e)&#123;  var e=e||window.event;  if(e.target.nodeName.toLowerCase()=='h5')&#123;      alert(e.target.innerHTML);  &#125;&#125;,false);\n由于事件冒泡机制，点击了h5后会冒泡到div,此时就会触发绑定在div上的点击事件，再利用target找到事件实际发生的元素，就可以达到预期的效果。\n问题阻止冒泡的方法，阻止默认事件的方法(兼容IE)w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true阻止事件的传播兼容\n123456789101112131415function(e)&#123;    var e=e||window.event; // window.event 这是IE浏览器    e.stopPropagation();//阻止事件的传播(包括捕获也包括冒泡)    // 兼容处理    if (e &amp;&amp; e.stopPropagation) &#123; //这是其他浏览器        e.stopPropagation(); //阻止冒泡事件        e.preventDefault();//阻止默认事件    &#125;else&#123;        // IE浏览器        e.cancelBubble=true; //阻止冒泡事件        e.returnValue=false;//阻止默认事件    &#125;&#125;\n阻止冒泡事件的兼容性处理1234567function stopBubble(e) &#123;   if(e &amp;&amp; e.stopPropagation) &#123; //非IE     e.stopPropagation();   &#125; else &#123; //IE     window.event.cancelBubble = true;   &#125; &#125;\n阻止默认事件w3c的方法是e.preventDefault()，IE则是使用e.returnValue = false;\n我们给一个dom同时绑定两个点击事件，一个用捕获，一个用冒泡，会执行几次事件，会先执行冒泡还是捕获？\n首是进入捕获阶段，直到达到目标元素，再进入冒泡阶段\n\n参考文章 终于弄懂了事件冒泡和事件捕获浅谈事件冒泡与事件捕获\n","dateCreated":"2018-10-10T18:53:19+08:00","dateModified":"2018-10-12T16:48:49+08:00","datePublished":"2018-10-10T18:53:19+08:00","description":"事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。123&lt;div id=\"outer\"&gt;    &lt;p id=\"inner\"&gt;Click me!&lt;/p&gt;&lt;/div&gt;\n上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？","headline":"冒泡和捕获","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/JS/冒泡和捕获/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/JS/冒泡和捕获/","keywords":"JS"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"\n事件冒泡  冒泡型事件：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。事件冒泡可以形象地比喻为把一颗石头投入水中，泡泡会一直从水底冒出水面。也就是说，事件会从最内层的元素开始发生，一直向上传播，直到document对象。因此上面的例子在事件冒泡的概念下发生click事件的顺序应该是p -&gt; div -&gt; body -&gt; html -&gt; document\n事件捕获捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)上面的例子在事件捕获的概念下发生click事件的顺序应该是document -&gt; html -&gt; body -&gt; div -&gt; p\nIE只支持事件冒泡，Chrome,Mozilla, Opera 7 和 Konqueror两种都支持，旧版本的Opera’s 和 iCab两种都不支持 。\n捕获和冒泡过程图\n1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;title&gt;event&lt;/title&gt;&lt;/head&gt;&lt;body&gt;    &lt;div id=\"obj1\"&gt;        welcome        &lt;h5 id=\"obj2\"&gt;hello&lt;/h5&gt;        &lt;h5 id=\"obj3\"&gt;world&lt;/h5&gt;    &lt;/div&gt;    &lt;script type=\"text/javascript\"&gt;        var obj1=document.getElementById('obj1');        var obj2=document.getElementById('obj2');        obj1.addEventListener('click',function()&#123;            alert('hello');        &#125;,false);        obj2.addEventListener('click',function()&#123;            alert('world');        &#125;)    &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;\n并且分别在obj1,obj2上绑定了一个点击事件，由于addEventListener的第三个参数为false,所以页面是在冒泡阶段处理绑定事件。此时整个页面可以有三种行为出现\n\n点击文字welcome时，弹出hello。此时就只触发了绑定在obj1上的点击事件。具体冒泡实现过程如下：welcome 属于文本节点，点击后，开始从文本节点查找，当前文本节点没有绑定点击事件，继续向上找，找到父级（id为obj1的div），有绑定的点击事件，执行，再向上找，body，没有绑定点击事件，再到html,document,都没再有绑定的点击事件，好，整个冒泡过程结束。\n点击文字hello时，先弹出world，再弹出hello\n点击world时，弹出hello。\n\naddEventListener的第三个参数1lement.addEventListener(event, function, useCapture)\n第一个参数是需要绑定的事件，第二个参数是触发事件后要执行的函数。而第三个参数默认值是false，表示在事件冒泡的阶段调用事件处理函数，如果参数为true，则表示在事件捕获阶段调用处理函数。\n我们想要在点击每个h5标签时，弹出对应的innerHTML 。常规做法是遍历每个h5,然后在每个h5上绑定一个点击事件，这种做法在h5较少的时候可以使用，但如果有一万个h5，那就会导致性能降低。这时就需要事件代理出场了。 \n事件代理使用事件代理的好处不仅在于将多个事件处理函数减为一个，而且对于不同的元素可以有不同的处理方法\n123456obj1.addEventListener('click',function(e)&#123;  var e=e||window.event;  if(e.target.nodeName.toLowerCase()=='h5')&#123;      alert(e.target.innerHTML);  &#125;&#125;,false);\n由于事件冒泡机制，点击了h5后会冒泡到div,此时就会触发绑定在div上的点击事件，再利用target找到事件实际发生的元素，就可以达到预期的效果。\n问题阻止冒泡的方法，阻止默认事件的方法(兼容IE)w3c的方法是e.stopPropagation()，IE则是使用e.cancelBubble = true阻止事件的传播兼容\n123456789101112131415function(e)&#123;    var e=e||window.event; // window.event 这是IE浏览器    e.stopPropagation();//阻止事件的传播(包括捕获也包括冒泡)    // 兼容处理    if (e &amp;&amp; e.stopPropagation) &#123; //这是其他浏览器        e.stopPropagation(); //阻止冒泡事件        e.preventDefault();//阻止默认事件    &#125;else&#123;        // IE浏览器        e.cancelBubble=true; //阻止冒泡事件        e.returnValue=false;//阻止默认事件    &#125;&#125;\n阻止冒泡事件的兼容性处理1234567function stopBubble(e) &#123;   if(e &amp;&amp; e.stopPropagation) &#123; //非IE     e.stopPropagation();   &#125; else &#123; //IE     window.event.cancelBubble = true;   &#125; &#125;\n阻止默认事件w3c的方法是e.preventDefault()，IE则是使用e.returnValue = false;\n我们给一个dom同时绑定两个点击事件，一个用捕获，一个用冒泡，会执行几次事件，会先执行冒泡还是捕获？\n首是进入捕获阶段，直到达到目标元素，再进入冒泡阶段\n\n参考文章 终于弄懂了事件冒泡和事件捕获浅谈事件冒泡与事件捕获\n","dateCreated":"2018-10-10T18:53:19+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2018-10-10T18:53:19+08:00","description":"事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。123&lt;div id=\"outer\"&gt;    &lt;p id=\"inner\"&gt;Click me!&lt;/p&gt;&lt;/div&gt;\n上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？","headline":"冒泡和捕获","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/JS/冒泡和捕获/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/JS/冒泡和捕获/","keywords":"JS"}</script>
     <meta name="description" content="事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。123&amp;lt;div id=&quot;outer&quot;&amp;gt;    &amp;lt;p id=&quot;inner&quot;&amp;gt;Click me!&amp;lt;/p&amp;gt;&amp;lt;/div&amp;gt; 上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="blog">
@@ -25,7 +25,7 @@
 <meta property="og:description" content="事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。123&amp;lt;div id=&quot;outer&quot;&amp;gt;    &amp;lt;p id=&quot;inner&quot;&amp;gt;Click me!&amp;lt;/p&amp;gt;&amp;lt;/div&amp;gt; 上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/assets/images/maopao.png">
-<meta property="og:updated_time" content="2018-10-12T08:48:49.399Z">
+<meta property="og:updated_time" content="2019-03-08T13:36:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="冒泡和捕获">
 <meta name="twitter:description" content="事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。123&amp;lt;div id=&quot;outer&quot;&amp;gt;    &amp;lt;p id=&quot;inner&quot;&amp;gt;Click me!&amp;lt;/p&amp;gt;&amp;lt;/div&amp;gt; 上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？">
@@ -244,14 +244,9 @@
 </div>
 
     
-    <i class="fas fa-chart-area"></i> 
-    <span class="post-count">
-        字数统计：1.2k字
-    </span>
 </div>
 
     
-
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <!-- excerpt --></p>
@@ -320,7 +315,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -360,7 +355,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -384,27 +379,7 @@
     <span class="copyrights">
         Copyrights &copy; 2019 LittleStar. All Rights Reserved.
     </span>
-		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
-		<br/>
-		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：32.5k</span>
 </footer>
-<script>
-    var now = new Date(); 
-    function createtime() { 
-        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
-        now.setTime(now.getTime()+250); 
-        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
-        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
-        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
-        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
-        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
-        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
-        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
-        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
-    } 
-setInterval("createtime()",250);
-</script>
 
             </div>
             
@@ -434,7 +409,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -474,7 +449,7 @@ setInterval("createtime()",250);
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -635,25 +610,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
                             <h3 class="media-heading">清除浮动</h3>
                         </a>
@@ -732,6 +688,25 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
                             <h3 class="media-heading">get和post请求</h3>
                         </a>
@@ -783,7 +758,7 @@ setInterval("createtime()",250);
 
         
         
-<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->
