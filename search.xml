@@ -34,17 +34,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[redis基础]]></title>
-    <url>%2F2019%2F02%2F22%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2Fredis%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[stylus基础]]></title>
     <url>%2F2019%2F02%2F22%2FCSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8%2Fstylus%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -53,6 +42,17 @@
       </categories>
       <tags>
         <tag>stylus基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[redis基础]]></title>
+    <url>%2F2019%2F02%2F22%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2Fredis%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis基础</tag>
       </tags>
   </entry>
   <entry>
@@ -91,7 +91,7 @@
   <entry>
     <title><![CDATA[CSS布局]]></title>
     <url>%2F2019%2F02%2F15%2FCSS3%2Fcss%E5%B8%83%E5%B1%80%2F</url>
-    <content type="text"><![CDATA[转载： 知乎专栏：CSS布局十八般武艺都在这里了 单列布局水平居中使用inline-block 和 text-align实现123456.panrent &#123; text-align: center;&#125;.child &#123; display: inline-block;&#125; 优点：兼容性好；不足：需要同时设置子元素和父元素 使用margin:0 auto来实现12345.child2 &#123; width: 200px; margin: 0 auto; &#125; 优点：兼容性好缺点: 需要指定宽度 使用table实现1234.child2 &#123; display: table; margin: 0 auto;&#125; 优点:只需要对自身进行设置不足:IE6,7需要调整结构 使用绝对定位实现123456789.parent&#123; position:relative;&#125;# 或者实用margin-left的负值为盒子宽度的一半也可以实现，不过这样就必须知道盒子的宽度，但兼容性好.child&#123; position: absolute; left: 50%; transform: translate(-50%);&#125; 不足：兼容性差,IE9及以上可用 实用flex布局实现123456789101112# 第一种方法.parent&#123; display:flex; justify-content:center;&#125;# 第二种方法.parent&#123; display:flex;&#125;.child&#123; margin:0 auto;&#125; 常用居中方法 居中在布局中很常见，我们假设DOM文档结构如下，子元素要在父元素中居中： 水平居中垂直居中 单列布局 二列&amp;三列布局 float + margin position + margin 圣杯布局 (float + 负margin) 双飞翼布局 (float + 负margin) flex布局 总结]]></content>
+    <content type="text"><![CDATA[转载： 知乎专栏：CSS布局十八般武艺都在这里了 单列布局水平居中使用inline-block 和 text-align实现123456.panrent &#123; text-align: center;&#125;.child &#123; display: inline-block;&#125; 优点：兼容性好；不足：需要同时设置子元素和父元素 使用margin:0 auto来实现12345.child2 &#123; width: 200px; margin: 0 auto; &#125; 优点：兼容性好缺点: 需要指定宽度 使用table实现1234.child2 &#123; display: table; margin: 0 auto;&#125; 优点:只需要对自身进行设置不足:IE6,7需要调整结构 使用绝对定位实现123456789.parent&#123; position:relative;&#125;# 或者实用margin-left的负值为盒子宽度的一半也可以实现，不过这样就必须知道盒子的宽度，但兼容性好.child&#123; position: absolute; left: 50%; transform: translate(-50%);&#125; 不足：兼容性差,IE9及以上可用 实用flex布局实现123456789101112# 第一种方法.parent&#123; display:flex; justify-content:center;&#125;# 第二种方法.parent&#123; display:flex;&#125;.child&#123; margin:0 auto;&#125; 常用居中方法 居中在布局中很常见，我们假设DOM文档结构如下，子元素要在父元素中居中：123&lt;div class="parent"&gt; &lt;div class="child"&gt;&lt;/div&gt;&lt;/div&gt; 水平居中 子元素为行内元素还是块状元素，宽度一定还是宽度未定，采取的布局方案不同。子元素为: 行内元素：对父元素设置text-align:center;定宽块状元素: 设置左右margin值为auto;不定宽块状元素: 设置子元素为display:inline,然后在父元素上设置text-align:center;通用方案: flex布局，对父元素设置display:flex;justify-content:center; 垂直居中 垂直居中对于子元素是单行内联文本、多行内联文本以及块状元素采用的方案是不同的。父元素一定，子元素为单行内联文本:设置父元素的height等于行高line-height父元素一定，子元素为多行内联文本：设置父元素的display:table-cell或inline-block，再设置vertical-align:middle;块状元素:设置子元素position:absolute 并设置top、bottom为0，父元素要设置定位为static以外的值，margin:auto;通用方案:flex布局，给父元素设置{display:flex; align-items:center;}。 单列布局 特征：定宽、水平居中常见的单列布局有两种： 一种是header、content、footer宽度都相同，其一般不会占满浏览器的最宽宽度，但当浏览器宽度缩小低于其最大宽度时，宽度会自适应。 一种是header、footer宽度为浏览器宽度，但content以及header和footer里的内容却不会占满浏览器宽度。对于第一种，对header、content、footer统一设置width或max-width，并通过margin:auto实现居中。DOM文档:12345&lt;div class="layout"&gt; &lt;div id="header"&gt;头部&lt;/div&gt; &lt;div id="content"&gt;内容&lt;/div&gt; &lt;div id="footer"&gt;尾部&lt;/div&gt;&lt;/div&gt; CSS清单:12345.layout&#123;/* width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/ max-width: 960px; margin: 0 auto;&#125; 对于第二种，header、footer的内容宽度为100%，但header、footer的内容区以及content统一设置width 或 max-width，并通过margin:auto实现居中。DOM文档:1234567&lt;div id="header"&gt; &lt;div class="layout"&gt;头部&lt;/div&gt;&lt;/div&gt;&lt;div id="content" class="layout"&gt;内容&lt;/div&gt;&lt;div id="footer"&gt; &lt;div class="layout"&gt;尾部&lt;/div&gt;&lt;/div&gt; CSS清单:12345.layout&#123;/* width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/ max-width: 960px; margin: 0 auto;&#125; 二列&amp;三列布局 二列布局的特征是侧栏固定宽度，主栏自适应宽度。三列布局的特征是两侧两列固定宽度，中间列自适应宽度。 之所以将二列布局和三列布局写在一起，是因为二列布局可以看做去掉一个侧栏的三列布局，其布局的思想有异曲同工之妙。对于传统的实现方法，主要讨论上图中前三种布局，经典的带有侧栏的二栏布局以及带有左右侧栏的三栏布局，对于flex布局，实现了上图的五种布局。 float + margin 原理说明：设置两个侧栏分别向左向右浮动，中间列通过外边距给两个侧栏腾出空间，中间列的宽度根据浏览器窗口自适应。 DOM文档:12345&lt;div id="content"&gt; &lt;div class="sub"&gt;sub&lt;/div&gt; &lt;div class="extra"&gt;extra&lt;/div&gt; &lt;div class="main"&gt;main&lt;/div&gt;&lt;/div&gt; 布局步骤: 对两边侧栏分别设置宽度，并对左侧栏添加左浮动，对右侧栏添加有浮动。对主面板设置左右外边距，margin-left的值为左侧栏的宽度，margin-right的值为右侧栏的宽度。CSS清单:123456789101112.sub&#123; width: 100px; float: left;&#125;.extra&#123; width: 200px; float: right;&#125;.main&#123; margin-left: 100px; margin-right: 200px;&#125; 一些说明: 注意DOM文档的书写顺序，先写两侧栏，再写主面板，更换后则侧栏会被挤到下一列（圣杯布局和双飞翼布局都会用到）。 这种布局方式比较简单明了，但缺点是渲染时先渲染了侧边栏，而不是比较重要的主面板。 二列的实现方法 如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置主面板的margin-right值，其他操作相同。反之亦然。 position + margin 原理说明：通过绝对定位将两个侧栏固定，同样通过外边距给两个侧栏腾出空间，中间列自适应。 DOM文档:123&lt;div class="sub"&gt;left&lt;/div&gt;&lt;div class="main"&gt;main&lt;/div&gt;&lt;div class="extra"&gt;right&lt;/div&gt; 布局步骤: 对两边侧栏分别设置宽度，设置定位方式为绝对定位。设置两侧栏的top值都为0，设置左侧栏的left值为0， 右侧栏的right值为0。对主面板设置左右外边距，margin-left的值为左侧栏的宽度，margin-right的值为右侧栏的宽度。CSS清单:1234567891011121314.sub, .extra &#123; position: absolute; top: 0; width: 200px;&#125;.sub &#123; left: 0;&#125;.extra &#123; right: 0; &#125;.main &#123; margin: 0 200px;&#125; 一些说明: 本方法不限制DOM书写顺序，先写主面板会使主面板部分优先渲染（一般主面板会比侧栏内容重要）。与上一种方法相比，本种方法是通过定位来实现侧栏的位置固定。如果中间栏含有最小宽度限制，或是含有宽度的内部元素，则浏览器窗口小到一定程度，主面板与侧栏会发生重叠。二列的实现方法 如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置主面板的margin-right值，其他操作相同。反之亦然。 圣杯布局 (float + 负margin) 原理说明： 主面板设置宽度为100%，主面板与两个侧栏都设置浮动，常见为左浮动，这时两个侧栏会被主面板挤下去。通过负边距将浮动的侧栏拉上来，左侧栏的负边距为100%，刚好是窗口的宽度，因此会从主面板下面的左边跑到与主面板对齐的左边，右侧栏此时浮动在主面板下面的左边，设置负边距为负的自身宽度刚好浮动到主面板对齐的右边。为了避免侧栏遮挡主面板内容，在外层设置左右padding值为左右侧栏的宽度，给侧栏腾出空间，此时主面板的宽度减小。由于侧栏的负margin都是相对主面板的，两个侧栏并不会像我们理想中的停靠在左右两边，而是跟着缩小的主面板一起向中间靠拢。此时使用相对布局，调整两个侧栏到相应的位置。 DOM文档:12345 &lt;div id="bd"&gt; &lt;div class="main"&gt;&lt;/div&gt; &lt;div class="sub"&gt;&lt;/div&gt; &lt;div class="extra"&gt;&lt;/div&gt; &lt;/div&gt; 布局步骤: 三者都设置向左浮动。设置main宽度为100%，设置两侧栏的宽度。设置 负边距，sub设置负左边距为100%，extra设置负左边距为负的自身宽度。设置main的padding值给左右两个子面板留出空间。设置两个子面板为相对定位，sub的left值为负的sub宽度，extra的right值为负的extra宽度。CSS清单:123456789101112131415161718192021.main &#123; float: left; width: 100%; &#125; .sub &#123; float: left; width: 190px; margin-left: -100%; position: relative; left: -190px; &#125; .extra &#123; float: left; width: 230px; margin-left: -230px; position: relative; right: -230px; &#125;#bd &#123; padding: 0 230px 0 190px; &#125; 一些说明 DOM元素的书写顺序不得更改。主面板部分优先渲染（一般主面板会比侧栏内容重要）。当面板的main内容部分比两边的子面板宽度小的时候，布局就会乱掉。可以通过设置main的min-width属性或使用双飞翼布局避免问题。二列的实现方法 如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置主面板的padding-right值，其他操作相同。反之亦然。 双飞翼布局 (float + 负margin) 原理说明：双飞翼布局和圣杯布局的思想有些相似，都利用了浮动和负边距，但双飞翼布局在圣杯布局上做了改进，在main元素上加了一层div, 并设置margin,由于两侧栏的负边距都是相对于main-wrap而言，main的margin值变化便不会影响两个侧栏，因此省掉了对两侧栏设置相对布局的步骤。 DOM文档:12345&lt;div class="main-wrap"&gt; &lt;div class="main"&gt;#main&lt;/div&gt;&lt;/div&gt;&lt;div class="sub"&gt;&lt;/div&gt;&lt;div class="extra"&gt;&lt;/div&gt; 布局步骤: 三者都设置向左浮动。设置main-wrap宽度为100%，设置两个侧栏的宽度。设置 负边距，sub设置负左边距为100%，extra设置负左边距为负的自身宽度。设置main的margin值给左右两个子面板留出空间。CSS清单:1234567891011121314151617.main-wrap &#123; float: left; width: 100%; &#125; .sub &#123; float: left; width: 190px; margin-left: -100%; &#125; .extra &#123; float: left; width: 230px; margin-left: -230px; &#125;.main &#123; margin: 0 230px 0 190px;&#125; 一些说明 主面板部分优先渲染（一般主面板会比侧栏内容重要）。圣杯采用的是padding，而双飞翼采用的margin，解决了圣杯布局main的最小宽度不能小于左侧栏的缺点。双飞翼布局不用设置相对布局，以及对应的left和right值。通过引入相对布局，可以实现三栏布局的各种组合，例如对右侧栏设置position: relative; left: 190px;,可以实现sub+extra+main的布局。二列的实现方法 如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置main-wrap的margin-right值，其他操作相同。反之亦然。 flex布局 以下是五种布局的flex布局代码： DOM文档：1234567891011121314151617181920212223&lt;div class="layout"&gt; &lt;aside class="aside"&gt;侧边栏宽度固定&lt;/aside&gt; &lt;div class="main"&gt;主内容栏宽度自适应&lt;/div&gt;&lt;/div&gt;&lt;div class="layout"&gt; &lt;div class="main"&gt;主内容栏宽度自适应&lt;/div&gt; &lt;aside class="aside"&gt;侧边栏宽度固定&lt;/aside&gt;&lt;/div&gt;&lt;div class="layout"&gt; &lt;aside class="aside"&gt;左侧边栏宽度固定&lt;/aside&gt; &lt;div class="main"&gt;主内容栏宽度自适应&lt;/div&gt; &lt;aside class="aside"&gt;右侧边栏宽度固定&lt;/aside&gt;&lt;/div&gt;&lt;div class="layout"&gt; &lt;aside class="aside"&gt;第1个侧边栏宽度固定&lt;/aside&gt; &lt;aside class="aside"&gt;第2个侧边栏宽度固定&lt;/aside&gt; &lt;div class="main"&gt;主内容栏宽度自适应&lt;/div&gt;&lt;/div&gt;&lt;div class="layout"&gt; &lt;div class="main"&gt;主内容栏宽度自适应&lt;/div&gt; &lt;aside class="aside"&gt;第1个侧边栏宽度固定&lt;/aside&gt; &lt;aside class="aside"&gt;第2个侧边栏宽度固定&lt;/aside&gt;&lt;/div&gt; CSS清单123456789.layout &#123; display: flex;&#125;.main &#123; flex: 1;&#125;.aside &#123; width: 200px;&#125; 与之前所讲的几种传统布局方案相比，flex布局的代码可谓异常简洁，而且非常通用，利用简单的三行CSS即实现了常见的五种布局。 总结 传统的布局方法基于盒状模型，依赖 display属性 + position属性 + float属性，逻辑相对复杂，对于实现一些特殊效果，例如垂直居中，尤其复杂繁琐。而flex布局中的flex容器可以根据实际可用空间动态调整子元素的宽高比和顺序，使元素能够尽可能地利用可用空间，同时也能通过缩小来避免超出。flex布局提供了一套简便、完整、响应式的布局方案。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -190,7 +190,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-PCfEVYFZ"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-KjtNAnRb"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -287,25 +287,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[渐进增强和优雅降级]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+    <title><![CDATA[bind、apply和call的区别]]></title>
+    <url>%2F2018%2F10%2F10%2FJS%2Fbind%E5%92%8Ccall%2F</url>
+    <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[清除浮动]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
-    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -320,9 +309,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[css模块化]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
+    <title><![CDATA[清除浮动]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[转载：CSS-清除浮动 清除浮动的方法 使用带clear属性的空元素 div、hr、br都可以123&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt; 123.clear &#123; clear: both;&#125; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859优点：通俗易懂，容易掌握缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。2. 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置 zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。``` css.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt;``` 优点：不存在结构和语义化问题，代码量极少缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用.3. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。4. 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。``` css.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class=&quot;news&quot;&gt;&lt;img src=&quot;news-pic.jpg&quot; /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class=&quot;content&quot;&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.clearfix:after&#123; content: "020"; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -331,14 +320,25 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[bind、apply和call的区别]]></title>
-    <url>%2F2018%2F10%2F10%2FJS%2Fbind%E5%92%8Ccall%2F</url>
-    <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
+    <title><![CDATA[渐进增强和优雅降级]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[css模块化]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
@@ -361,17 +361,6 @@
       </categories>
       <tags>
         <tag>cookit session 面试题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[排序算法]]></title>
-    <url>%2F2018%2F10%2F10%2F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%2F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>排序算法</tag>
       </tags>
   </entry>
 </search>

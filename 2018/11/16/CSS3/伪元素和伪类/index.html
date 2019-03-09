@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg"},"articleBody":"伪类包含两种：状态伪类和结构性伪类。状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：\n:link 应用于未被访问过的链接；:hover 应用于鼠标悬停到的元素；:active 应用于被激活的元素；:visited 应用于被访问过的链接，与:link互斥。:focus 应用于拥有键盘输入焦点的元素。结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：\n:first-child 选择某个元素的第一个子元素；:last-child 选择某个元素的最后一个子元素；:nth-child() 选择某个元素的一个或多个特定的子元素；:nth-last-child() 选择某个元素的一个或多个特定的子元素，从这个元素的最后一个子元素开始算；:nth-of-type() 选择指定的元素；:nth-last-of-type() 选择指定的元素，从元素的最后一个开始计算；:first-of-type 选择一个上级元素下的第一个同类子元素；:last-of-type 选择一个上级元素的最后一个同类子元素；:only-child 选择的元素是它的父元素的唯一一个子元素；:only-of-type 选择一个元素是它的上级元素的唯一一个相同类型的子元素；:empty 选择的元素里面没有任何内容。\n伪元素是对元素中的特定内容进行操作，而不是描述状态。它的操作层次比伪类更深一层，因此动态性比伪类低很多。实际上，伪元素就是选取某些元素前面或后面这种普通选择器无法完成的工作。控制的内容和元素是相同的，但它本身是基于元素的抽象，并不存在于文档结构中！常见的伪元素选择器包括：\n:first-letter 选择元素文本的第一个字（母）。:first-line 选择元素文本的第一行。:before 在元素内容的最前面添加新内容。:after 在元素内容的最后面添加新内容。\n注意事项有时你会发现伪类元素使用了两个冒号 (::) 而不是一个冒号 (:)，这是 CSS3 规范中的一部分要求，目的是为了区分伪类和伪元素，大多数浏览器都支持这两种表示方式。单冒号(:)用于 CSS3 伪类，双冒号(::)用于 CSS3 伪元素。对于 CSS2 中已经有的伪元素，例如 :before，单冒号和双冒号的写法 ::before 作用是一样的。\n所以，如果你的网站只需要兼容 webkit、firefox、opera 等浏览器，建议对于伪元素采用双冒号的写法，如果不得不兼容 IE 浏览器，还是用 CSS2 的单冒号写法比较安全。\n参考文章： 谈谈css伪类与伪元素\n","dateCreated":"2018-11-16T19:34:19+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2018-11-16T19:34:19+08:00","description":"","headline":"伪元素和伪类","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/11/16/CSS3/伪元素和伪类/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"user-photo/user.jpg","logo":{"@type":"ImageObject","url":"user-photo/user.jpg"}},"url":"http://yoursite.com/2018/11/16/CSS3/伪元素和伪类/","keywords":"CSS3"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"伪类包含两种：状态伪类和结构性伪类。状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：\n:link 应用于未被访问过的链接；:hover 应用于鼠标悬停到的元素；:active 应用于被激活的元素；:visited 应用于被访问过的链接，与:link互斥。:focus 应用于拥有键盘输入焦点的元素。结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：\n:first-child 选择某个元素的第一个子元素；:last-child 选择某个元素的最后一个子元素；:nth-child() 选择某个元素的一个或多个特定的子元素；:nth-last-child() 选择某个元素的一个或多个特定的子元素，从这个元素的最后一个子元素开始算；:nth-of-type() 选择指定的元素；:nth-last-of-type() 选择指定的元素，从元素的最后一个开始计算；:first-of-type 选择一个上级元素下的第一个同类子元素；:last-of-type 选择一个上级元素的最后一个同类子元素；:only-child 选择的元素是它的父元素的唯一一个子元素；:only-of-type 选择一个元素是它的上级元素的唯一一个相同类型的子元素；:empty 选择的元素里面没有任何内容。\n伪元素是对元素中的特定内容进行操作，而不是描述状态。它的操作层次比伪类更深一层，因此动态性比伪类低很多。实际上，伪元素就是选取某些元素前面或后面这种普通选择器无法完成的工作。控制的内容和元素是相同的，但它本身是基于元素的抽象，并不存在于文档结构中！常见的伪元素选择器包括：\n:first-letter 选择元素文本的第一个字（母）。:first-line 选择元素文本的第一行。:before 在元素内容的最前面添加新内容。:after 在元素内容的最后面添加新内容。\n注意事项有时你会发现伪类元素使用了两个冒号 (::) 而不是一个冒号 (:)，这是 CSS3 规范中的一部分要求，目的是为了区分伪类和伪元素，大多数浏览器都支持这两种表示方式。单冒号(:)用于 CSS3 伪类，双冒号(::)用于 CSS3 伪元素。对于 CSS2 中已经有的伪元素，例如 :before，单冒号和双冒号的写法 ::before 作用是一样的。\n所以，如果你的网站只需要兼容 webkit、firefox、opera 等浏览器，建议对于伪元素采用双冒号的写法，如果不得不兼容 IE 浏览器，还是用 CSS2 的单冒号写法比较安全。\n参考文章： 谈谈css伪类与伪元素\n","dateCreated":"2018-11-16T19:34:19+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2018-11-16T19:34:19+08:00","description":"","headline":"伪元素和伪类","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/11/16/CSS3/伪元素和伪类/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/11/16/CSS3/伪元素和伪类/","keywords":"CSS3"}</script>
     <meta name="description" content="伪类包含两种：状态伪类和结构性伪类。状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括： :link 应用于未被访问过的链接；:hover 应用于鼠标悬停到的元素；:active 应用于被激活的元素；:visited 应用于被访问过的链接，与">
 <meta name="keywords" content="CSS3">
 <meta property="og:type" content="blog">
@@ -242,9 +242,14 @@
 </div>
 
     
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：839字
+    </span>
 </div>
 
     
+
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <p><strong>伪类</strong>包含两种：<strong>状态伪类</strong>和<strong>结构性伪类</strong>。<br><strong>状态伪类</strong>是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。<br>当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：</p>
@@ -359,7 +364,27 @@
     <span class="copyrights">
         Copyrights &copy; 2019 LittleStar. All Rights Reserved.
     </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：35.4k</span>
 </footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
 
             </div>
             
@@ -533,25 +558,6 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/排序算法/排序算法/">
-                            <h3 class="media-heading">排序算法</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JS/cookit和session/">
                             <h3 class="media-heading">cookit和session</h3>
                         </a>
@@ -590,8 +596,29 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
+<ol>
+<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -628,8 +655,8 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -639,27 +666,6 @@
                             </span>
                         </span>
                         <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
-                            <h3 class="media-heading">语义化标签</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
-<ol>
-<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -723,6 +729,64 @@
                     <hr>
                 </div>
                 
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -730,7 +794,7 @@
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 34 篇文章
+                找到 33 篇文章
             </p>
         </div>
     </div>
@@ -738,7 +802,7 @@
 
         
         
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->
