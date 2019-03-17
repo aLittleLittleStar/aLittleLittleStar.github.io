@@ -1,0 +1,868 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>同源策略和跨域 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解\n同源策略概念同源即指：协议相同、域名相同、端口号相同。举例来说，http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。1234http://www.example.com/dir2/other.html：同源http://example.com/dir/other.html：不同源（域名不同）http://v2.www.example.com/dir/other.html：不同源（域名不同）http://www.example.com:81/dir/other.html：不同源（端口不同）\n目的　　同源政策的目的，是为了为了保证使用者信息的安全，防止恶意网站篡改用户数据。　　设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的Cookie，会发生什么？　　很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。　　由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。\n限制范围　　随着互联网的发展，”同源政策”越来越严格。目前，非同源的网站之间，共有四种行为受到限制。1234（1） Cookie、LocalStorage 和 IndexDB 无法读取。（2） DOM 无法获得。（3） AJAX 请求不能发送。（4）无法通过 flash 发送 http 请求\n跨域　　同源策略做了很严格的限制，但是在实际的场景中，又确实有很多地方需要突破同源策略的限制，也就是我们常说的跨域。\nCookie　　同源策略最早被提出的时候，为的就是防止不同域名的网页之间共享 cookie。Cookie是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享Cookie。举个例子，https://market.douban.com和https://book.douban.com，这两个网页的一级域名都是 douban.com，如果我在 market.douban.com中执行了12345678#A、B页面设置相同的document.domaindocument.domain = 'douban.com'# A页面通过脚本设置一个Cookiedocument.cookie = 'cross=yes'或document.cookie = 'cross=yes;path=/;domain=douban.com'# B页面就可以读取到Cookievar allCookie = document.cookie\n这样设置了 cookie之后，在book.douban.com中是可以取到这个cookie的。除了在前端设置之外，也可以直接在response里将cookie的domain设置成 .douban.com。\nAjax什么是Ajax跨域ajax跨域的原理　　ajax出现请求跨域错误问题,主要原因就是因为浏览器的“同源策略”,可以参考\najax跨域的表现　　ajax请求时,如果存在跨域现象,并且没有进行解决,会有如下表现:(注意，是ajax请求，请不要说为什么http请求可以，而ajax不行，因为ajax是伴随着跨域的，所以仅仅是http请求ok是不行的)第一种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 404出现这种情况的原因如下：　　本次ajax请求是“非简单请求”,所以请求前会发送一次预检请求(OPTIONS)　　服务器端后台接口没有允许OPTIONS请求,导致无法找到对应接口地址解决方案: 后端允许options请求第二种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 405这种现象和第一种有区别,这种情况下，后台方法允许OPTIONS请求,但是一些配置文件中(如安全配置),阻止了OPTIONS请求,才会导致这个现象解决方案: 后端关闭对应的安全配置第三种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且status 200这种现象和第一种和第二种有区别,这种情况下，服务器端后台允许OPTIONS请求,并且接口也允许OPTIONS请求,但是头部匹配时出现不匹配现象比如origin头部检查不匹配,比如少了一些头部的支持(如常见的X-Requested-With头部),然后服务端就会将response返回给前端,前端检测到这个后就触发XHR.onerror,导致前端控制台报错解决方案: 后端增加对应的头部支持第四种现象:heade contains multiple values &#39;*,*&#39;表现现象是，后台响应的http头部信息有两个Access-Control-Allow-Origin:*说实话，这种问题出现的主要原因就是进行跨域配置的人不了解原理，导致了重复配置，如:常见于.net后台(一般在web.config中配置了一次origin,然后代码中又手动添加了一次origin(比如代码手动设置了返回*))常见于.net后台(在IIS和项目的webconfig中同时设置Origin:*)解决方案(一一对应):　　建议删除代码中手动添加的*，只用项目配置中的即可　　建议删除IIS下的配置*，只用项目配置中的即可\n如何解决ajax跨域　　一般ajax跨域解决就是通过JSONP解决或者CORS解决,如以下:(注意，现在已经几乎不会再使用JSONP了，所以JSONP了解下即可)\nJSONPjsonp 其实算是一种 hack 形式的请求。jsonp 的本质其实是请求一段 js 代码，是对静态文件资源的请求，所以并不遵循同源策略。但是因为是对静态文件资源的请求，所以只能支持 GET 请求，对于其他方法没有办法支持。\n设置CORS　　CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。本文详细介绍CORS的内部机制。\nCORS简介　　CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。　　整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。\nCORS两种请求浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。只要同时满足以下两大条件，就属于简单请求。12345678910111213（1) 请求方法是以下三种方法之一：  HEAD  GET  POST（2）HTTP的头信息不超出以下几种字段：  Accept  Accept-Language  Content-Language  Last-Event-ID  Content-Type：只限于三个值                application/x-www-form-urlencoded、                multipart/form-data、                text/plain\n凡是不同时满足上面两个条件，就属于非简单请求。浏览器对这两种请求的处理，是不一样的。\nCORS简单请求对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin(protocal + host + path + port)字段,来标明这个请求是来自哪里。下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。1234567GET /cors HTTP/1.1Origin: http://api.bob.comHost: api.alice.comAccept-Language: en-USConnection: keep-aliveUser-Agent: Mozilla/5.0...`\n上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。　　如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段（详见下文），就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。　　如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。\n1234Access-Control-Allow-Origin: http://api.bob.comAccess-Control-Allow-Credentials: trueAccess-Control-Expose-Headers: FooBarContent-Type: text/html; charset=utf-8\n上面的头信息之中，有三个与CORS请求相关的字段，都以Access-Control-开头。（1）Access-Control-Allow-Origin该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。（2）Access-Control-Allow-Credentials该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。（3）Access-Control-Expose-Headers该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。withCredentials 属性上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。Access-Control-Allow-Credentials: true另一方面，开发者必须在AJAX请求中打开withCredentials属性。12var xhr = new XMLHttpRequest();xhr.withCredentials = true;\n否则，即使服务器同意发送Cookie，浏览器也不会发送。或者，服务器要求设置Cookie，浏览器也不会处理。但是，如果省略withCredentials设置，有的浏览器还是会一起发送Cookie。这时，可以显式关闭withCredentials。1xhr.withCredentials = false;\n需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。\nCORS非简单请求与简单请求最大的不同在于，非简单请求实际上是发送了两个请求。预请求首先，在正式请求之前，会先发送一个预请求(preflight-request)，这个请求的作用是尽可能少的携带信息，供服务端判断是否响应该请求。浏览器浏览器发送预请求，请求的 Request Method 会设置为 options。另外，还会带上这几个字段：123Origin: 同简单请求的originAccess-Control-Request-Method: 请求将要使用的方法Access-Control-Request-Headers: 浏览器会额外发送哪些头信息\n服务端服务端收到预请求之后会根据request中的origin,Access-Control-Request-Method和Access-Control-Request-Headers判断是否响应该请求。如果判断响应这个请求，返回的response中将会携带：123Access-Control-Allow-Origin: originAccess-Control-Allow-Methods: like requestAccess-Control-Allow-Headers: like request\n如果否定这个请求，直接返回不带这三个字段的response就可以，浏览器将会把这种返回判断为失败的返回，触发onerror方法正式响应如果预请求被正确响应，接下来就会发送正式请求，正式请求的request和正常的 ajax 请求基本没有区别，只是会携带 origin 字段；response和简单请求一样，会携带上Access-Control-*这些字段\nWebScoketwebsocket 不遵循同源策略。\n但是在 websocket 请求头中会带上 origin 这个字段，服务端可以通过这个字段来判断是否需要响应，在浏览器端并没有做任何限制。\niframe代理请求方式","dateCreated":"2019-03-17T16:56:03+08:00","dateModified":"2019-03-17T20:46:35+08:00","datePublished":"2019-03-17T16:56:03+08:00","description":"\n转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解\n同源策略概念同源即指：协议相同、域名相同、端口号相同。","headline":"同源策略和跨域","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/","keywords":"Ajax"}</script>
+    <meta name="description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
+<meta name="keywords" content="Ajax">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="同源策略和跨域">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://yoursite.com/assets/images/ajax001.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/ajax002.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/ajax003.png">
+<meta property="og:image" content="http://yoursite.com/assets/images/ajax004.jpg">
+<meta property="og:updated_time" content="2019-03-17T12:46:35.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="同源策略和跨域">
+<meta name="twitter:description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
+<meta name="twitter:image" content="http://yoursite.com/assets/images/ajax001.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            同源策略和跨域
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-03-17T16:56:03+08:00">
+	
+		    3月 17, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Ajax/">Ajax</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：3.1k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-text">同源策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制范围"><span class="toc-text">限制范围</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域"><span class="toc-text">跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookie"><span class="toc-text">Cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ajax"><span class="toc-text">Ajax</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是Ajax跨域"><span class="toc-text">什么是Ajax跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ajax跨域的原理"><span class="toc-text">ajax跨域的原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ajax跨域的表现"><span class="toc-text">ajax跨域的表现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何解决ajax跨域"><span class="toc-text">如何解决ajax跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JSONP"><span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置CORS"><span class="toc-text">设置CORS</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS简介"><span class="toc-text">CORS简介</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS两种请求"><span class="toc-text">CORS两种请求</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS简单请求"><span class="toc-text">CORS简单请求</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS非简单请求"><span class="toc-text">CORS非简单请求</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#WebScoket"><span class="toc-text">WebScoket</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#iframe"><span class="toc-text">iframe</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代理请求方式"><span class="toc-text">代理请求方式</span></a></li></ol></li></ol></li></ol></li></ol>
+<p>转载:<br>　　<a href="https://segmentfault.com/a/1190000012469713" target="_blank" rel="noopener">ajax跨域，这应该是最全的解决方案了</a><br>参考:<br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a><br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></p>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>同源即指：协议相同、域名相同、端口号相同。<br><a id="more"></a><br>举例来说，<code>http://www.example.com/dir/page.html</code>这个网址，协议是<code>http://</code>，域名是<code>www.example.com</code>，端口是<code>80</code>（默认端口可以省略）。它的同源情况如下。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com/dir2/other.html：同源</span><br><span class="line">http://example.com/dir/other.html：不同源（域名不同）</span><br><span class="line">http://v2.www.example.com/dir/other.html：不同源（域名不同）</span><br><span class="line">http://www.example.com:81/dir/other.html：不同源（端口不同）</span><br></pre></td></tr></table></figure></p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>　　同源政策的目的，是为了<strong>为了保证使用者信息的安全，防止恶意网站篡改用户数据</strong>。<br>　　设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的<code>Cookie</code>，会发生什么？<br>　　很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，<code>Cookie</code> 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。<br>　　由此可见，”同源政策”是必需的，否则 <code>Cookie</code> 可以共享，互联网就毫无安全可言了。</p>
+<h3 id="限制范围"><a href="#限制范围" class="headerlink" title="限制范围"></a>限制范围</h3><p>　　随着互联网的发展，”同源政策”越来越严格。目前，非同源的网站之间，共有四种行为受到限制。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（1） Cookie、LocalStorage 和 IndexDB 无法读取。</span><br><span class="line">（2） DOM 无法获得。</span><br><span class="line">（3） AJAX 请求不能发送。</span><br><span class="line">（4）无法通过 flash 发送 http 请求</span><br></pre></td></tr></table></figure></p>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>　　同源策略做了很严格的限制，但是在实际的场景中，又确实有很多地方需要突破同源策略的限制，也就是我们常说的跨域。</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>　　同源策略最早被提出的时候，为的就是防止不同域名的网页之间共享 <code>cookie</code>。<code>Cookie</code>是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置<code>document.domain</code>共享<code>Cookie</code>。<br>举个例子，<br><code>https://market.douban.com</code>和<code>https://book.douban.com</code>，这两个网页的一级域名都是 <code>douban.com</code>，如果我在 <code>market.douban.com</code>中执行了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#A、B页面设置相同的document.domain</span></span><br><span class="line">document.domain = <span class="string">'douban.com'</span></span><br><span class="line"><span class="comment"># A页面通过脚本设置一个Cookie</span></span><br><span class="line">document.cookie = <span class="string">'cross=yes'</span></span><br><span class="line">或</span><br><span class="line">document.cookie = <span class="string">'cross=yes;path=/;domain=douban.com'</span></span><br><span class="line"><span class="comment"># B页面就可以读取到Cookie</span></span><br><span class="line">var allCookie = document.cookie</span><br></pre></td></tr></table></figure></p>
+<p>这样设置了 <code>cookie</code>之后，在<code>book.douban.com</code>中是可以取到这个<code>cookie</code>的。<br>除了在前端设置之外，也可以直接在<code>response</code>里将<code>cookie</code>的<code>domain</code>设置成 <code>.douban.com</code>。</p>
+<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><h4 id="什么是Ajax跨域"><a href="#什么是Ajax跨域" class="headerlink" title="什么是Ajax跨域"></a>什么是Ajax跨域</h4><h5 id="ajax跨域的原理"><a href="#ajax跨域的原理" class="headerlink" title="ajax跨域的原理"></a>ajax跨域的原理</h5><p>　　<code>ajax</code>出现请求跨域错误问题,主要原因就是因为浏览器的“同源策略”,可以参考</p>
+<h5 id="ajax跨域的表现"><a href="#ajax跨域的表现" class="headerlink" title="ajax跨域的表现"></a>ajax跨域的表现</h5><p>　　<code>ajax</code>请求时,如果存在跨域现象,并且没有进行解决,会有如下表现:(注意，是<code>ajax</code>请求，请不要说为什么<code>http</code>请求可以，而<code>ajax</code>不行，因为<code>ajax</code>是伴随着跨域的，所以仅仅是<code>http</code>请求<code>ok</code>是不行的)<br><strong>第一种现象</strong>:<code>No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource</code>,并且<code>The response had HTTP status code 404</code><br><img src="/assets/images/ajax001.png" alt="ajax001"><br>出现这种情况的原因如下：<br>　　本次ajax请求是“非简单请求”,所以请求前会发送一次预检请求(<code>OPTIONS</code>)<br>　　服务器端后台接口没有允许<code>OPTIONS</code>请求,导致无法找到对应接口地址<br>解决方案: 后端允许options请求<br><strong>第二种现象</strong>:<code>No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource</code>,并且<code>The response had HTTP status code 405</code><br><img src="/assets/images/ajax002.png" alt="ajax001"><br>这种现象和第一种有区别,这种情况下，后台方法允许<code>OPTIONS</code>请求,但是一些配置文件中(如安全配置),阻止了<code>OPTIONS</code>请求,才会导致这个现象<br>解决方案: 后端关闭对应的安全配置<br><strong>第三种现象</strong>:<code>No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource</code>,并且<code>status 200</code><br><img src="/assets/images/ajax003.png" alt="ajax001"><br>这种现象和第一种和第二种有区别,这种情况下，服务器端后台允许<code>OPTIONS</code>请求,并且接口也允许<code>OPTIONS</code>请求,但是头部匹配时出现不匹配现象<br>比如<code>origin</code>头部检查不匹配,比如少了一些头部的支持(如常见的<code>X-Requested-With</code>头部),然后服务端就会将<code>response</code>返回给前端,前端检测到这个后就触发<code>XHR.onerror</code>,导致前端控制台报错<br>解决方案: 后端增加对应的头部支持<br><strong>第四种现象</strong>:<code>heade contains multiple values &#39;*,*&#39;</code><br><img src="/assets/images/ajax004.jpg" alt="ajax001"><br>表现现象是，后台响应的http头部信息有两个<code>Access-Control-Allow-Origin:*</code><br>说实话，这种问题出现的主要原因就是进行跨域配置的人不了解原理，导致了重复配置，如:<br>常见于<code>.net</code>后台(一般在<code>web.config</code>中配置了一次<code>origin</code>,然后代码中又手动添加了一次<code>origin</code>(比如代码手动设置了返回<code>*</code>))<br>常见于<code>.net</code>后台(在<code>IIS</code>和项目的<code>webconfig</code>中同时设置<code>Origin:*</code>)<br>解决方案(一一对应):<br>　　建议删除代码中手动添加的<code>*</code>，只用项目配置中的即可<br>　　建议删除IIS下的配置<code>*</code>，只用项目配置中的即可</p>
+<h4 id="如何解决ajax跨域"><a href="#如何解决ajax跨域" class="headerlink" title="如何解决ajax跨域"></a>如何解决ajax跨域</h4><p>　　一般ajax跨域解决就是通过<code>JSONP</code>解决或者<code>CORS</code>解决,如以下:(注意，现在已经几乎不会再使用<code>JSONP</code>了，所以<code>JSONP</code>了解下即可)</p>
+<h5 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h5><p>jsonp 其实算是一种 hack 形式的请求。<br>jsonp 的本质其实是请求一段 js 代码，是对静态文件资源的请求，所以并不遵循同源策略。但是因为是对静态文件资源的请求，所以只能支持 GET 请求，对于其他方法没有办法支持。</p>
+<h5 id="设置CORS"><a href="#设置CORS" class="headerlink" title="设置CORS"></a>设置CORS</h5><p>　　<code>CORS</code>是一个<code>W3C</code>标准，全称是”跨域资源共享”（<code>Cross-origin resource sharing</code>）。<br>它允许浏览器向跨源服务器，发出<code>XMLHttpRequest</code>请求，从而克服了<code>AJAX</code>只能同源使用的限制。<br>本文详细介绍CORS的内部机制。</p>
+<h6 id="CORS简介"><a href="#CORS简介" class="headerlink" title="CORS简介"></a>CORS简介</h6><p>　　<code>CORS</code>需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于<code>IE10</code>。<br>　　整个<code>CORS</code>通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现<code>AJAX</code>请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</p>
+<h6 id="CORS两种请求"><a href="#CORS两种请求" class="headerlink" title="CORS两种请求"></a>CORS两种请求</h6><p>浏览器将CORS请求分成两类：简单请求（<code>simple request</code>）和非简单请求（<code>not-so-simple request</code>）。<br>只要同时满足以下两大条件，就属于简单请求。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">（1) 请求方法是以下三种方法之一：</span><br><span class="line">  HEAD</span><br><span class="line">  GET</span><br><span class="line">  POST</span><br><span class="line">（2）HTTP的头信息不超出以下几种字段：</span><br><span class="line">  Accept</span><br><span class="line">  Accept-Language</span><br><span class="line">  Content-Language</span><br><span class="line">  Last-Event-ID</span><br><span class="line">  Content-Type：只限于三个值</span><br><span class="line">                application/x-www-form-urlencoded、</span><br><span class="line">                multipart/form-data、</span><br><span class="line">                text/plain</span><br></pre></td></tr></table></figure></p>
+<p>凡是不同时满足上面两个条件，就属于<code>非简单请求</code>。<br>浏览器对这两种请求的处理，是不一样的。</p>
+<h6 id="CORS简单请求"><a href="#CORS简单请求" class="headerlink" title="CORS简单请求"></a>CORS简单请求</h6><p>对于简单请求，浏览器直接发出<code>CORS</code>请求。具体来说，就是在头信息之中，增加一个<code>Origin(protocal + host + path + port)</code>字段,来标明这个请求是来自哪里。<br>下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个<code>Origin</code>字段。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET /cors HTTP/1.1</span><br><span class="line">Origin: http://api.bob.com</span><br><span class="line">Host: api.alice.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/5.0...</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<p>上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。<br>　　如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含<code>Access-Control-Allow-Origin</code>字段（详见下文），就知道出错了，从而抛出一个错误，被<code>XMLHttpRequest的onerror</code>回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。<br>　　如果<code>Origin</code>指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span></span><br><span class="line">Access-Control-Expose-Headers: FooBar</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
+<p>上面的头信息之中，有三个与CORS请求相关的字段，都以Access-Control-开头。<br>（1）Access-Control-Allow-Origin<br>该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。<br>（2）Access-Control-Allow-Credentials<br>该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。<br>（3）Access-Control-Expose-Headers<br>该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。<br>withCredentials 属性<br>上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定<code>Access-Control-Allow-Credentials</code>字段。<br><code>Access-Control-Allow-Credentials: true</code><br>另一方面，开发者必须在AJAX请求中打开<code>withCredentials</code>属性。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p>否则，即使服务器同意发送<code>Cookie</code>，浏览器也不会发送。或者，服务器要求设置<code>Cookie</code>，浏览器也不会处理。<br>但是，如果省略<code>withCredentials</code>设置，有的浏览器还是会一起发送<code>Cookie</code>。这时，可以显式关闭<code>withCredentials</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xhr.withCredentials = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，如果要发送<code>Cookie</code>，<code>Access-Control-Allow-Origin</code>就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，<code>Cookie</code>依然遵循同源政策，只有用服务器域名设置的<code>Cookie</code>才会上传，其他域名的<code>Cookie</code>并不会上传，且（跨源）原网页代码中的<code>document.cookie</code>也无法读取服务器域名下的<code>Cookie</code>。</p>
+<h6 id="CORS非简单请求"><a href="#CORS非简单请求" class="headerlink" title="CORS非简单请求"></a>CORS非简单请求</h6><p>与<code>简单请求</code>最大的不同在于，<code>非简单请求</code>实际上是发送了两个请求。<br><strong>预请求</strong><br>首先，在正式请求之前，会先发送一个预请求(preflight-request)，这个请求的作用是尽可能少的携带信息，供服务端判断是否响应该请求。<br><strong>浏览器</strong><br>浏览器发送预请求，请求的 Request Method 会设置为 options。<br>另外，还会带上这几个字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Origin: 同简单请求的origin</span><br><span class="line">Access-Control-Request-Method: 请求将要使用的方法</span><br><span class="line">Access-Control-Request-Headers: 浏览器会额外发送哪些头信息</span><br></pre></td></tr></table></figure></p>
+<p><strong>服务端</strong><br>服务端收到预请求之后会根据request中的origin,Access-Control-Request-Method和Access-Control-Request-Headers判断是否响应该请求。<br>如果判断响应这个请求，返回的response中将会携带：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: origin</span><br><span class="line">Access-Control-Allow-Methods: like request</span><br><span class="line">Access-Control-Allow-Headers: like request</span><br></pre></td></tr></table></figure></p>
+<p>如果否定这个请求，直接返回不带这三个字段的response就可以，浏览器将会把这种返回判断为失败的返回，触发onerror方法<br><strong>正式响应</strong><br>如果预请求被正确响应，接下来就会发送正式请求，正式请求的request和正常的 ajax 请求基本没有区别，只是会携带 origin 字段；response和简单请求一样，会携带上Access-Control-*这些字段</p>
+<h5 id="WebScoket"><a href="#WebScoket" class="headerlink" title="WebScoket"></a>WebScoket</h5><p>websocket 不遵循同源策略。</p>
+<p>但是在 websocket 请求头中会带上 origin 这个字段，服务端可以通过这个字段来判断是否需要响应，在浏览器端并没有做任何限制。</p>
+<h5 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h5><h5 id="代理请求方式"><a href="#代理请求方式" class="headerlink" title="代理请求方式"></a>代理请求方式</h5>
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Ajax/">Ajax</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/Axios/" data-tooltip="Axios" aria-label="下一篇: Axios">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：46.1k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/Axios/" data-tooltip="Axios" aria-label="下一篇: Axios">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/cookit和session/">
+                            <h3 class="media-heading">cookit和session</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
+<ol>
+<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
+                            <h3 class="media-heading">get和post请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 41 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
