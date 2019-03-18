@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-18T12:38:37.410Z</updated>
+  <updated>2019-03-18T13:31:02.778Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSS3新特性</title>
+    <link href="http://yoursite.com/2019/03/18/CSS3/CSS3%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+    <id>http://yoursite.com/2019/03/18/CSS3/CSS3新特性/</id>
+    <published>2019-03-18T13:17:09.000Z</published>
+    <updated>2019-03-18T13:31:02.778Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>实现圆角<code>border-radius</code>，阴影<code>box-shadow</code>，边框图片<code>border-image</code><br>对文字加特效<code>text-shadow</code>，强制文本换行<code>word-wrap</code>，线性渐变<code>linear-gradient</code><a id="more"></a><br>实现旋转<code>transform:rotate(90deg)</code>,缩放<code>scale(0.85,0.90)</code>,<code>translate(0px,-30px)</code>定位,倾斜<code>skew(-9deg,0deg)</code>;<br>增加了更多的<code>CSS</code>选择器、多背景、<code>rgba()`</code><br>唯一引入的伪元素是<code>::selection</code>；<br>实现媒体查询<code>@media</code>，多栏布局<code>flex</code><br>过渡<code>transition</code> 动画<code>animation</code><br><code>text-overflow</code>(文本溢出隐藏)<br><code>CSS3</code>中，<code>text-shadow</code>可向文本应用阴影。能够规定水平阴影、垂直阴影、模糊距离，以及阴影的颜色。<br><code>CSS3</code>新增了几个关于背景的属性，分别是<code>background-clip</code>、<code>background-origin</code>、<code>background-size</code>和<code>background-break</code>。<br><code>text-decoration</code>:<br>CSS3里面开始支持对文字的更深层次的渲染，具体有三个属性可供设置：<br>　　<code>text-fill-color</code>: 设置文字内部填充颜色<br>　　<code>text-stroke-color</code>: 设置文字边界填充颜色<br>　　<code>text-stroke-width</code>: 设置文字边界宽度</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;实现圆角&lt;code&gt;border-radius&lt;/code&gt;，阴影&lt;code&gt;box-shadow&lt;/code&gt;，边框图片&lt;code&gt;border-image&lt;/code&gt;&lt;br&gt;对文字加特效&lt;code&gt;text-shadow&lt;/code&gt;，强制文本换行&lt;code&gt;word-wrap&lt;/code&gt;，线性渐变&lt;code&gt;linear-gradient&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="CSS3" scheme="http://yoursite.com/tags/CSS3/"/>
+    
+  </entry>
   
   <entry>
     <title>Url、Href、Src、Link详解</title>
@@ -464,31 +486,6 @@
     
     
       <category term="像素" scheme="http://yoursite.com/tags/%E5%83%8F%E7%B4%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>重绘(repaint)与回流(reflow)</title>
-    <link href="http://yoursite.com/2019/02/14/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%87%8D%E7%BB%98(repaint)%E4%B8%8E%E5%9B%9E%E6%B5%81(reflow)/"/>
-    <id>http://yoursite.com/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/</id>
-    <published>2019-02-14T07:07:34.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><p>文章转载：<br>　<a href="http://www.cnblogs.com/blackmanba/p/browser-repaint-reflow.html" target="_blank" rel="noopener">浏览器重绘和重排</a><br>文章参考：<br>　<a href="https://www.cnblogs.com/jiayuexuan/p/7490140.html" target="_blank" rel="noopener">重构与回流</a><br>　<a href="https://kb.cnblogs.com/page/169820/" target="_blank" rel="noopener">浏览器的重绘与重排</a><br>　<a href="http://www.cnblogs.com/shenqi0920/p/3545820.html" target="_blank" rel="noopener">探讨css中repaint和reflow</a></p><h5 id="前言："><a href="#前言：" class="headerlink" title="前言："></a><strong>前言：</strong></h5><p>　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。</p><h5 id="概述："><a href="#概述：" class="headerlink" title="概述："></a><strong>概述：</strong></h5><p>　　<strong>重排(回流)</strong>, 顾名思义就是重新排版的意思; <strong>重绘</strong>, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。<br>　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。<strong>回流必将引起重绘，而重绘不一定会引起回流</strong>，repaint和reflow的目的是：展示一个新的页面样貌。<a id="more"></a></p><h5 id="浏览器执行流："><a href="#浏览器执行流：" class="headerlink" title="浏览器执行流："></a><strong>浏览器执行流：</strong></h5><p>　　浏览器每次从服务器下载完页面后就会对页面进行渲染(Render), 这里面就包含了重绘以及重排。每种浏览器虽然工作原理略有差别, 但也遵循以下流程:<br>　　览器引擎会解析HTML文档来构建DOM树。树的每个节点都是标签, 有大小边距等等的属性, 这是因为每个HTML元素都遵循<strong>盒子模型</strong>(隐藏元素不包括在文档树中, 浏览器不会将其渲染)。<br>　　渲染树构建完毕后, 浏览器就能够确定每个元素的位置并将元素放到正确的位置上, 再根据<strong><em>树节点的样式属性</em></strong>绘制出页面元素。<br>　　由于浏览器的流布局的方式, 对渲染树的计算通常只需要遍历一遍即可。但table及其内部元素除外, 可能需要执行多次计算才能确定好在渲染树中的属性,这个过程通常要耗费3倍以上的时间。<br>　　这也是我们要避免使用table标签的其中一个原因。<br>　　简言之浏览器执行顺序为：<br>  　　1. 首先获取html，然后构建dom树 ，DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。<br>  　　2. 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。<br>  　　3. DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现。<br>  　　4. 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。　　</p><h5 id="严重性："><a href="#严重性：" class="headerlink" title="严重性："></a><strong>严重性：</strong></h5><p>　在性能优先的前提下，性能消耗 reflow大于repaint。</p><h5 id="体现："><a href="#体现：" class="headerlink" title="体现："></a><strong>体现：</strong></h5><p>　repaint是某个DOM元素进行重绘；reflow是整个页面进行重排，也就是页面所有DOM元素渲染。</p><h5 id="如何触发："><a href="#如何触发：" class="headerlink" title="如何触发："></a><strong>如何触发：</strong></h5><p>　style变动造成repaint和reflow。<br>　不涉及任何DOM元素的排版问题的变动为repaint，例如元素的color/text-align/text-decoration等等属性的变动。<br>　除上面所提到的DOM元素style的修改基本为reflow。例如元素的任何涉及长、宽、行高、边框、display等style的修改。</p><h5 id="常见触发场景："><a href="#常见触发场景：" class="headerlink" title="常见触发场景："></a><strong>常见触发场景：</strong></h5><p>　　重绘是一个元素外观的改变所触发的浏览器行为，例如改变visibility、outline、背景色等属性。浏览器会根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随重排。重排(回流)是更明显的一种改变，可以理解为渲染树需要重新计算。</p><ol><li>触发repaint：<ol><li>color的修改，如color=#ddd；</li><li>text-align的修改，如text-align=center；</li><li>a:hover也会造成重绘。</li><li>:hover引起的颜色等不导致页面回流的style变动。</li></ol></li><li>触发reflow：<ol><li>width/height/border/margin/padding的修改，如width=778px；</li><li>动画，:hover等伪类引起的元素表现改动，display=none等造成页面回流；</li><li>appendChild等DOM元素操作；</li><li>font类style的修改；</li><li>background的修改，注意着字面上可能以为是重绘，但是浏览器确实回流了，经过浏览器厂家的优化，部分background的修改只触发repaint，当然IE不用考虑；</li><li>scroll页面，这个不可避免；</li><li>resize页面，桌面版本的进行浏览器大小的缩放，移动端的话，还没玩过能拖动程序，resize程序窗口大小的多窗口操作系统。</li><li>读取元素的属性(这个无法理解，但是技术达人是这么说的，那就把它当做定理吧)：读取元素的某些属性(offsetLeft、offsetTop、offsetHeight、offsetWidth、scrollTop/Left/Width/Height、clientTop/Left/Width/Height、getComputedStyle()、currentStyle(in IE))</li></ol></li></ol><p><strong>如何避免：</strong><br>　　说避免那是不可能的，不然就是以前古老的静态页面了，没有交互，那在现在看来，就是一个失败的作品。所以，在我们进行网页设计的时候，就必须尽量减少页面的repaint和reflow。repaint和reflow的目的是为了展示一个新的页面，那么我们在进行页面交互时，尽量通过各种方法减少repaint和reflow但又能展示一个新的页面的目的。所以下面将结合其他技术达人的建议，通过自己的理解，给大家讲解如何避免和优化repaint和reflow：</p><ol><li>尽可能在DOM末梢通过改变class来修改元素的style属性： 将多次改变样式属性的操作合并成一次操作，尽可能的减少受影响的DOM元素。</li><li>避免设置多项内联样式：使用常用的class的方式进行设置样式，以避免设置样式时访问DOM的低效率。</li><li>设置动画元素position属性为fixed或者absolute：由于当前元素从DOM流中独立出来，因此受影响的只有当前元素，元素repaint。</li><li>牺牲平滑度满足性能：动画精度太强，会造成更多次的repaint/reflow，牺牲精度，能满足性能的损耗，获取性能和平滑度的平衡。</li><li>避免使用table进行布局：table的每个元素的大小以及内容的改动，都会导致整个table进行重新计算，造成大幅度的repaint或者reflow。改用div则可以进行针对性的repaint和避免不必要的reflow。</li><li>避免在CSS中使用运算式：学习CSS的时候就知道，这个应该避免，不应该加深到这一层再去了解，因为这个的后果确实非常严重，一旦存在动画性的repaint/reflow，那么每一帧动画都会进行计算，性能消耗不容小觑。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- toc --&gt;
-&lt;p&gt;文章转载：&lt;br&gt;　&lt;a href=&quot;http://www.cnblogs.com/blackmanba/p/browser-repaint-reflow.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;浏览器重绘和重排&lt;/a&gt;&lt;br&gt;文章参考：&lt;br&gt;　&lt;a href=&quot;https://www.cnblogs.com/jiayuexuan/p/7490140.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;重构与回流&lt;/a&gt;&lt;br&gt;　&lt;a href=&quot;https://kb.cnblogs.com/page/169820/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;浏览器的重绘与重排&lt;/a&gt;&lt;br&gt;　&lt;a href=&quot;http://www.cnblogs.com/shenqi0920/p/3545820.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;探讨css中repaint和reflow&lt;/a&gt;&lt;/p&gt;
-&lt;h5 id=&quot;前言：&quot;&gt;&lt;a href=&quot;#前言：&quot; class=&quot;headerlink&quot; title=&quot;前言：&quot;&gt;&lt;/a&gt;&lt;strong&gt;前言：&lt;/strong&gt;&lt;/h5&gt;&lt;p&gt;　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。&lt;/p&gt;
-&lt;h5 id=&quot;概述：&quot;&gt;&lt;a href=&quot;#概述：&quot; class=&quot;headerlink&quot; title=&quot;概述：&quot;&gt;&lt;/a&gt;&lt;strong&gt;概述：&lt;/strong&gt;&lt;/h5&gt;&lt;p&gt;　　&lt;strong&gt;重排(回流)&lt;/strong&gt;, 顾名思义就是重新排版的意思; &lt;strong&gt;重绘&lt;/strong&gt;, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。&lt;br&gt;　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。&lt;strong&gt;回流必将引起重绘，而重绘不一定会引起回流&lt;/strong&gt;，repaint和reflow的目的是：展示一个新的页面样貌。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="前端优化" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96/"/>
-    
-    
-      <category term="前端性能优化" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
