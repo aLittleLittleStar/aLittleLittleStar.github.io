@@ -36,7 +36,7 @@
   <entry>
     <title></title>
     <url>%2F2019%2F03%2F15%2FJavaScript%2Findex%2F</url>
-    <content type="text"><![CDATA[test body function Person() { var name = 'hello' function say() { console.log("name:", name) } return say() } Person()]]></content>
+    <content type="text"><![CDATA[test body 连接 行内元素 1122 12313 function Person() { var name = 'hello' function say() { console.log("name:", name) } return say() } Person()]]></content>
   </entry>
   <entry>
     <title></title>
@@ -225,31 +225,20 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>%2F2018%2F11%2F06%2FH5%2FH5%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <title><![CDATA[H5新特性]]></title>
+    <url>%2F2018%2F11%2F06%2FH5%2FHTML5%2F</url>
+    <content type="text"><![CDATA[语义化标签: header footer nav section article aside 等增强型表单：HTML4: text、checkbox、password、radio、submit、reset、FileHTML5： date(从一个日期选择器选择一个日期) email(包含 e-mail 地址的输入域) number(数值的输入域) range(一定范围内数字值的输入域) search(用于搜索域) tel(定义输入电话号码字段) url、 color、 month、week等 视频和音频：audiovideoCanvas绘图SVG绘图 地理定位：Geolocation拖放API：dragweb worker：是运行在后台的JavaScript,独立于其他脚本，不会影响页面的性能web storage:localStorage sessionStorageWebSocket:HTML5开始提供的一种在单个TCP` 连接上进行全双工通讯的协议]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[H5语义化标签]]></title>
-    <url>%2F2018%2F11%2F06%2FCSS3%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
-    <content type="text"><![CDATA[H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签? 1. H5中关于语义化的标签有哪些 title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容= =||是这么理解的，表示文档、页面、应用或一个独立的容器ahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 2. 语义化标签有什么作用？为什么要使用语义化标签？ 在HTML5出现之前，我们一般采用div+css布局我们的页面。但是这样的布局方式不仅使我们的文档结构不够清晰，而且不利于搜索引擎爬虫对我们页面的爬取。为了解决上述缺点，HTML5新增了很多新的语义化标签。 引入语义化标签的好处主要有 比div标签有更加丰富的含义，方便开发与维护 搜索引擎能更方便的识别页面的每个部分 方便其他设备解析（如移动设备、盲人阅读器等） H5新增的语义化标签headerfooterarticleaside 定义页面的侧边栏内容timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色navprogresssectionvideo 定义视频，属性src引入资源，controls视频的控制控件audio 该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>H5</tag>
+        <tag>HTML5</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[块级元素行内元素]]></title>
     <url>%2F2018%2F11%2F06%2FCSS3%2F%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%2F</url>
-    <content type="text"><![CDATA[行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。块级元素写完后会自动换行，有宽高可以修改。还有一种特殊的元素叫做行内联元素。行内元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：inline-block块级元素有：div、p、h1~h6、ul、ol、dl、li、dd、table、hr、blockquote、address、table、menu、pre，HTML5新增的header、section、aside、footer内联元素： a , b , br , em , font , img , input , label , select , small , span , textarea]]></content>
+    <content type="text"><![CDATA[定义块级元素(display: block): 1. 每个块级元素都从新的一行开始，并且其后的元素也另起一行。 2. 元素的高度、宽度、行高以及顶和底边距都可设置。 3. 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致）。默认高度等于子元素高度。父子均是块级元素时，子块的高度可能冲破父级的限制 内联元素(display: inline) 1. 指的是书写完成后不会自动换行，并且元素没有宽和高。 2. 和其他内联元素都在一行上； 3. 可以通过margin、padding来改变左右的距离，但不可以改变上下的距离，导致width、height、line-height失效或。可以使用border。 4. 内联元素之间有空白区域，空白区域的形成是因为&lt;span&gt;之间有回车，在html中，空格、制表符、回车都属于空白符，多个空白符都会视为一个空格，空格的大小由父级&lt;div&gt;的font-size决定。注意：只有内联(内联块)与内联(内联块)之间的空白符才会形成一个空格，文本元素(除空白符)也是属于内联元素。常用解决方法，给&lt;div&gt;设置font-size: 0;，在&lt;span&gt;上把font-size设置回去 内联块状元素(display: inline-block) 1. 和其他元素都在一行上； 2. 元素的高度、宽度、行高以及顶和底边距都可设置。 3. 它也会有元素间出现空白区域的问题 分类内联元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：inline-block）块级元素有：div、p、h1~h6、ul、ol、dl、li、dd、table、hr、blockquote、address、menu、pre，HTML5新增的header、section、aside、footer内联块状元素： a, br, em, font, img, input, label, select, small, span, textarea]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -260,7 +249,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-XEKATKOT"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-LOzjEJYI"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -357,9 +346,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[渐进增强和优雅降级]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+    <title><![CDATA[语义化标签]]></title>
+    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
+    <content type="text"><![CDATA[H5中关于语义化的标签定义 语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。 为什么要语义化 1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。 2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构 3. 方便其他设备解析（如移动设备、盲人阅读器等） 4. 比div标签有更加丰富的含义，便于团队开发和维护 关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容，表示文档、页面、应用或一个独立的容器aahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 H5新增的语义化标签header 是一种具有引导和导航作用的结构元素，通常用来放置整个页面或页面内的一个内容区块的标题，但也可以包含搜索表单或logo。footer footer通常包括其相关区块的脚注信息，如作者，相关阅读连接以及版权信息等。article 代表文档，页面或应用程序中独立的，完整的，可以独自被外部引用的内容，也可以嵌套使用。可以是一篇博客或者报刊中的文章，一篇论坛帖子，一段用户评论或者独立的插件，或其他任和独立的内容。aside 定义页面的侧边栏内容address 用来在文档中呈现联系信息，包括文档作者或文档维护者名字，他们的网站链接，电子邮箱，真实地址，电话号码，以及跟文档相关的联系人的所有联系信息。timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色nav 是一个可以用作页面导航的链接组，其中导航元素链接到其他页面或当前页面的其他部分。progresssection 作为Html文档独立的功能。video 定义视频，属性src引入资源，controls视频的控制控件audio该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>HTML5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[清除浮动]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[转载：CSS-清除浮动 为什么要清除浮动 浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。 清除浮动的方法使用带clear属性的空元素 div、hr、br都可以123456789# html&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt;#css.clear &#123; clear: both;&#125; 优点：通俗易懂，容易掌握 缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。 12345678910111213141516171819.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 优点：不存在结构和语义化问题，代码量极少 缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。12345678910111213141516171819202122.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class="content"&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;# 清除浮动.clearfix:after&#123; content: " "; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -379,25 +379,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[清除浮动]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
-    <content type="text"><![CDATA[转载：CSS-清除浮动 为什么要清除浮动 浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。 清除浮动的方法使用带clear属性的空元素 div、hr、br都可以123456789# html&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt;#css.clear &#123; clear: both;&#125; 优点：通俗易懂，容易掌握 缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。 12345678910111213141516171819.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 优点：不存在结构和语义化问题，代码量极少 缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。12345678910111213141516171819202122.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class="content"&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;# 清除浮动.clearfix:after&#123; content: " "; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
+    <title><![CDATA[渐进增强和优雅降级]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
         <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[语义化标签]]></title>
-    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
-    <content type="text"><![CDATA[H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签? H5中关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。 footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容= =||是这么理解的，表示文档、页面、应用或一个独立的容器ahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 语义化标签有什么作用？为什么要使用语义化标签？在HTML5出现之前，我们一般采用div+css布局我们的页面。但是这样的布局方式不仅使我们的文档结构不够清晰，而且不利于搜索引擎爬虫对我们页面的爬取。为了解决上述缺点，HTML5新增了很多新的语义化标签。 引入语义化标签的好处主要有 比div标签有更加丰富的含义，方便开发与维护 搜索引擎能更方便的识别页面的每个部分 方便其他设备解析（如移动设备、盲人阅读器等） H5新增的语义化标签 headerfooterarticleaside 定义页面的侧边栏内容timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色navprogresssectionvideo 定义视频，属性src引入资源，controls视频的控制控件audio 该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>H5</tag>
       </tags>
   </entry>
   <entry>
@@ -423,14 +412,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[cookit和session]]></title>
-    <url>%2F2018%2F10%2F10%2FJavaScript%2Fcookit%E5%92%8Csession%2F</url>
-    <content type="text"><![CDATA[cookie cookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见. session session机制采用的是在服务器端保持状态的方案存在服务器的一种用来存放用户数据的类HashTable结构。浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的 Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。 cookie 和 session 的区别 cookie数据存放在客户的浏览器上，session数据放在服务器上。 session 中保存的是对象，cookie 中保存的是字符串。 session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。 cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。 session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。 单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。 cookie 和 webStorage 的区别 webStorage 的优势 从容量上讲WebStorage一般浏览器提供5M的存储空间。 安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。 从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 数据的有效期不同 Webstorage:1.localstorage 2.sessionstorage sessionStorage：仅在当前的浏览器窗口关闭有效； localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除； cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭 作用域不同 sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面； localStorage：在所有同源窗口都是共享的； cookie：也是在所有同源窗口中共享的 webStorage支持事件通知机制，可以将数据更新的通知发生给监听者 如果 cookie 被篡改了怎么办？ 预防 Cookie 被篡改set-cookie时加上防篡改验证码。 参考文章 cookie和session, cookie和webStorage的区别]]></content>
+    <title><![CDATA[前端本地储存]]></title>
+    <url>%2F2018%2F10%2F10%2FJavaScript%2F%E5%89%8D%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%82%A8%E5%AD%98%2F</url>
+    <content type="text"><![CDATA[本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。 cookiecookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。可设置失效时间，没有设置的话，默认是关闭浏览器后失效。Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。 优点 1. 给用户更人性化的使用体验，如记住“密码功能”、老用户登录欢迎语 2. 弥补了HTTP无连接特性 3. 站点统计访问人数的一个依据 缺点 1. 它无法解决多人共用一台电脑的问题，带来了不安全因素 2. Cookie文件容易被误删除 3. 一人使用多台电脑 4. Cookies欺骗。修改host文件，可以非法访问目标站点的Cookie 5. 容量有限制，不能超过4kb 6. 在请求头上带着数据安全性差 注意如果 cookie 被篡改了怎么办？预防 Cookie 被篡改set-cookie时加上防篡改验证码。 localStorage localStorage主要是前端开发人员，在前端设置，一旦数据保存在本地后，就可以避免再向服务器请求数据，因此减少不必要的数据请求，减少数据在浏览器和服务器间不必要地来回传递。 可以长期存储数据，没有时间限制，一天，一年，两年甚至更长，数据都可以使用。localStorage中一般浏览器支持的是5M大小，这个在不同的浏览器中localStorage会有所不同 优点 1. localStorage拓展了cookie的4k限制 2. localStorage可以将第一次请求的5M大小数据直接存储到本地，相比于cookie可以节约带宽 3. localStorage的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的localStorage 缺点 1. 需要手动删除，否则长期存在 2. 浏览器大小不一，版本的支持也不一样 3. localStorage只支持string类型的存储，JSON对象需要转换 4. localStorage本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡 sessionStorage sessionStorage主要是前端开发人员，在前端设置，sessionStorage（会话存储），只有在浏览器被关闭之前使用，创建另一个页面时同意可以使用，关闭浏览器之后数据就会消失。存储上限限制：不同的浏览器存储的上限也不一样，但大多数浏览器把上限限制在5MB以下。 session 由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session。 Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。 session机制采用的是在服务器端保持状态的方案。存在服务器的一种用来存放用户数据的类HashTable结构。 浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。 cookie 和 session 的区别 cookie数据存放在客户的浏览器上，session数据放在服务器上。 session 中保存的是对象，cookie 中保存的是字符串。 session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。 cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。 session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。 单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。 cookie 和 webStorage 的区别 webStorage 的优势 从容量上讲WebStorage一般浏览器提供5M的存储空间。 安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。 从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 数据的有效期不同 Webstorage:1.localstorage 2.sessionstorage sessionStorage：仅在当前的浏览器窗口关闭有效； localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除； cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭 作用域不同 sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面； localStorage：在所有同源窗口都是共享的； cookie：也是在所有同源窗口中共享的 webStorage支持事件通知机制，可以将数据更新的通知发生给监听者 转载： cookie和session, cookie和webStorage的区别 浏览器缓存原理以及本地存储]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>cookit session 面试题</tag>
+        <tag>前端本地储存</tag>
       </tags>
   </entry>
 </search>

@@ -15,19 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。块级元素写完后会自动换行，有宽高可以修改。还有一种特殊的元素叫做行内联元素。行内元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：inline-block块级元素有：div、p、h1~h6、ul、ol、dl、li、dd、table、hr、blockquote、address、table、menu、pre，HTML5新增的header、section、aside、footer内联元素： a , b , br , em , font , img , input , label , select , small , span , textarea \n","dateCreated":"2018-11-06T18:21:49+08:00","dateModified":"2019-03-17T21:20:39+08:00","datePublished":"2018-11-06T18:21:49+08:00","description":"","headline":"块级元素行内元素","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/11/06/CSS3/块级元素行内元素/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/11/06/CSS3/块级元素行内元素/","keywords":"CSS3"}</script>
-    <meta name="description" content="行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。块级元素写完后会自动换行，有宽高可以修改。还有一种特殊的元素叫做行内联元素。行内元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：i">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n定义块级元素(display: block):　　1. 每个块级元素都从新的一行开始，并且其后的元素也另起一行。　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。　　3. 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致）。默认高度等于子元素高度。父子均是块级元素时，子块的高度可能冲破父级的限制\n内联元素(display: inline)　　1. 指的是书写完成后不会自动换行，并且元素没有宽和高。　　2. 和其他内联元素都在一行上；　　3. 可以通过margin、padding来改变左右的距离，但不可以改变上下的距离，导致width、height、line-height失效或。可以使用border。　　4. 内联元素之间有空白区域，空白区域的形成是因为&lt;span&gt;之间有回车，在html中，空格、制表符、回车都属于空白符，多个空白符都会视为一个空格，空格的大小由父级&lt;div&gt;的font-size决定。注意：只有内联(内联块)与内联(内联块)之间的空白符才会形成一个空格，文本元素(除空白符)也是属于内联元素。常用解决方法，给&lt;div&gt;设置font-size: 0;，在&lt;span&gt;上把font-size设置回去\n内联块状元素(display: inline-block)　　1. 和其他元素都在一行上；　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。　　3. 它也会有元素间出现空白区域的问题\n分类内联元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：inline-block）块级元素有：div、p、h1~h6、ul、ol、dl、li、dd、table、hr、blockquote、address、menu、pre，HTML5新增的header、section、aside、footer内联块状元素： a, br, em, font, img, input, label, select, small, span, textarea\n","dateCreated":"2018-11-06T18:21:49+08:00","dateModified":"2019-03-18T14:36:26+08:00","datePublished":"2018-11-06T18:21:49+08:00","description":"","headline":"块级元素行内元素","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/11/06/CSS3/块级元素行内元素/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/11/06/CSS3/块级元素行内元素/","keywords":"CSS3"}</script>
+    <meta name="description" content="定义块级元素(display: block):　　1. 每个块级元素都从新的一行开始，并且其后的元素也另起一行。　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。　　3. 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致）。默认高度等于子元素高度。父子均是块级元素时，子块的高度可能冲破父级的限制 内联元素(display: inline)　　1. 指的是书写完成后不会">
 <meta name="keywords" content="CSS3">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="块级元素行内元素">
 <meta property="og:url" content="http://yoursite.com/2018/11/06/CSS3/块级元素行内元素/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。块级元素写完后会自动换行，有宽高可以修改。还有一种特殊的元素叫做行内联元素。行内元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：i">
+<meta property="og:description" content="定义块级元素(display: block):　　1. 每个块级元素都从新的一行开始，并且其后的元素也另起一行。　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。　　3. 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致）。默认高度等于子元素高度。父子均是块级元素时，子块的高度可能冲破父级的限制 内联元素(display: inline)　　1. 指的是书写完成后不会">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-17T13:20:39.923Z">
+<meta property="og:updated_time" content="2019-03-18T06:36:26.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="块级元素行内元素">
-<meta name="twitter:description" content="行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。块级元素写完后会自动换行，有宽高可以修改。还有一种特殊的元素叫做行内联元素。行内元素有：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、u（下划线）、button（默认display：i">
+<meta name="twitter:description" content="定义块级元素(display: block):　　1. 每个块级元素都从新的一行开始，并且其后的元素也另起一行。　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。　　3. 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致）。默认高度等于子元素高度。父子均是块级元素时，子块的高度可能冲破父级的限制 内联元素(display: inline)　　1. 指的是书写完成后不会">
     
     
         
@@ -244,7 +244,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：149字
+        字数统计：498字
     </span>
 </div>
 
@@ -252,7 +252,11 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>行内元素指的是书写完成后不会自动换行，并且元素没有宽和高。<br>块级元素写完后会自动换行，有宽高可以修改。<br>还有一种特殊的元素叫做行内联元素。<br><strong>行内元素有</strong>：span、img、a、lable、input、abbr（缩写）、em（强调）、big、cite（引用）、i（斜体）、q（短引用）、textarea、select、small、sub、sup，strong、<br>u（下划线）、button（默认display：inline-block<br><strong>块级元素有</strong>：div、p、h1~h6、ul、ol、dl、li、dd、table、hr、blockquote、address、table、menu、pre，HTML5新增的header、section、aside、footer<br>内联元素： a , b , br , em , font , img , input , label , select , small , span , textarea </p>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li></ol>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p><code>块级元素(display: block)</code>:<br>　　1. 每个块级元素都从新的一行开始，并且其后的元素也另起一行。<br>　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。<br>　　3. 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致）。默认高度等于子元素高度。父子均是块级元素时，子块的高度可能冲破父级的限制</p>
+<p><code>内联元素(display: inline)</code><br>　　1. 指的是书写完成后不会自动换行，并且元素没有宽和高。<br>　　2. 和其他内联元素都在一行上；<br>　　3. 可以通过<code>margin</code>、<code>padding</code>来改变左右的距离，但不可以改变上下的距离，导致<code>width</code>、<code>height</code>、<code>line-height</code>失效或。可以使用<code>border</code>。<br>　　4. 内联元素之间有空白区域，空白区域的形成是因为<code>&lt;span&gt;</code>之间有回车，在<code>html</code>中，空格、制表符、回车都属于空白符，多个空白符都会视为一个空格，空格的大小由父级<code>&lt;div&gt;</code>的<code>font-size</code>决定。注意：只有内联(内联块)与内联(内联块)之间的空白符才会形成一个空格，文本元素(除空白符)也是属于内联元素。常用解决方法，给<code>&lt;div&gt;</code>设置<code>font-size: 0;</code>，在<code>&lt;span&gt;</code>上把<code>font-size</code>设置回去</p>
+<p><code>内联块状元素(display: inline-block)</code><br>　　1. 和其他元素都在一行上；<br>　　2. 元素的高度、宽度、行高以及顶和底边距都可设置。<br>　　3. 它也会有元素间出现空白区域的问题</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p><strong>内联元素有</strong>：<code>span</code>、<code>img</code>、<code>a</code>、<code>lable</code>、<code>input</code>、<code>abbr</code>（缩写）、<code>em</code>（强调）、<code>big</code>、<code>cite</code>（引用）、<code>i</code>（斜体）、<code>q</code>（短引用）、<code>textarea</code>、<code>select</code>、<code>small</code>、<code>sub</code>、<code>sup</code>，<code>strong</code>、<br><code>u</code>（下划线）、<code>button</code>（默认<code>display：inline-block</code>）<br><strong>块级元素有</strong>：<code>div</code>、<code>p</code>、<code>h1~h6</code>、<code>ul</code>、<code>ol</code>、<code>dl</code>、<code>li</code>、<code>dd</code>、<code>table</code>、<code>hr</code>、<code>blockquote</code>、<code>address</code>、<code>menu</code>、<code>pre</code>，HTML5新增的<code>header</code>、<code>section</code>、<code>aside</code>、<code>footer</code><br><strong>内联块状元素</strong>： <code>a</code>, <code>br</code>, <code>em</code>, <code>font</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>select</code>, <code>small</code>, <code>span</code>, <code>textarea</code></p>
 
             
 
@@ -274,7 +278,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/语义化标签/" data-tooltip="H5语义化标签" aria-label="上一篇: H5语义化标签">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/H5/HTML5/" data-tooltip="H5新特性" aria-label="上一篇: H5新特性">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -293,7 +297,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -333,7 +337,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -360,7 +364,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：46.1k</span>
+		<span class="post-count">字数统计：46.8k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -388,7 +392,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/语义化标签/" data-tooltip="H5语义化标签" aria-label="上一篇: H5语义化标签">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/H5/HTML5/" data-tooltip="H5新特性" aria-label="上一篇: H5新特性">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -407,7 +411,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -447,7 +451,7 @@ setInterval("createtime()",250);
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -551,8 +555,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/cookit和session/">
-                            <h3 class="media-heading">cookit和session</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -561,7 +565,8 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -589,8 +594,27 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -629,8 +653,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -658,28 +682,10 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
-<ol>
-<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -789,7 +795,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 41 篇文章
+                找到 40 篇文章
             </p>
         </div>
     </div>

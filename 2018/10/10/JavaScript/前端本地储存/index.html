@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>cookit和session - 昨夜小楼又东风</title>
+    <title>前端本地储存 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,20 +15,20 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"cookie\ncookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.\n\nsession\nsession机制采用的是在服务器端保持状态的方案存在服务器的一种用来存放用户数据的类HashTable结构。浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的\nSession ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。\n\ncookie 和 session 的区别\ncookie数据存放在客户的浏览器上，session数据放在服务器上。\nsession 中保存的是对象，cookie 中保存的是字符串。\nsession 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。\ncookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。\nsession会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。\n单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。\n\ncookie 和 webStorage 的区别\nwebStorage 的优势\n从容量上讲WebStorage一般浏览器提供5M的存储空间。\n安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。\n从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 \n数据的有效期不同\nWebstorage:1.localstorage 2.sessionstorage \nsessionStorage：仅在当前的浏览器窗口关闭有效；\nlocalStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除；\ncookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭\n\n\n作用域不同\nsessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面；\nlocalStorage：在所有同源窗口都是共享的；\ncookie：也是在所有同源窗口中共享的\n\n\nwebStorage支持事件通知机制，可以将数据更新的通知发生给监听者\n\n\n\n\n如果 cookie 被篡改了怎么办？\n预防 Cookie 被篡改set-cookie时加上防篡改验证码。 \n\n\n参考文章 cookie和session, cookie和webStorage的区别\n\n","dateCreated":"2018-10-10T17:40:59+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2018-10-10T17:40:59+08:00","description":"","headline":"cookit和session","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/JavaScript/cookit和session/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/JavaScript/cookit和session/","keywords":"cookit session 面试题"}</script>
-    <meta name="description" content="cookie cookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.  session session机制采用的是在服务器端保持状态的方案存在服务器的一种用来存放用户数据的类HashTable结构。浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并">
-<meta name="keywords" content="cookit session 面试题">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。\ncookiecookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。可设置失效时间，没有设置的话，默认是关闭浏览器后失效。Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。\n优点　　1. 给用户更人性化的使用体验，如记住“密码功能”、老用户登录欢迎语　　2. 弥补了HTTP无连接特性　　3. 站点统计访问人数的一个依据\n缺点　　1. 它无法解决多人共用一台电脑的问题，带来了不安全因素　　2. Cookie文件容易被误删除　　3. 一人使用多台电脑　　4. Cookies欺骗。修改host文件，可以非法访问目标站点的Cookie　　5. 容量有限制，不能超过4kb　　6. 在请求头上带着数据安全性差\n注意如果 cookie 被篡改了怎么办？预防 Cookie 被篡改set-cookie时加上防篡改验证码。 \nlocalStorage　　localStorage主要是前端开发人员，在前端设置，一旦数据保存在本地后，就可以避免再向服务器请求数据，因此减少不必要的数据请求，减少数据在浏览器和服务器间不必要地来回传递。　　可以长期存储数据，没有时间限制，一天，一年，两年甚至更长，数据都可以使用。localStorage中一般浏览器支持的是5M大小，这个在不同的浏览器中localStorage会有所不同\n优点　　1. localStorage拓展了cookie的4k限制　　2. localStorage可以将第一次请求的5M大小数据直接存储到本地，相比于cookie可以节约带宽　　3. localStorage的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的localStorage\n　　\n缺点　　1. 需要手动删除，否则长期存在　　2. 浏览器大小不一，版本的支持也不一样　　3. localStorage只支持string类型的存储，JSON对象需要转换　　4. localStorage本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡\nsessionStorage　　sessionStorage主要是前端开发人员，在前端设置，sessionStorage（会话存储），只有在浏览器被关闭之前使用，创建另一个页面时同意可以使用，关闭浏览器之后数据就会消失。存储上限限制：不同的浏览器存储的上限也不一样，但大多数浏览器把上限限制在5MB以下。\nsession　　由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session。　　Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。　　session机制采用的是在服务器端保持状态的方案。存在服务器的一种用来存放用户数据的类HashTable结构。　　浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。\ncookie 和 session 的区别\ncookie数据存放在客户的浏览器上，session数据放在服务器上。\nsession 中保存的是对象，cookie 中保存的是字符串。\nsession 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。\ncookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。\nsession会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。\n单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。\n\ncookie 和 webStorage 的区别\nwebStorage 的优势\n从容量上讲WebStorage一般浏览器提供5M的存储空间。\n安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。\n从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 \n数据的有效期不同\nWebstorage:1.localstorage 2.sessionstorage \nsessionStorage：仅在当前的浏览器窗口关闭有效；\nlocalStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除；\ncookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭\n\n\n作用域不同\nsessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面；\nlocalStorage：在所有同源窗口都是共享的；\ncookie：也是在所有同源窗口中共享的\n\n\nwebStorage支持事件通知机制，可以将数据更新的通知发生给监听者\n\n\n\n\n转载：　　cookie和session, cookie和webStorage的区别　　浏览器缓存原理以及本地存储\n","dateCreated":"2018-10-10T17:40:59+08:00","dateModified":"2019-03-18T16:06:32+08:00","datePublished":"2018-10-10T17:40:59+08:00","description":"\n本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。","headline":"前端本地储存","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/JavaScript/前端本地储存/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/JavaScript/前端本地储存/","keywords":"前端本地储存"}</script>
+    <meta name="description" content="本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。">
+<meta name="keywords" content="前端本地储存">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="cookit和session">
-<meta property="og:url" content="http://yoursite.com/2018/10/10/JavaScript/cookit和session/index.html">
+<meta property="og:title" content="前端本地储存">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="cookie cookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.  session session机制采用的是在服务器端保持状态的方案存在服务器的一种用来存放用户数据的类HashTable结构。浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并">
+<meta property="og:description" content="本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/assets/images/session.png">
-<meta property="og:updated_time" content="2019-03-08T13:36:25.000Z">
+<meta property="og:updated_time" content="2019-03-18T08:06:32.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cookit和session">
-<meta name="twitter:description" content="cookie cookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.  session session机制采用的是在服务器端保持状态的方案存在服务器的一种用来存放用户数据的类HashTable结构。浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并">
+<meta name="twitter:title" content="前端本地储存">
+<meta name="twitter:description" content="本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。">
 <meta name="twitter:image" content="http://yoursite.com/assets/images/session.png">
     
     
@@ -224,7 +224,7 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            cookit和session
+            前端本地储存
         </h1>
     
     
@@ -246,7 +246,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：717字
+        字数统计：1.5k字
     </span>
 </div>
 
@@ -254,19 +254,24 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><blockquote>
-<p><strong>cookie机制采用的是在客户端保持状态的方案</strong><br>Cookie的主要内容包括：名字，值，过期时间，路径和域。使用Fiddler抓包就可以看见.</p>
-</blockquote>
-<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><blockquote>
-<p><strong>session机制采用的是在服务器端保持状态的方案</strong><br>存在服务器的一种用来存放用户数据的类HashTable结构。<br>浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的</p>
-<p>Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。</p>
-</blockquote>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#本地存储"><span class="toc-text">本地存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie"><span class="toc-text">cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#优点"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#缺点"><span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#localStorage"><span class="toc-text">localStorage</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#优点-1"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#缺点-1"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sessionStorage"><span class="toc-text">sessionStorage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#session"><span class="toc-text">session</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie-和-session-的区别"><span class="toc-text">cookie 和 session 的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie-和-webStorage-的区别"><span class="toc-text">cookie 和 webStorage 的区别</span></a></li></ol></li></ol>
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。<a id="more"></a></p>
+<h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><p><strong>cookie机制采用的是在客户端保持状态的方案</strong><br><code>Cookie</code>的主要内容包括：名字，值，过期时间，路径和域。<br>可设置失效时间，没有设置的话，默认是关闭浏览器后失效。<br>Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。</p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>　　1. 给用户更人性化的使用体验，如记住“密码功能”、老用户登录欢迎语<br>　　2. 弥补了HTTP无连接特性<br>　　3. 站点统计访问人数的一个依据</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>　　1. 它无法解决多人共用一台电脑的问题，带来了不安全因素<br>　　2. Cookie文件容易被误删除<br>　　3. 一人使用多台电脑<br>　　4. Cookies欺骗。修改host文件，可以非法访问目标站点的Cookie<br>　　5. 容量有限制，不能超过4kb<br>　　6. 在请求头上带着数据安全性差</p>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><p>如果 cookie 被篡改了怎么办？<br>预防 Cookie 被篡改<br>set-cookie时加上防篡改验证码。 </p>
+<h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h4><p>　　<code>localStorage</code>主要是前端开发人员，在前端设置，一旦数据保存在本地后，就可以避免再向服务器请求数据，因此减少不必要的数据请求，减少数据在浏览器和服务器间不必要地来回传递。<br>　　可以长期存储数据，没有时间限制，一天，一年，两年甚至更长，数据都可以使用。<br><code>localStorage</code>中一般浏览器支持的是5M大小，这个在不同的浏览器中<code>localStorage</code>会有所不同</p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><p>　　1. localStorage拓展了cookie的4k限制<br>　　2. localStorage可以将第一次请求的5M大小数据直接存储到本地，相比于cookie可以节约带宽<br>　　3. localStorage的使用也是遵循<code>同源策略</code>的，所以不同的网站直接是不能共用相同的localStorage
+　　</p>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><p>　　1. 需要手动删除，否则长期存在<br>　　2. 浏览器大小不一，版本的支持也不一样<br>　　3. localStorage只支持string类型的存储，JSON对象需要转换<br>　　4. localStorage本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡</p>
+<h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h4><p>　　<code>sessionStorage</code>主要是前端开发人员，在前端设置，sessionStorage（会话存储），只有在浏览器被关闭之前使用，创建另一个页面时同意可以使用，关闭浏览器之后数据就会消失。<br><code>存储上限限制</code>：不同的浏览器存储的上限也不一样，但大多数浏览器把上限限制在5MB以下。</p>
+<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><p>　　由于<code>HTTP</code>协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是<code>Session</code>。<br>　　Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。<br>　　session机制采用的是在<code>服务器端</code>保持状态的方案。存在服务器的一种用来存放用户数据的类HashTable结构。<br>　　浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的<br>Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。</p>
 <h4 id="cookie-和-session-的区别"><a href="#cookie-和-session-的区别" class="headerlink" title="cookie 和 session 的区别"></a>cookie 和 session 的区别</h4><ul>
-<li>cookie数据存放在客户的浏览器上，session数据放在服务器上。</li>
-<li>session 中保存的是对象，cookie 中保存的是字符串。</li>
+<li>cookie数据存放在客户的<code>浏览器</code>上，session数据放在<code>服务器</code>上。</li>
+<li>session 中保存的是<code>对象</code>，cookie 中保存的是<code>字符串</code>。</li>
 <li>session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。</li>
 <li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。</li>
-<li>session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。</li>
+<li>session会在一定时间内保存在<code>服务器</code>上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。</li>
 <li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</li>
 </ul>
 <h4 id="cookie-和-webStorage-的区别"><a href="#cookie-和-webStorage-的区别" class="headerlink" title="cookie 和 webStorage 的区别"></a>cookie 和 webStorage 的区别</h4><ul>
@@ -292,12 +297,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="如果-cookie-被篡改了怎么办？"><a href="#如果-cookie-被篡改了怎么办？" class="headerlink" title="如果 cookie 被篡改了怎么办？"></a>如果 cookie 被篡改了怎么办？</h4><blockquote>
-<p>预防 Cookie 被篡改<br>set-cookie时加上防篡改验证码。 </p>
-</blockquote>
-<blockquote>
-<p>参考文章 <a href="https://blog.csdn.net/statham_li/article/details/80226447" target="_blank" rel="noopener">cookie和session, cookie和webStorage的区别</a></p>
-</blockquote>
+<p>转载：<br>　　<a href="https://blog.csdn.net/statham_li/article/details/80226447" target="_blank" rel="noopener">cookie和session, cookie和webStorage的区别</a><br>　　<a href="https://segmentfault.com/a/1190000017185195" target="_blank" rel="noopener">浏览器缓存原理以及本地存储</a></p>
 
             
 
@@ -308,7 +308,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/cookit-session-面试题/">cookit session 面试题</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/前端本地储存/">前端本地储存</a>
 
             </div>
         
@@ -337,7 +337,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -345,7 +345,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/JavaScript/cookit和session/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -353,7 +353,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/JavaScript/cookit和session/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -361,7 +361,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/JavaScript/cookit和session/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -377,7 +377,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -404,7 +404,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：46.1k</span>
+		<span class="post-count">字数统计：46.8k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -450,7 +450,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -458,7 +458,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/JavaScript/cookit和session/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -466,7 +466,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/JavaScript/cookit和session/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -474,7 +474,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/JavaScript/cookit和session/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -490,7 +490,7 @@ setInterval("createtime()",250);
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -507,7 +507,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/JavaScript/cookit和session/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -515,7 +515,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/JavaScript/cookit和session/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -523,7 +523,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/JavaScript/cookit和session/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -594,8 +594,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/cookit和session/">
-                            <h3 class="media-heading">cookit和session</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -604,7 +604,8 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -632,8 +633,27 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -672,8 +692,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -701,28 +721,10 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><p></p><h4>H5中关于语义化的标签有哪些，语义化标签有什么作用？为什么要使用语义化标签?</h4><p></p>
-<ol>
-<li><p>H5中关于语义化的标签有哪些<br>title 简短、描述性、唯一（提升搜索引擎排名）<br>header 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br>section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。</p></li></ol></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -832,7 +834,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 41 篇文章
+                找到 40 篇文章
             </p>
         </div>
     </div>
@@ -850,7 +852,7 @@ setInterval("createtime()",250);
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2018/10/10/JavaScript/cookit和session/',
+                        id: 'http://yoursite.com/2018/10/10/JavaScript/前端本地储存/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {

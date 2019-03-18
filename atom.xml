@@ -92,9 +92,9 @@
     <link href="http://yoursite.com/2019/03/15/JavaScript/index/"/>
     <id>http://yoursite.com/2019/03/15/JavaScript/index/</id>
     <published>2019-03-15T02:25:58.824Z</published>
-    <updated>2019-03-17T13:05:01.475Z</updated>
+    <updated>2019-03-18T07:10:41.186Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>test</title><script src="https://unpkg.com/axios/dist/axios.min.js"></script></head><body><div>body<input type="date"></div><script>function Person() {var name = 'hello'function say() {console.log("name:", name)}return say()}Person()</script></body></html>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>test</title><script src="https://unpkg.com/axios/dist/axios.min.js"></script></head><body><div>body<input type="date"><a href="#">连接</a><span>行内元素</span><h1>1122</h1><time>12313</time><input type="color"></div><script>function Person() {var name = 'hello'function say() {console.log("name:", name)}return say()}Person()</script></body></html>]]></content>
     
     <summary type="html">
     
