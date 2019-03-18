@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Url、Href、Src、Link详解]]></title>
+    <url>%2F2019%2F03%2F18%2FCSS3%2FUrl%E3%80%81Href%E3%80%81Src%E3%80%81Link%2F</url>
+    <content type="text"><![CDATA[转载： url、href、src 详解 Url定义 URL(Uniform Resource Locator)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。 Url格式标准格式 协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询完整格式 协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询 Url语法规则 比如网址http://segmentfault.com/html/index.asp必须遵守以下的语法规则:scheme://host.domain:port/path/filename说明 scheme - 定义因特网服务的类型。最常见的类型是 http host - 定义域主机（http 的默认主机是 www） domain - 定义因特网域名，比如 w3school.com.cn :port - 定义主机上的端口号（http 的默认端口号是 80） path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。 filename - 定义文档/资源的名称 URL Schemes Scheme 访问 用于 http 超文本传输协议 以 http:// 开头的普通网页。不加密。 https 安全超文本传输协议 安全网页。加密所有信息交换。 ftp 文件传输协议 用于将文件下载或上传至网站。 file 您计算机上的文件。 URL的类型绝对URL 绝对URL（absolute URL）显示文件的完整路径，这意味着绝对URL本身所在的位置与被引用的实际文件的位置无关。相对URL 相对URL（relative URL）以包含URL本身的文件夹的位置为参考点，描述目标文件夹的位置。 一般来说，对于同一服务器上的文件，应该总是使用相对URL，它们更容易输入，而且在将页面从本地系统转移到服务器上时更方便，只要每个文件的相对位置保持不变，链接就仍然是有效地。.：代表目前所在的目录，相对路径。例： &lt;a href=&quot;./abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;./abc&quot; /&gt;..：代表上一层目录，相对路径。例： &lt;a href=&quot;../abc&quot;&gt;文本&lt;/a&gt;或 &lt;img src=&quot;../abc&quot; /&gt;../../：代表的是上一层目录的上一层目录，相对路径。例： &lt;img src=&quot;../../abc&quot; /&gt;/：代表根目录，绝对路径。例： &lt;a href=&quot;/abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;/abc&quot; /&gt; Href定义 href (Hypertext Reference)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。 通俗理解 href: 目的不是为了引用资源，而是为了建立这个标签与外部资源之间的关系，让当前标签能够链接到目标地址。&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;浏览器加载到这里的时候，html的渲染和解析不会暂停，css文件的加载是同时进行的 Src src用于替代这个元素: &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件 Href和Src的区别请求资源类型不同 href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。 在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；作用结果不同 href 用于在当前文档和引用资源之间确立联系； src 用于替换当前内容；浏览器解析方式不同 若在文档中添加 &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;，浏览器会识别该文档为 CSS 文件，就会并行下载资源并且不会停止对当前文档的处理。这也是为什么建议使用 link 方式加载 CSS，而不是使用@import 方式。 当浏览器解析到 &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 js 脚本放在底部而不是头部的原因。 Link和@import的区别两者都是外部引用 CSS 的方式，但是存在一定的区别：（1）link是XHTML标签，除了能够加载CSS，还可以定义RSS等其他事务；而@import属于CSS范畴，只可以加载CSS。（2）link引用CSS时，在页面载入时同时加载；@import需要页面完全载入以后再加载。（3）link是XHTML标签，无兼容问题；@import则是在CSS2.1提出的，低版本的浏览器不支持。（4）link支持使用Javascript控制DOM改变样式；而@import不支持。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[同源策略和跨域]]></title>
     <url>%2F2019%2F03%2F17%2FAjax%2F%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%A8%E5%9F%9F%2F</url>
     <content type="text"><![CDATA[转载: ajax跨域，这应该是最全的解决方案了参考: 浏览器同源政策及其规避方法 跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。举例来说，http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。1234http://www.example.com/dir2/other.html：同源http://example.com/dir/other.html：不同源（域名不同）http://v2.www.example.com/dir/other.html：不同源（域名不同）http://www.example.com:81/dir/other.html：不同源（端口不同） 目的 同源政策的目的，是为了为了保证使用者信息的安全，防止恶意网站篡改用户数据。 设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的Cookie，会发生什么？ 很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。 由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。 限制范围 随着互联网的发展，”同源政策”越来越严格。目前，非同源的网站之间，共有四种行为受到限制。1234（1） Cookie、LocalStorage 和 IndexDB 无法读取。（2） DOM 无法获得。（3） AJAX 请求不能发送。（4）无法通过 flash 发送 http 请求 跨域 同源策略做了很严格的限制，但是在实际的场景中，又确实有很多地方需要突破同源策略的限制，也就是我们常说的跨域。 Cookie 同源策略最早被提出的时候，为的就是防止不同域名的网页之间共享 cookie。Cookie是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享Cookie。举个例子，https://market.douban.com和https://book.douban.com，这两个网页的一级域名都是 douban.com，如果我在 market.douban.com中执行了12345678#A、B页面设置相同的document.domaindocument.domain = 'douban.com'# A页面通过脚本设置一个Cookiedocument.cookie = 'cross=yes'或document.cookie = 'cross=yes;path=/;domain=douban.com'# B页面就可以读取到Cookievar allCookie = document.cookie 这样设置了 cookie之后，在book.douban.com中是可以取到这个cookie的。除了在前端设置之外，也可以直接在response里将cookie的domain设置成 .douban.com。 Ajax什么是Ajax跨域ajax跨域的原理 ajax出现请求跨域错误问题,主要原因就是因为浏览器的“同源策略”,可以参考 ajax跨域的表现 ajax请求时,如果存在跨域现象,并且没有进行解决,会有如下表现:(注意，是ajax请求，请不要说为什么http请求可以，而ajax不行，因为ajax是伴随着跨域的，所以仅仅是http请求ok是不行的)第一种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 404出现这种情况的原因如下： 本次ajax请求是“非简单请求”,所以请求前会发送一次预检请求(OPTIONS) 服务器端后台接口没有允许OPTIONS请求,导致无法找到对应接口地址解决方案: 后端允许options请求第二种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 405这种现象和第一种有区别,这种情况下，后台方法允许OPTIONS请求,但是一些配置文件中(如安全配置),阻止了OPTIONS请求,才会导致这个现象解决方案: 后端关闭对应的安全配置第三种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且status 200这种现象和第一种和第二种有区别,这种情况下，服务器端后台允许OPTIONS请求,并且接口也允许OPTIONS请求,但是头部匹配时出现不匹配现象比如origin头部检查不匹配,比如少了一些头部的支持(如常见的X-Requested-With头部),然后服务端就会将response返回给前端,前端检测到这个后就触发XHR.onerror,导致前端控制台报错解决方案: 后端增加对应的头部支持第四种现象:heade contains multiple values &#39;*,*&#39;表现现象是，后台响应的http头部信息有两个Access-Control-Allow-Origin:*说实话，这种问题出现的主要原因就是进行跨域配置的人不了解原理，导致了重复配置，如:常见于.net后台(一般在web.config中配置了一次origin,然后代码中又手动添加了一次origin(比如代码手动设置了返回*))常见于.net后台(在IIS和项目的webconfig中同时设置Origin:*)解决方案(一一对应): 建议删除代码中手动添加的*，只用项目配置中的即可 建议删除IIS下的配置*，只用项目配置中的即可 如何解决ajax跨域 一般ajax跨域解决就是通过JSONP解决或者CORS解决,如以下:(注意，现在已经几乎不会再使用JSONP了，所以JSONP了解下即可) JSONPjsonp 其实算是一种 hack 形式的请求。jsonp 的本质其实是请求一段 js 代码，是对静态文件资源的请求，所以并不遵循同源策略。但是因为是对静态文件资源的请求，所以只能支持 GET 请求，对于其他方法没有办法支持。 设置CORS CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。本文详细介绍CORS的内部机制。 CORS简介 CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。 整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。 CORS两种请求浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。只要同时满足以下两大条件，就属于简单请求。12345678910111213（1) 请求方法是以下三种方法之一： HEAD GET POST（2）HTTP的头信息不超出以下几种字段： Accept Accept-Language Content-Language Last-Event-ID Content-Type：只限于三个值 application/x-www-form-urlencoded、 multipart/form-data、 text/plain 凡是不同时满足上面两个条件，就属于非简单请求。浏览器对这两种请求的处理，是不一样的。 CORS简单请求对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin(protocal + host + path + port)字段,来标明这个请求是来自哪里。下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。1234567GET /cors HTTP/1.1Origin: http://api.bob.comHost: api.alice.comAccept-Language: en-USConnection: keep-aliveUser-Agent: Mozilla/5.0...` 上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。 如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段（详见下文），就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。 如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。 1234Access-Control-Allow-Origin: http://api.bob.comAccess-Control-Allow-Credentials: trueAccess-Control-Expose-Headers: FooBarContent-Type: text/html; charset=utf-8 上面的头信息之中，有三个与CORS请求相关的字段，都以Access-Control-开头。（1）Access-Control-Allow-Origin该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。（2）Access-Control-Allow-Credentials该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。（3）Access-Control-Expose-Headers该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。withCredentials 属性上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。Access-Control-Allow-Credentials: true另一方面，开发者必须在AJAX请求中打开withCredentials属性。12var xhr = new XMLHttpRequest();xhr.withCredentials = true; 否则，即使服务器同意发送Cookie，浏览器也不会发送。或者，服务器要求设置Cookie，浏览器也不会处理。但是，如果省略withCredentials设置，有的浏览器还是会一起发送Cookie。这时，可以显式关闭withCredentials。1xhr.withCredentials = false; 需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。 CORS非简单请求与简单请求最大的不同在于，非简单请求实际上是发送了两个请求。预请求首先，在正式请求之前，会先发送一个预请求(preflight-request)，这个请求的作用是尽可能少的携带信息，供服务端判断是否响应该请求。浏览器浏览器发送预请求，请求的 Request Method 会设置为 options。另外，还会带上这几个字段：123Origin: 同简单请求的originAccess-Control-Request-Method: 请求将要使用的方法Access-Control-Request-Headers: 浏览器会额外发送哪些头信息 服务端服务端收到预请求之后会根据request中的origin,Access-Control-Request-Method和Access-Control-Request-Headers判断是否响应该请求。如果判断响应这个请求，返回的response中将会携带：123Access-Control-Allow-Origin: originAccess-Control-Allow-Methods: like requestAccess-Control-Allow-Headers: like request 如果否定这个请求，直接返回不带这三个字段的response就可以，浏览器将会把这种返回判断为失败的返回，触发onerror方法正式响应如果预请求被正确响应，接下来就会发送正式请求，正式请求的request和正常的 ajax 请求基本没有区别，只是会携带 origin 字段；response和简单请求一样，会携带上Access-Control-*这些字段 WebScoketwebsocket 不遵循同源策略。 但是在 websocket 请求头中会带上 origin 这个字段，服务端可以通过这个字段来判断是否需要响应，在浏览器端并没有做任何限制。 iframe代理请求方式]]></content>
@@ -89,7 +100,7 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>网页从输入网址到渲染完成经历了哪些过程</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -104,17 +115,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[stylus基础]]></title>
-    <url>%2F2019%2F02%2F22%2FCSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8%2Fstylus%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>stylus</category>
-      </categories>
-      <tags>
-        <tag>stylus基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[redis基础]]></title>
     <url>%2F2019%2F02%2F22%2F%E6%95%B0%E6%8D%AE%E5%BA%93%2Fredis%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -123,6 +123,17 @@
       </categories>
       <tags>
         <tag>redis基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[stylus基础]]></title>
+    <url>%2F2019%2F02%2F22%2FCSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8%2Fstylus%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>stylus</category>
+      </categories>
+      <tags>
+        <tag>stylus基础</tag>
       </tags>
   </entry>
   <entry>
@@ -249,7 +260,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-LOzjEJYI"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-jqApcctP"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -260,7 +271,7 @@
   <entry>
     <title><![CDATA[深浅拷贝]]></title>
     <url>%2F2018%2F10%2F16%2FJavaScript%2F%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D%2F</url>
-    <content type="text"><![CDATA[转载： js 深浅拷贝 笔记总结、[JS]深拷贝与浅拷贝的区别，实现深拷贝的几种方法 JS 数据类型JavaScript的数据类型有： 数值类型(number) 、 字符串类型(string) 、 布尔类型(boolean) 、 null 、undefined 、对象(数组、正则表达式、日期、函数)大致分为两种： 基本数据类型 和 引用数据类型基本数据类型： 数字类型(number)、字符串类型(string)、布尔类型(boolean)、null、undefined引用数据类型： 常规名值对的无序对象{a:1}，数组[1,2,3]，以及函数等 深浅拷贝区别如何区分深拷贝与浅拷贝，简单点来说，就是假设B复制了A，当修改A时，看B是否会发生变化，如果B也跟着变了，说明这是浅拷贝，拿人手短，如果B没变，那就是深拷贝，自食其力。 浅拷贝浅拷贝只是拷贝基本类型的数据，如果父对象的属性等于数组或另一个对象，那么实际上，子对象获得的只是一个内存地址，因此存在父对象被篡改的可能，浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存 深拷贝深拷贝就是能够实现真正意义上的数组和对象的拷贝。递归调用”浅拷贝”。（深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象） 浅拷贝例子：12345let a=[0,1,2,3,4], b=a;console.log(a===b);a[0]=1;console.log(a,b); 运行结果：嗯？明明b复制了a，为啥修改数组a，数组b也跟着变了，这里我不禁陷入了沉思。那么这里，就得引入基本数据类型与引用数据类型的概念了。 a.基本类型–名值存储在栈内存中，例如let a=1;当你b=a复制时，栈内存会新开辟一个内存，例如这样：所以当你此时修改a=2，对b并不会造成影响，因为此时的b已自食其力，翅膀硬了，不受a的影响了。当然，let a=1,b=a;虽然b不受a影响，但这也算不上深拷贝，因为深拷贝本身只针对较为复杂的object类型数据。 b.引用数据类型–名存在栈内存中，值存在于堆内存中，但是栈内存会提供一个引用的地址指向堆内存中的值，我们以上面浅拷贝的例子画个图：当b=a进行拷贝时，其实复制的是a的引用地址，而并非堆里面的值。而当我们a[0]=1时进行数组修改时，由于a与b指向的是同一个地址，所以自然b也受了影响，这就是所谓的浅拷贝了。那，要是在堆内存中也开辟一个新的内存专门为b存放值，就像基本类型那样，起步就达到深拷贝的效果了 1.我们怎么去实现深拷贝呢，这里可以递归递归去复制所有层级属性。这么我们封装一个深拷贝的函数 123456789101112131415161718192021function deepClone(obj)&#123; let objClone = Array.isArray(obj)?[]:&#123;&#125;; if(obj &amp;&amp; typeof obj==="object")&#123; for(key in obj)&#123; if(obj.hasOwnProperty(key))&#123; //判断ojb子元素是否为对象，如果是，递归复制 if(obj[key]&amp;&amp;typeof obj[key] ==="object")&#123; objClone[key] = deepClone(obj[key]); &#125;else&#123; //如果不是，简单复制 objClone[key] = obj[key]; &#125; &#125; &#125; &#125; return objClone;&#125; let a=[1,2,3,4], b=deepClone(a);a[0]=2;console.log(a,b); 运行结果:跟之前想象的一样，现在b脱离了a的控制，不再受a影响了。这里再次强调，深拷贝，是拷贝对象各个层级的属性，可以看个例子。JQ里有一个extend方法也可以拷贝对象，我们来看看1234let a=[1,2,3,4], b=a.slice();a[0]=2;console.log(a,b); 运行结果：那是不是说slice方法也是深拷贝了，毕竟b也没受a的影响，上面说了，深拷贝是会拷贝所有层级的属性，还是这个例子，我们把a改改12345let a=[0,1,[2,3],4], b=a.slice();a[0]=1;a[2][0]=1;console.log(a,b); 拷贝的不彻底啊，b对象的一级属性确实不受影响了，但是二级属性还是没能拷贝成功，仍然脱离不了a的控制，说明slice根本不是真正的深拷贝。这里引用知乎问答里面的一张图 第一层的属性确实深拷贝，拥有了独立的内存，但更深的属性却仍然公用了地址，所以才会造成上面的问题。 同理，concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，这里需要注意。 2.除了递归，我们还可以借用JSON对象的parse和stringify 12345678910function deepClone(obj)&#123; let _obj = JSON.stringify(obj), objClone = JSON.parse(_obj); return objClone&#125; let a=[0,1,[2,3],4], b=deepClone(a);a[0]=1;a[2][0]=1;console.log(a,b); 可以看到，这下b是完全不受a的影响了。 附带说下，JSON.stringify与JSON.parse除了实现深拷贝，还能结合localStorage实现对象数组存储 3.除了上面两种方法之外，我们还可以借用JQ的extend方法。 $.extend( [deep ], target, object1 [, objectN ] ) deep表示是否深拷贝，为true为深拷贝，为false，则为浅拷贝 target Object类型 目标对象，其他对象的成员属性将被附加到该对象上。 object1 objectN可选。 Object类型 第一个以及第N个被合并的对象。12345let a=[0,1,[2,3],4], b=$.extend(true,[],a);a[0]=1;a[2][0]=1;console.log(a,b); 可以看到，效果与上面方法一样，只是需要依赖JQ库。 说了这么多，了解深拷贝也不仅仅是为了应付面试题，在实际开发中也是非常有用的。例如后台返回了一堆数据，你需要对这堆数据做操作，但多人开发情况下，你是没办法明确这堆数据是否有其它功能也需要使用，直接修改可能会造成隐性问题，深拷贝能帮你更安全安心的去操作数据，根据实际情况来使用深拷贝，大概就是这个意思。]]></content>
+    <content type="text"><![CDATA[转载： js 深浅拷贝 笔记总结 [JS]深拷贝与浅拷贝的区别，实现深拷贝的几种方法 JS 数据类型JavaScript的数据类型有： 数值类型(number) 、 字符串类型(string) 、 布尔类型(boolean) 、 null 、undefined 、对象(数组、正则表达式、日期、函数)大致分为两种： 基本数据类型 和 引用数据类型基本数据类型： 数字类型(number)、字符串类型(string)、布尔类型(boolean)、null、undefined引用数据类型： 常规名值对的无序对象{a:1}，数组[1,2,3]，以及函数等 深浅拷贝区别如何区分深拷贝与浅拷贝，简单点来说，就是假设B复制了A，当修改A时，看B是否会发生变化，如果B也跟着变了，说明这是浅拷贝，拿人手短，如果B没变，那就是深拷贝，自食其力。 浅拷贝浅拷贝只是拷贝基本类型的数据，如果父对象的属性等于数组或另一个对象，那么实际上，子对象获得的只是一个内存地址，因此存在父对象被篡改的可能，浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存 深拷贝深拷贝就是能够实现真正意义上的数组和对象的拷贝。递归调用”浅拷贝”。（深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象） 浅拷贝例子：12345let a=[0,1,2,3,4], b=a;console.log(a===b);a[0]=1;console.log(a,b); 运行结果：嗯？明明b复制了a，为啥修改数组a，数组b也跟着变了，这里我不禁陷入了沉思。那么这里，就得引入基本数据类型与引用数据类型的概念了。 a.基本类型–名值存储在栈内存中，例如let a=1;当你b=a复制时，栈内存会新开辟一个内存，例如这样：所以当你此时修改a=2，对b并不会造成影响，因为此时的b已自食其力，翅膀硬了，不受a的影响了。当然，let a=1,b=a;虽然b不受a影响，但这也算不上深拷贝，因为深拷贝本身只针对较为复杂的object类型数据。 b.引用数据类型–名存在栈内存中，值存在于堆内存中，但是栈内存会提供一个引用的地址指向堆内存中的值，我们以上面浅拷贝的例子画个图：当b=a进行拷贝时，其实复制的是a的引用地址，而并非堆里面的值。而当我们a[0]=1时进行数组修改时，由于a与b指向的是同一个地址，所以自然b也受了影响，这就是所谓的浅拷贝了。那，要是在堆内存中也开辟一个新的内存专门为b存放值，就像基本类型那样，起步就达到深拷贝的效果了 1.我们怎么去实现深拷贝呢，这里可以递归递归去复制所有层级属性。这么我们封装一个深拷贝的函数 123456789101112131415161718192021function deepClone(obj)&#123; let objClone = Array.isArray(obj)?[]:&#123;&#125;; if(obj &amp;&amp; typeof obj==="object")&#123; for(key in obj)&#123; if(obj.hasOwnProperty(key))&#123; //判断ojb子元素是否为对象，如果是，递归复制 if(obj[key]&amp;&amp;typeof obj[key] ==="object")&#123; objClone[key] = deepClone(obj[key]); &#125;else&#123; //如果不是，简单复制 objClone[key] = obj[key]; &#125; &#125; &#125; &#125; return objClone;&#125; let a=[1,2,3,4], b=deepClone(a);a[0]=2;console.log(a,b); 运行结果:跟之前想象的一样，现在b脱离了a的控制，不再受a影响了。这里再次强调，深拷贝，是拷贝对象各个层级的属性，可以看个例子。JQ里有一个extend方法也可以拷贝对象，我们来看看1234let a=[1,2,3,4], b=a.slice();a[0]=2;console.log(a,b); 运行结果：那是不是说slice方法也是深拷贝了，毕竟b也没受a的影响，上面说了，深拷贝是会拷贝所有层级的属性，还是这个例子，我们把a改改12345let a=[0,1,[2,3],4], b=a.slice();a[0]=1;a[2][0]=1;console.log(a,b); 拷贝的不彻底啊，b对象的一级属性确实不受影响了，但是二级属性还是没能拷贝成功，仍然脱离不了a的控制，说明slice根本不是真正的深拷贝。这里引用知乎问答里面的一张图 第一层的属性确实深拷贝，拥有了独立的内存，但更深的属性却仍然公用了地址，所以才会造成上面的问题。 同理，concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，这里需要注意。 2.除了递归，我们还可以借用JSON对象的parse和stringify 12345678910function deepClone(obj)&#123; let _obj = JSON.stringify(obj), objClone = JSON.parse(_obj); return objClone&#125; let a=[0,1,[2,3],4], b=deepClone(a);a[0]=1;a[2][0]=1;console.log(a,b); 可以看到，这下b是完全不受a的影响了。 附带说下，JSON.stringify与JSON.parse除了实现深拷贝，还能结合localStorage实现对象数组存储 3.除了上面两种方法之外，我们还可以借用JQ的extend方法。 $.extend( [deep ], target, object1 [, objectN ] ) deep表示是否深拷贝，为true为深拷贝，为false，则为浅拷贝 target Object类型 目标对象，其他对象的成员属性将被附加到该对象上。 object1 objectN可选。 Object类型 第一个以及第N个被合并的对象。12345let a=[0,1,[2,3],4], b=$.extend(true,[],a);a[0]=1;a[2][0]=1;console.log(a,b); 可以看到，效果与上面方法一样，只是需要依赖JQ库。 说了这么多，了解深拷贝也不仅仅是为了应付面试题，在实际开发中也是非常有用的。例如后台返回了一堆数据，你需要对这堆数据做操作，但多人开发情况下，你是没办法明确这堆数据是否有其它功能也需要使用，直接修改可能会造成隐性问题，深拷贝能帮你更安全安心的去操作数据，根据实际情况来使用深拷贝，大概就是这个意思。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -287,7 +298,7 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>http</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -298,7 +309,7 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>http</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -314,13 +325,13 @@
   </entry>
   <entry>
     <title><![CDATA[常用的状态响应码]]></title>
-    <url>%2F2018%2F10%2F10%2F%E5%B8%B8%E7%94%A8%E7%9A%84%E7%8A%B6%E6%80%81%E5%93%8D%E5%BA%94%E7%A0%81%2F%E5%B8%B8%E7%94%A8%E7%9A%84%E7%8A%B6%E6%80%81%E5%93%8D%E5%BA%94%E7%A0%81%2F</url>
+    <url>%2F2018%2F10%2F10%2FHTTP%2F%E5%B8%B8%E8%A7%81%E7%9A%84%E7%8A%B6%E6%80%81%E5%93%8D%E5%BA%94%E7%A0%81%2F</url>
     <content type="text"><![CDATA[状态码大类 状态码 说明 解释 1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急 2XX 成功——表示请求已经被成功接收、理解、接受。 处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息 3XX 重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理 4XX 客户端错误——请求有语法错误或请求无法实现 处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。 5XX 服务器端错误——服务器未能实现合法的请求。 处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等 HTTP响应状态码有很多，但是实际经常使用的大概只有14个。 状态码 200 OK //表示从客户端发来的请求在服务器端被正常处理了。 204 No Content该状态码表示服务器接收的请求已成功处理 ，但在返回的响应报文中不含实体的主体部分。 比如，当从浏览器发出请求处理后，返回204响应，那么浏览器显示的页面不发生更新。 206 Partial Content 该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的GET请求。 301 Moved Permanently 永久性重定向。该状态码表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI。 像下方给出的请求URI，当指定的资源路径的最后忘记添加斜杠”/“，就会产生301状态码 302 Found 临时性重定向。该状态码表示请求的资源已被分配了新的URI，希望用户(本次)能使用新的URI访问。 303 Other //我把你redirect到其它的页面，目标的URL通过响应报文头的Location告诉你。 See Other 该状态码表示由于请求对应的资源存在另外一个URI，应使用GET方法定向获取请求的资源。 303状态码和302状态码有着相同的功能，但303状态码明确表明客户端应当采用GET方法获取资源。 当301，302，303响应状态码返回时，几乎所有的浏览器都会把POST改成GET，并删除请求报文的主体，之后请求会自动再次发送。 301，302标准是禁止将POST方法改变成GET方法的，但实际上使用时大家都会这么做。 304 Not Modified // 该状态码表示客户端发送附带条件的请求时，服务器端允许请求访问资源，但未满足条件的情况。 304状态码返回时，不包含任何响应的主体部分。304虽然被划分在3XX类别中，但是和重定向没有关系。 307 Temporary Redirect 临时重定向。该状态码与302 Found有着相同的含义。307会遵照浏览器标准，不会从POST变成GET 400 Bad Request //客户端请求有语法错误，不能被服务器所理解 401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 该状态码表示发送的请求需要有通过HTTP认证的认证信息，另外若之前已进行过1此请求，则表示用户认证失败。 403 Forbidden //服务器收到请求，但是拒绝提供服务 404 Not Found //该状态码表明服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。 500 Internal Server Error //该状态码表明服务器端在执行请求时发生了错误。 503 Server Unavailable //该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。 参考文章 常见的HTTP响应状态码解析、常见的响应状态码]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>http</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -337,51 +348,29 @@
   <entry>
     <title><![CDATA[get和post请求]]></title>
     <url>%2F2018%2F10%2F10%2FHTTP%2Fget%E5%92%8Cpost%E8%AF%B7%E6%B1%82%2F</url>
-    <content type="text"><![CDATA[在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。 get 和 post 的区别get把请求的数据放在url上，即HTTP协议头上，其格式为： 以?分割URL和传输数据，参数之间以&amp;相连。 数据如果是英文字母/数字，原样发送， 如果是空格，转换为+， 如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。post把数据放在HTTP的包体内（requrest body）。 get提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。 GET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。 GET在浏览器回退时是无害的，POST会再次提交请求。 GET产生的URL地址可以被Bookmark，而POST不可以。 GET请求会被浏览器主动cache，而POST不会，除非手动设置。 GET请求只能进行url编码，而POST支持多种编码方式。 GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。 GET只接受ASCII字符的参数的数据类型，而POST没有限制 那么，post那么好为什么还用get？get效率高！。 其他 HTTP 请求方法 参考文章HTTP 方法：GET 对比 POST 、get和post的区别–面试经常被问到！]]></content>
+    <content type="text"><![CDATA[在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。 get 和 post 的区别get把请求的数据放在url上，即HTTP协议头上，其格式为： 以?分割URL和传输数据，参数之间以&amp;相连。 数据如果是英文字母/数字，原样发送， 如果是空格，转换为+， 如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。post把数据放在HTTP的包体内（requrest body）。 get提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。 GET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。 GET在浏览器回退时是无害的，POST会再次提交请求。 GET产生的URL地址可以被Bookmark，而POST不可以。 GET请求会被浏览器主动cache，而POST不会，除非手动设置。 GET请求只能进行url编码，而POST支持多种编码方式。 GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。 GET只接受ASCII字符的参数的数据类型，而POST没有限制 那么，post那么好为什么还用get？get效率高！。 其他 HTTP 请求方法 参考文章: HTTP 方法：GET 对比 POST get和post的区别–面试经常被问到！]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>http</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[语义化标签]]></title>
-    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
-    <content type="text"><![CDATA[H5中关于语义化的标签定义 语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。 为什么要语义化 1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。 2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构 3. 方便其他设备解析（如移动设备、盲人阅读器等） 4. 比div标签有更加丰富的含义，便于团队开发和维护 关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容，表示文档、页面、应用或一个独立的容器aahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 H5新增的语义化标签header 是一种具有引导和导航作用的结构元素，通常用来放置整个页面或页面内的一个内容区块的标题，但也可以包含搜索表单或logo。footer footer通常包括其相关区块的脚注信息，如作者，相关阅读连接以及版权信息等。article 代表文档，页面或应用程序中独立的，完整的，可以独自被外部引用的内容，也可以嵌套使用。可以是一篇博客或者报刊中的文章，一篇论坛帖子，一段用户评论或者独立的插件，或其他任和独立的内容。aside 定义页面的侧边栏内容address 用来在文档中呈现联系信息，包括文档作者或文档维护者名字，他们的网站链接，电子邮箱，真实地址，电话号码，以及跟文档相关的联系人的所有联系信息。timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色nav 是一个可以用作页面导航的链接组，其中导航元素链接到其他页面或当前页面的其他部分。progresssection 作为Html文档独立的功能。video 定义视频，属性src引入资源，controls视频的控制控件audio该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果。]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>HTML5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[清除浮动]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
-    <content type="text"><![CDATA[转载：CSS-清除浮动 为什么要清除浮动 浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。 清除浮动的方法使用带clear属性的空元素 div、hr、br都可以123456789# html&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt;#css.clear &#123; clear: both;&#125; 优点：通俗易懂，容易掌握 缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。 12345678910111213141516171819.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 优点：不存在结构和语义化问题，代码量极少 缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。12345678910111213141516171819202122.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class="content"&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;# 清除浮动.clearfix:after&#123; content: " "; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[css模块化]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[渐进增强和优雅降级]]></title>
     <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
     <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[清除浮动]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[转载：CSS-清除浮动 为什么要清除浮动 浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。 清除浮动的方法使用带clear属性的空元素 div、hr、br都可以123456789# html&lt;div class="clear"&gt;&lt;/div&gt;&lt;br class="clear" /&gt;&lt;hr class="clear" /&gt;#css.clear &#123; clear: both;&#125; 优点：通俗易懂，容易掌握 缺点：需要添加大量无语义的html元素，代码不够优雅，后期不容易维护。 使用CSS的overflow属性给浮动元素的容器添加overflow:hidden;或overflow:auto;可以清除浮动，另外在 IE6 中还需要触发hasLayout，例如为父元素设置容器宽高或设置zoom:1。在添加overflow属性后，浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。 12345678910111213141516171819.news &#123; background-color: gray; border: solid 1px black; overflow: hidden; *zoom: 1; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 优点：不存在结构和语义化问题，代码量极少 缺点：内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素；04年POPO就发现overflow:hidden会导致中键失效，这是我作为一个多标签浏览控所不能接受的。所以还是不要使用. 父元素也设置浮动(给浮动的元素的容器添加浮动)优点：不存在结构和语义化问题，代码量极少缺点：给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局，不推荐使用。 使用邻接元素处理什么都不做，给浮动元素后面的元素添加clear属性。12345678910111213141516171819202122.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;.content&#123; clear:both; &#125;&lt;div class="news"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;div class="content"&gt;***&lt;/div&gt;&lt;/div&gt; 使用:after 伪元素结合 :after 伪元素（注意这不是伪类，而是伪元素，代表一个元素之后最近的元素）和 IEhack ，可以完美兼容当前主流的各大浏览器，这里的 IEhack 指的是触发 hasLayout。给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。 123456789101112131415161718192021222324252627282930.news &#123; background-color: gray; border: solid 1px black; &#125;.news img &#123; float: left; &#125;.news p &#123; float: right; &#125;# 清除浮动.clearfix:after&#123; content: " "; display: block; height: 0; clear: both; visibility: hidden; &#125;.clearfix &#123; /* 触发 hasLayout */ zoom: 1; &#125;&lt;div class="news clearfix"&gt;&lt;img src="news-pic.jpg" /&gt;&lt;p&gt;some text&lt;/p&gt;&lt;/div&gt; 清除浮动：清除对应的单词是 clear，对应CSS中的属性是 clear：left | right | both | none；闭合浮动：更确切的含义是使浮动元素闭合，从而减少浮动带来的影响。其中涉及的原理有：hasLayout 和 Block formatting contexts 。 通过上面的例子，我们不难发现清除浮动的方法可以分成两类： 一是利用 clear 属性，包括在浮动元素末尾添加一个带有 clear: both 属性的空 div 来闭合元素，其实利用 :after 伪元素的方法也是在元素末尾添加一个内容为一个点并带有 clear: both 属性的元素实现的。 二是触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素，关于这一点。 在网页主要布局时使用:after伪元素方法并作为主要清理浮动方式；在小模块如ul里使用overflow:hidden;（留意可能产生的隐藏溢出元素问题）；如果本身就是浮动元素则可自动清除内部浮动，无需格外处理；正文中使用邻接元素清理之前的浮动。 最后可以使用相对完美的:after伪元素方法清理浮动，文档结构更加清晰。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -401,6 +390,28 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[语义化标签]]></title>
+    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
+    <content type="text"><![CDATA[H5中关于语义化的标签定义 语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。 为什么要语义化 1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。 2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构 3. 方便其他设备解析（如移动设备、盲人阅读器等） 4. 比div标签有更加丰富的含义，便于团队开发和维护 关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容，表示文档、页面、应用或一个独立的容器aahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 H5新增的语义化标签header 是一种具有引导和导航作用的结构元素，通常用来放置整个页面或页面内的一个内容区块的标题，但也可以包含搜索表单或logo。footer footer通常包括其相关区块的脚注信息，如作者，相关阅读连接以及版权信息等。article 代表文档，页面或应用程序中独立的，完整的，可以独自被外部引用的内容，也可以嵌套使用。可以是一篇博客或者报刊中的文章，一篇论坛帖子，一段用户评论或者独立的插件，或其他任和独立的内容。aside 定义页面的侧边栏内容address 用来在文档中呈现联系信息，包括文档作者或文档维护者名字，他们的网站链接，电子邮箱，真实地址，电话号码，以及跟文档相关的联系人的所有联系信息。timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色nav 是一个可以用作页面导航的链接组，其中导航元素链接到其他页面或当前页面的其他部分。progresssection 作为Html文档独立的功能。video 定义视频，属性src引入资源，controls视频的控制控件audio该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>HTML5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[css模块化]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[跨域的方法]]></title>
     <url>%2F2018%2F10%2F10%2F%E8%B7%A8%E5%9F%9F%E7%9A%84%E6%96%B9%E6%B3%95%2F%E8%B7%A8%E5%9F%9F%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -414,7 +425,7 @@
   <entry>
     <title><![CDATA[前端本地储存]]></title>
     <url>%2F2018%2F10%2F10%2FJavaScript%2F%E5%89%8D%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%82%A8%E5%AD%98%2F</url>
-    <content type="text"><![CDATA[本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。 cookiecookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。可设置失效时间，没有设置的话，默认是关闭浏览器后失效。Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。 优点 1. 给用户更人性化的使用体验，如记住“密码功能”、老用户登录欢迎语 2. 弥补了HTTP无连接特性 3. 站点统计访问人数的一个依据 缺点 1. 它无法解决多人共用一台电脑的问题，带来了不安全因素 2. Cookie文件容易被误删除 3. 一人使用多台电脑 4. Cookies欺骗。修改host文件，可以非法访问目标站点的Cookie 5. 容量有限制，不能超过4kb 6. 在请求头上带着数据安全性差 注意如果 cookie 被篡改了怎么办？预防 Cookie 被篡改set-cookie时加上防篡改验证码。 localStorage localStorage主要是前端开发人员，在前端设置，一旦数据保存在本地后，就可以避免再向服务器请求数据，因此减少不必要的数据请求，减少数据在浏览器和服务器间不必要地来回传递。 可以长期存储数据，没有时间限制，一天，一年，两年甚至更长，数据都可以使用。localStorage中一般浏览器支持的是5M大小，这个在不同的浏览器中localStorage会有所不同 优点 1. localStorage拓展了cookie的4k限制 2. localStorage可以将第一次请求的5M大小数据直接存储到本地，相比于cookie可以节约带宽 3. localStorage的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的localStorage 缺点 1. 需要手动删除，否则长期存在 2. 浏览器大小不一，版本的支持也不一样 3. localStorage只支持string类型的存储，JSON对象需要转换 4. localStorage本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡 sessionStorage sessionStorage主要是前端开发人员，在前端设置，sessionStorage（会话存储），只有在浏览器被关闭之前使用，创建另一个页面时同意可以使用，关闭浏览器之后数据就会消失。存储上限限制：不同的浏览器存储的上限也不一样，但大多数浏览器把上限限制在5MB以下。 session 由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session。 Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。 session机制采用的是在服务器端保持状态的方案。存在服务器的一种用来存放用户数据的类HashTable结构。 浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。 cookie 和 session 的区别 cookie数据存放在客户的浏览器上，session数据放在服务器上。 session 中保存的是对象，cookie 中保存的是字符串。 session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。 cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。 session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。 单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。 cookie 和 webStorage 的区别 webStorage 的优势 从容量上讲WebStorage一般浏览器提供5M的存储空间。 安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。 从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 数据的有效期不同 Webstorage:1.localstorage 2.sessionstorage sessionStorage：仅在当前的浏览器窗口关闭有效； localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除； cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭 作用域不同 sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面； localStorage：在所有同源窗口都是共享的； cookie：也是在所有同源窗口中共享的 webStorage支持事件通知机制，可以将数据更新的通知发生给监听者 转载： cookie和session, cookie和webStorage的区别 浏览器缓存原理以及本地存储]]></content>
+    <content type="text"><![CDATA[本地存储本地存储主要有以下几种，cookie，localStorage和sessionStorage，WebSql和IndexDB主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。 cookiecookie机制采用的是在客户端保持状态的方案Cookie的主要内容包括：名字，值，过期时间，路径和域。可设置失效时间，没有设置的话，默认是关闭浏览器后失效。Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。 优点 1. 给用户更人性化的使用体验，如记住“密码功能”、老用户登录欢迎语 2. 弥补了HTTP无连接特性 3. 站点统计访问人数的一个依据 缺点 1. 它无法解决多人共用一台电脑的问题，带来了不安全因素 2. Cookie文件容易被误删除 3. 一人使用多台电脑 4. Cookies欺骗。修改host文件，可以非法访问目标站点的Cookie 5. 容量有限制，不能超过4kb 6. 在请求头上带着数据安全性差 注意如果 cookie 被篡改了怎么办？预防 Cookie 被篡改set-cookie时加上防篡改验证码。 localStorage localStorage主要是前端开发人员，在前端设置，一旦数据保存在本地后，就可以避免再向服务器请求数据，因此减少不必要的数据请求，减少数据在浏览器和服务器间不必要地来回传递。 可以长期存储数据，没有时间限制，一天，一年，两年甚至更长，数据都可以使用。localStorage中一般浏览器支持的是5M大小，这个在不同的浏览器中localStorage会有所不同 优点 1. localStorage拓展了cookie的4k限制 2. localStorage可以将第一次请求的5M大小数据直接存储到本地，相比于cookie可以节约带宽 3. localStorage的使用也是遵循同源策略的，所以不同的网站直接是不能共用相同的localStorage 缺点 1. 需要手动删除，否则长期存在 2. 浏览器大小不一，版本的支持也不一样 3. localStorage只支持string类型的存储，JSON对象需要转换 4. localStorage本质上是对字符串的读取，如果存储内容多的话会消耗内存空间，会导致页面变卡 sessionStorage sessionStorage主要是前端开发人员，在前端设置，sessionStorage（会话存储），只有在浏览器被关闭之前使用，创建另一个页面时同意可以使用，关闭浏览器之后数据就会消失。存储上限限制：不同的浏览器存储的上限也不一样，但大多数浏览器把上限限制在5MB以下。 session 由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session。 Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。 典型的场景比如购物车，当你点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的，所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户的状态，这样才知道购物车里面有几本书。这个Session是保存在服务端的，有一个唯一标识。在服务端保存Session的方法很多，内存、数据库、文件都有。 session机制采用的是在服务器端保持状态的方案。存在服务器的一种用来存放用户数据的类HashTable结构。 浏览器第一次发送请求时，服务器自动生成了一HashTable和一SessionID来唯一标识这个HashTable，并将其通过响应发送到浏览器。浏览器第二次发送请求会将前一次服务器响应的Session ID放在请求中一并发送到服务器上，服务器从请求中提取出Session ID，并和保存的所有Session ID进行对比，找到这个用户对应的HashTable。 cookie 和 session 的区别 cookie数据存放在客户的浏览器上，session数据放在服务器上。 session 中保存的是对象，cookie 中保存的是字符串。 session 不能区分路径，同一个用户在访问一个网站期间，所有的session在任何地方都可以访问到。而 cookie 中如果设置了路径参数，那么同一个网站不同路径下的 cookie 互相是不可以访问的。 cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,考虑到安全应当使用session。 session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie。 单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。 cookie 和 webStorage 的区别 webStorage 的优势 从容量上讲WebStorage一般浏览器提供5M的存储空间。 安全性上WebStorage 并不作为 HTTP header 发送的浏览器，所以相对安全。 从流量上讲，因为WebStorage不传送到服务器，所以不必要的流量可以节省。 Cookie和webstorage区别 数据的有效期不同 Webstorage:1.localstorage 2.sessionstorage sessionStorage：仅在当前的浏览器窗口关闭有效； localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据,除非手动删除； cookie：只在设置的cookie过期时间之前一直有效，即使窗口和浏览器关闭 作用域不同 sessionStorage：不在不同的浏览器窗口中共享，即使是同一个页面； localStorage：在所有同源窗口都是共享的； cookie：也是在所有同源窗口中共享的 webStorage支持事件通知机制，可以将数据更新的通知发生给监听者 转载： cookie和session, cookie和webStorage的区别 浏览器缓存原理以及本地存储 知乎问答]]></content>
       <categories>
         <category>前端</category>
       </categories>

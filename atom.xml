@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-17T12:46:35.362Z</updated>
+  <updated>2019-03-18T12:38:37.410Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Url、Href、Src、Link详解</title>
+    <link href="http://yoursite.com/2019/03/18/CSS3/Url%E3%80%81Href%E3%80%81Src%E3%80%81Link/"/>
+    <id>http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/</id>
+    <published>2019-03-18T11:49:44.000Z</published>
+    <updated>2019-03-18T12:38:37.410Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><p>转载：<br>　　<a href="https://segmentfault.com/a/1190000002877022" target="_blank" rel="noopener">url、href、src 详解</a><br><a id="more"></a></p><h4 id="Url"><a href="#Url" class="headerlink" title="Url"></a>Url</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　<code>URL</code>(<code>Uniform Resource Locator</code>)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的<code>URL</code>，它包含的信息指出文件的位置以及浏览器应该怎么处理它。</p><h5 id="Url格式"><a href="#Url格式" class="headerlink" title="Url格式"></a>Url格式</h5><p><strong>标准格式</strong><br>　　协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询<br><strong>完整格式</strong><br>　　协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询</p><h6 id="Url语法规则"><a href="#Url语法规则" class="headerlink" title="Url语法规则"></a>Url语法规则</h6><p>　　比如网址<code>http://segmentfault.com/html/index.asp</code>必须遵守以下的语法规则:<br><code>scheme://host.domain:port/path/filename</code><br><strong>说明</strong><br>　　<code>scheme</code> - 定义因特网服务的类型。最常见的类型是 http<br>　　<code>host</code> - 定义域主机（http 的默认主机是 www）<br>　　<code>domain</code> - 定义因特网域名，比如 w3school.com.cn<br>　　<code>:port</code> - 定义主机上的端口号（http 的默认端口号是 80）<br>　　<code>path</code> - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。<br>　　<code>filename</code> - 定义文档/资源的名称</p><h6 id="URL-Schemes"><a href="#URL-Schemes" class="headerlink" title="URL Schemes"></a>URL Schemes</h6><table><thead><tr><th style="text-align:left">Scheme</th><th style="text-align:left">访问</th><th style="text-align:center">用于</th></tr></thead><tbody><tr><td style="text-align:left">http</td><td style="text-align:left">超文本传输协议</td><td style="text-align:center">以 http:// 开头的普通网页。不加密。</td></tr><tr><td style="text-align:left">https</td><td style="text-align:left">安全超文本传输协议</td><td style="text-align:center">安全网页。加密所有信息交换。</td></tr><tr><td style="text-align:left">ftp</td><td style="text-align:left">文件传输协议</td><td style="text-align:center">用于将文件下载或上传至网站。</td></tr><tr><td style="text-align:left">file</td><td style="text-align:left"></td><td style="text-align:center">您计算机上的文件。</td></tr></tbody></table><h6 id="URL的类型"><a href="#URL的类型" class="headerlink" title="URL的类型"></a>URL的类型</h6><p><strong>绝对URL</strong><br>　　绝对<code>URL</code>（<code>absolute URL</code>）显示文件的完整路径，这意味着绝对<code>URL</code>本身所在的位置与被引用的实际文件的位置无关。<br><strong>相对URL</strong><br>　　相对<code>URL</code>（<code>relative URL</code>）以包含<code>URL</code>本身的文件夹的位置为参考点，描述目标文件夹的位置。<br>　　一般来说，对于同一服务器上的文件，应该总是使用相对<code>URL</code>，它们更容易输入，而且在将页面从本地系统转移到服务器上时更方便，只要每个文件的相对位置保持不变，链接就仍然是有效地。<br><code>.</code>：代表目前所在的目录，相对路径。<br>例： <code>&lt;a href=&quot;./abc&quot;&gt;文本&lt;/a&gt;</code> 或 <code>&lt;img src=&quot;./abc&quot; /&gt;</code><br><code>..</code>：代表上一层目录，相对路径。<br>例： <code>&lt;a href=&quot;../abc&quot;&gt;文本&lt;/a&gt;</code>或 <code>&lt;img src=&quot;../abc&quot; /&gt;</code><br><code>../../</code>：代表的是上一层目录的上一层目录，相对路径。<br>例： <code>&lt;img src=&quot;../../abc&quot; /&gt;</code><br><code>/</code>：代表根目录，绝对路径。<br>例： <code>&lt;a href=&quot;/abc&quot;&gt;文本&lt;/a&gt;</code> 或 <code>&lt;img src=&quot;/abc&quot; /&gt;</code></p><h4 id="Href"><a href="#Href" class="headerlink" title="Href"></a>Href</h4><h5 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h5><p>　　<code>href</code> (<code>Hypertext Reference</code>)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。</p><h5 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h5><p>　　<code>href</code>: 目的不是为了引用资源，而是为了建立这个标签与外部资源之间的关系，让当前标签能够链接到目标地址。<br><code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;</code>浏览器加载到这里的时候，html的渲染和解析不会暂停，css文件的加载是同时进行的</p><h4 id="Src"><a href="#Src" class="headerlink" title="Src"></a>Src</h4><p>　　<code>src</code>用于替代这个元素: <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件</p><h4 id="Href和Src的区别"><a href="#Href和Src的区别" class="headerlink" title="Href和Src的区别"></a>Href和Src的区别</h4><p><strong>请求资源类型不同</strong><br>　　href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。<br>　　在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；<br><strong>作用结果不同</strong><br>　　href 用于在当前文档和引用资源之间确立联系；<br>　　src 用于替换当前内容；<br><strong>浏览器解析方式不同</strong><br>　　若在文档中添加 <code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;</code>，浏览器会识别该文档为 <code>CSS</code> 文件，就会并行下载资源并且<code>不会停止</code>对当前文档的处理。这也是为什么建议使用 <code>link</code> 方式加载 <code>CSS</code>，而不是使用<code>@import</code> 方式。<br>　　当浏览器解析到 <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>，会<code>暂停</code>其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 <code>js</code> 脚本放在底部而不是头部的原因。</p><h4 id="Link和-import的区别"><a href="#Link和-import的区别" class="headerlink" title="Link和@import的区别"></a>Link和@import的区别</h4><p>两者都是外部引用 <code>CSS</code> 的方式，但是存在一定的区别：<br>（1）<code>link</code>是<code>XHTML</code>标签，除了能够加载<code>CSS</code>，还可以定义<code>RSS</code>等其他事务；而<code>@import</code>属于<code>CSS</code>范畴，只可以加载<code>CSS</code>。<br>（2）<code>link</code>引用<code>CSS</code>时，在页面载入时同时加载；<code>@import</code>需要页面完全载入以后再加载。<br>（3）<code>link</code>是<code>XHTML</code>标签，无兼容问题；<code>@import</code>则是在<code>CSS2.1</code>提出的，低版本的浏览器不支持。<br>（4）<code>link</code>支持使用<code>Javascript</code>控制<code>DOM</code>改变样式；而<code>@import</code>不支持。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+&lt;p&gt;转载：&lt;br&gt;　　&lt;a href=&quot;https://segmentfault.com/a/1190000002877022&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;url、href、src 详解&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="CSS3" scheme="http://yoursite.com/tags/CSS3/"/>
+    
+  </entry>
   
   <entry>
     <title>同源策略和跨域</title>
@@ -230,7 +253,7 @@
     <link href="http://yoursite.com/2019/02/23/HTTP/%E7%BD%91%E9%A1%B5%E4%BB%8E%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E5%88%B0%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90%E7%BB%8F%E5%8E%86%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%87%E7%A8%8B/"/>
     <id>http://yoursite.com/2019/02/23/HTTP/网页从输入网址到渲染完成经历了哪些过程/</id>
     <published>2019-02-23T14:45:31.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
+    <updated>2019-03-18T12:40:40.644Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><h4 id="过程概述"><a href="#过程概述" class="headerlink" title="过程概述"></a>过程概述</h4><p>　　从输入域名到网页打开的简单过程如下：<br><strong>1. DNS域名解析</strong><br>　　客户端输入域名后，由DNS服务器来将域名解析成对应服务器的IP地址<br><strong>2. 建立TCP连接</strong><br>　　客户端得到IP地址以后,会根据所获得的IP地址以及要访问的端口号发起网络连接， 即<font color="blue"><strong>tcp三次握手</strong></font>连接， 建立起TCP/IP网络连接， 具体过程如下：<a id="more"></a><br>　　第一次握手：<br>　　　　<font color="orange">主机向服务器发送一个建立连接的请求（您好，我想认识您）</font><br>　　　　<font color="red">建立连接时，客户端发送syn包(syn=j)到服务器，并进入<strong><em>SYN_SEND</em></strong>状态，等待服务器确认</font><br>　　第二次握手：<br>　　　　<font color="orange">服务器接到请求后发送同意连接的信号（好的，很高兴认识您）</font><br>　　　　<font color="red">服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器 进入SYN_RECV状态；</font><br>　　第三次握手：<br>　　　　<font color="orange">主机接到同意连接的信号后，再次向服务器发送了确认信号（我也很高兴认识您），自此，主机与服务器两者建立了连接</font><br>　　　　<font color="red">客户端收到服务器的SYN＋ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入 ESTABLISHED状态，完成三次握手。<br>通过这样的三次握手，客户端与服务端建立起可靠的双工的连接，开始传送数据。</font><br><strong>补充说明:</strong><br>　　　　TCP 协议：三次握手的过程采用 TCP 协议，其可以保证信息传输的可靠性，三次握手过程中，若一方收不到确认信号，协议会要求重新发送信号。<br><strong>3. 发送HTTP请求</strong><br>　　与服务器建立连接之后，就可以向服务器发送请求了，请求需要遵循http协议<br><strong>4.服务器处理请求；</strong><br>　　被请求的服务器解析用户请求的有哪些资源，通过服务器返回数据给客户端<br><strong>5.返回响应结果；</strong><br>　　给客户端返回请求的状态码，通过状态码可以知道服务器端的处理是否正常<br><strong>6.浏览器渲染：</strong><br>　　返回成功之后，浏览器拿到请求页面的代码，将其解析渲染出来。解析和渲染的过程主要由浏览器的渲染引擎实现。</p><h5 id="根据域名查找-IP-地址"><a href="#根据域名查找-IP-地址" class="headerlink" title="根据域名查找 IP 地址"></a>根据域名查找 IP 地址</h5><h6 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h6><p>　　<strong>IP 地址</strong>：IP 协议为互联网上的每一个网络和每一台主机分配的一个逻辑地址。IP 地址如同门牌号码，通过 IP 地址才能确定一台主机位置。服务器本质也是一台主机，想要访问某个服务器，必须先知道它的 IP 地址；<br>　　<strong>域名(DN)</strong>：IP 地址由四个数字组成，中间用点号连接，在使用过程中难记忆且易输入错误，所以用我们熟悉的字母和数字组合来代替纯数字的 IP 地址，比如我们只会记住 <code>www.baidu.com</code>（百度域名） 而不是 <code>220.181.112.244</code>（百度的其中一个 IP 地址）；<br>　　<strong>DNS</strong>： 每个域名都对应一个或多个提供相同服务服务器的 IP 地址，只有知道服务器 IP 地址才能建立连接，所以需要通过 DNS 把域名解析成一个 IP 地址。</p><p>　　知道了上面的概念，大概就知道了想要获得服务器的门牌号码，需要先将域名转换成 IP 地址。转换过程如下（以查询 <code>www.baidu.com</code> 的 IP 地址为例，其中2、3、4步均在上一步未查询成功的情况下进行）：</p><h6 id="查找过程"><a href="#查找过程" class="headerlink" title="查找过程"></a>查找过程</h6><ol><li>浏览器搜索自己的 DNS 缓存（维护一张域名与 IP 地址的对应表）；</li><li>搜索操作系统中的 DNS 缓存（维护一张域名与 IP 地址的对应表）；</li><li>搜索操作系统的 hosts 文件（ Windows 环境下，维护一张域名与 IP 地址的对应表）；</li><li>操作系统将域名发送至 LDNS（本地区域名服务器，如果你在学校接入互联网，则 LDNS 服务器就在学校，如果通过电信接入互联网，则 LDNS 服务器就在你当地的电信那里。）LDNS 查询自己的 DNS 缓存（一般查找成功率在 80% 左右），查找成功则返回结果，失败则发起一个迭代 DNS 解析请求；<ol><li>LDNS 向 <code>Root Name Server</code>（根域名服务器，其虽然没有每个域名的的具体信息，但存储了负责每个域，如 com、net、org等的解析的顶级域名服务器的地址）发起请求，此处，<code>Root Name Server</code>返回 com 域的顶级域名服务器的地址；</li><li>LDNS 向 com 域的顶级域名服务器发起请求，返回 <code>baidu.com</code>域名服务器地址；</li><li>LDNS 向 baidu.com 域名服务器发起请求，得到 <code>www.baidu.com</code>的 IP 地址；</li></ol></li><li>LDNS 将得到的 IP 地址返回给操作系统，同时自己也将 IP 地址缓存起来；</li><li>操作系统将 IP 地址返回给浏览器，同时自己也将 IP 地址缓存起来；</li><li>至此，浏览器已经得到了域名对应的 IP 地址。</li></ol><p><strong>补充说明</strong><br>　　域名与 URL 是两个概念：域名是一台或一组服务器的名称，用来确定服务器在 Internet 上的位置；URL 是统一资源定位符，用来确定某一个文件的具体位置，例如，<code>zhihu.com</code> 是 知乎的域名，根据这个域名可以找到知乎的服务器，<code>zhihu.com/people/CompileYouth</code> 是 URL ，可以根据这个 URL 定位我的知乎主页；<br>　　IP 地址与域名不是一一对应的关系：可以把多个提供相同服务的服务器 IP 设置为同一个域名，但在同一时刻一个域名只能解析出一个 IP地址；同时，一个 IP 地址可以绑定多个域名，数量不限；</p><h5 id="网页请求与显示"><a href="#网页请求与显示" class="headerlink" title="网页请求与显示"></a>网页请求与显示</h5><p>　　当服务器与主机建立了连接之后，下面主机便与服务器进行通信。网页请求是一个单向请求的过程，即是一个主机向服务器请求数据，服务器返回相应的数据的过程。</p><ol><li>服务器接到请求后，会根据 HTTP 请求中的内容来决定如何获取相应的 HTML 文件；</li><li>服务器将得到的 HTML 文件发送给浏览器；</li><li>在浏览器还没有完全接收 HTML 文件时便开始渲染、显示网页；</li><li>在执行 HTML 中代码时，根据需要，浏览器会继续请求图片、CSS、JavsScript等文件，过程同请求 HTML </li></ol><h4 id="断开连接–四次挥手"><a href="#断开连接–四次挥手" class="headerlink" title="断开连接–四次挥手"></a>断开连接–四次挥手</h4><ol><li>主机向服务器发送一个断开连接的请求（不早了，我该走了）；</li><li>服务器接到请求后发送确认收到请求的信号（知道了）；</li><li>服务器向主机发送断开通知（我也该走了）；</li><li>主机接到断开通知后断开连接并反馈一个确认信号（嗯，好的），服务器收到确认信号后断开连接；</li></ol><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>　　一个完整的URL地址由：<strong>协议</strong>、<strong>服务器地址(主机)</strong>、<strong>端口</strong>、<strong>资源路径(文件)</strong>。其中网络地址指示该连接网络上哪一台计算机，可以是域名或者IP地址，可以包括端口号；协议是从 该计算机获取资源的方式，常见的是HTTP、FTP，不同协议有不同的通讯内容格式；资源路径指示从服务器上获取哪一项资源。<br>例如：<code>http://www.guokr.com/question/554991/</code><br>超文本传输协议：<code>http</code><br>服务器地址：<code>www.guokr.com</code><br>端口： http协议的默认<strong>端口</strong>为80<br>资源路径：是指要活的的文件的路径 -&gt;<code>/question/554991/</code></p><p>转载：<br>　　<a href="https://www.cnblogs.com/ishuanghe/p/5200775.html" target="_blank" rel="noopener">一个页面从输入url,到页面显示加载完成,这个过程中都发生了什么?</a><br>　　<a href="https://zhuanlan.zhihu.com/p/23155051" target="_blank" rel="noopener">从输入 URL 到页面加载完成的过程中都发生了什么</a><br>参考文章：<br>　　<a href="http://www.cnblogs.com/beyond-Acm/p/4309983.html" target="_blank" rel="noopener">从键入网址到页面显示经历了那些过程</a></p>]]></content>
     
@@ -244,7 +267,7 @@
       <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="网页从输入网址到渲染完成经历了哪些过程" scheme="http://yoursite.com/tags/%E7%BD%91%E9%A1%B5%E4%BB%8E%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E5%88%B0%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90%E7%BB%8F%E5%8E%86%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%87%E7%A8%8B/"/>
+      <category term="HTTP" scheme="http://yoursite.com/tags/HTTP/"/>
     
   </entry>
   
@@ -273,31 +296,6 @@
   </entry>
   
   <entry>
-    <title>stylus基础</title>
-    <link href="http://yoursite.com/2019/02/22/CSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/stylus%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"/>
-    <id>http://yoursite.com/2019/02/22/CSS预处理器/stylus基础语法/</id>
-    <published>2019-02-22T13:47:36.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="stylus" scheme="http://yoursite.com/categories/stylus/"/>
-    
-    
-      <category term="stylus基础" scheme="http://yoursite.com/tags/stylus%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
     <title>redis基础</title>
     <link href="http://yoursite.com/2019/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/"/>
     <id>http://yoursite.com/2019/02/22/数据库/redis/</id>
@@ -319,6 +317,31 @@
     
     
       <category term="redis基础" scheme="http://yoursite.com/tags/redis%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>stylus基础</title>
+    <link href="http://yoursite.com/2019/02/22/CSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8/stylus%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"/>
+    <id>http://yoursite.com/2019/02/22/CSS预处理器/stylus基础语法/</id>
+    <published>2019-02-22T13:47:36.000Z</published>
+    <updated>2019-03-08T13:36:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="stylus" scheme="http://yoursite.com/categories/stylus/"/>
+    
+    
+      <category term="stylus基础" scheme="http://yoursite.com/tags/stylus%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
@@ -459,30 +482,6 @@
 &lt;p&gt;文章转载：&lt;br&gt;　&lt;a href=&quot;http://www.cnblogs.com/blackmanba/p/browser-repaint-reflow.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;浏览器重绘和重排&lt;/a&gt;&lt;br&gt;文章参考：&lt;br&gt;　&lt;a href=&quot;https://www.cnblogs.com/jiayuexuan/p/7490140.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;重构与回流&lt;/a&gt;&lt;br&gt;　&lt;a href=&quot;https://kb.cnblogs.com/page/169820/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;浏览器的重绘与重排&lt;/a&gt;&lt;br&gt;　&lt;a href=&quot;http://www.cnblogs.com/shenqi0920/p/3545820.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;探讨css中repaint和reflow&lt;/a&gt;&lt;/p&gt;
 &lt;h5 id=&quot;前言：&quot;&gt;&lt;a href=&quot;#前言：&quot; class=&quot;headerlink&quot; title=&quot;前言：&quot;&gt;&lt;/a&gt;&lt;strong&gt;前言：&lt;/strong&gt;&lt;/h5&gt;&lt;p&gt;　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。&lt;/p&gt;
 &lt;h5 id=&quot;概述：&quot;&gt;&lt;a href=&quot;#概述：&quot; class=&quot;headerlink&quot; title=&quot;概述：&quot;&gt;&lt;/a&gt;&lt;strong&gt;概述：&lt;/strong&gt;&lt;/h5&gt;&lt;p&gt;　　&lt;strong&gt;重排(回流)&lt;/strong&gt;, 顾名思义就是重新排版的意思; &lt;strong&gt;重绘&lt;/strong&gt;, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。&lt;br&gt;　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。&lt;strong&gt;回流必将引起重绘，而重绘不一定会引起回流&lt;/strong&gt;，repaint和reflow的目的是：展示一个新的页面样貌。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="前端优化" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96/"/>
-    
-    
-      <category term="前端性能优化" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端性能优化</title>
-    <link href="http://yoursite.com/2019/02/13/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    <id>http://yoursite.com/2019/02/13/前端性能优化/前端性能优化/</id>
-    <published>2019-02-13T12:37:12.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- 目录 --><!-- toc --><p>转载：<br><a href="http://www.cnblogs.com/lei2007/archive/2013/08/16/3262897.html" target="_blank" rel="noopener">前端性能优化–yahoo前端性能团队总结的35条黄金定律</a><br>参考文章：<br><a href="https://www.zhihu.com/question/21658448/answer/18903129" target="_blank" rel="noopener">Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎</a><br><a href="https://segmentfault.com/a/1190000008829958" target="_blank" rel="noopener">WEB前端性能优化常见方法</a><br>　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？<br><a id="more"></a></p><h3 id="为什么需要前端性能优化-优化的好处-目的"><a href="#为什么需要前端性能优化-优化的好处-目的" class="headerlink" title="为什么需要前端性能优化[优化的好处/目的]"></a>为什么需要前端性能优化[优化的好处/目的]</h3><p>好处： </p><ol><li>从用户角度而言，优化能够让页面加载得更快、对用户的操作响应得更及时，能够给用户提供更为友好的体验。</li><li>从服务商角度而言，优化能够减少页面请求数、或者减小请求所占带宽，能够节省可观的资源。</li></ol><p>前端优化的途径有很多，按粒度大致可以分为两类，第一类是页面级别的优化，例如 HTTP请求数、脚本的无阻塞加载、内联脚本的位置优化等 ;第二类则是代码级别的优化，例如 Javascript中的DOM 操作优化、CSS选择符优化、图片优化以及 HTML结构优化等等。另外，本着提高投入产出比的目的，后文提到的各种优化策略大致按照投入产出比从大到小的顺序排列。</p><h3 id="怎么进行优化"><a href="#怎么进行优化" class="headerlink" title="怎么进行优化"></a>怎么进行优化</h3><ul><li><p>内容优化</p><ol><li>减少Http请求次数<ul><li>原因: 这条策略是最重要最有效的，因为一个完整的请求要经过DNS寻址，与服务器建立连接，发送数据，等待服务器响应，接收数据这样一个消耗时间成本和资源成本的复杂的过程。</li><li>使用方法：<ol><li>从设计实现层面简化页面</li><li>合并多个CSS文件和js文件</li><li>利用CSS Sprites整合图像</li><li>Inline Images(使用 data：URL scheme在实际的页面嵌入图像数据 )</li><li>合理设置HTTP缓存等。</li><li>使用懒加载进行图片的加载</li></ol></li></ul></li><li>减少DNS查询<ul><li>原因: DNS查询也消耗响应时间，如果我们的网页内容来自各个不同的domain (比如嵌入了开放广告，引用了外部图片或脚本)，那么客户端首次解析这些domain也需要消耗一定的时间。DNS查询结果缓存在本地系统和浏览器中一段时间，所以DNS查询一般是对首次访问响应速度有所影响。</li><li>使用方法: <a href="https://www.cnblogs.com/chenxizhang/archive/2013/05/02/3053996.html" target="_blank" rel="noopener">优化网站设计（九）：减少DNS查找的次数</a><ol><li>减少DNS查找次数，最理想的方法就是将所有的内容资源都放在同一个域(Domain)下面，这样访问整个网站就只需要进行一次DNS查找，这样可以提高性能。</li><li>但理想总归是理想，上面的理想做法会带来另外一个问题，就是由于这些资源都在同一个域，而HTTP /1.1 中推荐客户端针对每个域只有一定数量的并行度（它的建议是2），那么就会出现下载资源时的排队现象，这样就会降低性能。</li><li>所以，折衷的做法是：建议在一个网站里面使用至少2个域，但不多于4个域来提供资源。我认为这条建议是很合理的，也值得我们在项目实践中去应用。</li></ol></li></ul></li><li><p>避免重定向</p><ul><li><p>当客户端收到服务器的跳转回复时，客户端再次根据服务器回复中的location指定的地址再次发送请求，例如以下跳转回复:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 301 Moved Permanently</span><br><span class="line">Location: http://example.com/newuri</span><br><span class="line">Content-Type: text/html</span><br></pre></td></tr></table></figure></li><li><p>当客户端遇到这种回复的时候，用户只能等待客户端再次发送请求，有的网站甚至会一直跳n次，跳到他想带你去的地方…当然在这个时候用户看不到任何页面内容，只有浏览器的进度条一直在刷新。</p></li></ul></li><li>使用Ajax缓存<ul><li>Ajax可以帮助我们异步的下载网页内容，但是有些网页内容即使是异步的，用户还是在等待它的返回结果，例如ajax的返回是用户联系人的下拉列表。所以我们还是要注意尽量应用以下规则提高ajax的响应速度。</li><li>使用方法：<ul><li>添加Expires 或 Cache-Control报文头使回复可以被客户端缓存</li><li>压缩回复内容</li><li>减少dns查询</li><li>精简javascript</li><li>避免跳转</li><li>配置Etags</li></ul></li></ul></li><li>延迟加载组件,预加载组件<ul><li>延迟加载<ul><li>这里讨论延迟加载需要我们知道我们的网页最初加载需要的最小内容集是什么。剩下的内容就可以推到延迟加载的集合中。</li><li>Javascript是典型的可以延迟加载内容。一个比较激进的做法是开发网页时先确保网页在没有Javascript的时候也可以基本工作，然后通过延迟加载脚本来完成一些高级的功能。</li></ul></li><li>预加载<ul><li>与延迟加载目的相反，提前加载的是为了提前加载接下来网页中访问的资源，下面是提前加载的类型</li><li>无条件提前加载：当前网页加载完成后，马上去下载一些其他的内容。例如google会在页面加载成功之后马上去下载一个所有结果中会用到的image sprite。</li><li>有预期的的加载：这种情况一般发生在网页重新设计时，由于用户经常访问旧网页，本地对旧的网页内容缓存充分从而显得旧网页速度很快，而新的网页内容却没有缓存，设计者可以在旧网页的内容中预先加载一些新网页中可能用到的内容，这样新的网页就会生下来一些需要下载的资源。</li></ul></li></ul></li><li>减少DOM元素数量:<ul><li>页面中存在大量DOM元素,会导致javascript遍历DOM的效率变慢。</li><li>网页中元素过多对网页的加载和脚本的执行都是沉重的负担，500个元素和5000个元素在加载速度上会有很大差别。</li><li>想知道你的网页中有多少元素，通过在浏览器中的一条简单命令就可以算出<code>document.getElementsByTagName(&#39;*&#39;).length</code></li></ul></li><li>最小化iframe的数量：<ul><li>iframes 提供了一个简单的方式把一个网站的内容嵌入到另一个网站中。但其创建速度比其他包括JavaScript和CSS的DOM元素的创建慢了1-2个数量级。</li><li>优点<ol><li>可以用来加载速度较慢的内容，例如广告。</li><li>安全沙箱保护。浏览器会对iframe中的内容进行安全控制。</li><li>脚本可以并行下载</li></ol></li><li>缺点<ol><li>即使iframe内容为空也消耗加载时间</li><li>会阻止页面加载</li><li>没有语义</li></ol></li></ul></li><li>避免404：HTTP请求时间消耗是很大的，因此使用HTTP请求来获得一个没有用处的响应（例如404没有找到页面）是完全没有必要的，它只会降低用户体验而不会有一点好处。<ul><li>404我们都不陌生，代表服务器没有找到资源，我们要特别要注意404的情况不要在我们提供的网页资源上，客户端发送一个请求但是服务器却返回一个无用的结果，时间浪费掉了。更糟糕的是我们网页中需要加载一个外部脚本，结果返回一个404，不仅阻塞了其他脚本下载，下载回来的内容(404)客户端还会将其当成Javascript去解析。</li></ul></li></ol></li><li>服务器优化<ul><li>(1)使用内容分发网络（CDN）：把网站内容分散到多个、处于不同地域位置的服务器上可以加快下载速度。<ul><li>再次强调第一条黄金定律，减少网页内容的下载时间。提高下载速度还可以通过CDN(内容分发网络)来提升。CDN通过部署在不同地区的服务器来提高客户的下载速度。如果你的网站上有大量的静态内容，世界各地的用户都在访问，我说的是youtube么？那CDN是必不可少的。事实上大多数互联网中的巨头们都有自己的CDN。我们自己的网站可以先通过免费的CDN供应商来分发网页资源。</li><li>添加Expires 或Cache-Control报文头(这条规则分为两个方面)<ol><li>对于静态内容添加Expires，将静态内容设为永不过期，或者很长时间以后。在IIS中设置Expires可以看Configure the HTTP Expires Response Header (IIS 7)。</li><li>对于动态内容应用合适的Cache-Control，让浏览器根据条件来发送请求。关于asp.net的caching，可以看asp.net cache feature和asp.net caching best practices。</li></ol></li></ul></li><li>(2)GZIP压缩<ul><li>Gzip通常可以减少70%网页内容的大小，包括脚本、样式表、图片等文件。Gzip比deflate更高效，主流服务器都有相应的压缩支持模块。</li></ul></li><li>(3)设置ETag：ETags（Entity tags，实体标签）是web服务器和浏览器用于判断浏览器缓存中的内容和服务器中的原始内容是否匹配的一种机制。<ul><li>虽然标题叫配制ETags，但是这里你要根据具体情况进行一些判断。首先Etag简单来说是通过一个文件版本标识使得服务器可以轻松判断该请求的内容是否有所更新，如果没有就回复304 (not modified)，从而避免下载整个文件。</li></ul></li><li>(4)提前刷新缓冲区<br>+ </li><li>(5)对Ajax请求使用GET方法<ul><li>浏览器在实现XMLHttpRequest POST的时候分成两步，先发header，然后发送数据。而GET却可以用一个TCP报文完成请求。另外GET从语义上来讲是去服务器取数据，而POST则是向服务器发送数据，所以我们使用Ajax请求数据的时候尽量通过GET来完成。</li></ul></li><li>(6)避免空的图像src<ul><li>空的图片src仍然会使浏览器发送请求到服务器，这样完全是浪费时间，而且浪费服务器的资源。尤其是你的网站每天被很多人访问的时候，这种空请求造成的伤害不容忽略。</li></ul></li></ul></li><li>Cookie优化<ul><li>(1)减小Cookie大小<ul><li>去除没有必要的cookie，如果网页不需要cookie就完全禁掉</li><li>将cookie的大小减到最小</li><li>注意cookie设置的domain级别，没有必要情况下不要影响到sub-domain</li><li>设置合适的过期时间，比较长的过期时间可以提高响应速度。</li></ul></li><li>(2)针对Web组件使用域名无关的Cookie<ul><li>大多数网站的静态资源都没必要cookie，我们可以采用不同的domain来单独存放这些静态文件，这样做不仅可以减少cookie大小从而提高响应速度，还有一个好处是有些proxy拒绝缓存带有cookie的内容，如果能将这些静态资源cookie去除，那就可以得到这些proxy的缓存支持。</li><li>常见的划分domain的方式是将静态文件放在static.example.com，动态内容放在<a href="http://www.example.com。" target="_blank" rel="noopener">www.example.com。</a></li><li>也有一些网站需要在二级域名上应用cookie，所有的子域都会继承，这种情况下一般会再购买一个专门的域名来存放cookie-free的静态资源。例如Yahoo!的yimg.com，YouTube的ytimg.com等。</li></ul></li></ul></li><li>CSS优化<ul><li>(1)将CSS代码放在HTML页面的顶部<ul><li>经样式表(css)放在网页的HEAD中会让网页显得加载速度更快，因为这样做可以使浏览器逐步加载已将下载的网页内容。这对内容比较多的网页尤其重要，用户不用一直等待在一个白屏上，而是可以先看已经下载的内容。</li><li>如果将样式表放在底部，浏览器会拒绝渲染已经下载的网页，因为大多数浏览器在实现时都努力避免重绘，样式表中的内容是绘制网页的关键信息，没有下载下来之前只好对不起观众了。</li></ul></li><li>(2)避免使用CSS表达式<ul><li>CSS表达式可以动态的设置CSS属性，在IE5-IE8中支持，其他浏览器中表达式会被忽略。例如下面表达式在不同时间设置不同的背景颜色。</li><li>CSS表达式的问题在于它被重新计算的次数远比我们想象的要多，不仅在网页绘制或大小改变时计算，即使我们滚动屏幕或者移动鼠标的时候也在计算，因此我们还是尽量避免使用它来防止使用不当而造成的性能损耗。</li></ul></li><li>(3)使用<link>来代替@import<ul><li>避免使用@import的原因很简单，因为它相当于将css放在网页内容底部。</li></ul></li><li>(4)避免使用Filters<ul><li>AlphaImageLoad也是IE5.5 - IE8中支持，这种滤镜的使用会导致图片在下载的时候阻塞网页绘制，另外使用这种滤镜会导致内存使用量的问题。IE9中已经不再支持。</li></ul></li></ul></li><li>JS优化<ul><li>(1)将JavaScript脚本放在页面的底部。<ul><li>HTTP/1.1 specification建议浏览器对同一个hostname不要超过两个并行下载连接， 所以当你从多个domain下载图片的时候可以提高并行下载连接数量。但是当脚本在下载的时候，即使是来自不同的hostname浏览器也不会下载其他资源，因为浏览器要在脚本下载之后依次解析和执行。</li><li>因此对于脚本提速，我们可以考虑以下方式，<ul><li>把脚本置底，这样可以让网页渲染所需要的内容尽快加载显示给用户。</li><li>现在主流浏览器都支持defer关键字，可以指定脚本在文档加载后执行。</li><li>HTML5中新加了async关键字，可以让脚本异步执行。</li></ul></li></ul></li><li>(2)将JavaScript和CSS作为外部文件来引用：<ul><li>使用外部Javascript和CSS文件可以使这些文件被浏览器缓存，从而在不同的请求内容之间重用。</li><li>同时将Javascript和CSS从inline变为external也减小了网页内容的大小。</li><li>使用外部Javascript和CSS文件的决定因素在于这些外部文件的重用率，如果用户在浏览我们的页面时会访问多次相同页面或者可以重用脚本的不同页面，那么外部文件形式可以为你带来很大的好处。但对于用户通常只会访问一次的页面，例如microsoft.com首页，那inline的javascript和css相对来说可以提供更高的效率。</li></ul></li><li>(3)缩小JavaScript和CSS<ul><li>精简就是将Javascript或CSS中的空格和注释全去掉，</li></ul></li><li>(4)删除重复的脚本<ul><li>重复的脚本不仅浪费浏览器的下载时间，而且浪费解析和执行时间。一般用来避免引入重复脚本的做法是使用统一的脚本管理模块，这样不仅可以避免重复脚本引入，还可以兼顾脚本依赖管理和版本管理。</li></ul></li><li>(5)最小化DOM的访问：使用JavaScript访问DOM元素比较慢。<ul><li>通过Javascript访问DOM元素没有我们想象中快，元素多的网页尤其慢，对于Javascript对DOM的访问我们要注意<ul><li>缓存已经访问过的元素</li><li>Offline更新节点然后再加回DOM Tree</li><li>避免通过Javascript修复layout</li></ul></li></ul></li><li>(6)开发智能的事件处理程序<ul><li>这里说智能的事件处理需要开发者对事件处理有更深入的了解，通过不同的方式尽量少去触发事件，如果必要就尽早的去处理事件。</li><li>比如一个div中10个按钮都需要事件句柄，那么我们可以将事件放在div上，在事件冒泡过程中捕获该事件然后判断事件来源。</li></ul></li><li>(7)javascript代码注意：<ul><li>谨慎使用with,避免使用eval Function函数,减少作用域链查找。<ul><li>with(obj){ p = 1}; 代码块的行为实际上是修改了代码块中的 执行环境 ，将obj放在了其作用域链的最前端，在 with代码块中访问非局部变量是都是先从 obj上开始查找，如果没有再依次按作用域链向上查找，因此使用 with相当于增加了作用域链长度。而每次查找作用域链都是要消耗时间的，过长的作用域链会导致查找性能下降。</li><li>因此，除非你能肯定在 with代码中只访问 obj中的属性，否则慎用 with，替代的可以使用局部变量缓存需要访问的属性。</li></ul></li></ul></li></ul></li><li>图像优化<ul><li>(1)优化图片大小<ul><li>检查GIF图片中图像颜色的数量是否和调色板规格一致。如果你发现图片中只用到了4种颜色，而在调色板的中显示的256色的颜色槽，那么这张图片就还有压缩的空间。可以使用imagemagick检查：identify -verbose image.gif</li><li>尝试把GIF格式转换成PNG格式，看看是否节省空间。大多数情况下是可以压缩的。下面这条简单的命令可以安全地把GIF格式转换为PNG格式： convert image.gif image.png</li><li>在所有的PNG图片上运行pngcrush（或者其它PNG优化工具）。例如： pngcrush image.png -rem alla -reduce -brute result.png</li><li>在所有的JPEG图片上运行jpegtran。这个工具可以对图片中的出现的锯齿等做无损操作，同时它还可以用于优化和清除图片中的注释以及其它无用信息 jpegtran -copy none -optimize -perfect src.jpg dest.jpg</li></ul></li><li>(2)通过CSS Sprites优化图片<ul><li>Spirite中水平排列图片，垂直排列会增加文件大小；</li><li>Spirite中把颜色较近的组合在一起可以降低颜色数，理想状况是低于256色以便适用PNG8格式；</li><li>不要在Spirite的图像中间留有较大空隙。这虽然不大会增加文件大小,但对于用户代理来说它需要更少的内存来把图片解压为像素地图。100×100的图片为1万像素，1000×1000就是100万像素。</li></ul></li><li>(3)不要在HTML中使用缩放图片<ul><li>不要通过图片缩放来适应页面，如果你需要小图片，就直接使用小图片吧。</li></ul></li><li>(4)favicon.ico要小而且可缓存<ul><li>网站图标文件favicon.ico，不管你服务器有还是没有，浏览器都会去尝试请求这个图标。所以我们要确保这个图标<ol><li>存在</li><li>文件尽量小，最好小于1k</li><li>设置一个长的过期时间</li></ol></li></ul></li></ul></li><li>移动客户端<ul><li>保持单个内容小于25KB<ul><li>这限制是因为iphone，他只能缓存小于25K，注意这是解压后的大小。所以单纯gzip不一定够用，精简文件工具要用上了。</li></ul></li><li>打包组建成符合文档<ul><li>把页面内容打包成复合文本就如同带有多附件的Email，它能够使你在一个HTTP请求中取得多个组建。当你使用这条规则时，首先要确定用户代理是否支持（iPhone不支持）。</li></ul></li></ul></li></ul><h3 id="待解决的方面"><a href="#待解决的方面" class="headerlink" title="待解决的方面"></a>待解决的方面</h3><blockquote><p>转载别人，如有错误请指出。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- 目录 --&gt;
-&lt;!-- toc --&gt;
-&lt;p&gt;转载：&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/lei2007/archive/2013/08/16/3262897.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;前端性能优化–yahoo前端性能团队总结的35条黄金定律&lt;/a&gt;&lt;br&gt;参考文章：&lt;br&gt;&lt;a href=&quot;https://www.zhihu.com/question/21658448/answer/18903129&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000008829958&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;WEB前端性能优化常见方法&lt;/a&gt;&lt;br&gt;　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？&lt;br&gt;&lt;/p&gt;
     
     </summary>
     

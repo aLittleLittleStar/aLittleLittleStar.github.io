@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>常用的状态响应码 - 昨夜小楼又东风</title>
+    <title>Url、Href、Src、Link详解 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,19 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n状态码大类\n\n\n状态码\n说明\n解释\n\n\n\n\n1XX\n响应中——表示请求已经接受，继续处理\n消息：一般是告诉客户端请求已经收到了，正在处理，别急\n\n\n2XX\n成功——表示请求已经被成功接收、理解、接受。\n 处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息\n\n\n3XX\n 重定向——要完成请求必须进行更进一步的操作\n重定向到其它地方：它让客户端再发起一个请求以完成整个处理\n\n\n4XX\n客户端错误——请求有语法错误或请求无法实现\n处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。\n\n\n5XX\n 服务器端错误——服务器未能实现合法的请求。\n处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等\n\n\n\n\nHTTP响应状态码有很多，但是实际经常使用的大概只有14个。\n\n状态码\n200 OK            //表示从客户端发来的请求在服务器端被正常处理了。\n204 No Content该状态码表示服务器接收的请求已成功处理 ，但在返回的响应报文中不含实体的主体部分。\n比如，当从浏览器发出请求处理后，返回204响应，那么浏览器显示的页面不发生更新。\n\n\n206 Partial Content 该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的GET请求。\n301 Moved Permanently 永久性重定向。该状态码表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI。\n像下方给出的请求URI，当指定的资源路径的最后忘记添加斜杠”/“，就会产生301状态码\n\n\n302 Found 临时性重定向。该状态码表示请求的资源已被分配了新的URI，希望用户(本次)能使用新的URI访问。\n303 Other         //我把你redirect到其它的页面，目标的URL通过响应报文头的Location告诉你。\nSee Other 该状态码表示由于请求对应的资源存在另外一个URI，应使用GET方法定向获取请求的资源。 303状态码和302状态码有着相同的功能，但303状态码明确表明客户端应当采用GET方法获取资源。 当301，302，303响应状态码返回时，几乎所有的浏览器都会把POST改成GET，并删除请求报文的主体，之后请求会自动再次发送。 301，302标准是禁止将POST方法改变成GET方法的，但实际上使用时大家都会这么做。\n\n\n304 Not Modified  // 该状态码表示客户端发送附带条件的请求时，服务器端允许请求访问资源，但未满足条件的情况。\n304状态码返回时，不包含任何响应的主体部分。304虽然被划分在3XX类别中，但是和重定向没有关系。\n\n\n307 Temporary Redirect 临时重定向。该状态码与302 Found有着相同的含义。307会遵照浏览器标准，不会从POST变成GET\n400 Bad Request   //客户端请求有语法错误，不能被服务器所理解\n401 Unauthorized  //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用\n该状态码表示发送的请求需要有通过HTTP认证的认证信息，另外若之前已进行过1此请求，则表示用户认证失败。\n\n\n403 Forbidden     //服务器收到请求，但是拒绝提供服务\n404 Not Found     //该状态码表明服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。\n500 Internal Server Error //该状态码表明服务器端在执行请求时发生了错误。\n503 Server Unavailable    //该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。\n\n\n参考文章 常见的HTTP响应状态码解析、常见的响应状态码\n\n","dateCreated":"2018-10-10T18:56:44+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2018-10-10T18:56:44+08:00","description":"\n\n状态码大类\n\n\n状态码\n说明\n解释\n\n\n\n\n1XX\n响应中——表示请求已经接受，继续处理\n消息：一般是告诉客户端请求已经收到了，正在处理，别急\n\n\n2XX\n成功——表示请求已经被成功接收、理解、接受。\n 处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息\n\n\n3XX\n 重定向——要完成请求必须进行更进一步的操作\n重定向到其它地方：它让客户端再发起一个请求以完成整个处理\n\n\n4XX\n客户端错误——请求有语法错误或请求无法实现\n处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。\n\n\n5XX\n 服务器端错误——服务器未能实现合法的请求。\n处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等\n\n\n\n\nHTTP响应状态码有很多，但是实际经常使用的大概只有14个。","headline":"常用的状态响应码","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/","keywords":"http"}</script>
-    <meta name="description" content="状态码大类   状态码 说明 解释     1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急   2XX 成功——表示请求已经被成功接收、理解、接受。  处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息   3XX  重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理">
-<meta name="keywords" content="http">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n转载：　　url、href、src 详解\nUrl定义　　URL(Uniform Resource Locator)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。\nUrl格式标准格式　　协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询完整格式　　协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询\nUrl语法规则　　比如网址http://segmentfault.com/html/index.asp必须遵守以下的语法规则:scheme://host.domain:port/path/filename说明　　scheme - 定义因特网服务的类型。最常见的类型是 http　　host - 定义域主机（http 的默认主机是 www）　　domain - 定义因特网域名，比如 w3school.com.cn　　:port - 定义主机上的端口号（http 的默认端口号是 80）　　path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。　　filename - 定义文档/资源的名称\nURL Schemes\n\n\nScheme\n访问\n用于\n\n\n\n\nhttp\n超文本传输协议\n以 http:// 开头的普通网页。不加密。\n\n\nhttps\n安全超文本传输协议\n安全网页。加密所有信息交换。\n\n\nftp\n文件传输协议\n用于将文件下载或上传至网站。\n\n\nfile\n\n您计算机上的文件。\n\n\n\nURL的类型绝对URL　　绝对URL（absolute URL）显示文件的完整路径，这意味着绝对URL本身所在的位置与被引用的实际文件的位置无关。相对URL　　相对URL（relative URL）以包含URL本身的文件夹的位置为参考点，描述目标文件夹的位置。　　一般来说，对于同一服务器上的文件，应该总是使用相对URL，它们更容易输入，而且在将页面从本地系统转移到服务器上时更方便，只要每个文件的相对位置保持不变，链接就仍然是有效地。.：代表目前所在的目录，相对路径。例： &lt;a href=&quot;./abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;./abc&quot; /&gt;..：代表上一层目录，相对路径。例： &lt;a href=&quot;../abc&quot;&gt;文本&lt;/a&gt;或 &lt;img src=&quot;../abc&quot; /&gt;../../：代表的是上一层目录的上一层目录，相对路径。例： &lt;img src=&quot;../../abc&quot; /&gt;/：代表根目录，绝对路径。例： &lt;a href=&quot;/abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;/abc&quot; /&gt;\nHref定义　　href (Hypertext Reference)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。\n通俗理解　　href: 目的不是为了引用资源，而是为了建立这个标签与外部资源之间的关系，让当前标签能够链接到目标地址。&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;浏览器加载到这里的时候，html的渲染和解析不会暂停，css文件的加载是同时进行的\nSrc　　src用于替代这个元素: &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件\nHref和Src的区别请求资源类型不同　　href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。　　在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；作用结果不同　　href 用于在当前文档和引用资源之间确立联系；　　src 用于替换当前内容；浏览器解析方式不同　　若在文档中添加 &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;，浏览器会识别该文档为 CSS 文件，就会并行下载资源并且不会停止对当前文档的处理。这也是为什么建议使用 link 方式加载 CSS，而不是使用@import 方式。　　当浏览器解析到 &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 js 脚本放在底部而不是头部的原因。\nLink和@import的区别两者都是外部引用 CSS 的方式，但是存在一定的区别：（1）link是XHTML标签，除了能够加载CSS，还可以定义RSS等其他事务；而@import属于CSS范畴，只可以加载CSS。（2）link引用CSS时，在页面载入时同时加载；@import需要页面完全载入以后再加载。（3）link是XHTML标签，无兼容问题；@import则是在CSS2.1提出的，低版本的浏览器不支持。（4）link支持使用Javascript控制DOM改变样式；而@import不支持。\n","dateCreated":"2019-03-18T19:49:44+08:00","dateModified":"2019-03-18T20:38:37+08:00","datePublished":"2019-03-18T19:49:44+08:00","description":"\n转载：　　url、href、src 详解","headline":"Url、Href、Src、Link详解","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/","keywords":"CSS3"}</script>
+    <meta name="description" content="转载：　　url、href、src 详解">
+<meta name="keywords" content="CSS3">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="常用的状态响应码">
-<meta property="og:url" content="http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/index.html">
+<meta property="og:title" content="Url、Href、Src、Link详解">
+<meta property="og:url" content="http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="状态码大类   状态码 说明 解释     1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急   2XX 成功——表示请求已经被成功接收、理解、接受。  处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息   3XX  重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理">
+<meta property="og:description" content="转载：　　url、href、src 详解">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-08T13:36:25.000Z">
+<meta property="og:updated_time" content="2019-03-18T12:38:37.410Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常用的状态响应码">
-<meta name="twitter:description" content="状态码大类   状态码 说明 解释     1XX 响应中——表示请求已经接受，继续处理 消息：一般是告诉客户端请求已经收到了，正在处理，别急   2XX 成功——表示请求已经被成功接收、理解、接受。  处理成功：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息   3XX  重定向——要完成请求必须进行更进一步的操作 重定向到其它地方：它让客户端再发起一个请求以完成整个处理">
+<meta name="twitter:title" content="Url、Href、Src、Link详解">
+<meta name="twitter:description" content="转载：　　url、href、src 详解">
     
     
         
@@ -222,14 +222,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            常用的状态响应码
+            Url、Href、Src、Link详解
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2018-10-10T18:56:44+08:00">
+    <time datetime="2019-03-18T19:49:44+08:00">
 	
-		    10月 10, 2018
+		    3月 18, 2019
     	
     </time>
     
@@ -244,7 +244,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：1.1k字
+        字数统计：1.3k字
     </span>
 </div>
 
@@ -252,81 +252,48 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <!-- 设置目录 -->
-<h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#状态码大类"><span class="toc-text">状态码大类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态码"><span class="toc-text">状态码</span></a></li></ol>
-<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Url"><span class="toc-text">Url</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Url格式"><span class="toc-text">Url格式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Url语法规则"><span class="toc-text">Url语法规则</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#URL-Schemes"><span class="toc-text">URL Schemes</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#URL的类型"><span class="toc-text">URL的类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Href"><span class="toc-text">Href</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定义-1"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通俗理解"><span class="toc-text">通俗理解</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Src"><span class="toc-text">Src</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Href和Src的区别"><span class="toc-text">Href和Src的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Link和-import的区别"><span class="toc-text">Link和@import的区别</span></a></li></ol>
+<p>转载：<br>　　<a href="https://segmentfault.com/a/1190000002877022" target="_blank" rel="noopener">url、href、src 详解</a><br><a id="more"></a></p>
+<h4 id="Url"><a href="#Url" class="headerlink" title="Url"></a>Url</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　<code>URL</code>(<code>Uniform Resource Locator</code>)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的<code>URL</code>，它包含的信息指出文件的位置以及浏览器应该怎么处理它。</p>
+<h5 id="Url格式"><a href="#Url格式" class="headerlink" title="Url格式"></a>Url格式</h5><p><strong>标准格式</strong><br>　　协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询<br><strong>完整格式</strong><br>　　协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询</p>
+<h6 id="Url语法规则"><a href="#Url语法规则" class="headerlink" title="Url语法规则"></a>Url语法规则</h6><p>　　比如网址<code>http://segmentfault.com/html/index.asp</code>必须遵守以下的语法规则:<br><code>scheme://host.domain:port/path/filename</code><br><strong>说明</strong><br>　　<code>scheme</code> - 定义因特网服务的类型。最常见的类型是 http<br>　　<code>host</code> - 定义域主机（http 的默认主机是 www）<br>　　<code>domain</code> - 定义因特网域名，比如 w3school.com.cn<br>　　<code>:port</code> - 定义主机上的端口号（http 的默认端口号是 80）<br>　　<code>path</code> - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。<br>　　<code>filename</code> - 定义文档/资源的名称</p>
+<h6 id="URL-Schemes"><a href="#URL-Schemes" class="headerlink" title="URL Schemes"></a>URL Schemes</h6><table>
 <thead>
 <tr>
-<th style="text-align:left">状态码</th>
-<th style="text-align:right">说明</th>
-<th style="text-align:center">解释</th>
+<th style="text-align:left">Scheme</th>
+<th style="text-align:left">访问</th>
+<th style="text-align:center">用于</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">1XX</td>
-<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
-<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+<td style="text-align:left">http</td>
+<td style="text-align:left">超文本传输协议</td>
+<td style="text-align:center">以 http:// 开头的普通网页。不加密。</td>
 </tr>
 <tr>
-<td style="text-align:left">2XX</td>
-<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
-<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+<td style="text-align:left">https</td>
+<td style="text-align:left">安全超文本传输协议</td>
+<td style="text-align:center">安全网页。加密所有信息交换。</td>
 </tr>
 <tr>
-<td style="text-align:left">3XX</td>
-<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
-<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+<td style="text-align:left">ftp</td>
+<td style="text-align:left">文件传输协议</td>
+<td style="text-align:center">用于将文件下载或上传至网站。</td>
 </tr>
 <tr>
-<td style="text-align:left">4XX</td>
-<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
-<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
-</tr>
-<tr>
-<td style="text-align:left">5XX</td>
-<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
-<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+<td style="text-align:left">file</td>
+<td style="text-align:left"></td>
+<td style="text-align:center">您计算机上的文件。</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br><a id="more"></a></p>
-</blockquote>
-<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><ul>
-<li>200 OK            //表示从客户端发来的请求在服务器端被正常处理了。</li>
-<li>204 No Content该状态码表示服务器接收的请求已成功处理 ，但在返回的响应报文中不含实体的主体部分。<ul>
-<li>比如，当从浏览器发出请求处理后，返回204响应，那么浏览器显示的页面不发生更新。</li>
-</ul>
-</li>
-<li>206 Partial Content 该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的GET请求。</li>
-<li>301 Moved Permanently 永久性重定向。该状态码表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI。<ul>
-<li>像下方给出的请求URI，当指定的资源路径的最后忘记添加斜杠”/“，就会产生301状态码</li>
-</ul>
-</li>
-<li>302 Found 临时性重定向。该状态码表示请求的资源已被分配了新的URI，希望用户(本次)能使用新的URI访问。</li>
-<li>303 Other         //我把你redirect到其它的页面，目标的URL通过响应报文头的Location告诉你。<ul>
-<li>See Other 该状态码表示由于请求对应的资源存在另外一个URI，应使用GET方法定向获取请求的资源。 303状态码和302状态码有着相同的功能，但303状态码明确表明客户端应当采用GET方法获取资源。 当301，302，303响应状态码返回时，几乎所有的浏览器都会把POST改成GET，并删除请求报文的主体，之后请求会自动再次发送。 301，302标准是禁止将POST方法改变成GET方法的，但实际上使用时大家都会这么做。</li>
-</ul>
-</li>
-<li>304 Not Modified  // 该状态码表示客户端发送附带条件的请求时，服务器端允许请求访问资源，但未满足条件的情况。<ul>
-<li>304状态码返回时，不包含任何响应的主体部分。304虽然被划分在3XX类别中，但是和重定向没有关系。</li>
-</ul>
-</li>
-<li>307 Temporary Redirect 临时重定向。该状态码与302 Found有着相同的含义。307会遵照浏览器标准，不会从POST变成GET</li>
-<li>400 Bad Request   //客户端请求有语法错误，不能被服务器所理解</li>
-<li>401 Unauthorized  //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用<ul>
-<li>该状态码表示发送的请求需要有通过HTTP认证的认证信息，另外若之前已进行过1此请求，则表示用户认证失败。</li>
-</ul>
-</li>
-<li>403 Forbidden     //服务器收到请求，但是拒绝提供服务</li>
-<li>404 Not Found     //该状态码表明服务器上无法找到请求的资源。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。</li>
-<li>500 Internal Server Error //该状态码表明服务器端在执行请求时发生了错误。</li>
-<li>503 Server Unavailable    //该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</li>
-</ul>
-<blockquote>
-<p>参考文章 <a href="https://www.cnblogs.com/jpdoutop/p/HTTP-Status-Code.html" target="_blank" rel="noopener">常见的HTTP响应状态码解析</a>、<a href="https://www.jianshu.com/p/e358607a3e1b" target="_blank" rel="noopener">常见的响应状态码</a></p>
-</blockquote>
+<h6 id="URL的类型"><a href="#URL的类型" class="headerlink" title="URL的类型"></a>URL的类型</h6><p><strong>绝对URL</strong><br>　　绝对<code>URL</code>（<code>absolute URL</code>）显示文件的完整路径，这意味着绝对<code>URL</code>本身所在的位置与被引用的实际文件的位置无关。<br><strong>相对URL</strong><br>　　相对<code>URL</code>（<code>relative URL</code>）以包含<code>URL</code>本身的文件夹的位置为参考点，描述目标文件夹的位置。<br>　　一般来说，对于同一服务器上的文件，应该总是使用相对<code>URL</code>，它们更容易输入，而且在将页面从本地系统转移到服务器上时更方便，只要每个文件的相对位置保持不变，链接就仍然是有效地。<br><code>.</code>：代表目前所在的目录，相对路径。<br>例： <code>&lt;a href=&quot;./abc&quot;&gt;文本&lt;/a&gt;</code> 或 <code>&lt;img src=&quot;./abc&quot; /&gt;</code><br><code>..</code>：代表上一层目录，相对路径。<br>例： <code>&lt;a href=&quot;../abc&quot;&gt;文本&lt;/a&gt;</code>或 <code>&lt;img src=&quot;../abc&quot; /&gt;</code><br><code>../../</code>：代表的是上一层目录的上一层目录，相对路径。<br>例： <code>&lt;img src=&quot;../../abc&quot; /&gt;</code><br><code>/</code>：代表根目录，绝对路径。<br>例： <code>&lt;a href=&quot;/abc&quot;&gt;文本&lt;/a&gt;</code> 或 <code>&lt;img src=&quot;/abc&quot; /&gt;</code></p>
+<h4 id="Href"><a href="#Href" class="headerlink" title="Href"></a>Href</h4><h5 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h5><p>　　<code>href</code> (<code>Hypertext Reference</code>)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。</p>
+<h5 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h5><p>　　<code>href</code>: 目的不是为了引用资源，而是为了建立这个标签与外部资源之间的关系，让当前标签能够链接到目标地址。<br><code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;</code>浏览器加载到这里的时候，html的渲染和解析不会暂停，css文件的加载是同时进行的</p>
+<h4 id="Src"><a href="#Src" class="headerlink" title="Src"></a>Src</h4><p>　　<code>src</code>用于替代这个元素: <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件</p>
+<h4 id="Href和Src的区别"><a href="#Href和Src的区别" class="headerlink" title="Href和Src的区别"></a>Href和Src的区别</h4><p><strong>请求资源类型不同</strong><br>　　href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。<br>　　在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；<br><strong>作用结果不同</strong><br>　　href 用于在当前文档和引用资源之间确立联系；<br>　　src 用于替换当前内容；<br><strong>浏览器解析方式不同</strong><br>　　若在文档中添加 <code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;</code>，浏览器会识别该文档为 <code>CSS</code> 文件，就会并行下载资源并且<code>不会停止</code>对当前文档的处理。这也是为什么建议使用 <code>link</code> 方式加载 <code>CSS</code>，而不是使用<code>@import</code> 方式。<br>　　当浏览器解析到 <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>，会<code>暂停</code>其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 <code>js</code> 脚本放在底部而不是头部的原因。</p>
+<h4 id="Link和-import的区别"><a href="#Link和-import的区别" class="headerlink" title="Link和@import的区别"></a>Link和@import的区别</h4><p>两者都是外部引用 <code>CSS</code> 的方式，但是存在一定的区别：<br>（1）<code>link</code>是<code>XHTML</code>标签，除了能够加载<code>CSS</code>，还可以定义<code>RSS</code>等其他事务；而<code>@import</code>属于<code>CSS</code>范畴，只可以加载<code>CSS</code>。<br>（2）<code>link</code>引用<code>CSS</code>时，在页面载入时同时加载；<code>@import</code>需要页面完全载入以后再加载。<br>（3）<code>link</code>是<code>XHTML</code>标签，无兼容问题；<code>@import</code>则是在<code>CSS2.1</code>提出的，低版本的浏览器不支持。<br>（4）<code>link</code>支持使用<code>Javascript</code>控制<code>DOM</code>改变样式；而<code>@import</code>不支持。</p>
 
             
 
@@ -337,7 +304,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/http/">http</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS3/">CSS3</a>
 
             </div>
         
@@ -347,8 +314,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/12/git常用命令/git常用命令/" data-tooltip="git常用命令" aria-label="上一篇: git常用命令">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -357,7 +323,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/JavaScript/冒泡和捕获/" data-tooltip="冒泡和捕获" aria-label="下一篇: 冒泡和捕获">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/同源策略和跨域/" data-tooltip="同源策略和跨域" aria-label="下一篇: 同源策略和跨域">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -367,7 +333,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -375,7 +341,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -383,7 +349,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -391,7 +357,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -434,7 +400,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：46.8k</span>
+		<span class="post-count">字数统计：48.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -461,8 +427,7 @@ setInterval("createtime()",250);
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/12/git常用命令/git常用命令/" data-tooltip="git常用命令" aria-label="上一篇: git常用命令">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -471,7 +436,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/JavaScript/冒泡和捕获/" data-tooltip="冒泡和捕获" aria-label="下一篇: 冒泡和捕获">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/同源策略和跨域/" data-tooltip="同源策略和跨域" aria-label="下一篇: 同源策略和跨域">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -481,7 +446,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -489,7 +454,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -497,7 +462,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -505,7 +470,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -538,7 +503,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -546,7 +511,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -554,7 +519,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -664,8 +629,29 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
-                            <h3 class="media-heading">css模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -702,29 +688,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
+                            <h3 class="media-heading">css模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -803,7 +768,7 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
                             <h3 class="media-heading">常用的状态响应码</h3>
                         </a>
                         <span class="media-meta">
@@ -865,7 +830,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 40 篇文章
+                找到 41 篇文章
             </p>
         </div>
     </div>
@@ -883,7 +848,7 @@ setInterval("createtime()",250);
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2018/10/10/常用的状态响应码/常用的状态响应码/',
+                        id: 'http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
