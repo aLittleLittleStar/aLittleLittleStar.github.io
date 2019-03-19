@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-18T13:31:02.778Z</updated>
+  <updated>2019-03-19T06:11:42.947Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>主流浏览器内核</title>
+    <link href="http://yoursite.com/2019/03/19/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%B8%BB%E6%B5%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8/"/>
+    <id>http://yoursite.com/2019/03/19/前端性能优化/主流浏览器内核/</id>
+    <published>2019-03-19T05:26:48.000Z</published>
+    <updated>2019-03-19T06:11:42.947Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><h4 id="浏览器内核"><a href="#浏览器内核" class="headerlink" title="浏览器内核"></a>浏览器内核</h4><p>　　浏览器内核可以分为两部分：<strong>渲染引擎</strong>(<code>layout engineer</code> 或者 <code>Rendering Engine</code>)和<strong>JS引擎</strong><a id="more"></a><br>　　浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。</p><h5 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h5><p>　　渲染引擎负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等）、以及计算网页的显示方式，然后会输出至显示器或打印机。</p><h5 id="JS引擎"><a href="#JS引擎" class="headerlink" title="JS引擎"></a>JS引擎</h5><p>　　JS 引擎则是解析<code>Javascript</code>语言，执行<code>javascript</code>语言来实现网页的动态效果。<br>　　最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 <code>JS引擎越来越独立，内核就倾向于只指渲染引擎</code>。</p><h4 id="主流浏览器内核"><a href="#主流浏览器内核" class="headerlink" title="主流浏览器内核"></a>主流浏览器内核</h4><p><code>Trident</code>内核：IE<br><code>Gecko</code>内核：NETSCAPE6及以上版本，火狐(Mozilla FireFox)<br><code>Presto</code>内核：Opera7及以上。[Opera内核原为：Presto，现为：Blink;]<br><code>Webkit</code>内核：Safari，Chrome等。<br>Chrome的：<code>Blink</code>（WebKit的分支）</p><h4 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h4><p>移动端的浏览器内核主要说的是<code>系统内置浏览器的内核</code>。<br>目前移动设备浏览器上常用的内核有 Webkit，Blink，Trident，Gecko 。<br>1、iPhone 和 iPad 等苹果 iOS 平台主要是 WebKit。<br>2、Android 4.4 之前的 Android 系统浏览器内核是 WebKit，Android4.4 系统浏览器切换到了Chromium，内核是 Webkit 的分支 Blink。<br>3、Windows Phone 8 系统浏览器内核是 Trident。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+&lt;h4 id=&quot;浏览器内核&quot;&gt;&lt;a href=&quot;#浏览器内核&quot; class=&quot;headerlink&quot; title=&quot;浏览器内核&quot;&gt;&lt;/a&gt;浏览器内核&lt;/h4&gt;&lt;p&gt;　　浏览器内核可以分为两部分：&lt;strong&gt;渲染引擎&lt;/strong&gt;(&lt;code&gt;layout engineer&lt;/code&gt; 或者 &lt;code&gt;Rendering Engine&lt;/code&gt;)和&lt;strong&gt;JS引擎&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="浏览器" scheme="http://yoursite.com/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>CSS3新特性</title>
@@ -463,29 +486,6 @@
     
     
       <category term="页面布局" scheme="http://yoursite.com/tags/%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>像素：(px、pt、em、rem、rpx)</title>
-    <link href="http://yoursite.com/2019/02/14/%E5%83%8F%E7%B4%A0/%E5%83%8F%E7%B4%A0/"/>
-    <id>http://yoursite.com/2019/02/14/像素/像素/</id>
-    <published>2019-02-14T12:04:32.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>参考资料：<br><a href="http://www.runoob.com/w3cnote/px-em-rem-different.html" target="_blank" rel="noopener">px、em、rem区别介绍</a><br><a href="https://www.cnblogs.com/zhaowy/p/8400271.html" target="_blank" rel="noopener">字体大小之px、em、rem、pt,字号详解</a></p><p><strong>px:</strong><br>　　px像素（Pixel）。相对长度单位。像素px是相对于显示器屏幕分辨率而言的。<br>　　PX特点:<br>　　　　1. IE无法调整那些使用px作为单位的字体大小；<br>　　　　2. 国外的大部分网站能够调整的原因在于其使用了em或rem作为字体单位；<br>　　　　3. Firefox能够调整px和em，rem，但是96%以上的中国网民使用IE浏览器(或内核)。<a id="more"></a><br><strong>pt:</strong><br>　　pt(point，磅)：是一个物理长度单位，指的是72分之一英寸。表示绝对长度。<br><strong>em:</strong><br>　　em是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。<br>　　em特点：<br>　　　　1. em的值并不是固定的；<br>　　　　2. em会继承父级元素的字体大小。<br>　　注意：任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1em=16px。那么12px=0.75em,10px=0.625em。为了简化font-size的换算，需要在css中的body选择器中声明Font-size=62.5%，这就使em值变为 16px<em>62.5%=10px, 这样12px=1.2em, 10px=1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。<br>所以我们在写CSS的时候，需要注意两点：<br>　　　　1. body选择器中声明Font-size=62.5%；<br>　　　　2. 将你的原来的px数值除以10，然后换上em作为单位；<br>　　　　3. 重新计算那些被放大的字体的em数值。避免字体大小的重复声明。也就是避免1.2 </em> 1.2= 1.44的现象。比如说你在#content中声明了字体大小为1.2em，那么在声明p的字体大小时就只能是1em，而不是1.2em, 因为此em非彼em，它因继承#content的字体高而变为了1em=12px。<br>　　　　<br><strong>rem:</strong><br>　　rem（root em，根em）：是CSS3新增的一个相对单位，相对的只是HTML根元素，可以只修改根元素就可以成比例地调整所有字体大小，又可以避免字体大小逐层复合的连锁反应。兼容性IE9+都可以兼容，对于不兼容的浏览器写一个绝对单位的声明就可以了。<br><strong>rpx:</strong><br>　　rpx单位是微信小程序中css的尺寸单位，rpx可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;参考资料：&lt;br&gt;&lt;a href=&quot;http://www.runoob.com/w3cnote/px-em-rem-different.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;px、em、rem区别介绍&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.cnblogs.com/zhaowy/p/8400271.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;字体大小之px、em、rem、pt,字号详解&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;px:&lt;/strong&gt;&lt;br&gt;　　px像素（Pixel）。相对长度单位。像素px是相对于显示器屏幕分辨率而言的。&lt;br&gt;　　PX特点:&lt;br&gt;　　　　1. IE无法调整那些使用px作为单位的字体大小；&lt;br&gt;　　　　2. 国外的大部分网站能够调整的原因在于其使用了em或rem作为字体单位；&lt;br&gt;　　　　3. Firefox能够调整px和em，rem，但是96%以上的中国网民使用IE浏览器(或内核)。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="像素" scheme="http://yoursite.com/tags/%E5%83%8F%E7%B4%A0/"/>
     
   </entry>
   
