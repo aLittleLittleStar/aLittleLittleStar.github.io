@@ -217,6 +217,257 @@
     <section class="postShorten-group main-content-wrap">
     
     
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2019/03/15/JavaScript/学习知识点/">
+                            (无标题)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-03-15T09:02:08+08:00">
+	
+		    3月 15, 2019
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h3 id="JavaScript简介"><a href="#JavaScript简介" class="headerlink" title="JavaScript简介"></a>JavaScript简介</h3><h3 id="在HTML中使用JavaScript"><a href="#在HTML中使用JavaScript" class="headerlink" title="在HTML中使用JavaScript"></a>在HTML中使用JavaScript</h3><h4 id="混杂模式与标准模式"><a href="#混杂模式与标准模式" class="headerlink" title="混杂模式与标准模式"></a>混杂模式与标准模式</h4><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>变量、函数名和操作符都区分大小写</p>
+<p>标识符，就是指变量、函数、属性的名字，或者函数的参数。ECMAScript标识符采用驼峰大小写格式，也就是第一个字母小写，剩下的每个单词的<br>首字母大写</p>
+<p>严格模式： “use strict”; </p>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><blockquote>
+<p>简单数据类型(基本数据类型)：Undefined、Null、Boolean、Number、String  <br><br>复杂数据类型：Object      <br><br>typeof 操作符来区分函数和其他对象是有必要的  <br></p>
+</blockquote>
+<h5 id="Undefind"><a href="#Undefind" class="headerlink" title="Undefind"></a>Undefind</h5><p>　　即便未初始化的变量会自动被赋予 undefined 值，但显式地初始化变量依然是<br>明智的选择。如果能够做到这一点，那么当 typeof 操作符返回”undefined”值时，<br>我们就知道被检测的变量还没有被声明，而不是尚未初始化。</p>
+<h5 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h5><h5 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h5><h5 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h5><h6 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h6><h6 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h6><h6 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h6><p>即非数值（Not a Number）<br>ECMAScript 定义了 isNaN()函数。这个函数接受一个参数，该参数可以<br>是任何类型，而函数会帮我们确定这个参数是否“不是数值”。</p>
+<h6 id="数值转换"><a href="#数值转换" class="headerlink" title="数值转换"></a>数值转换</h6><p>把非数值转换为数值：Number()、parseInt()和 parseFloat()。</p>
+<h5 id="String"><a href="#String" class="headerlink" title="String"></a>String</h5><h4 id="流控制语句"><a href="#流控制语句" class="headerlink" title="流控制语句"></a>流控制语句</h4><h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><h3 id="变量、作用域和内存问题"><a href="#变量、作用域和内存问题" class="headerlink" title="变量、作用域和内存问题"></a>变量、作用域和内存问题</h3><h4 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h4><p>基本类型值指的是<br>简单的数据段，而引用类型值指那些可能由多个值构成的对象</p>
+<h5 id="复制变量值"><a href="#复制变量值" class="headerlink" title="复制变量值"></a>复制变量值</h5><p>如果从一个变量向另一个变量复制<strong>基本类型</strong>的值，会在变量对象上创建一个新值，然后把该值复制<br>到为新变量分配的位置上.<br><br>当从一个变量向另一个变量复制<strong>引用类型</strong>的值时，同样也会将存储在变量对象中的值复制一份放到<br>为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一<br>个对象。复制操作结束后，两个变量实际上将引用同一个对象。因此，改变其中一个变量，就会影响另<br>一个变量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object(); </span><br><span class="line">var obj2 = obj1; </span><br><span class="line">obj1.name = <span class="string">"Nicholas"</span>; </span><br><span class="line">alert(obj2.name); //<span class="string">"Nicholas"</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h5><p>typeof 操作符是确定一个变量是字符串、数值、布尔值，还是 undefined 的最佳工具 <br></p>
+<p>虽然在检测基本数据类型时 typeof 是非常得力的助手，但在检测引用类型的值时，这个操作符的<br>用处不大。通常，我们并不是想知道某个值是对象，而是想知道它是什么类型的对象。为此，ECMAScript<br>提供了 instanceof 操作符，其语法如下所示：<br><code>result = variable instanceof constructor</code></p>
+<h4 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h4><h4 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h4><h5 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h5><h5 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h5><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ol>
+<li>基本类型值在内存中占据固定大小的空间，因此被保存在栈内存中；</li>
+<li>从一个变量向另一个变量复制基本类型的值，会创建这个值的一个副本；</li>
+<li>引用类型的值是对象，保存在堆内存中；</li>
+<li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针；</li>
+<li>从一个变量向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同<br>一个对象；</li>
+<li>确定一个值是哪种基本类型可以使用 typeof 操作符，而确定一个值是哪种引用类型可以使用<br>instanceof 操作符。</li>
+<li>所有变量（包括基本类型和引用类型）都存在于一个执行环境（也称为作用域）当中，这个执<br>行环境决定了变量的生命周期，以及哪一部分代码可以访问其中的变量。</li>
+</ol>
+<h5 id="以下是关于执行环境的几点总结："><a href="#以下是关于执行环境的几点总结：" class="headerlink" title="以下是关于执行环境的几点总结："></a>以下是关于执行环境的几点总结：</h5><ul>
+<li>执行环境有全局执行环境（也称为全局环境）和函数执行环境之分；</li>
+<li>每次进入一个新执行环境，都会创建一个用于搜索变量和函数的作用域链；<br>函数的局部环境不仅有权访问函数作用域中的变量，而且有权访问其包含（父）环境，乃至全<br>局环境；</li>
+<li>全局环境只能访问在全局环境中定义的变量和函数，而不能直接访问局部环境中的任何数据；</li>
+<li>变量的执行环境有助于确定应该何时释放内存。</li>
+<li>JavaScript 是一门具有自动垃圾收集机制的编程语言，开发人员不必关心内存分配和回收问题。</li>
+</ul>
+<h5 id="可以对-JavaScript-的垃圾收集例程作如下总结："><a href="#可以对-JavaScript-的垃圾收集例程作如下总结：" class="headerlink" title="可以对 JavaScript 的垃圾收集例程作如下总结："></a>可以对 JavaScript 的垃圾收集例程作如下总结：</h5><ul>
+<li>离开作用域的值将被自动标记为可以回收，因此将在垃圾收集期间被删除。<br>“标记清除”是目前主流的垃圾收集算法，这种算法的思想是给当前不使用的值加上标记，然<br>后再回收其内存。</li>
+<li>另一种垃圾收集算法是“引用计数”，这种算法的思想是跟踪记录所有值被引用的次数。JavaScript<br>引擎目前都不再使用这种算法；但在 IE 中访问非原生 JavaScript 对象（如 DOM 元素）时，这种<br>算法仍然可能会导致问题。</li>
+<li>当代码中存在循环引用现象时，“引用计数”算法就会导致问题。</li>
+<li>解除变量的引用不仅有助于消除循环引用现象，而且对垃圾收集也有好处。为了确保有效地回<br>收内存，应该及时解除不再使用的全局对象、全局对象属性以及循环引用变量的引用。</li>
+</ul>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><h4 id="使用对象"><a href="#使用对象" class="headerlink" title="使用对象"></a>使用对象</h4><h5 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h5><ul>
+<li>Array类型<ul>
+<li>检测数组  value instanceof Array、 Array.isArray()方</li>
+<li>转换方法 toLocaleString()、toString()和 valueOf()</li>
+<li>栈方法 后进先出 push()、pop()</li>
+<li>队列方法 后进先出 shift()、unshift()</li>
+<li>重排序方法 reverse()、sort()</li>
+<li>操作方法 concat() 连接数组、splice()</li>
+<li>位置方法 indexOf()、lastIndexOf()</li>
+<li>迭代方法<ul>
+<li>every()  全部</li>
+<li>filter() 筛选</li>
+<li>forEach()</li>
+<li>map() </li>
+<li>some() 存在</li>
+</ul>
+</li>
+<li>归并方法<ul>
+<li>reduce()</li>
+<li>reduceRight()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Date类型<ul>
+<li>new Date()、Date.parse() 、Date.UTC()</li>
+<li>继承的方法</li>
+<li>日期格式化方法<ul>
+<li>toDateString()——以特定于实现的格式显示星期几、月、日和年</li>
+<li>toTimeString()——以特定于实现的格式显示时、分、秒和时区；</li>
+<li>toLocaleDateString()——以特定于地区的格式显示星期几、月、日和年</li>
+<li>toLocaleTimeString()——以特定于实现的格式显示时、分、秒</li>
+<li>toUTCString()——以特定于实现的格式完整的 UTC 日期</li>
+</ul>
+</li>
+<li>日期/时间组件<ul>
+<li>getTime() 返回表示日期的毫秒数；与valueOf()方法返回的值相同</li>
+<li>setTime(毫秒) 以毫秒数设置日期，会改变整个日期</li>
+<li>getFullYear() 取得4位数的年份（如2007而非仅07）</li>
+<li>getUTCFullYear() 返回UTC日期的4位数年份</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RegExp()类型</li>
+<li>Function类型<ul>
+<li>没有重载</li>
+<li>函数声明与函数表达式<ul>
+<li>解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问）</li>
+<li>至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真<br>正被解释执行。</li>
+</ul>
+</li>
+<li>作为值的函数</li>
+<li>函数内部属性<ul>
+<li>arguments</li>
+<li>this</li>
+<li>callee</li>
+</ul>
+</li>
+<li>函数属性和方法<ul>
+<li>length</li>
+<li>prototype</li>
+<li>apply()</li>
+<li>call()</li>
+</ul>
+</li>
+<li>基本包装类型<ul>
+<li>Boolean类型</li>
+<li>Number<ul>
+<li>toFixed()方法会按照指定的小数位返回数值的字符串表示</li>
+<li>toExponential()</li>
+</ul>
+</li>
+<li>String<ul>
+<li>trim()方法： 这个方法会创建一个字符串的副本，删除前置及<br>后缀的所有空格，然后返回结果</li>
+<li>字符串大小写转换方法<ul>
+<li>toLowerCase()</li>
+<li>toLocaleLowerCase()</li>
+<li>toUpperCase()</li>
+<li>toLocaleUpperCase()。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字符串的模式匹配方法</li>
+<li>localeCompare()</li>
+<li>localeCompare()</li>
+<li>fromCharCode()</li>
+</ul>
+</li>
+<li>单体内置对象<ul>
+<li>Global对象</li>
+<li>Math对象<ul>
+<li>Math对象的属性</li>
+<li>min()、max()</li>
+<li>舍入方法<ul>
+<li>Math.ceil()执行向上舍入，即它总是将数值向上舍入为最接近的整数</li>
+<li>Math.floor()执行向下舍入，即它总是将数值向下舍入为最接近的整数</li>
+<li>Math.round()执行标准舍入，即它总是将数值四舍五入为最接近的整数</li>
+</ul>
+</li>
+<li>random() Math.radom()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>160</p>
+<h4 id="创建并操作数组"><a href="#创建并操作数组" class="headerlink" title="创建并操作数组"></a>创建并操作数组</h4><h4 id="基本的JavaScript类型"><a href="#基本的JavaScript类型" class="headerlink" title="基本的JavaScript类型"></a>基本的JavaScript类型</h4><h4 id="基本类型和基本包装类型"><a href="#基本类型和基本包装类型" class="headerlink" title="基本类型和基本包装类型"></a>基本类型和基本包装类型</h4><h3 id="面向对象的程序设计"><a href="#面向对象的程序设计" class="headerlink" title="面向对象的程序设计"></a>面向对象的程序设计</h3><h4 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h4><h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><h3 id="客户端检测"><a href="#客户端检测" class="headerlink" title="客户端检测"></a>客户端检测</h3><h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><h3 id="DOM扩展"><a href="#DOM扩展" class="headerlink" title="DOM扩展"></a>DOM扩展</h3><h3 id="DOM2和DOM3"><a href="#DOM2和DOM3" class="headerlink" title="DOM2和DOM3"></a>DOM2和DOM3</h3><h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><h3 id="表单脚本"><a href="#表单脚本" class="headerlink" title="表单脚本"></a>表单脚本</h3><h3 id="使用Canvas绘图"><a href="#使用Canvas绘图" class="headerlink" title="使用Canvas绘图"></a>使用Canvas绘图</h3><h3 id="HTML5脚本编程"><a href="#HTML5脚本编程" class="headerlink" title="HTML5脚本编程"></a>HTML5脚本编程</h3><h3 id="错误处理与调试"><a href="#错误处理与调试" class="headerlink" title="错误处理与调试"></a>错误处理与调试</h3><h3 id="JavaScript与XML"><a href="#JavaScript与XML" class="headerlink" title="JavaScript与XML"></a>JavaScript与XML</h3><h3 id="E4X"><a href="#E4X" class="headerlink" title="E4X"></a>E4X</h3><h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h3 id="Ajax与Comet"><a href="#Ajax与Comet" class="headerlink" title="Ajax与Comet"></a>Ajax与Comet</h3><h3 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h3><h3 id="离线应用和客户端储存"><a href="#离线应用和客户端储存" class="headerlink" title="离线应用和客户端储存"></a>离线应用和客户端储存</h3><h3 id="最佳实战"><a href="#最佳实战" class="headerlink" title="最佳实战"></a>最佳实战</h3><h3 id="新兴的API"><a href="#新兴的API" class="headerlink" title="新兴的API"></a>新兴的API</h3>
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/03/15/JavaScript/学习知识点/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2019/03/14/前端性能优化/SSR和客户端渲染/">
+                            客户端渲染和服务端渲染详细执行流程
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-03-14T21:09:08+08:00">
+	
+		    3月 14, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端优化/">前端优化</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <ol>
+<li><p>客户端渲染：CSR (client side render)<br>在服务端放了一个html 页面，里面有<script>//发请求，拿数据，模版引擎渲染等，$.ajax  ,</script><br>客户端发起请求，服务端把页面（响应的是字符串）发送过去，客户端从上到下依次解析，如果在解析的过程中，发现ajax<br>请求，再次像服务器发送新的请求，客户端拿到ajax 响应结果，模板引擎渲染。<br>过程至少和服务端发起两次请求</p>
+</li>
+<li><p>服务端渲染：SSR (server side render)<br>sever 端页面+数据，服务端过程：<br>1.读取index.html<br>2.模版进行渲染，在发送给客户端之前，在服务端已经把index.html 渲染处理了。var 渲染结果 = tempeter.render(模板字符串，｛解析替换对象｝)   response.end(渲染结果)，服务端响应的就是最总的结果<br>服务端只请求一次<br>多数网站既有服务端渲染又有客户端渲染</p>
+</li>
+<li><p>服务端渲染和客户端渲染的区别</p>
+<ul>
+<li>客户端渲染不利于 SEO 搜索引擎优化</li>
+<li>服务端渲染是可以被爬虫抓取到的，客户端异步渲染是很难被爬虫抓取到的</li>
+<li>所以你会发现真正的网站既不是纯异步也不是纯服务端渲染出来的</li>
+<li>而是两者结合来做的</li>
+<li>例如京东的商品列表就采用的是服务端渲染，目的了为了 SEO 搜索引擎优化</li>
+<li>而它的商品评论列表为了用户体验，而且也不需要 SEO 优化，所以采用是客户端渲染</li>
+</ul>
+</li>
+</ol>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/03/14/前端性能优化/SSR和客户端渲染/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
     <article class="postShorten postShorten--thumbnailimg-right">
         <div class="postShorten-wrap">
             
@@ -587,152 +838,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/02/15/Vue/基础知识点/">
-                            Vue.js基础
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-02-15T17:32:51+08:00">
-	
-		    2月 15, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/Vue/">Vue</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <!-- 目录 -->
-<h1 id="table-of-contents">目录</h1>
-<p>Vue.js基础，模块化，单文件组件，路由，与服务器通信，状态管理，单元测试与生产发布，服务端渲染SSR与Nuxt.js，基于Vue.js企业级项目开发(Mint UI, Element UI)等<br>132131</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/02/15/Vue/基础知识点/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/02/15/CSS3/css布局/">
-                            CSS布局
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-02-15T16:27:32+08:00">
-	
-		    2月 15, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>转载：<br>　　知乎专栏：<a href="https://zhuanlan.zhihu.com/p/25565751" target="_blank" rel="noopener">CSS布局十八般武艺都在这里了</a><br>参考：掘金：<a href="https://juejin.im/post/599970f4518825243a78b9d5#heading-43" target="_blank" rel="noopener">CSS 常见布局方式</a><br><img src="https://user-gold-cdn.xitu.io/2017/8/21/395302ae7949d78570a6102e5ded1ff0?imageslim" alt="css布局"><br><h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用居中方法"><span class="toc-text">常用居中方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#水平居中"><span class="toc-text">水平居中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#垂直居中"><span class="toc-text">垂直居中</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单列布局"><span class="toc-text">单列布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二列-amp-三列布局"><span class="toc-text">二列&amp;三列布局</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#float-margin"><span class="toc-text">float + margin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#position-margin"><span class="toc-text">position + margin</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#圣杯布局-float-负margin"><span class="toc-text">圣杯布局 (float + 负margin)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#双飞翼布局-float-负margin"><span class="toc-text">双飞翼布局 (float + 负margin)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#flex布局"><span class="toc-text">flex布局</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></p>
-<h4 id="常用居中方法"><a href="#常用居中方法" class="headerlink" title="常用居中方法"></a>常用居中方法</h4><p>　　居中在布局中很常见，我们假设DOM文档结构如下，子元素要在父元素中居中：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">"child"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<h5 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h5><p>　　子元素为行内元素还是块状元素，宽度一定还是宽度未定，采取的布局方案不同。<br>子元素为:</p>
-<hr>
-<p>行内元素：对父元素设置<code>text-align:center</code>;<br>定宽块状元素: 设置左右<code>margin</code>值为<code>auto</code>;<br>不定宽块状元素: 设置子元素为<code>display:inline</code>,然后在父元素上设置<code>text-align:center;</code><br>通用方案: flex布局，对父元素设置<code>display:flex;justify-content:center;`</code></p>
-<hr>
-<p>例子：<br><strong>固定宽度</strong><br>　　这种方式是绝对定位居中，除了使用 margin，我们还可以使用 transform（注意浏览器兼容性，只适用于 ie9+，移动开发请忽略）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: pink;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.inner&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-top: -25px;</span><br><span class="line">    margin-left: -50px;</span><br><span class="line">    background: <span class="comment">#fff;</span></span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: pink;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.inner&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    /* transform: translate(-50%, -50%); */</span><br><span class="line">    transform: translate(-50px, -25px);</span><br><span class="line">    background: <span class="comment">#fff;</span></span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>宽度未知</strong><br>　　将子元素设置为行内元素，然后父元素设置 <code>text-align: center</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: pink;</span><br><span class="line">    position: relative;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.inner&#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>多个块状元素</strong><br>　　上面的方式即使子元素不止一个也想实现水平居中也是有效的，（宽度固定不固定都可，不固定的话就不需要设置宽度，会被自动撑开，但是要考虑到撑爆的情况）例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    width: 250px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: pink;</span><br><span class="line">    position: relative;</span><br><span class="line">    text-align: center;</span><br><span class="line">    padding: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.inner&#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 150px;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    background: <span class="comment">#fff;</span></span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>　　当然也可以使用我们刚刚介绍的 flex，我们只需要让子元素在主轴上的对齐方式设置为居中就可以<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    width: 250px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background: pink;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    padding: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.inner&#123;</span><br><span class="line">    background: <span class="comment">#fff;</span></span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 150px;</span><br><span class="line">    margin-left: 10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h5><p>　　垂直居中对于子元素是单行内联文本、多行内联文本以及块状元素采用的方案是不同的。<br><strong>父元素一定，子元素为单行内联文本</strong>:设置父元素的<code>height</code>等于行高<code>line-height</code><br><strong>父元素一定，子元素为多行内联文本</strong>:设置父元素的<code>display:table-cell或inline-block</code>，再设置<code>vertical-align:middle</code>;<br><strong>块状元素</strong>:设置子元素<code>position:absolute</code>并设置<code>top、bottom为0</code>，父元素要设置定位为<code>static</code>以外的值，<code>margin:auto</code>;<br><strong>通用方案</strong>:<code>flex</code>布局，给父元素设置<code>{display:flex; align-items:center;}</code>。</p>
-<h4 id="单列布局"><a href="#单列布局" class="headerlink" title="单列布局"></a>单列布局</h4><p>　　<img src="/assets/images/css布局.png" alt="css布局"><br>特征：<strong>定宽、水平居中</strong><br>常见的单列布局有两种：<br>　　一种是header、content、footer宽度都相同，其一般不会占满浏览器的最宽宽度，但当浏览器宽度缩小低于其最大宽度时，宽度会自适应。<br>　　一种是header、footer宽度为浏览器宽度，但content以及header和footer里的内容却不会占满浏览器宽度。<br>对于第一种，对header、content、footer统一设置width或max-width，并通过margin:auto实现居中。<br>DOM文档:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"layout"</span>&gt;</span><br><span class="line">  &lt;div id=<span class="string">"header"</span>&gt;头部&lt;/div&gt;</span><br><span class="line">  &lt;div id=<span class="string">"content"</span>&gt;内容&lt;/div&gt;</span><br><span class="line">  &lt;div id=<span class="string">"footer"</span>&gt;尾部&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>CSS清单:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.layout&#123;</span><br><span class="line">/*   width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/</span><br><span class="line">  max-width: 960px;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>　　对于第二种，header、footer的内容宽度为100%，但header、footer的内容区以及content统一设置width 或 max-width，并通过margin:auto实现居中。<br>DOM文档:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"header"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"layout"</span>&gt;头部&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div id=<span class="string">"content"</span> class=<span class="string">"layout"</span>&gt;内容&lt;/div&gt;</span><br><span class="line">&lt;div id=<span class="string">"footer"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"layout"</span>&gt;尾部&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>CSS清单:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.layout&#123;</span><br><span class="line">/*   width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/</span><br><span class="line">  max-width: 960px;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="二列-amp-三列布局"><a href="#二列-amp-三列布局" class="headerlink" title="二列&amp;三列布局"></a>二列&amp;三列布局</h4><p>　　<img src="/assets/images/css布局02.png" alt="css布局"><br>二列布局的特征是侧栏固定宽度，主栏自适应宽度。<br>三列布局的特征是两侧两列固定宽度，中间列自适应宽度。</p>
-<p>之所以将二列布局和三列布局写在一起，是因为二列布局可以看做去掉一个侧栏的三列布局，其布局的思想有异曲同工之妙。对于传统的实现方法，主要讨论上图中前三种布局，经典的带有侧栏的二栏布局以及带有左右侧栏的三栏布局，对于flex布局，实现了上图的五种布局。</p>
-<h5 id="float-margin"><a href="#float-margin" class="headerlink" title="float + margin"></a>float + margin</h5><p>　　原理说明：设置两个侧栏分别向左向右浮动，中间列通过外边距给两个侧栏腾出空间，中间列的宽度根据浏览器窗口自适应。</p>
-<p>DOM文档:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"content"</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">"sub"</span>&gt;sub&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">"extra"</span>&gt;extra&lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;main&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>布局步骤:</p>
-<p>对两边侧栏分别设置宽度，并对左侧栏添加左浮动，对右侧栏添加有浮动。<br>对主面板设置左右外边距，margin-left的值为左侧栏的宽度，margin-right的值为右侧栏的宽度。<br>CSS清单:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.sub&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    <span class="built_in">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line">.extra&#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    <span class="built_in">float</span>: right;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">    margin-left: 100px; </span><br><span class="line">    margin-right: 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>一些说明:</p>
-<p>注意DOM文档的书写顺序，先写两侧栏，再写主面板，更换后则侧栏会被挤到下一列（圣杯布局和双飞翼布局都会用到）。 　<br>这种布局方式比较简单明了，但缺点是渲染时先渲染了侧边栏，而不是比较重要的主面板。</p>
-<p>二列的实现方法</p>
-<p>如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置主面板的margin-right值，其他操作相同。反之亦然。</p>
-<h5 id="position-margin"><a href="#position-margin" class="headerlink" title="position + margin"></a>position + margin</h5><p>　　原理说明：通过绝对定位将两个侧栏固定，同样通过外边距给两个侧栏腾出空间，中间列自适应。</p>
-<p>DOM文档:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"sub"</span>&gt;left&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"main"</span>&gt;main&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"extra"</span>&gt;right&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>布局步骤:</p>
-<p>对两边侧栏分别设置宽度，设置定位方式为绝对定位。<br>设置两侧栏的top值都为0，设置左侧栏的left值为0， 右侧栏的right值为0。<br>对主面板设置左右外边距，margin-left的值为左侧栏的宽度，margin-right的值为右侧栏的宽度。<br>CSS清单:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.sub, .extra &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0; </span><br><span class="line">    width: 200px;</span><br><span class="line">&#125;</span><br><span class="line">.sub &#123; </span><br><span class="line">    left: 0;</span><br><span class="line">&#125;</span><br><span class="line">.extra &#123; </span><br><span class="line">    right: 0; </span><br><span class="line">&#125;</span><br><span class="line">.main &#123; </span><br><span class="line">    margin: 0 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>一些说明:</p>
-<p>本方法不限制DOM书写顺序，先写主面板会使主面板部分优先渲染（一般主面板会比侧栏内容重要）。<br>与上一种方法相比，本种方法是通过定位来实现侧栏的位置固定。<br>如果中间栏含有最小宽度限制，或是含有宽度的内部元素，则浏览器窗口小到一定程度，主面板与侧栏会发生重叠。<br>二列的实现方法</p>
-<p>如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置主面板的margin-right值，其他操作相同。反之亦然。</p>
-<h5 id="圣杯布局-float-负margin"><a href="#圣杯布局-float-负margin" class="headerlink" title="圣杯布局 (float + 负margin)"></a>圣杯布局 (float + 负margin)</h5><p>原理说明：<br>　　主面板设置宽度为100%，主面板与两个侧栏都设置浮动，常见为左浮动，这时两个侧栏会被主面板挤下去。通过负边距将浮动的侧栏拉上来，左侧栏的负边距为100%，刚好是窗口的宽度，因此会从主面板下面的左边跑到与主面板对齐的左边，右侧栏此时浮动在主面板下面的左边，设置负边距为负的自身宽度刚好浮动到主面板对齐的右边。为了避免侧栏遮挡主面板内容，在外层设置左右padding值为左右侧栏的宽度，给侧栏腾出空间，此时主面板的宽度减小。由于侧栏的负margin都是相对主面板的，两个侧栏并不会像我们理想中的停靠在左右两边，而是跟着缩小的主面板一起向中间靠拢。此时使用相对布局，调整两个侧栏到相应的位置。</p>
-<p>DOM文档:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> &lt;div id=<span class="string">"bd"</span>&gt;         </span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;center&lt;/div&gt;        </span><br><span class="line">    &lt;div class=<span class="string">"sub"</span>&gt;left&lt;/div&gt;        </span><br><span class="line">    &lt;div class=<span class="string">"extra"</span>&gt;right&lt;/div&gt;  </span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>布局步骤:<br>三者都设置向左浮动。<br>设置main宽度为100%，设置两侧栏的宽度。<br>设置 负边距，sub设置负左边距为100%，extra设置负左边距为负的自身宽度。<br>设置main的padding值给左右两个子面板留出空间。<br>设置两个子面板为相对定位，sub的left值为负的sub宽度，extra的right值为负的extra宽度。<br>CSS清单:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.main &#123;        </span><br><span class="line">    <span class="built_in">float</span>: left;       </span><br><span class="line">    width: 100%;   </span><br><span class="line"> &#125;  </span><br><span class="line"> .sub &#123;       </span><br><span class="line">    <span class="built_in">float</span>: left;        </span><br><span class="line">    width: 190px;        </span><br><span class="line">    margin-left: -100%;               </span><br><span class="line">    position: relative;  </span><br><span class="line">    left: -190px;  </span><br><span class="line">&#125;   </span><br><span class="line">.extra &#123;        </span><br><span class="line">    <span class="built_in">float</span>: left;        </span><br><span class="line">    width: 230px;        </span><br><span class="line">    margin-left: -230px; </span><br><span class="line">    position: relative; </span><br><span class="line">    right: -230px;  </span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">#bd &#123;        </span></span><br><span class="line">    padding: 0 230px 0 190px;   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>一些说明</p>
-<p>DOM元素的书写顺序不得更改。<br>主面板部分优先渲染（一般主面板会比侧栏内容重要）。<br>当面板的main内容部分比两边的子面板宽度小的时候，布局就会乱掉。可以通过设置main的<code>min-width</code>属性或使用双飞翼布局避免问题。<br>二列的实现方法<br>如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置主面板的<code>padding-right</code>值，其他操作相同。反之亦然。</p>
-<h5 id="双飞翼布局-float-负margin"><a href="#双飞翼布局-float-负margin" class="headerlink" title="双飞翼布局 (float + 负margin)"></a>双飞翼布局 (float + 负margin)</h5><p>　　原理说明：<br>双飞翼布局和圣杯布局的思想有些相似，都利用了浮动和负边距，但双飞翼布局在圣杯布局上做了改进，在main元素上加了一层div, 并设置<code>margin</code>,由于两侧栏的负边距都是相对于<code>main-wrap</code>而言，main的<code>margin</code>值变化便不会影响两个侧栏，因此省掉了对两侧栏设置相对布局的步骤。</p>
-<p>DOM文档:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"main-wrap"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"main"</span>&gt;<span class="comment">#main&lt;/div&gt;</span></span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"sub"</span>&gt;left&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"extra"</span>&gt;right&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>布局步骤:<br>三者都设置向左浮动。设置<code>main-wrap</code>宽度为100%，设置两个侧栏的宽度。设置负边距，sub设置负左边距为100%，extra设置负左边距为负的自身宽度。<br>设置main的margin值给左右两个子面板留出空间。<br>CSS清单:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.main-wrap &#123;        </span><br><span class="line">    <span class="built_in">float</span>: left;       </span><br><span class="line">    width: 100%;   </span><br><span class="line"> &#125;  </span><br><span class="line"> .sub &#123;       </span><br><span class="line">    <span class="built_in">float</span>: left;        </span><br><span class="line">    width: 190px;        </span><br><span class="line">    margin-left: -100%;   </span><br><span class="line">&#125;   </span><br><span class="line">.extra &#123;        </span><br><span class="line">    <span class="built_in">float</span>: left;        </span><br><span class="line">    width: 230px;        </span><br><span class="line">    margin-left: -230px; </span><br><span class="line"> &#125;</span><br><span class="line">.main &#123;    </span><br><span class="line">    margin: 0 230px 0 190px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>一些说明</p>
-<p>主面板部分优先渲染（一般主面板会比侧栏内容重要）。<br>圣杯采用的是padding，而双飞翼采用的margin，解决了圣杯布局main的最小宽度不能小于左侧栏的缺点。<br>双飞翼布局不用设置相对布局，以及对应的left和right值。<br>通过引入相对布局，可以实现三栏布局的各种组合，例如对右侧栏设置<code>position: relative; left: 190px;</code>,可以实现<code>sub+extra+main</code>的布局。<br>二列的实现方法<br>如果是左边带有侧栏的二栏布局，则去掉右侧栏，不要设置main-wrap的margin-right值，其他操作相同。反之亦然。</p>
-<h5 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h5><p>　　以下是五种布局的flex布局代码：<br>DOM文档：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"layout"</span>&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;主内容栏宽度自适应&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"layout"</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;主内容栏宽度自适应&lt;/div&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"layout"</span>&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;左侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;主内容栏宽度自适应&lt;/div&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;右侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"layout"</span>&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;第1个侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;第2个侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;主内容栏宽度自适应&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"layout"</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">"main"</span>&gt;主内容栏宽度自适应&lt;/div&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;第1个侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">    &lt;aside class=<span class="string">"aside"</span>&gt;第2个侧边栏宽度固定&lt;/aside&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>CSS清单<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.layout &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.main &#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">&#125;</span><br><span class="line">.aside &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>与之前所讲的几种传统布局方案相比，flex布局的代码可谓异常简洁，而且非常通用，利用简单的三行CSS即实现了常见的五种布局。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>　　传统的布局方法基于盒状模型，依赖 display属性 + position属性 + float属性，逻辑相对复杂，对于实现一些特殊效果，例如垂直居中，尤其复杂繁琐。而flex布局中的flex容器可以根据实际可用空间动态调整子元素的宽高比和顺序，使元素能够尽可能地利用可用空间，同时也能通过缩小来避免超出。flex布局提供了一套简便、完整、响应式的布局方案。</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/02/15/CSS3/css布局/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -766,7 +871,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：49.1k</span>
+		<span class="post-count">字数统计：52.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -888,8 +993,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -898,9 +1003,7 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -928,28 +1031,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
-                            <h3 class="media-heading">语义化标签</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
-<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
-<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/css模块化/">
                             <h3 class="media-heading">css模块化</h3>
                         </a>
@@ -969,8 +1050,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -979,7 +1060,31 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1090,7 +1195,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 43 篇文章
+                找到 45 篇文章
             </p>
         </div>
     </div>

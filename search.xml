@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[网络安全(SQL、XSS、CSRF)]]></title>
+    <url>%2F2019%2F03%2F21%2FJavaScript%2F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%2F</url>
+    <content type="text"><![CDATA[转载： 3大Web安全漏洞防御详解：XSS、CSRF、以及SQL注入解决方案参考： 前端安全（XSS、CSRF防御） 用大白话谈谈XSS与CSRF常见的Web安全分为两种前端安全(XSS攻击、CSRF攻击)和后端安全(SQL注入) XSS攻击定义 XSS：跨站脚本（Cross-site scripting，通常简称为XSS）是一种网站应用程序的安全漏洞攻击，是代码注入的一种。它允许恶意用户将代码注入到网页上，其他用户在观看网页时就会受到影响。这类攻击通常包含了HTML以及用户端脚本语言。 XSS是指恶意攻击者利用网站没有对用户提交数据进行转义处理或者过滤不足的缺点，进而添加一些代码，嵌入到web页面中去，使别的用户访问都会执行相应的嵌入代码。 XSS攻击的危害 1. 盗取用户资料，比如：登录帐号、网银帐号等 2. 利用用户身份，读取、篡改、添加、删除数据等 3. 盗窃重要的具有商业价值的资料 4. 非法转账 5. 强制发送电子邮件 6. 网站挂马 7. 控制受害者机器向其它网站发起攻击 防止XSS的解决方法XSS的根源主要是没完全过滤客户端提交的数据 ，所以重点是要过滤用户提交的信息。 1. 将重要的cookie标记为http only, 这样的话js 中的document.cookie语句就不能获取到cookie了. 2. 只允许用户输入我们期望的数据。 例如：age用户年龄只允许用户输入数字，而数字之外的字符都过滤掉。 3. 对数据进行Html Encode处理：用户将数据提交上来的时候进行HTML编码，将相应的符号转换为实体名称再进行下一步的处理。 4. 过滤或移除特殊的Html标签。 5. 过滤js事件的标签。例如 &quot;onclick=&quot;, &quot;onfocus&quot;等等。 CSRF攻击定义 CSRF:跨站请求伪造（英语：Cross-site request forgery），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF，是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。 XSS主要是利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求，来利用受信任的网站。与XSS攻击相比，CSRF更具危险性。 CSRF攻击危害 主要的危害来自于，攻击者盗用用户身份，发送恶意请求。比如：模拟用户发送邮件，发消息，以及支付、转账等。 防止CSRF的解决方法 1. 重要数据交互采用POST进行接收，当然是用POST也不是万能的，伪造一个form表单即可破解。 2. 使用验证码，只要是涉及到数据交互就先进行验证码验证，这个方法可以完全解决CSRF。但是出于用户体验考虑，网站不能给所有的操作都加上验证码。因此验证码只能作为一种辅助手段，不能作为主要解决方案。 3. 验证HTTP Referer字段，该字段记录了此次HTTP请求的来源地址，最常见的应用是图片防盗链。 4. 为每个表单添加令牌token并验证。 SQL注入定义 SQL注入是比较常见的网络攻击方式之一，主要是通过把SQL命令插入到Web表单递交或输入域名或页面请求的查询字符串，实现无帐号登录，甚至篡改数据库。 SQL注入的危害 1. 数据库信息泄漏：数据库中存放的用户的隐私信息的泄露 2. 网页篡改：通过操作数据库对特定网页进行篡改 3. 数据库被恶意操作：数据库服务器被攻击，数据库的系统管理员帐户被窜改 4. 服务器被远程控制，被安装后门 5. 删除和修改数据库表信息 SQL注入的方式通常情况下，SQL注入的位置包括： 1. 表单提交，主要是POST请求，也包括GET请求; 2. URL参数提交，主要为GET请求参数; 3. Cookie参数提交; 4. HTTP请求头部的一些可修改的值，比如Referer、User_Agent等; 防止SQL注入的解决方法 1. 对用户的输入进行校验，使用正则表达式过滤传入的参数 2. 使用参数化语句，不要拼接sql，也可以使用安全的存储过程 3. 不要使用管理员权限的数据库连接，为每个应用使用权限有限的数据库连接 4. 检查数据存储类型 5. 重要的信息一定要加密]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>%2F2019%2F03%2F21%2FJavaScript%2F%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[. vue的生命周期?Mvvm响应式原理？常见设计模式及其应用场景？原型链？闭包？应用场景？Es6的新特性？Css position相关？Html语义化？冒泡排序？ Html大纲？ 浏览器兼容性？腾讯二面（视频，24min左右）：vue的生命周期？ Js数据类型，堆和栈的区别？ Vue的diff算法？怎么样才算samenode（源码相关）？比较子节点的时候顺序比较行不行？ 用defineProperty进行数据劫持的缺点？怎么办（考察vue3.0数据劫持的方式proxy）？ 手写二分查找 Css盒子模型？ Express中间件？ Symbol？作用？三面约的19：10，结果前面面试的同学太多了，到19：45才面上腾讯三面（电话，20min左右）： 从输入url到显示页面的过程？ 这个过程中有哪些会影响性能？ 闭包原理？适用场景？ 5、闭包的优点（1）逻辑连续，当闭包作为另一个函数调用参数时，避免脱离当前逻辑而单独编写额外逻辑。 （2）方便调用上下文的局部变量。 （3）加强封装性，是第2点的延伸，可以达到对变量的保护作用。 6、使用闭包的注意点（缺点）（1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。 （2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。 7、闭包的特性（1）作为函数变量的一个引用。当函数返回时，其处于激活状态。 （2）闭包就是当一个函数返回时，并没有释放资源的栈区。 Es6有哪些了解？ 1.自我介绍2.做过什么项目？3.了解es6吗4.promise原理5.了解什么算法？6.堆排序过程，时间复杂度（nlogn,他还让我再想一下？？），应用场景（没答出来，哭）。7.用过的技术栈8.怎么学习前端9.问题：公司主要用react，vue哪个，为什么用它呢？ 什么时候开始学习的前端？HTML 语法标签，块级和行级的区别是什么？（宽高设置啊，布局啊什么的）定位有哪几种？（static、relative、absolute、fixed）清浮动的方式（BFC、伪元素、兄弟结点）==和===的区别HTTP 状态码：500（服务器内部错误）、302（临时重定向）、304（资源未修改）JS 继承（ES6 extends、ES5 各种继承）怎么判断参数是数组还是对象？（Array.isArray、toString、instanceOf）问项目，技术方案，话题转 VueVue 生命周期有哪些？（Create、Mount、Active、Update、Deactive、Destory）DOM 结点在什么时候挂载？Vue 能不能挂载到body或html标签上，为什么？项目开发联调方式？二面，现场面，差不多两小时自我介绍CSS 定位属性有哪些？（参考一面第 3 问）CSS 盒子模型，IE 和 W3C 标准盒子，盒子从里到外是什么，怎么修改盒子（box-sizing），IE 盒子对应box-sizing哪个值， W3C 盒子又对应哪个值写一个两边定宽，中间自适应的布局（dispaly: flex、双飞翼/圣杯、position: absolute）垂直居中方案（line-height、transform）JS 怎么对象的属性是数组还是对象（参考一面第 8 问），解释下每个方法怎么判断（数组 Object.prototype.toString.call之后是[object, Array]，对象toString之后是[object, object]，instanceOf就是返回true还是false）JS 继承（ES6 extends、原型链、构造），解释下原型链和构造哪个好，好在哪里，原型链继承的时候，可不可以直接A.prototype = B()，而不是A.prototype = new B()，为什么构造继承为什么用call，而不是apply？（参数不同，一个数组，一个不定参数），追问哪个参数是数组？（apply）实现一个数组去重（Array.from(new Set(arr))），不用 ES6 实现一个对所有数组有可以调用的去重（forindexOf，添加到Array.prototype），面试官说i 跨域的方式websocket和Http的区别长轮询cookie和session，没有cookie的话session能不能使用浏览器缓存机制，304是协商缓存还是强缓存类数组变成数组let和var的区别CSRF以及Token验证的Token放在哪里TCP三次握手，如果没有三次握手会怎样Vue用watch实现数据双向绑定重绘和重排，什么操作会造成重排LESS怎么遍历一个列表await语法JS继承有哪几种，具体的实现及原理常见的HTTP状态码各个是什么意思介绍浏览器缓存？各个响应头优先级？以及之间的区别，可以取的值，分别是什么意思介绍浏览器时间介绍一下跨域，各个跨域的具体实现方法？以及JSONP实现方式中服务器是怎样交互的介绍一下网络安全（xss以及csrf具体防范方法） 行内元素和块级元素二者区别css选择器有哪些，怎么样计算JS面向对象的理解盒子模型，box-sizing常用的设计模式，封装一个函数判断数据类型，数组还是对象状态码404 400 502 304http底层协议http协议用在tcp还是udp三次握手，四次握手，两次握手，time wait 2ml 的原因浏览器缓存，硬盘（持久化）数据结构，快速排序，稳定的还是不稳定的。最差的时间复杂度内存存不下，很多个数据，找出最大的10个或者100个哈希操作系统 nio, i/o操作计算机组成原理，数据用什么码储存的，正负数的储存，负数的源码补码基址寻址和变址寻址get，post请求最本质的区别多路复用事件代理。常规做法的优势体现在哪里session。分布式集群，如何保障session可以保持相同浏览器cookie禁掉session是哪一端session特别多怎么办 OSI七层模型及作用http。tcp三次握手四次挥手、http和httpstcp、cdppost和get进程和线层的区别输入一个url发生了什么内存分配闭包、作用域链vue生命周期css3动画，怎么做单行文本溢出，多行文本溢出代码实现bfc布局js类型，封装一个类型鉴定函数闭包，哪里用到立即执行函数解决闭包中访问变量的问题时间轮询机制原生js实现bind函数一个函数，然后让你说他们的值是多少，为什么预编译、严格模式、作用域链算法 快排 选择排序浏览器渲染原理 实现一个构造函数new的时候每次加一计算机网络tcp与udp区别，tcp拥塞机制，tcp三次握手四次挥手css性能优化 js作用域链怎么来的thisurl到浏览器解析过程dns解析tcp连接http和https。ssl层在哪里加入浏览器解析过程cdn有存在的必要吗]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[主流浏览器内核]]></title>
     <url>%2F2019%2F03%2F19%2F%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%2F%E4%B8%BB%E6%B5%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8%2F</url>
     <content type="text"><![CDATA[浏览器内核 浏览器内核可以分为两部分：渲染引擎(layout engineer 或者 Rendering Engine)和JS引擎 浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。 渲染引擎 渲染引擎负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等）、以及计算网页的显示方式，然后会输出至显示器或打印机。 JS引擎 JS 引擎则是解析Javascript语言，执行javascript语言来实现网页的动态效果。 最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS引擎越来越独立，内核就倾向于只指渲染引擎。 主流浏览器内核Trident内核：IEGecko内核：NETSCAPE6及以上版本，火狐(Mozilla FireFox)Presto内核：Opera7及以上。[Opera内核原为：Presto，现为：Blink;]Webkit内核：Safari，Chrome等。Chrome的：Blink（WebKit的分支） 移动端移动端的浏览器内核主要说的是系统内置浏览器的内核。目前移动设备浏览器上常用的内核有 Webkit，Blink，Trident，Gecko 。1、iPhone 和 iPad 等苹果 iOS 平台主要是 WebKit。2、Android 4.4 之前的 Android 系统浏览器内核是 WebKit，Android4.4 系统浏览器切换到了Chromium，内核是 Webkit 的分支 Blink。3、Windows Phone 8 系统浏览器内核是 Trident。]]></content>
@@ -69,7 +85,7 @@
   <entry>
     <title></title>
     <url>%2F2019%2F03%2F15%2FJavaScript%2Findex%2F</url>
-    <content type="text"><![CDATA[test body 连接 行内元素 1122 12313 function Person() { var name = 'hello' function say() { console.log("name:", name) } return say() } Person()]]></content>
+    <content type="text"><![CDATA[test body 连接 行内元素 1122 12313 function Person() { var name = 'hello' function say() { console.log("name:", name) } return say() } Person() var o = { x : 1, y : 2, z : 3 }; for(var a in o) { console.log(a); } var Get_Number = function (){ var number = 1; var Out_Number = function () { console.log("number: ",number ++); console.log("=============================="); }; console.log("number2:", number); console.log("-------------------------------"); return Out_Number; }; var r = Get_Number(); r();]]></content>
   </entry>
   <entry>
     <title></title>
@@ -282,7 +298,7 @@
   <entry>
     <title><![CDATA[README]]></title>
     <url>%2F2018%2F10%2F22%2FREADME%2FREADME%2F</url>
-    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-dVwcYwmz"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
+    <content type="text"><![CDATA[It just a test music, but i like it var ap = new APlayer({ element: document.getElementById("aplayer-dCJTnafg"), narrow: false, autoplay: true, showlrc: false, music: { title: "起风了", author: "买辣椒也用券", url: "/assets/music/music.mp3", pic: "/assets/music/music.jpg", lrc: "" } }); window.aplayers || (window.aplayers = []); window.aplayers.push(ap);]]></content>
       <categories>
         <category>随笔</category>
       </categories>
@@ -379,17 +395,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[css模块化]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[bind、apply和call的区别]]></title>
     <url>%2F2018%2F10%2F10%2FJavaScript%2Fbind%E5%92%8Ccall%2F</url>
     <content type="text"><![CDATA[ing…bind和call的作用都是将某个函数的this指向绑定到另外一个作用域中，他们的参数调用都是相同的，第一个参数为绑定的作用域对象是什么，接下来就是可以添加不限的参数，而区别就是call在绑定的同时调用函数，bind是返回一个改变this指向的函数。apply方法和call方法有些相似，它也可以改变this的指向同样apply也可以有多个参数，但是不同的是，第二个参数必须是一个数组]]></content>
@@ -401,20 +406,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[语义化标签]]></title>
-    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
-    <content type="text"><![CDATA[H5中关于语义化的标签定义 语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。 为什么要语义化 1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。 2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构 3. 方便其他设备解析（如移动设备、盲人阅读器等） 4. 比div标签有更加丰富的含义，便于团队开发和维护 关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容，表示文档、页面、应用或一个独立的容器aahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 H5新增的语义化标签header 是一种具有引导和导航作用的结构元素，通常用来放置整个页面或页面内的一个内容区块的标题，但也可以包含搜索表单或logo。footer footer通常包括其相关区块的脚注信息，如作者，相关阅读连接以及版权信息等。article 代表文档，页面或应用程序中独立的，完整的，可以独自被外部引用的内容，也可以嵌套使用。可以是一篇博客或者报刊中的文章，一篇论坛帖子，一段用户评论或者独立的插件，或其他任和独立的内容。aside 定义页面的侧边栏内容address 用来在文档中呈现联系信息，包括文档作者或文档维护者名字，他们的网站链接，电子邮箱，真实地址，电话号码，以及跟文档相关的联系人的所有联系信息。timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色nav 是一个可以用作页面导航的链接组，其中导航元素链接到其他页面或当前页面的其他部分。progresssection 作为Html文档独立的功能。video 定义视频，属性src引入资源，controls视频的控制控件audio该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果。]]></content>
+    <title><![CDATA[渐进增强和优雅降级]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>HTML5</tag>
+        <tag>CSS3</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[渐进增强和优雅降级]]></title>
-    <url>%2F2018%2F10%2F10%2FCSS3%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[渐进增强 一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。 123456.transition &#123; /*渐进增强写法*/ -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s;&#125; 优雅降级 一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。 123456.transition &#123; /*优雅降级写法*/ transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 渐进增强和优雅降级的区别 渐进增强相当于向上兼容，而优雅降级相当于向下兼容。向下兼容指的是高版本支持低版本的或者说后期开发的版本支持和兼容早期开发的版本，向上兼容的很少。大多数软件都是向下兼容的 常见问题 渐进增强和优雅降级如何抉择 如果你采用渐进增强的开发流程，先做一个基本功能版，然后针对各个浏览器进行渐进增加，增加各种功能。相对于优雅降级来说，开发周期长，初期投入资金大。 那采用优雅降级呢，这样可以在较短时间内开发出一个只用于一个浏览器的完整功能版，然后就可以拿给PM找客户谈呀，可以拿去测试，市场试水呀，对于功能尚未确定的 产品，优雅降级不失为一种节约成本的方法。 采用优雅降级的写法，如果一个浏览器同时支持前缀写法和正常写法，后面的旧版浏览器样式就覆盖了新版样式，出现一些奇怪的问题 ，但是用渐进增强的写法就不存在这个问题。这种属性不止border-radius一个，所以为了避免这个不必要的错误，建议大家都采用渐进增强的写法。 绝大多数的大公司都是采用渐进增强的方式，因为业务优先，提升用户体验永远不会排在最前面。 参考文章 渐进增强和优雅降级之间有什么不同?]]></content>
+    <title><![CDATA[css模块化]]></title>
+    <url>%2F2018%2F10%2F10%2FCSS3%2Fcss%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[未完成ing… 设计原则 可复用能继承要完整 周期性迭代 优秀的代码是模仿/设计/重构出来的 设计方法 先整体后部分再颗粒化 布局-&gt; 页面 -&gt; 功能-&gt;业务 先抽象再具体 css模块化设计 reset.scss：浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。layout.scss:布局抽象成这个element.scss:列表、按钮 global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。 优点： 提高代码重用率 提高开发效率、减少沟通成本 降低耦合 降低发布风险 减少Bug定位时间和Fix成本 提高页面容错 更好的实现快速迭代 更好的支持灰度发布 参考: CSS模块化如何实现？]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -431,6 +436,17 @@
       </categories>
       <tags>
         <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[语义化标签]]></title>
+    <url>%2F2018%2F10%2F10%2FH5%2F%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%2F</url>
+    <content type="text"><![CDATA[H5中关于语义化的标签定义 语义化是指根据内容的结构化（内容语义化），选择合适的标签（代码语义化），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。 为什么要语义化 1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。 2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构 3. 方便其他设备解析（如移动设备、盲人阅读器等） 4. 比div标签有更加丰富的含义，便于团队开发和维护 关于语义化的标签有哪些title 简短、描述性、唯一（提升搜索引擎排名）header 页眉通常包括网站标志、主导航、全站链接以及搜索框。section 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。footer 页脚，只有当父级是body时，才是整个页面的页脚。article 包含像报纸一样的内容，表示文档、页面、应用或一个独立的容器aahgroup 标签用于对网页或区段（section）的标题进行组合nav 标记导航，仅对文档中重要的链接群使用。aside 指定附注栏，包括引述、侧栏、指向文章的一组链接、广告、友情链接、相关产品列表等。address 作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）mark 突出显示文本（yellow），提醒读者。time 标记时间。datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式figure 创建图（默认有40px左右margin）figcaption figure的标题，必须是figure内嵌的第一个或者最后一个元素。datailstdetailssummarydialogddprogress 完成进度。可通过js动态更新valuekeygensmall 指定细则，输入免责声明、注解、署名、版权。 H5新增的语义化标签header 是一种具有引导和导航作用的结构元素，通常用来放置整个页面或页面内的一个内容区块的标题，但也可以包含搜索表单或logo。footer footer通常包括其相关区块的脚注信息，如作者，相关阅读连接以及版权信息等。article 代表文档，页面或应用程序中独立的，完整的，可以独自被外部引用的内容，也可以嵌套使用。可以是一篇博客或者报刊中的文章，一篇论坛帖子，一段用户评论或者独立的插件，或其他任和独立的内容。aside 定义页面的侧边栏内容address 用来在文档中呈现联系信息，包括文档作者或文档维护者名字，他们的网站链接，电子邮箱，真实地址，电话号码，以及跟文档相关的联系人的所有联系信息。timedetails 用于描述文档或者文档某一部分细节，summary是details元素的标题ruby 加注释，ruby标签有两个子元素，rt注释的内容，rp是该标签不显示时显示的文字mark 定义带有几号的文本，它会给你想要突出显示的文本加个 背景色nav 是一个可以用作页面导航的链接组，其中导航元素链接到其他页面或当前页面的其他部分。progresssection 作为Html文档独立的功能。video 定义视频，属性src引入资源，controls视频的控制控件audio该标签可定义声音，及其他的音频文件，不加controls不显示音频的控制界面datalist 提示可能的值，datalist及其选项不会被显示出来，它仅仅是合法输入值的列表使用input元素的list属性来邦定datalistembed 定义插入的内容，如插件，flash，标签中间不要加内容会显现出来canvas canvas画布只是个容器，你可以通过控制坐标在canvas上绘制图形，一般配合js可以实现非常复杂的动画效果。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>HTML5</tag>
       </tags>
   </entry>
   <entry>
