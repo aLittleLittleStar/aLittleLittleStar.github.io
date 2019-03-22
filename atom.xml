@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-21T13:34:55.904Z</updated>
+  <updated>2019-03-22T10:22:56.422Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>定位</title>
+    <link href="http://yoursite.com/2019/03/22/CSS3/%E5%AE%9A%E4%BD%8D/"/>
+    <id>http://yoursite.com/2019/03/22/CSS3/定位/</id>
+    <published>2019-03-22T10:09:02.000Z</published>
+    <updated>2019-03-22T10:22:56.422Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>position<br>static<br>表示没有定位，元素出现在正常的文档流中。<br>为静态定位的元素设置 top|bottom|left|right 不起作用。<a id="more"></a><br>fixed<br>元素的位置相对于浏览器窗口是固定位置。<br>即使浏览器的窗口是滚动的它也不会移动。<br>fixed定位使得元素脱离了文档流，因而不占据空间。<br>设置了固定定位的元素宽高由其内部元素撑起。<br>relative<br>相对定位的元素是相对其正常位置。<br>1.使用了相对定位元素的元素，其参照物是其本身，其偏移量由TRBL(top，right,bottom,left)的值确定。<br>2.使用了相对定位的元素，仍然会在标准流中占据原来的位置，它对父元素和兄弟元素没有影响。<br>3.相对定位的使用场景往往是作为绝对定位元素的参照物。<br>absolute<br>绝对定位的元素的位置是相对其最近的已定位父元素（也就是除static之外），如果找不到已定位的父元素，那么就相对于<code>&lt;html&gt;</code>元素。<br>absolute定位使得元素脱离了文档流，因而不占据空间。<br>设置了绝对定位的元素宽高由其内部元素撑起。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;position&lt;br&gt;static&lt;br&gt;表示没有定位，元素出现在正常的文档流中。&lt;br&gt;为静态定位的元素设置 top|bottom|left|right 不起作用。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="CSS3" scheme="http://yoursite.com/tags/CSS3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2019/03/22/Vue/Vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>http://yoursite.com/2019/03/22/Vue/Vue生命周期/</id>
+    <published>2019-03-22T09:02:49.704Z</published>
+    <updated>2019-03-22T09:13:58.586Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.cnblogs.com/happ0/p/8075562.html" target="_blank" rel="noopener">vue 生命周期 详解</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>网络安全(SQL、XSS、CSRF)</title>
@@ -45,9 +88,9 @@
     <link href="http://yoursite.com/2019/03/21/JavaScript/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2019/03/21/JavaScript/面试题总结/</id>
     <published>2019-03-21T11:42:26.566Z</published>
-    <updated>2019-03-21T13:34:25.721Z</updated>
+    <updated>2019-03-22T10:59:29.857Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>. vue的生命周期?<br>Mvvm响应式原理？<br>常见设计模式及其应用场景？<br>原型链？<br>闭包？应用场景？<br>Es6的新特性？<br>Css position相关？<br>Html语义化？<br>冒泡排序？<br> Html大纲？<br> 浏览器兼容性？<br>腾讯二面（视频，24min左右）：<br>vue的生命周期？</p><p>Js数据类型，堆和栈的区别？</p><p>Vue的diff算法？怎么样才算samenode（源码相关）？比较子节点的时候顺序比较行不行？</p><p>用defineProperty进行数据劫持的缺点？怎么办（考察vue3.0数据劫持的方式proxy）？</p><p>手写二分查找</p><p>Css盒子模型？</p><p>Express中间件？</p><p>Symbol？作用？<br>三面约的19：10，结果前面面试的同学太多了，到19：45才面上<br>腾讯三面（电话，20min左右）：</p><ol><li><p>从输入url到显示页面的过程？</p></li><li><p>这个过程中有哪些会影响性能？</p></li><li><p>闭包原理？适用场景？</p></li></ol><p>5、闭包的优点<br>（1）逻辑连续，当闭包作为另一个函数调用参数时，避免脱离当前逻辑而单独编写额外逻辑。</p><p>（2）方便调用上下文的局部变量。</p><p>（3）加强封装性，是第2点的延伸，可以达到对变量的保护作用。</p><p>6、使用闭包的注意点（缺点）<br>（1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p><p>（2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p><p>7、闭包的特性<br>（1）作为函数变量的一个引用。当函数返回时，其处于激活状态。</p><p>（2）闭包就是当一个函数返回时，并没有释放资源的栈区。</p><ol start="4"><li>Es6有哪些了解？</li></ol><p>1.自我介绍<br>2.做过什么项目？<br>3.了解es6吗<br>4.promise原理<br>5.了解什么算法？<br>6.堆排序过程，时间复杂度（nlogn,他还让我再想一下？？），应用场景（没答出来，哭）。<br>7.用过的技术栈<br>8.怎么学习前端<br>9.问题：公司主要用react，vue哪个，为什么用它呢？</p><p>什么时候开始学习的前端？<br>HTML 语法标签，块级和行级的区别是什么？（宽高设置啊，布局啊什么的）<br>定位有哪几种？（static、relative、absolute、fixed）<br>清浮动的方式（BFC、伪元素、兄弟结点）<br>==和===的区别<br>HTTP 状态码：500（服务器内部错误）、302（临时重定向）、304（资源未修改）<br>JS 继承（ES6 extends、ES5 各种继承）<br>怎么判断参数是数组还是对象？（Array.isArray、toString、instanceOf）<br>问项目，技术方案，话题转 Vue<br>Vue 生命周期有哪些？（Create、Mount、Active、Update、Deactive、Destory）<br>DOM 结点在什么时候挂载？<br>Vue 能不能挂载到body或html标签上，为什么？<br>项目开发联调方式？<br>二面，现场面，差不多两小时<br>自我介绍<br>CSS 定位属性有哪些？（参考一面第 3 问）<br>CSS 盒子模型，IE 和 W3C 标准盒子，盒子从里到外是什么，怎么修改盒子（box-sizing），IE 盒子对应box-sizing哪个值， W3C 盒子又对应哪个值<br>写一个两边定宽，中间自适应的布局（dispaly: flex、双飞翼/圣杯、position: absolute）<br>垂直居中方案（line-height、transform）<br>JS 怎么对象的属性是数组还是对象（参考一面第 8 问），解释下每个方法怎么判断（数组 Object.prototype.toString.call之后是[object, Array]，对象toString之后是[object, object]，instanceOf就是返回true还是false）<br>JS 继承（ES6 extends、原型链、构造），解释下原型链和构造哪个好，好在哪里，原型链继承的时候，可不可以直接A.prototype = B()，而不是A.prototype = new B()，为什么<br>构造继承为什么用call，而不是apply？（参数不同，一个数组，一个不定参数），追问哪个参数是数组？（apply）<br>实现一个数组去重（Array.from(new Set(arr))），不用 ES6 实现一个对所有数组有可以调用的去重（forindexOf，添加到Array.prototype），面试官说i</p><p>跨域的方式<br>websocket和Http的区别<br>长轮询<br>cookie和session，没有cookie的话session能不能使用<br>浏览器缓存机制，304是协商缓存还是强缓存<br>类数组变成数组<br>let和var的区别<br>CSRF以及Token验证的Token放在哪里<br>TCP三次握手，如果没有三次握手会怎样<br>Vue用watch实现数据双向绑定<br>重绘和重排，什么操作会造成重排<br>LESS怎么遍历一个列表<br>await语法<br>JS继承有哪几种，具体的实现及原理<br>常见的HTTP状态码各个是什么意思<br>介绍浏览器缓存？各个响应头优先级？以及之间的区别，可以取的值，分别是什么意思<br>介绍浏览器时间<br>介绍一下跨域，各个跨域的具体实现方法？以及JSONP实现方式中服务器是怎样交互的<br>介绍一下网络安全（xss以及csrf具体防范方法）</p><p>行内元素和块级元素二者区别<br>css选择器有哪些，怎么样计算<br>JS面向对象的理解<br>盒子模型，box-sizing<br>常用的设计模式，<br>封装一个函数判断数据类型，数组还是对象<br>状态码404 400 502 304<br>http底层协议<br>http协议用在tcp还是udp<br>三次握手，四次握手，两次握手，<br>time wait 2ml 的原因<br>浏览器缓存，硬盘（持久化）<br>数据结构，快速排序，稳定的还是不稳定的。最差的时间复杂度<br>内存存不下，很多个数据，找出最大的10个或者100个<br>哈希<br>操作系统 nio, i/o操作<br>计算机组成原理，数据用什么码储存的，正负数的储存，负数的源码补码<br>基址寻址和变址寻址<br>get，post请求最本质的区别<br>多路复用<br>事件代理。常规做法的优势体现在哪里<br>session。分布式集群，如何保障session可以保持相同<br>浏览器cookie禁掉session是哪一端session特别多怎么办</p><p>OSI七层模型及作用<br>http。tcp三次握手四次挥手、http和https<br>tcp、cdp<br>post和get<br>进程和线层的区别<br>输入一个url发生了什么<br>内存分配<br>闭包、作用域链<br>vue生命周期<br>css3动画，怎么做<br>单行文本溢出，多行文本溢出代码实现<br>bfc布局<br>js类型，封装一个类型鉴定函数<br>闭包，哪里用到立即执行函数解决闭包中访问变量的问题<br>时间轮询机制<br>原生js实现bind函数<br>一个函数，然后让你说他们的值是多少，为什么<br>预编译、严格模式、作用域链<br>算法 快排 选择排序<br>浏览器渲染原理</p><p>实现一个构造函数new的时候每次加一<br>计算机网络tcp与udp区别，tcp拥塞机制，tcp三次握手四次挥手<br>css性能优化</p><p>js作用域链怎么来的<br>this<br>url到浏览器解析过程<br>dns解析<br>tcp连接<br>http和https。ssl层在哪里加入<br>浏览器解析过程<br>cdn有存在的必要吗</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>. vue的生命周期?<br>Mvvm响应式原理？<br>常见设计模式及其应用场景？<br>原型链？<br>闭包？应用场景？<br>Es6的新特性？<br>Css position相关？<br>Html语义化？<br>冒泡排序？<br> Html大纲？<br> 浏览器兼容性？<br>腾讯二面（视频，24min左右）：<br>vue的生命周期？</p><p>Js数据类型，堆和栈的区别？</p><p>Vue的diff算法？怎么样才算samenode（源码相关）？比较子节点的时候顺序比较行不行？</p><p>用defineProperty进行数据劫持的缺点？怎么办（考察vue3.0数据劫持的方式proxy）？</p><p>手写二分查找</p><p>Css盒子模型？</p><p>Express中间件？</p><p>Symbol？作用？<br>三面约的19：10，结果前面面试的同学太多了，到19：45才面上<br>腾讯三面（电话，20min左右）：</p><ol><li><p>从输入url到显示页面的过程？</p></li><li><p>这个过程中有哪些会影响性能？</p></li><li><p>闭包原理？适用场景？</p></li></ol><p>5、闭包的优点<br>（1）逻辑连续，当闭包作为另一个函数调用参数时，避免脱离当前逻辑而单独编写额外逻辑。</p><p>（2）方便调用上下文的局部变量。</p><p>（3）加强封装性，是第2点的延伸，可以达到对变量的保护作用。</p><p>6、使用闭包的注意点（缺点）<br>（1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p><p>（2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p><p>7、闭包的特性<br>（1）作为函数变量的一个引用。当函数返回时，其处于激活状态。</p><p>（2）闭包就是当一个函数返回时，并没有释放资源的栈区。</p><ol start="4"><li>Es6有哪些了解？</li></ol><p>1.自我介绍<br>2.做过什么项目？<br>3.了解es6吗<br>4.promise原理<br>5.了解什么算法？<br>6.堆排序过程，时间复杂度（nlogn,他还让我再想一下？？），应用场景（没答出来，哭）。<br>7.用过的技术栈<br>8.怎么学习前端<br>9.问题：公司主要用react，vue哪个，为什么用它呢？</p><p>什么时候开始学习的前端？<br>==和===的区别<br>JS 继承（ES6 extends、ES5 各种继承）<br>怎么判断参数是数组还是对象？（Array.isArray、toString、instanceOf）<br>问项目，技术方案，话题转 Vue<br>Vue 生命周期有哪些？（Create、Mount、Active、Update、Deactive、Destory）<br>DOM 结点在什么时候挂载？<br>Vue 能不能挂载到body或html标签上，为什么？<br>项目开发联调方式？<br>自我介绍</p><p>写一个两边定宽，中间自适应的布局（dispaly: flex、双飞翼/圣杯、position: absolute）<br>垂直居中方案（line-height、transform）<br>JS 怎么对象的属性是数组还是对象（参考一面第 8 问），解释下每个方法怎么判断（数组 Object.prototype.toString.call之后是[object, Array]，对象toString之后是[object, object]，instanceOf就是返回true还是false）<br>JS 继承（ES6 extends、原型链、构造），解释下原型链和构造哪个好，好在哪里，原型链继承的时候，可不可以直接A.prototype = B()，而不是A.prototype = new B()，为什么<br>构造继承为什么用call，而不是apply？（参数不同，一个数组，一个不定参数），追问哪个参数是数组？（apply）<br>实现一个数组去重（Array.from(new Set(arr))），不用 ES6 实现一个对所有数组有可以调用的去重（forindexOf，添加到Array.prototype），面试官说i</p><p>跨域的方式<br>websocket和Http的区别<br>长轮询<br>cookie和session，没有cookie的话session能不能使用<br>浏览器缓存机制，304是协商缓存还是强缓存<br>类数组变成数组<br>let和var的区别<br>CSRF以及Token验证的Token放在哪里<br>TCP三次握手，如果没有三次握手会怎样<br>Vue用watch实现数据双向绑定<br>重绘和重排，什么操作会造成重排<br>LESS怎么遍历一个列表<br>await语法<br>JS继承有哪几种，具体的实现及原理<br>常见的HTTP状态码各个是什么意思<br>介绍浏览器缓存？各个响应头优先级？以及之间的区别，可以取的值，分别是什么意思<br>介绍浏览器时间<br>介绍一下跨域，各个跨域的具体实现方法？以及JSONP实现方式中服务器是怎样交互的<br>介绍一下网络安全（xss以及csrf具体防范方法）</p><p>行内元素和块级元素二者区别<br>css选择器有哪些，怎么样计算<br>JS面向对象的理解<br>盒子模型，box-sizing<br>常用的设计模式，<br>封装一个函数判断数据类型，数组还是对象<br>状态码404 400 502 304<br>http底层协议<br>http协议用在tcp还是udp<br>三次握手，四次握手，两次握手，<br>time wait 2ml 的原因<br>浏览器缓存，硬盘（持久化）<br>数据结构，快速排序，稳定的还是不稳定的。最差的时间复杂度<br>内存存不下，很多个数据，找出最大的10个或者100个<br>哈希<br>操作系统 nio, i/o操作<br>计算机组成原理，数据用什么码储存的，正负数的储存，负数的源码补码<br>基址寻址和变址寻址<br>get，post请求最本质的区别<br>多路复用<br>事件代理。常规做法的优势体现在哪里<br>session。分布式集群，如何保障session可以保持相同<br>浏览器cookie禁掉session是哪一端session特别多怎么办</p><p>OSI七层模型及作用<br>http。tcp三次握手四次挥手、http和https<br>tcp、cdp<br>post和get<br>进程和线层的区别<br>输入一个url发生了什么<br>内存分配<br>闭包、作用域链<br>vue生命周期<br>css3动画，怎么做<br>单行文本溢出，多行文本溢出代码实现<br>bfc布局<br>js类型，封装一个类型鉴定函数<br>闭包，哪里用到立即执行函数解决闭包中访问变量的问题<br>时间轮询机制<br>原生js实现bind函数<br>一个函数，然后让你说他们的值是多少，为什么<br>预编译、严格模式、作用域链<br>算法 快排 选择排序<br>浏览器渲染原理</p><p>实现一个构造函数new的时候每次加一<br>计算机网络tcp与udp区别，tcp拥塞机制，tcp三次握手四次挥手<br>css性能优化</p><p>js作用域链怎么来的<br>this<br>url到浏览器解析过程<br>dns解析<br>tcp连接<br>http和https。ssl层在哪里加入<br>浏览器解析过程<br>cdn有存在的必要吗</p>]]></content>
     
     <summary type="html">
     
@@ -205,9 +248,9 @@
     <link href="http://yoursite.com/2019/03/15/JavaScript/index/"/>
     <id>http://yoursite.com/2019/03/15/JavaScript/index/</id>
     <published>2019-03-15T02:25:58.824Z</published>
-    <updated>2019-03-21T13:35:25.478Z</updated>
+    <updated>2019-03-22T09:05:47.662Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>test</title><script src="https://unpkg.com/axios/dist/axios.min.js"></script></head><body><div>body<input type="date"><a href="#">连接</a><span>行内元素</span><h1>1122</h1><time>12313</time><input type="color"></div><script>function Person() {var name = 'hello'function say() {console.log("name:", name)}return say()}Person()var o = {x : 1,y : 2,z : 3};for(var a in o) {console.log(a);}var Get_Number = function (){var number = 1;var Out_Number = function () {console.log("number: ",number ++);console.log("==============================");};console.log("number2:", number);console.log("-------------------------------");return Out_Number;};var r = Get_Number();r();</script></body></html>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>test</title><script src="https://unpkg.com/axios/dist/axios.min.js"></script></head><body><script>function f1() {var n = 999;nAdd = function() {return n += 1}function f2() {console.log("n:", n);}return f2;}var result = f1();result();nAdd();result();</script></body></html>]]></content>
     
     <summary type="html">
     
@@ -366,9 +409,9 @@
     <link href="http://yoursite.com/2019/02/23/Vue/MVVM%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/"/>
     <id>http://yoursite.com/2019/02/23/Vue/MVVM开发模式的理解/</id>
     <published>2019-02-23T06:28:24.000Z</published>
-    <updated>2019-03-14T13:08:29.768Z</updated>
+    <updated>2019-03-22T09:32:47.789Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- 目录 --><!-- toc --><h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>　　MVVM（模型视图ViewModel 是一种基于MVC和MVP的架构模式，<font color="FF0000">它试图更清楚地将用户界面（UI）的开发与应用程序中的业务逻辑和行为的开发分开</font>。为此，此模式的许多实现都使用声明性数据绑定，以允许将视图上的工作与其他层分离。<a id="more"></a></p><h4 id="Model、View、ViewModel"><a href="#Model、View、ViewModel" class="headerlink" title="Model、View、ViewModel"></a>Model、View、ViewModel</h4><p>　　MVVM分为Model、View、ViewModel三者。</p><ul><li>Model 代表数据模型，数据和业务逻辑都在Model层中定义；</li><li>View 代表UI视图，负责数据的展示，是用户在屏幕上看到的结构；</li><li>ViewModel 负责监听 Model 中数据的改变并且控制视图的更新，处理用户交互操作；<br>　　Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。<br>这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。<br><img src="/assets/images/mvvm2.png" alt="mvvm"><br><img src="/assets/images/mvvm.png" alt="mvvm"></li></ul><h3 id="设计模式编辑"><a href="#设计模式编辑" class="headerlink" title="设计模式编辑"></a>设计模式编辑</h3><p>　　因为WPF技术出现，从而使MVC架构模式有所改进，MVVM 模式便是使用的是数据绑定基础架构。它们可以轻松构建UI的必要元素。<br>可以参考The Composite Application Guidance for WPF(prism)<br>View绑定到ViewModel，然后执行一些命令在向它请求一个动作。而反过来，ViewModel跟Model通讯，告诉它更新来响应UI。这样便使得为应用构建UI非常的容易。往一个应用程序上贴一个界面越容易，外观设计师就越容易使用Blend来创建一个漂亮的界面。同时，当UI和功能越来越松耦合的时候，功能的可测试性就越来越强。<br>在MVP模式中，为了让UI层能够从逻辑层上分离下来，设计师们在UI层与逻辑层之间加了一层interface。无论是UI开发人员还是数据开发人员，都要尊重这个契约、按照它进行设计和开发。这样，理想状态下无论是Web UI还是Window UI就都可以使用同一套数据逻辑了。借鉴MVP的IView层，养成习惯。View Model听起来比Presenter要贴切得多；会把一些跟事件、命令相关的东西放在MVC的’C’,或者是MVVM的’Vm’。</p><h3 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>　　MVVM模式和MVC模式一样，主要目的是<font color="#FF0000">分离视图（View）</font>和<font color="#FF0000">模型（Model）</font>，有几大优点:</p><ol><li><strong>低耦合</strong>: <strong>视图（View）</strong>可以独立于 <strong>Model</strong> 变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li><li><strong>可重用性</strong>: 你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li><li><strong>独立开发</strong>:开发人员可以专注于业务逻辑和数据的开发(ViewModel), 设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。</li><li><strong>可测试</strong>:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</li><li>MVVM有助于更轻松地并行开发UI以及为其提供支持的构建块</li><li>抽象视图，从而减少其背后的代码所需的业务逻辑（或粘合剂）的数量</li><li>ViewModel比事件驱动的代码更容易进行单元测试</li><li>可以在不关心UI自动化和交互的情况下测试ViewModel（比View更多的模型）</li></ol><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol><li>对于更简单的UI，MVVM可能过度</li><li>虽然数据绑定可以是声明性的并且很好用，但它们比我们简单设置断点的命令式代码更难调试</li><li>非平凡应用程序中的数据绑定可以创建大量的簿记。您也不希望在绑定比绑定的对象更重的情况下结束</li><li>在较大的应用程序中，预先设计ViewModel以获得必要的泛化量可能更加困难</li></ol><p>参考文章：<br>　　<a href="https://www.cnblogs.com/iovec/p/7840228.html" target="_blank" rel="noopener">前后端分手大师——MVVM 模式</a><br>　　<a href="https://zhuanlan.zhihu.com/p/38296857" target="_blank" rel="noopener">简单理解MVVM–实现Vue的MVVM模式</a><br>　　<a href="https://addyosmani.com/blog/understanding-mvvm-a-guide-for-javascript-developers/" target="_blank" rel="noopener">了解MVVM - JavaScript开发人员指南</a></p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- 目录 --><!-- toc --><h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>　　MVVM（模型视图ViewModel 是一种基于MVC和MVP的架构模式，<font color="FF0000">它试图更清楚地将用户界面（UI）的开发与应用程序中的业务逻辑和行为的开发分开</font>。为此，此模式的许多实现都使用声明性数据绑定，以允许将视图上的工作与其他层分离。<a id="more"></a></p><h4 id="Model、View、ViewModel"><a href="#Model、View、ViewModel" class="headerlink" title="Model、View、ViewModel"></a>Model、View、ViewModel</h4><p>　　MVVM分为Model、View、ViewModel三者。</p><ul><li>Model 代表数据模型，数据和业务逻辑都在Model层中定义；</li><li>View 代表UI视图，负责数据的展示，是用户在屏幕上看到的结构；</li><li>ViewModel 负责监听 Model 中数据的改变并且控制视图的更新，处理用户交互操作；<br>　　Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。<br>这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。<br><img src="/assets/images/mvvm2.png" alt="mvvm"><br><img src="/assets/images/mvvm.png" alt="mvvm"></li></ul><h3 id="MVVM的实现原理："><a href="#MVVM的实现原理：" class="headerlink" title="MVVM的实现原理："></a>MVVM的实现原理：</h3><h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><p>　　响应式：vue如何监听data的属性变化<br>　　模板解析：vue的模板是如何被解析的<br>　　渲染：vue模板是如何被渲染成HTML的</p><h5 id="响应式"><a href="#响应式" class="headerlink" title="响应式"></a>响应式</h5><h5 id="模板解析"><a href="#模板解析" class="headerlink" title="模板解析"></a>模板解析</h5><h5 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h5><h3 id="设计模式编辑"><a href="#设计模式编辑" class="headerlink" title="设计模式编辑"></a>设计模式编辑</h3><p>　　因为WPF技术出现，从而使MVC架构模式有所改进，MVVM模式便是使用的是数据绑定基础架构。它们可以轻松构建UI的必要元素。<br>可以参考<code>The Composite Application Guidance for WPF(prism)</code><br>View绑定到ViewModel，然后执行一些命令在向它请求一个动作。而反过来，ViewModel跟Model通讯，告诉它更新来响应UI。这样便使得为应用构建UI非常的容易。往一个应用程序上贴一个界面越容易，外观设计师就越容易使用Blend来创建一个漂亮的界面。同时，当UI和功能越来越松耦合的时候，功能的可测试性就越来越强。<br>在MVP模式中，为了让UI层能够从逻辑层上分离下来，设计师们在UI层与逻辑层之间加了一层interface。无论是UI开发人员还是数据开发人员，都要尊重这个契约、按照它进行设计和开发。这样，理想状态下无论是Web UI还是Window UI就都可以使用同一套数据逻辑了。借鉴MVP的IView层，养成习惯。View Model听起来比Presenter要贴切得多；会把一些跟事件、命令相关的东西放在MVC的’C’,或者是MVVM的’Vm’。</p><h3 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>　　MVVM模式和MVC模式一样，主要目的是<font color="#FF0000">分离视图（View）</font>和<font color="#FF0000">模型（Model）</font>，有几大优点:</p><ol><li><strong>低耦合</strong>: <strong>视图（View）</strong>可以独立于 <strong>Model</strong> 变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li><li><strong>可重用性</strong>: 你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li><li><strong>独立开发</strong>:开发人员可以专注于业务逻辑和数据的开发(ViewModel), 设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。</li><li><strong>可测试</strong>:界面素来是比较难于测试的，而现在测试可以针对ViewModel来写。</li><li>MVVM有助于更轻松地并行开发UI以及为其提供支持的构建块</li><li>抽象视图，从而减少其背后的代码所需的业务逻辑（或粘合剂）的数量</li><li>ViewModel比事件驱动的代码更容易进行单元测试</li><li>可以在不关心UI自动化和交互的情况下测试ViewModel（比View更多的模型）</li></ol><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol><li>对于更简单的UI，MVVM可能过度</li><li>虽然数据绑定可以是声明性的并且很好用，但它们比我们简单设置断点的命令式代码更难调试</li><li>非平凡应用程序中的数据绑定可以创建大量的簿记。您也不希望在绑定比绑定的对象更重的情况下结束</li><li>在较大的应用程序中，预先设计ViewModel以获得必要的泛化量可能更加困难</li></ol><p>参考文章：<br>　　<a href="https://www.cnblogs.com/iovec/p/7840228.html" target="_blank" rel="noopener">前后端分手大师——MVVM 模式</a><br>　　<a href="https://zhuanlan.zhihu.com/p/38296857" target="_blank" rel="noopener">简单理解MVVM–实现Vue的MVVM模式</a><br>　　<a href="https://addyosmani.com/blog/understanding-mvvm-a-guide-for-javascript-developers/" target="_blank" rel="noopener">了解MVVM - JavaScript开发人员指南</a></p>]]></content>
     
     <summary type="html">
     
@@ -432,55 +475,6 @@
     
     
       <category term="stylus基础" scheme="http://yoursite.com/tags/stylus%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mongoose</title>
-    <link href="http://yoursite.com/2019/02/22/%E6%95%B0%E6%8D%AE%E5%BA%93/mongoose/"/>
-    <id>http://yoursite.com/2019/02/22/数据库/mongoose/</id>
-    <published>2019-02-22T13:27:12.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="mongoose"><a href="#mongoose" class="headerlink" title="mongoose"></a>mongoose</h4><h5 id="mongodb-的概念-amp-安装"><a href="#mongodb-的概念-amp-安装" class="headerlink" title="mongodb 的概念 &amp; 安装"></a>mongodb 的概念 &amp; 安装</h5><p>mongod</p><h5 id="mongodb-可视化工具-RoRo-3T-安装及应用"><a href="#mongodb-可视化工具-RoRo-3T-安装及应用" class="headerlink" title="mongodb 可视化工具 RoRo 3T 安装及应用"></a>mongodb 可视化工具 RoRo 3T 安装及应用</h5><h5 id="mongoose-的作用"><a href="#mongoose-的作用" class="headerlink" title="mongoose 的作用"></a>mongoose 的作用</h5><h5 id="mongoose-的应用"><a href="#mongoose-的应用" class="headerlink" title="mongoose 的应用"></a>mongoose 的应用</h5>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="mongoose" scheme="http://yoursite.com/categories/mongoose/"/>
-    
-    
-      <category term="mongoose" scheme="http://yoursite.com/tags/mongoose/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Koa2基础</title>
-    <link href="http://yoursite.com/2019/02/21/Koa2/Koa2%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    <id>http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/</id>
-    <published>2019-02-21T15:54:01.000Z</published>
-    <updated>2019-03-08T13:36:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><p><a href="https://koa.bootcss.com" target="_blank" rel="noopener">Koa官网</a><br><a href="https://chenshenhai.github.io/koa2-note/" target="_blank" rel="noopener">《Koa2进阶学习笔记》已完结</a></p><h3 id="使用koa-generator生成koa2项目"><a href="#使用koa-generator生成koa2项目" class="headerlink" title="使用koa-generator生成koa2项目"></a>使用koa-generator生成koa2项目</h3><p>全局安装koa-generator: <code>npm install -g koa-generator</code><br>使用koa-generator生成koa2项目: <code>koa2 -e koa2-learn</code><br>　　　　　　　　　　　　　　　　　<strong>-e 添加ejs模板引擎支持(默认是jade)</strong><br>　　　　　　　　　　　　　　　　　koa2-learn 项目名<a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ koa2 -e koa2-learning</span><br><span class="line"></span><br><span class="line">   create : koa2-learning</span><br><span class="line">   create : koa2-learning/package.json</span><br><span class="line">   create : koa2-learning/app.js</span><br><span class="line">   create : koa2-learning/public/javascripts</span><br><span class="line">   create : koa2-learning/routes</span><br><span class="line">   create : koa2-learning/routes/index.js</span><br><span class="line">   create : koa2-learning/routes/users.js</span><br><span class="line">   create : koa2-learning/public/images</span><br><span class="line">   create : koa2-learning/public/stylesheets</span><br><span class="line">   create : koa2-learning/public/stylesheets/style.css</span><br><span class="line">   create : koa2-learning/public</span><br><span class="line">   create : koa2-learning/views</span><br><span class="line">   create : koa2-learning/views/index.ejs</span><br><span class="line">   create : koa2-learning/views/error.ejs</span><br><span class="line">   create : koa2-learning/bin</span><br><span class="line">   create : koa2-learning/bin/www</span><br><span class="line"></span><br><span class="line">   install dependencies:</span><br><span class="line">     $ cd koa2-learning &amp;&amp; npm install</span><br><span class="line"></span><br><span class="line">   run the app:</span><br><span class="line">     $ DEBUG=koa2-learning:* npm start</span><br></pre></td></tr></table></figure></p><p>PS: 如果出现 <code>npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;})</code>  不用担心。出现原因：<br><code>fsevents</code> 不在 <code>package.json</code>里，但是仍然安装了，是因为你的系统是Windows系统，fsevents是苹果系统的可选依赖,你的项目有可能是团队项目，别人在他的mac上安装了fsevents相关依赖库，所以到这边你也就安装到你的windows上边了。你可以检查你的package.json 文件中是不是有fsevents相关依赖，删除即好！<br>如果没有，其他的npm包也会有依赖fsevents的！！！<br><strong>这是warning错误，是因为mac下需要fsevents，这里是在windows环境，所以可以忽略这个警告，对你没什么影响的。</strong><br>运行: <code>DEBUG=koa2-learning:* npm start</code> || <code>npm run dev</code><br>效果： 出现 <strong>node bin/www</strong> 访问 <code>http://localhost:3000/</code><br>注意： npm start 、 npm test 、 npm run dev 、 npm run prd</p><h3 id="async-和-await-语法"><a href="#async-和-await-语法" class="headerlink" title="async 和 await 语法"></a>async 和 await 语法</h3><h4 id="异步概念"><a href="#异步概念" class="headerlink" title="异步概念"></a>异步概念</h4><blockquote><p>是指一个进程在执行某个请求的时候，如果这个请求没有执行完毕，进程不会等待，而是继续执行下面的请求。</p></blockquote><h4 id="理解async-和-await"><a href="#理解async-和-await" class="headerlink" title="理解async 和 await"></a>理解async 和 await</h4><h3 id="Koa2-中间件"><a href="#Koa2-中间件" class="headerlink" title="Koa2 中间件"></a>Koa2 中间件</h3><h4 id="koa2-中间件的原理"><a href="#koa2-中间件的原理" class="headerlink" title="koa2 中间件的原理"></a>koa2 中间件的原理</h4><p><img src="/assets/images/koa2.png" alt="koa2"><br><img src="/assets/images/koa2中间件.png" alt="koa2"></p><h4 id="自定义-koa2-中间件"><a href="#自定义-koa2-中间件" class="headerlink" title="自定义 koa2 中间件"></a>自定义 koa2 中间件</h4><h3 id="koa2-路由"><a href="#koa2-路由" class="headerlink" title="koa2 路由"></a>koa2 路由</h3><h4 id="路由写法"><a href="#路由写法" class="headerlink" title="路由写法"></a>路由写法</h4><h4 id="接口举例"><a href="#接口举例" class="headerlink" title="接口举例"></a>接口举例</h4><h3 id="cookie-和-session"><a href="#cookie-和-session" class="headerlink" title="cookie 和 session"></a>cookie 和 session</h3><h4 id="cookie-和-session-的定义"><a href="#cookie-和-session-的定义" class="headerlink" title="cookie 和 session 的定义"></a>cookie 和 session 的定义</h4><h4 id="cookie-和-session-的作用"><a href="#cookie-和-session-的作用" class="headerlink" title="cookie 和 session 的作用"></a>cookie 和 session 的作用</h4><p>推荐：<br>　　<a href="https://zhuanlan.zhihu.com/p/35040744" target="_blank" rel="noopener">从头实现一个koa框架</a><br>　　<a href="https://segmentfault.com/a/1190000013981513" target="_blank" rel="noopener">浅析koa的洋葱模型实现</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- toc --&gt;
-&lt;p&gt;&lt;a href=&quot;https://koa.bootcss.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Koa官网&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://chenshenhai.github.io/koa2-note/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《Koa2进阶学习笔记》已完结&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;使用koa-generator生成koa2项目&quot;&gt;&lt;a href=&quot;#使用koa-generator生成koa2项目&quot; class=&quot;headerlink&quot; title=&quot;使用koa-generator生成koa2项目&quot;&gt;&lt;/a&gt;使用koa-generator生成koa2项目&lt;/h3&gt;&lt;p&gt;全局安装koa-generator: &lt;code&gt;npm install -g koa-generator&lt;/code&gt;&lt;br&gt;使用koa-generator生成koa2项目: &lt;code&gt;koa2 -e koa2-learn&lt;/code&gt;&lt;br&gt;　　　　　　　　　　　　　　　　　&lt;strong&gt;-e 添加ejs模板引擎支持(默认是jade)&lt;/strong&gt;&lt;br&gt;　　　　　　　　　　　　　　　　　koa2-learn 项目名&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Koa2" scheme="http://yoursite.com/categories/Koa2/"/>
-    
-    
-      <category term="Koa2基础" scheme="http://yoursite.com/tags/Koa2%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
