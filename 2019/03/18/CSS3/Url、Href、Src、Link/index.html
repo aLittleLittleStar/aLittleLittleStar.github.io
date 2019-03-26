@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n转载：　　url、href、src 详解\nUrl定义　　URL(Uniform Resource Locator)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。\nUrl格式标准格式　　协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询完整格式　　协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询\nUrl语法规则　　比如网址http://segmentfault.com/html/index.asp必须遵守以下的语法规则:scheme://host.domain:port/path/filename说明　　scheme - 定义因特网服务的类型。最常见的类型是 http　　host - 定义域主机（http 的默认主机是 www）　　domain - 定义因特网域名，比如 w3school.com.cn　　:port - 定义主机上的端口号（http 的默认端口号是 80）　　path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。　　filename - 定义文档/资源的名称\nURL Schemes\n\n\nScheme\n访问\n用于\n\n\n\n\nhttp\n超文本传输协议\n以 http:// 开头的普通网页。不加密。\n\n\nhttps\n安全超文本传输协议\n安全网页。加密所有信息交换。\n\n\nftp\n文件传输协议\n用于将文件下载或上传至网站。\n\n\nfile\n\n您计算机上的文件。\n\n\n\nURL的类型绝对URL　　绝对URL（absolute URL）显示文件的完整路径，这意味着绝对URL本身所在的位置与被引用的实际文件的位置无关。相对URL　　相对URL（relative URL）以包含URL本身的文件夹的位置为参考点，描述目标文件夹的位置。　　一般来说，对于同一服务器上的文件，应该总是使用相对URL，它们更容易输入，而且在将页面从本地系统转移到服务器上时更方便，只要每个文件的相对位置保持不变，链接就仍然是有效地。.：代表目前所在的目录，相对路径。例： &lt;a href=&quot;./abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;./abc&quot; /&gt;..：代表上一层目录，相对路径。例： &lt;a href=&quot;../abc&quot;&gt;文本&lt;/a&gt;或 &lt;img src=&quot;../abc&quot; /&gt;../../：代表的是上一层目录的上一层目录，相对路径。例： &lt;img src=&quot;../../abc&quot; /&gt;/：代表根目录，绝对路径。例： &lt;a href=&quot;/abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;/abc&quot; /&gt;\nHref定义　　href (Hypertext Reference)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。\n通俗理解　　href: 目的不是为了引用资源，而是为了建立这个标签与外部资源之间的关系，让当前标签能够链接到目标地址。&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;浏览器加载到这里的时候，html的渲染和解析不会暂停，css文件的加载是同时进行的\nSrc　　src用于替代这个元素: &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件\nHref和Src的区别请求资源类型不同　　href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。　　在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；作用结果不同　　href 用于在当前文档和引用资源之间确立联系；　　src 用于替换当前内容；浏览器解析方式不同　　若在文档中添加 &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;，浏览器会识别该文档为 CSS 文件，就会并行下载资源并且不会停止对当前文档的处理。这也是为什么建议使用 link 方式加载 CSS，而不是使用@import 方式。　　当浏览器解析到 &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 js 脚本放在底部而不是头部的原因。\nLink和@import的区别两者都是外部引用 CSS 的方式，但是存在一定的区别：（1）link是XHTML标签，除了能够加载CSS，还可以定义RSS等其他事务；而@import属于CSS范畴，只可以加载CSS。（2）link引用CSS时，在页面载入时同时加载；@import需要页面完全载入以后再加载。（3）link是XHTML标签，无兼容问题；@import则是在CSS2.1提出的，低版本的浏览器不支持。（4）link支持使用Javascript控制DOM改变样式；而@import不支持。\n","dateCreated":"2019-03-18T19:49:44+08:00","dateModified":"2019-03-18T20:38:37+08:00","datePublished":"2019-03-18T19:49:44+08:00","description":"\n转载：　　url、href、src 详解","headline":"Url、Href、Src、Link详解","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/","keywords":"CSS3"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n转载：　　url、href、src 详解\nUrl定义　　URL(Uniform Resource Locator)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。\nUrl格式标准格式　　协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询完整格式　　协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询\nUrl语法规则　　比如网址http://segmentfault.com/html/index.asp必须遵守以下的语法规则:scheme://host.domain:port/path/filename说明　　scheme - 定义因特网服务的类型。最常见的类型是 http　　host - 定义域主机（http 的默认主机是 www）　　domain - 定义因特网域名，比如 w3school.com.cn　　:port - 定义主机上的端口号（http 的默认端口号是 80）　　path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。　　filename - 定义文档/资源的名称\nURL Schemes\n\n\nScheme\n访问\n用于\n\n\n\n\nhttp\n超文本传输协议\n以 http:// 开头的普通网页。不加密。\n\n\nhttps\n安全超文本传输协议\n安全网页。加密所有信息交换。\n\n\nftp\n文件传输协议\n用于将文件下载或上传至网站。\n\n\nfile\n\n您计算机上的文件。\n\n\n\nURL的类型绝对URL　　绝对URL（absolute URL）显示文件的完整路径，这意味着绝对URL本身所在的位置与被引用的实际文件的位置无关。相对URL　　相对URL（relative URL）以包含URL本身的文件夹的位置为参考点，描述目标文件夹的位置。　　一般来说，对于同一服务器上的文件，应该总是使用相对URL，它们更容易输入，而且在将页面从本地系统转移到服务器上时更方便，只要每个文件的相对位置保持不变，链接就仍然是有效地。.：代表目前所在的目录，相对路径。例： &lt;a href=&quot;./abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;./abc&quot; /&gt;..：代表上一层目录，相对路径。例： &lt;a href=&quot;../abc&quot;&gt;文本&lt;/a&gt;或 &lt;img src=&quot;../abc&quot; /&gt;../../：代表的是上一层目录的上一层目录，相对路径。例： &lt;img src=&quot;../../abc&quot; /&gt;/：代表根目录，绝对路径。例： &lt;a href=&quot;/abc&quot;&gt;文本&lt;/a&gt; 或 &lt;img src=&quot;/abc&quot; /&gt;\nHref定义　　href (Hypertext Reference)指定网络资源的位置，从而在当前元素或者当前文档和由当前属性定义的需要的锚点或资源之间定义一个链接或者关系。\n通俗理解　　href: 目的不是为了引用资源，而是为了建立这个标签与外部资源之间的关系，让当前标签能够链接到目标地址。&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;浏览器加载到这里的时候，html的渲染和解析不会暂停，css文件的加载是同时进行的\nSrc　　src用于替代这个元素: &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件\nHref和Src的区别请求资源类型不同　　href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。　　在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；作用结果不同　　href 用于在当前文档和引用资源之间确立联系；　　src 用于替换当前内容；浏览器解析方式不同　　若在文档中添加 &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;，浏览器会识别该文档为 CSS 文件，就会并行下载资源并且不会停止对当前文档的处理。这也是为什么建议使用 link 方式加载 CSS，而不是使用@import 方式。　　当浏览器解析到 &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 js 脚本放在底部而不是头部的原因。\nLink和@import的区别两者都是外部引用 CSS 的方式，但是存在一定的区别：（1）link是XHTML标签，除了能够加载CSS，还可以定义RSS等其他事务；而@import属于CSS范畴，只可以加载CSS。（2）link引用CSS时，在页面载入时同时加载；@import需要页面完全载入以后再加载。（3）link是XHTML标签，无兼容问题；@import则是在CSS2.1提出的，低版本的浏览器不支持。（4）link支持使用Javascript控制DOM改变样式；而@import不支持。\n为什么尽量不要使用@import加载css使用@import会导致和预期不一致的下载顺 序。我们确实要避免使用css @import，但原因却不是什么相当于放在了页面底部，而是这样做会导致css无法并行下载，因为使用@import引用的文件只有在引用它的那个css文件被下载、解析之后，浏览器才会知道还有另外一个css需要下载，这时才去下载，然后下载后开始解析、构建render tree等一系列操作。 浏览器在页面所有css下载并解析完成后才会开始渲染页面（Before a browser can begin to render a web page, it mustdownload and parse any stylesheets that are required to lay out thepage. Even if a stylesheet is in an external file that is cached,rendering is blocked until the browser loads the stylesheet from disk.），因此css @import引起的css解析延迟会加长页面留白期。 所以，要尽量避免使用css @import而尽量采用link标签的方式引入。\n","dateCreated":"2019-03-18T19:49:44+08:00","dateModified":"2019-03-26T11:00:04+08:00","datePublished":"2019-03-18T19:49:44+08:00","description":"\n转载：　　url、href、src 详解","headline":"Url、Href、Src、Link详解","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/18/CSS3/Url、Href、Src、Link/","keywords":"CSS3"}</script>
     <meta name="description" content="转载：　　url、href、src 详解">
 <meta name="keywords" content="CSS3">
 <meta property="og:type" content="blog">
@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:description" content="转载：　　url、href、src 详解">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-18T12:38:37.410Z">
+<meta property="og:updated_time" content="2019-03-26T03:00:04.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Url、Href、Src、Link详解">
 <meta name="twitter:description" content="转载：　　url、href、src 详解">
@@ -244,7 +244,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：1.3k字
+        字数统计：1.6k字
     </span>
 </div>
 
@@ -252,7 +252,7 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Url"><span class="toc-text">Url</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Url格式"><span class="toc-text">Url格式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Url语法规则"><span class="toc-text">Url语法规则</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#URL-Schemes"><span class="toc-text">URL Schemes</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#URL的类型"><span class="toc-text">URL的类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Href"><span class="toc-text">Href</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定义-1"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通俗理解"><span class="toc-text">通俗理解</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Src"><span class="toc-text">Src</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Href和Src的区别"><span class="toc-text">Href和Src的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Link和-import的区别"><span class="toc-text">Link和@import的区别</span></a></li></ol>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Url"><span class="toc-text">Url</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Url格式"><span class="toc-text">Url格式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Url语法规则"><span class="toc-text">Url语法规则</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#URL-Schemes"><span class="toc-text">URL Schemes</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#URL的类型"><span class="toc-text">URL的类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Href"><span class="toc-text">Href</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#定义-1"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通俗理解"><span class="toc-text">通俗理解</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Src"><span class="toc-text">Src</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Href和Src的区别"><span class="toc-text">Href和Src的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Link和-import的区别"><span class="toc-text">Link和@import的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么尽量不要使用-import加载css"><span class="toc-text">为什么尽量不要使用@import加载css</span></a></li></ol>
 <p>转载：<br>　　<a href="https://segmentfault.com/a/1190000002877022" target="_blank" rel="noopener">url、href、src 详解</a><br><a id="more"></a></p>
 <h4 id="Url"><a href="#Url" class="headerlink" title="Url"></a>Url</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　<code>URL</code>(<code>Uniform Resource Locator</code>)统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的<code>URL</code>，它包含的信息指出文件的位置以及浏览器应该怎么处理它。</p>
 <h5 id="Url格式"><a href="#Url格式" class="headerlink" title="Url格式"></a>Url格式</h5><p><strong>标准格式</strong><br>　　协议类型:[//服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询<br><strong>完整格式</strong><br>　　协议类型:[//[访问资源需要的凭证信息@]服务器地址[:端口号]][/资源层级UNIX文件路径]文件名?查询</p>
@@ -294,6 +294,7 @@
 <h4 id="Src"><a href="#Src" class="headerlink" title="Src"></a>Src</h4><p>　　<code>src</code>用于替代这个元素: <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>当浏览器解析到这句代码时，页面的加载和解析都会暂停直到浏览器拿到并执行完这个js文件</p>
 <h4 id="Href和Src的区别"><a href="#Href和Src的区别" class="headerlink" title="Href和Src的区别"></a>Href和Src的区别</h4><p><strong>请求资源类型不同</strong><br>　　href 指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的联系。<br>　　在请求 src 资源时会将其指向的资源下载并应用到文档中，比如 JavaScript 脚本，img 图片；<br><strong>作用结果不同</strong><br>　　href 用于在当前文档和引用资源之间确立联系；<br>　　src 用于替换当前内容；<br><strong>浏览器解析方式不同</strong><br>　　若在文档中添加 <code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;/&gt;</code>，浏览器会识别该文档为 <code>CSS</code> 文件，就会并行下载资源并且<code>不会停止</code>对当前文档的处理。这也是为什么建议使用 <code>link</code> 方式加载 <code>CSS</code>，而不是使用<code>@import</code> 方式。<br>　　当浏览器解析到 <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>，会<code>暂停</code>其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等也如此，类似于将所指向资源应用到当前内容。这也是为什么建议把 <code>js</code> 脚本放在底部而不是头部的原因。</p>
 <h4 id="Link和-import的区别"><a href="#Link和-import的区别" class="headerlink" title="Link和@import的区别"></a>Link和@import的区别</h4><p>两者都是外部引用 <code>CSS</code> 的方式，但是存在一定的区别：<br>（1）<code>link</code>是<code>XHTML</code>标签，除了能够加载<code>CSS</code>，还可以定义<code>RSS</code>等其他事务；而<code>@import</code>属于<code>CSS</code>范畴，只可以加载<code>CSS</code>。<br>（2）<code>link</code>引用<code>CSS</code>时，在页面载入时同时加载；<code>@import</code>需要页面完全载入以后再加载。<br>（3）<code>link</code>是<code>XHTML</code>标签，无兼容问题；<code>@import</code>则是在<code>CSS2.1</code>提出的，低版本的浏览器不支持。<br>（4）<code>link</code>支持使用<code>Javascript</code>控制<code>DOM</code>改变样式；而<code>@import</code>不支持。</p>
+<h4 id="为什么尽量不要使用-import加载css"><a href="#为什么尽量不要使用-import加载css" class="headerlink" title="为什么尽量不要使用@import加载css"></a>为什么尽量不要使用@import加载css</h4><p>使用<code>@import</code>会导致和预期不一致的下载顺 序。<br>我们确实要避免使用<code>css @import，</code>但原因却不是什么相当于放在了页面底部，而是这样做会导致<code>css</code>无法并行下载，因为使用<code>@import</code>引用的文件只有在引用它的那个<code>css</code>文件被下载、解析之后，浏览器才会知道还有另外一个css需要下载，这时才去下载，然后下载后开始解析、构建<code>render tree</code>等一系列操作。 浏览器在页面所有<code>css</code>下载并解析完成后才会开始渲染页面（<code>Before a browser can begin to render a web page, it mustdownload and parse any stylesheets that are required to lay out thepage. Even if a stylesheet is in an external file that is cached,rendering is blocked until the browser loads the stylesheet from disk.</code>），因此<code>css @import</code>引起的<code>css</code>解析延迟会加长页面留白期。 所以，要尽量避免使用<code>css @import</code>而尽量采用<code>link</code>标签的方式引入。</p>
 
             
 
@@ -401,7 +402,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：52.6k</span>
+		<span class="post-count">字数统计：58.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -650,8 +651,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -660,26 +661,9 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -710,8 +694,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -720,9 +704,26 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -833,7 +834,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 47 篇文章
+                找到 51 篇文章
             </p>
         </div>
     </div>
