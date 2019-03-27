@@ -1,0 +1,1535 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>前端知识点 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\nHTML+CSS布局\n内容+样式 基础\n重点了解布局、流\nless、sass、stylus\n\n\n\n\nCSS\npx、em、rem、vw、vh\n设置html的font-size大小，统一标准\n小程序单位rpx\n\n\n布局\n相对、绝对\n流式、响应式布局\nflex布局\n\n\nCSS3\n透明度、文字阴影、圆角、渐变色\n盒阴影、边框图片、媒体查询\ntransition过渡、transform变形、animation动画\n\n\nCSS优化\n选择器原理: 从右向左\n避免后台、链式、重复\n避免!important\n\n\nBFC &amp; IFC\nfloat不是none，绝对定位，表格，overflow不是visable，flex盒子\n创建BFC后，元素会一个个的摆放\n外边距折叠\n最常见的：overflow:hidden、 float:left/right、 position: absolut、\n\n\n\n\nES6 &amp; ES7\nlet、const、解构(结构)、\n箭头函数、SymboL、Set\nProxy、Class、generator、模块化\n\n\n函数\n默认参数、返回值、原型链\n箭头函数、this、作用域、闭包、bind、apply\n高阶函数、递归、Decorator、Compose、Currying…\n\n\n面向对象\nclass、实例方法、静态属性和方法\n构造函数、super\n继承\n\n\nJS异步\n解决回调\nPromise\nGenerator\nAsync + await\n\n\n\n\n模块化\n最早期AMD、CMD、commonjs\nimport export\nES6加载原理和node加载原理\n\n\n面试题\nPromise相当于一个状态机\npending、rejected、fulfilled状态\n维护callback队列\n掘金\n\n\n\n\nVue\nVue-cli3.0+\n组件化通讯\n父子组件 props $emit 兄弟组件可以让父母代理中转\n祖先后代关系eventbus 或者自己实现dispath&amp;boardcast\n没关系eventbus或者Vuex\n\n\n生命周期\n组件化设计\n源码\n全家桶、服务端渲染\n复用.Vue组件\nprops、event、slot\n手动挂载的组件$emit\n递归组件和动态组件\n\n\n双向绑定\nObject.defineProperty\n依赖机制\n异步更新队列\n\n\nVuex + vue-router\n单页应用 依赖加载模块\nvue单行数据流\n数据交给专门的store管理，全局数据中心、\n\n\n服务端渲染\n服务端解析vue组件成html渲染首屏\n速度\nSEO\nnuxt.js\n\n\n\n\n\n\nTypescript+ \nWebpack\n基础配置\n性能优化，缩小搜索范围，DllPlugin，多进程、tree-shaking，代码抽取，按需加载\n定制loader和plugin\nloader定义自己的转换规则\nplugin 整个webpack工作流程定义，有一个apply方法获取compiler对象\nloader单一职责，链式组合，模块化，无状态\n\n\nplugin\n修改输出资源\n读取模块和依赖\n监听文件变化\n\n\n\n\n异步\n浏览器\n性能优化\n抛开场景谈优化，就是耍流氓\n常见性能优化策略,文件少加载，代码少执行，多用缓存，少计算，\n性能如何分析 devtools代码打包压缩，图片压缩，gzip，缓存，cdn，SSR，框架对应的优化策略，lazy-load,节流防抖\n\n\n\n服务端渲染\n\n安全\n常见漏洞，如何防御\nXSS、CSRF、Cookie劫持、点击劫持\n传输安全、接入层\nOauth\n\n\n多端（Node，小程序，App）\n微信小程序\n测试\n微服务\nNode.js \n监控\n部署\n自动化\n云开发\nRN flutter\n小程序生态\n\n\nnodejs\nNode核心概念\nevents，fs，stream，buffer\nIO，event-loop，线程池\nlibuv，V8\n\n\nNode应用场景\nExpress、Koa等web开方\n自动化，微服务\nexpress/koa网站\n前端工具 \nwebpack/ gulp\nAPI/hapi\n跨平台/ electron\n区块链/ ipfs\n命令行工具/ \nshell.js\nExpress/koa代理\n硬件/ ruff\n微服务 \n企业级框架eggj\n实时/socket.io\n\n\n\n\nEvent-loop\n代码到底咋执行的\n执行微任务 比如promise\n同步代码，完事之后查询是否有异步\n执行宏任务，setTimeout,SetImmediate,等\n\n\n\n\n自动化测试\n代码的健壮性，改代码不再胆战心惊\nE2E测试Puppeteer，代码覆盖率istanbul\n单元测试，mocha，jest ，jasmine \n测试驱动开发TDD，先写测试，再写代码\n\n\n前端监控\n对运行状况了然于胸\n前端错误监控 onerror Sentry\n前端性能监控 性能参数 berserkJS 屏幕补货，网络监控\n上报 img 的src\n\n\n\n\n浏览器\n最重要的一端\n缓存机制\n性能优化重要策略\nmemory cache，disk cache\n网络请求，强缓存弱缓存\n\n\n如何渲染的\n收到html=》解析dom树\ncss =&gt; css 树 和dom结合 形成render tree 开始渲染\n少操作dom，重绘回流\n\n\n输入url发生了啥\n\n\n\n\n部署\n项目总要上线\nNginx\nPm2\nDocker + 自动化\n\n\n\n\n特殊场景\n不算通用能力，但是特殊业务需求\n可视化 echarts (canvas)，d3(svg)，three.js(webgl)\n小游戏\nPS切图\n\n\n\n\n软件工程师\n算法\n排序 搜索 遍历\n贪婪\n动态规划\n\n\n编译原理\n设计模式\n网络协议\n数据库\n数据结构\n数组、字符串、队列、堆、链表\n二叉树\n图\n\n\n软件工程\n数学基础\n编码\n\n\n网络协议\nIP\nTCP/UDP\nHTTP / HTTPS / SSH / FTP \n\n\n设计模式\n常见设计模式，单例，装饰器，代理，观察者，发布订阅\n前端常用的设计模式\n如何使用、不要滥用\n\n\n数据库\nMysql 关系型数据库，多表join\nMongodb json数据库\nRedis 内存数据库 速度快\n\n\n面试题\n\n跨域方案\n强缓存弱缓存\n输入url发生啥\nDNS解析 ， 三次握手，建立链接\n接受相应，查库查文件，等待数据返回，拼接响应报文\n浏览器接受报文，解析html 渲染页面\n\n\n渲染原理\n业余干啥\n可访问性\n箭头函数优点\n前后端分离JWT\n垃圾回收\n\n\n基础vuejs\n\n组件通讯\nprop\n父组件通过 Prop 往子组件传递数据\nProp 让组件更加灵活\n不要直接修改 Prop\n\n\nevent\n子组件往当前实例上派发事件\n子组件在父组件中使用，可以监听到该事件，并做出响应\n\n\ngolbal event bus\n非父子组件通讯\n可以基于新的 Vue 实例实现\n\n\nVuex\n非父子组件通讯（数据共享）\n数据状态管理\n\n\n\n\n插槽\n普通插槽\n组件的实现更加灵活\n内容分发\n插槽访问的数据作用域是父组件\n\n\n作用域插槽\n插槽可以访问到子组件中的数据\n\n\n\n\n过度动画\n触发条件\nVue 提供了 transition 的封装组件，在下列情形中，可以给任何元素和组件添加进入/离开过渡：\n条件渲染 (使用 v-if)\n动态组件\n条件展示 (使用 v-show)\n组件根节点\n\n\n\n\n过渡类名\n对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 &lt;transition&gt;，则 v- 是这些类名的默认前缀。如果你使用了 &lt;transition name=&quot;my-transition&quot;&gt;，那么 v-enter 会替换为 my-transition-enter\nv-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除\nv-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。\nv-enter-to：定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时v-enter 被移除)，在过渡/动画完成之后移除。\nv-leave：定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。\nv-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。\nv-leave-to：定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除\n\n\nJavaScript 钩子\n可以在属性中声明JavaScript \n当只用 JavaScript 过渡的时候，在 enter 和 leave 中必须使用done 进行回调。否则，它们将被同步调用，过渡会立即完成。\n推荐对于仅使用 JavaScript 过渡的元素添加 v-bind:css=&quot;false&quot;，Vue 会跳过 CSS 的检测。这也可以避免过渡过程中 CSS 的影响。\n\n\n\n\nDOM操作\n操作CSS\n某些交互可以通过手动操作CSS 做精细的控制\n\n\n配合原生JS库使用\n与原生 JS 库配合使用，再做一层 Vue 化的封装\ncube-ui 对 better-scroll 的封装\nelement-ui 对 popper.js 的封装\n\n\n\n\n组件封装\n就近管理\n单文件开发\n依赖的静态资源放在同级目录\n相关联组件也放在同级目录\n\n\n分层设计\n通过分层设计的思想设计复杂组件\n\n\n高度复用\n页面级别的复用（基础组件）\n项目级别的复用 —私有组件库（业务组件）\n公司级别的复用 —开源组件库（element-ui、cube-ui）\n\n\n灵活扩展\n组件设计要尽量灵活可扩展，除了提供丰富的 Props，还可以利用 slot插槽完成用户个性化定制需求）\n\n\n\n\nKeep-alive\n使用场景\n保留组件状态或避免重新渲染\n可以配合路由组件使用\n\n\n生命周期\nactivated：组件激活时触发\ndeactivate：组件失活时触发\n\n\n\n\n内存泄漏\n产生的原因\n未清理的定时器\n未清理的全局注册的自定义事件\n未清理的全局注册的 DOM 事件\n\n\n如何避免\n编写组件要有相关意识\n检查是否有上述造成内存泄漏的可能\n利用 beforeDestroy 生命周期函数，做对应的内存清理工作\n\n\n\n\n错误回调\n常见的错误\n深层对象数据访问问题\n对计算属性赋值\n对 Prop 直接修改\n使用了未注册的组件\n\n\n调试工具\nChrome 开发者工具，学会查找错误堆栈\nvue-devtools https://github.com/vuejs/vue-devtools\nvConsole https://github.com/Tencent/vConsole\n\n\n\n\n性能优化\n数据定义\n不需要把所有的数据都定义在 data 上，可以直接挂载到实例上\n\n\n按需加载\n对于首次渲染，我们只需要加载首屏渲染所需的资源，其他资源可以异步按需加载。这样可以减少首屏加载的资源包大小，加速渲染\n异步组件\n异步组件——比如我们使用一些图标库，如 echart，我们可以考虑做成异步组件，单独打包\n\n\n异步路由\n异步路由——比如单页应用，我们的导航切换是基于路由切换，那么其他页面可以考虑做成异步路由\n\n\n\n\n预渲染\n由于基于 Vue.js 的单页应用是由 Vue.js 渲染页面，所以页面下载后到渲染会有一定白屏时间\n我们可以不依赖 JS，在页面下载后先渲染一张 Loading图片或者是骨架屏结构\n当主页面渲染时，把这张占位图片或者结构隐藏\n用户看到的不是白屏，有等待预期\n\n\n后编译\n编译代码冗余？\n依赖包本身不编译，它的编译交给应用来做。通过修改 webpack 配置 rules 中的 include\n后编译依赖嵌套？\nwebpack-post-compile-plugin需要后编译的依赖包在 package.json 中声明&quot;postCompile&quot;: true\n\n\n性能优化\n一份编译代码\n主题定制\n一份 ployfill\nrem布局\nNPM包无需编译发布\n\n\n\n\n\n\n\n\n深入理解Vue.js\nVue.js渲染原理\n响应式实现原理\n组件化实现原理\n\n\n前端工程\n脚手架\nVue-cli 3.0\n是一个基于 Vue.js 进行快速开发的完整系统\n通过 @vue/cli 搭建交互式的项目脚手架\n通过 @vue/cli + @vue/cli-service-global 快速开始零配置原型开发\n一个运行时依赖 (@vue/cli-service)\n一个丰富的官方插件集合，集成了前端生态中最好的工具。\n一套完全图形化的创建和管理 Vue.js 项目的用户界面\n\n\n插件化机制\nVue CLI 使用了一套基于插件的架构。在项目创建的过程中，绝大部分列出的特性都是通过插件来实现的\n插件可以帮助我们生成初始化代码， 安装指定的依赖包\n\n\nwebpack 配置\n调整 webpack 配置最简单的方式就是在 vue.config.js中的 configureWebpack 选项提供一个对象\n因为 @vue/cli-service 对 webpack 配置进行了抽象，所以理解配置中包含的东西会比较困难，可以通过下面命令查看 webpack 配置vue inspect &gt; output.js\n\n\n\n\nwebpack\n现代 JavaScript 应用程序的静态模块打包器\nmodule\n开发者将程序分解成离散功能块（discrete chunks offunctionality），并称之为模块\n每个模块具有比完整程序更小的接触面，使得校验、调试、测试轻而易举。\n精心编写的模块提供了可靠的抽象和封装界限，使得应用程序中每个模块都具有条理清楚的设计和明确的目的\n前端模块化面对的挑战 —处理JS之外的静态资源、资源的依赖关系加载顺序、资源的请求和加载是异步的\nES2015 import 语句\nCommonJS require() 语句\nAMD define 和 require 语句\ncss/sass/less 文件中的 @import 语句\n样式(url(...))或 HTML 文件(&lt;img src=...&gt;)中的图片链接(image url)\n\n\nentry\n入口起点(entry point)指示 webpack应该使用哪个模块，来作为构建其内部依赖图的开始，webpack会找出有哪些模块和 library是入口起点（直接和间接）依赖的\n多入口：数组结构\n多入口：对象结构\n多页面应用程序\n\n\noutput\n配置 output 选项可以控制 webpack 如何向硬盘写入编译文件。即使可以存在多个入口起点，也只指定一个输出配置\n如果配置创建了多个单独的 “chunk”，则应该使用占位符(substitutions)来确保每个文件具有唯一的名称。\n线上运行时需要通过设置 public path 指向 CDN 地址\n\n\nloader\nloader 用于对模块的源代码进行转换。loader 可以使你在 import 或”加载”模块时预处理文件\nTypescript -&gt; JavaScript\nImage -&gt; data URL\nJavaScript import CSS\nloader 支持链式传递\nloader 可以是同步的，也可以是异步的\nloader 运行在 Node.js 中，并且能够执行任何可能的操作\nloader 能够使用options 对象进行配置\nbabel-loader 加载ES2015+ 代码，然后使用 Babel 转译为 ES5\nstyle-loader 将模块的导出作为样式添加到 DOM 中\ncss-loader 解析 CSS 文件后，使用 import 加载，并且返回 CSS 代码\nless-loader 加载和转译 LESS 文件\nfile-loader 将文件发送到输出文件夹，并返回（相对）URL\nurl-loader 像 file loader 一样工作，但如果文件小于限制，可以返回 data URL\nvue-loader 加载和转译 Vue 组件\n\n\nplugins\n插件比 loader 更加强大，可以帮助用户直接触及到编译过程。 插件可以将处理函数注册到编译过程中的不同时间点上运行的生命周期钩子函数上。\n打包优化\n资源管理\n注入环境变量\nCommonsChunkPlugin 提取 chunks 之间共享的通用模块\nDefinePlugin 允许在编译时(compile time)配置的全局常量\nExtractTextWebpackPlugin 从 bundle 中提取文本（CSS）到单独的文件\nUglifyjsWebpackPlugin 使用 UglifyJS 压缩 JS\nHtmlWebpackPlugin 创建HTML文件来服务打包文件\n\n\n\n\n\n\n开发&amp;部署\n开发阶段\n需求阶段\n前后端共同参与产品需求评审，并做一轮技术评审\n技术评审过程中，梳理所有交互通讯的接口\n把接口落地成文档，并约定好所有字段\n\n\n开发阶段\n前后端独立开发\n前端伪造 mock 数据\n可以使用 mock webpack 插件\n\n\n联调阶段\n预留联调的时间\n前后端开发完成后开始联调\n前端把接口请求指向后端的联调地址（可自动完成）\n\n\n上线阶段\n前端把接口请求指向后端的线上地址（可自动完成）\n一定要后端先上线\n\n\n\n\n部署流程\n预留联调的时间后端先上线 API 接口（若需要）\n前端项目最终编译生成静态资源文件（HTML、JS、CSS 等）\n增量发布，前端先全量上线 JS、CSS 等静态资源\n前端接着上线模板 HTML，先发布到一台 pre 机器，QA 回归\n回归通过后，逐步放量模板直至全量\n\n\n\n\n知识点\nHTPP相关\n常见 HTTP 状态码\n浏览器缓存原理\n抓包工具（fiddler、charles）\n\n\n跨域\nCORS\nJSONP\n\n\n性能优化\n性能监测：https://github.com/GoogleChrome/lighthouse\n数据埋点\n雅虎军规：https://developer.yahoo.com/performance/rules.html、https://juejin.im/post/5b73ef38f265da281e048e51\n\n\nWeb安全\nXSS\nCSRF\nHTTPS \nhttps://zhuanlan.zhihu.com/p/561228\n\n\n数据结构&amp;算法\n栈/队列/树/ 图\n排序/递归\n算法设计技巧\n\n\n浏览器渲染原理\nhttps://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/\n\n\n正则表达式\n匹配原理\n基本语法\n实用技巧\n\n\n设计模式\n订阅发布模式\n工厂模式\n适配器模式\n\n\n后端语言\nPHP\nJAVA\nNode.js\n\n\n\n\n\n","dateCreated":"2019-03-27T17:31:52+08:00","dateModified":"2019-03-27T21:48:49+08:00","datePublished":"2019-03-27T17:31:52+08:00","description":"","headline":"前端知识点","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/27/JavaScript/前端知识点/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/27/JavaScript/前端知识点/","keywords":"前端知识点"}</script>
+    <meta name="keywords" content="前端知识点">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="前端知识点">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/JavaScript/前端知识点/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-03-27T13:48:49.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端知识点">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            前端知识点
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-03-27T17:31:52+08:00">
+	
+		    3月 27, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：4.3k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1>
+<a id="more"></a>
+<ul>
+<li>HTML+CSS布局<ul>
+<li>内容+样式 基础<ul>
+<li>重点了解布局、流</li>
+<li>less、sass、stylus</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CSS<ul>
+<li>px、em、rem、vw、vh</li>
+<li>设置html的font-size大小，统一标准</li>
+<li>小程序单位rpx</li>
+</ul>
+</li>
+<li>布局<ul>
+<li>相对、绝对</li>
+<li>流式、响应式布局</li>
+<li>flex布局</li>
+</ul>
+</li>
+<li>CSS3<ul>
+<li>透明度、文字阴影、圆角、渐变色</li>
+<li>盒阴影、边框图片、媒体查询</li>
+<li>transition过渡、transform变形、animation动画</li>
+</ul>
+</li>
+<li>CSS优化<ul>
+<li>选择器原理: 从右向左</li>
+<li>避免后台、链式、重复</li>
+<li>避免!important</li>
+</ul>
+</li>
+<li>BFC &amp; IFC<ul>
+<li>float不是none，绝对定位，表格，overflow不是visable，flex盒子</li>
+<li>创建BFC后，元素会一个个的摆放</li>
+<li>外边距折叠<ul>
+<li>最常见的：<code>overflow:hidden</code>、 <code>float:left/right</code>、 <code>position: absolut、</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ES6 &amp; ES7<ul>
+<li>let、const、解构(结构)、</li>
+<li>箭头函数、SymboL、Set</li>
+<li>Proxy、Class、generator、模块化</li>
+</ul>
+</li>
+<li>函数<ul>
+<li>默认参数、返回值、原型链</li>
+<li>箭头函数、this、作用域、闭包、bind、apply</li>
+<li>高阶函数、递归、Decorator、Compose、Currying…</li>
+</ul>
+</li>
+<li>面向对象<ul>
+<li>class、实例方法、静态属性和方法</li>
+<li>构造函数、super</li>
+<li>继承</li>
+</ul>
+</li>
+<li>JS异步<ul>
+<li>解决回调<ul>
+<li>Promise</li>
+<li>Generator</li>
+<li>Async + await</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>模块化<ul>
+<li>最早期AMD、CMD、commonjs</li>
+<li>import export</li>
+<li>ES6加载原理和node加载原理</li>
+</ul>
+</li>
+<li>面试题<ul>
+<li>Promise相当于一个状态机<ul>
+<li>pending、rejected、fulfilled状态</li>
+<li>维护callback队列</li>
+<li><a href="https://juejin.im/post/5c41297cf265da613356d4ec" target="_blank" rel="noopener">掘金</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Vue<ul>
+<li>Vue-cli3.0+</li>
+<li>组件化通讯<ul>
+<li>父子组件 props $emit 兄弟组件可以让父母代理中转</li>
+<li>祖先后代关系eventbus 或者自己实现dispath&amp;boardcast</li>
+<li>没关系eventbus或者Vuex</li>
+</ul>
+</li>
+<li>生命周期</li>
+<li>组件化设计</li>
+<li>源码</li>
+<li>全家桶、服务端渲染</li>
+<li>复用.Vue组件<ul>
+<li>props、event、slot</li>
+<li>手动挂载的组件$emit</li>
+<li>递归组件和动态组件</li>
+</ul>
+</li>
+<li>双向绑定<ul>
+<li>Object.defineProperty</li>
+<li>依赖机制</li>
+<li>异步更新队列</li>
+</ul>
+</li>
+<li>Vuex + vue-router<ul>
+<li>单页应用 依赖加载模块</li>
+<li>vue单行数据流</li>
+<li>数据交给专门的store管理，全局数据中心、</li>
+</ul>
+</li>
+<li>服务端渲染<ul>
+<li>服务端解析vue组件成html渲染首屏<ul>
+<li>速度</li>
+<li>SEO</li>
+<li>nuxt.js</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Typescript<br>+ </li>
+<li>Webpack<ul>
+<li>基础配置</li>
+<li>性能优化，缩小搜索范围，DllPlugin，多进程、tree-shaking，代码抽取，按需加载</li>
+<li>定制loader和plugin<ul>
+<li>loader定义自己的转换规则</li>
+<li>plugin 整个webpack工作流程定义，有一个apply方法获取compiler对象</li>
+<li>loader单一职责，链式组合，模块化，无状态</li>
+</ul>
+</li>
+<li>plugin<ul>
+<li>修改输出资源</li>
+<li>读取模块和依赖</li>
+<li>监听文件变化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>异步</li>
+<li>浏览器</li>
+<li>性能优化<ul>
+<li>抛开场景谈优化，就是耍流氓</li>
+<li>常见性能优化策略,文件少加载，代码少执行，多用缓存，少计算，</li>
+<li>性能如何分析 devtools代码打包压缩，图片压缩，gzip，缓存，<br>cdn，SSR，框架对应的优化策略，lazy-load,节流防抖</li>
+</ul>
+</li>
+</ul>
+<p>服务端渲染</p>
+<ul>
+<li>安全<ul>
+<li>常见漏洞，如何防御</li>
+<li>XSS、CSRF、Cookie劫持、点击劫持</li>
+<li>传输安全、接入层</li>
+<li>Oauth</li>
+</ul>
+</li>
+<li>多端（Node，小程序，App）<ul>
+<li>微信小程序</li>
+<li>测试</li>
+<li>微服务</li>
+<li>Node.js </li>
+<li>监控</li>
+<li>部署</li>
+<li>自动化</li>
+<li>云开发</li>
+<li>RN flutter</li>
+<li>小程序生态</li>
+</ul>
+</li>
+<li>nodejs<ul>
+<li>Node核心概念<ul>
+<li>events，fs，stream，buffer</li>
+<li>IO，event-loop，线程池</li>
+<li>libuv，V8</li>
+</ul>
+</li>
+<li>Node应用场景<ul>
+<li>Express、Koa等web开方</li>
+<li>自动化，微服务</li>
+<li>express/koa网站</li>
+<li>前端工具 </li>
+<li>webpack/ gulp</li>
+<li>API/hapi</li>
+<li>跨平台/ electron</li>
+<li>区块链/ ipfs</li>
+<li>命令行工具/ </li>
+<li>shell.js</li>
+<li>Express/koa代理</li>
+<li>硬件/ ruff</li>
+<li>微服务 </li>
+<li>企业级框架eggj</li>
+<li>实时/socket.io</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Event-loop<ul>
+<li>代码到底咋执行的<ul>
+<li>执行微任务 比如promise</li>
+<li>同步代码，完事之后查询是否有异步</li>
+<li>执行宏任务，setTimeout,SetImmediate,等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自动化测试</li>
+<li>代码的健壮性，改代码不再胆战心惊<ul>
+<li>E2E测试Puppeteer，代码覆盖率istanbul</li>
+<li>单元测试，mocha，jest ，jasmine </li>
+<li>测试驱动开发TDD，先写测试，再写代码</li>
+</ul>
+</li>
+<li>前端监控<ul>
+<li>对运行状况了然于胸<ul>
+<li>前端错误监控 onerror Sentry</li>
+<li>前端性能监控 性能参数 berserkJS 屏幕补货，网络监控</li>
+<li>上报 img 的src</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>浏览器<ul>
+<li>最重要的一端<ul>
+<li>缓存机制<ul>
+<li>性能优化重要策略</li>
+<li>memory cache，disk cache</li>
+<li>网络请求，强缓存弱缓存</li>
+</ul>
+</li>
+<li>如何渲染的<ul>
+<li>收到html=》解析dom树</li>
+<li>css =&gt; css 树 和dom结合 形成render tree 开始渲染</li>
+<li>少操作dom，重绘回流</li>
+</ul>
+</li>
+<li>输入url发生了啥</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>部署<ul>
+<li>项目总要上线<ul>
+<li>Nginx</li>
+<li>Pm2</li>
+<li>Docker + 自动化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特殊场景<ul>
+<li>不算通用能力，但是特殊业务需求<ul>
+<li>可视化 echarts (canvas)，d3(svg)，three.js(webgl)</li>
+<li>小游戏</li>
+<li>PS切图</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>软件工程师<ul>
+<li>算法<ul>
+<li>排序 搜索 遍历</li>
+<li>贪婪</li>
+<li>动态规划</li>
+</ul>
+</li>
+<li>编译原理</li>
+<li>设计模式</li>
+<li>网络协议</li>
+<li>数据库</li>
+<li>数据结构<ul>
+<li>数组、字符串、队列、堆、链表</li>
+<li>二叉树</li>
+<li>图</li>
+</ul>
+</li>
+<li>软件工程</li>
+<li>数学基础</li>
+<li>编码</li>
+</ul>
+</li>
+<li>网络协议<ul>
+<li>IP</li>
+<li>TCP/UDP</li>
+<li>HTTP / HTTPS / SSH / FTP </li>
+</ul>
+</li>
+<li>设计模式<ul>
+<li>常见设计模式，单例，装饰器，代理，观察者，发布订阅</li>
+<li>前端常用的设计模式</li>
+<li>如何使用、不要滥用</li>
+</ul>
+</li>
+<li>数据库<ul>
+<li>Mysql 关系型数据库，多表join</li>
+<li>Mongodb json数据库</li>
+<li>Redis 内存数据库 速度快</li>
+</ul>
+</li>
+<li><p>面试题</p>
+<ul>
+<li>跨域方案</li>
+<li>强缓存弱缓存</li>
+<li>输入url发生啥<ul>
+<li>DNS解析 ， 三次握手，建立链接</li>
+<li>接受相应，查库查文件，等待数据返回，拼接响应报文</li>
+<li>浏览器接受报文，解析html 渲染页面</li>
+</ul>
+</li>
+<li>渲染原理</li>
+<li>业余干啥</li>
+<li>可访问性</li>
+<li>箭头函数优点</li>
+<li>前后端分离JWT</li>
+<li>垃圾回收</li>
+</ul>
+</li>
+<li><p>基础vuejs</p>
+<ul>
+<li>组件通讯<ul>
+<li>prop<ul>
+<li>父组件通过 Prop 往子组件传递数据</li>
+<li>Prop 让组件更加灵活</li>
+<li>不要直接修改 Prop</li>
+</ul>
+</li>
+<li>event<ul>
+<li>子组件往当前实例上派发事件</li>
+<li>子组件在父组件中使用，可以监听到该事件，并做出响应</li>
+</ul>
+</li>
+<li>golbal event bus<ul>
+<li>非父子组件通讯</li>
+<li>可以基于新的 Vue 实例实现</li>
+</ul>
+</li>
+<li>Vuex<ul>
+<li>非父子组件通讯（数据共享）</li>
+<li>数据状态管理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>插槽<ul>
+<li>普通插槽<ul>
+<li>组件的实现更加灵活</li>
+<li>内容分发</li>
+<li>插槽访问的数据作用域是父组件</li>
+</ul>
+</li>
+<li>作用域插槽<ul>
+<li>插槽可以访问到子组件中的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>过度动画<ul>
+<li>触发条件<ul>
+<li>Vue 提供了 transition 的封装组件，在下列情形中，可以给任何元素和组件添加进入/离开过渡：<ul>
+<li>条件渲染 (使用 v-if)</li>
+<li>动态组件</li>
+<li>条件展示 (使用 v-show)</li>
+<li>组件根节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>过渡类名<ul>
+<li>对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 <code>&lt;transition&gt;</code>，则 v- 是这些类名的默认前缀。如果你使用了 <code>&lt;transition name=&quot;my-transition&quot;&gt;</code>，那么 <code>v-enter</code> 会替换为 <code>my-transition-enter</code></li>
+<li><code>v-enter</code>：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除</li>
+<li><code>v-enter-active</code>：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。</li>
+<li><code>v-enter-to</code>：定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时<code>v-enter</code> 被移除)，在过渡/动画完成之后移除。</li>
+<li><code>v-leave</code>：定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。</li>
+<li><code>v-leave-active</code>：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。</li>
+<li><code>v-leave-to</code>：定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 <code>v-leave</code> 被删除)，在过渡/动画完成之后移除</li>
+</ul>
+</li>
+<li>JavaScript 钩子<ul>
+<li>可以在属性中声明J<code>avaScript</code> </li>
+<li>当只用 <code>JavaScript</code> 过渡的时候，在 <code>enter</code> 和 <code>leave</code> 中必须使用<code>done</code> 进行回调。否则，它们将被同步调用，过渡会立即完成。</li>
+<li>推荐对于仅使用 <code>JavaScript</code> 过渡的元素添加 <code>v-bind:css=&quot;false&quot;</code>，<code>Vue</code> 会跳过 <code>CSS</code> 的检测。这也可以避免过渡过程中 <code>CSS</code> 的影响。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DOM操作<ul>
+<li>操作CSS<ul>
+<li>某些交互可以通过手动操作CSS 做精细的控制</li>
+</ul>
+</li>
+<li>配合原生JS库使用<ul>
+<li>与原生 JS 库配合使用，再做一层 Vue 化的封装</li>
+<li>cube-ui 对 better-scroll 的封装</li>
+<li>element-ui 对 popper.js 的封装</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>组件封装<ul>
+<li>就近管理<ul>
+<li>单文件开发</li>
+<li>依赖的静态资源放在同级目录</li>
+<li>相关联组件也放在同级目录</li>
+</ul>
+</li>
+<li>分层设计<ul>
+<li>通过分层设计的思想设计复杂组件</li>
+</ul>
+</li>
+<li>高度复用<ul>
+<li>页面级别的复用（基础组件）</li>
+<li>项目级别的复用 —私有组件库（业务组件）</li>
+<li>公司级别的复用 —开源组件库（element-ui、cube-ui）</li>
+</ul>
+</li>
+<li>灵活扩展<ul>
+<li>组件设计要尽量灵活可扩展，除了提供丰富的 Props，还可以利用 slot插槽完成用户个性化定制需求）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Keep-alive<ul>
+<li>使用场景<ul>
+<li>保留组件状态或避免重新渲染</li>
+<li>可以配合路由组件使用</li>
+</ul>
+</li>
+<li>生命周期<ul>
+<li>activated：组件激活时触发</li>
+<li>deactivate：组件失活时触发</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内存泄漏<ul>
+<li>产生的原因<ul>
+<li>未清理的定时器</li>
+<li>未清理的全局注册的自定义事件</li>
+<li>未清理的全局注册的 DOM 事件</li>
+</ul>
+</li>
+<li>如何避免<ul>
+<li>编写组件要有相关意识</li>
+<li>检查是否有上述造成内存泄漏的可能</li>
+<li>利用 beforeDestroy 生命周期函数，做对应的内存清理工作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>错误回调<ul>
+<li>常见的错误<ul>
+<li>深层对象数据访问问题</li>
+<li>对计算属性赋值</li>
+<li>对 Prop 直接修改</li>
+<li>使用了未注册的组件</li>
+</ul>
+</li>
+<li>调试工具<ul>
+<li>Chrome 开发者工具，学会查找错误堆栈</li>
+<li>vue-devtools <a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">https://github.com/vuejs/vue-devtools</a></li>
+<li>vConsole <a href="https://github.com/Tencent/vConsole" target="_blank" rel="noopener">https://github.com/Tencent/vConsole</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>性能优化<ul>
+<li>数据定义<ul>
+<li>不需要把所有的数据都定义在 data 上，可以直接挂载到实例上</li>
+</ul>
+</li>
+<li>按需加载<ul>
+<li>对于首次渲染，我们只需要加载首屏渲染所需的资源，其他资源可以异步按需加载。这样可以减少首屏加载的资源包大小，加速渲染</li>
+<li>异步组件<ul>
+<li>异步组件——比如我们使用一些图标库，如 echart，我们可以考虑做成异步组件，单独打包</li>
+</ul>
+</li>
+<li>异步路由<ul>
+<li>异步路由——比如单页应用，我们的导航切换是基于路由切换，那么其他页面可以考虑做成异步路由</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>预渲染<ul>
+<li>由于基于 Vue.js 的单页应用是由 Vue.js 渲染页面，所以页面下载后到渲染会有一定白屏时间</li>
+<li>我们可以不依赖 JS，在页面下载后先渲染一张 Loading图片或者是骨架屏结构</li>
+<li>当主页面渲染时，把这张占位图片或者结构隐藏</li>
+<li>用户看到的不是白屏，有等待预期</li>
+</ul>
+</li>
+<li>后编译<ul>
+<li>编译代码冗余？</li>
+<li>依赖包本身不编译，它的编译交给应用来做。通过修改 webpack 配置 rules 中的 include</li>
+<li>后编译依赖嵌套？<ul>
+<li>webpack-post-compile-plugin需要后编译的依赖包在 package.json 中声明<code>&quot;postCompile&quot;: true</code></li>
+</ul>
+</li>
+<li>性能优化<ul>
+<li>一份编译代码</li>
+<li>主题定制</li>
+<li>一份 ployfill</li>
+<li>rem布局</li>
+<li>NPM包无需编译发布</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>深入理解Vue.js<ul>
+<li>Vue.js渲染原理</li>
+<li>响应式实现原理</li>
+<li>组件化实现原理</li>
+</ul>
+</li>
+<li>前端工程<ul>
+<li>脚手架<ul>
+<li>Vue-cli 3.0<ul>
+<li>是一个基于 Vue.js 进行快速开发的完整系统</li>
+<li>通过 @vue/cli 搭建交互式的项目脚手架</li>
+<li>通过 @vue/cli + @vue/cli-service-global 快速开始零配置原型开发</li>
+<li>一个运行时依赖 (@vue/cli-service)</li>
+<li>一个丰富的官方插件集合，集成了前端生态中最好的工具。</li>
+<li>一套完全图形化的创建和管理 Vue.js 项目的用户界面</li>
+</ul>
+</li>
+<li>插件化机制<ul>
+<li>Vue CLI 使用了一套基于插件的架构。在项目创建的过程中，绝大部分列出的特性都是通过插件来实现的</li>
+<li>插件可以帮助我们生成初始化代码， 安装指定的依赖包</li>
+</ul>
+</li>
+<li>webpack 配置<ul>
+<li>调整 webpack 配置最简单的方式就是在 vue.config.js中的 configureWebpack 选项提供一个对象</li>
+<li>因为 @vue/cli-service 对 webpack 配置进行了抽象，所以理解配置中包含的东西会比较困难，可以通过下面命令查看 webpack 配置<code>vue inspect &gt; output.js</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>webpack<ul>
+<li>现代 JavaScript 应用程序的静态模块打包器<ul>
+<li>module<ul>
+<li>开发者将程序分解成离散功能块（discrete chunks offunctionality），并称之为模块</li>
+<li>每个模块具有比完整程序更小的接触面，使得校验、调试、测试轻而易举。</li>
+<li>精心编写的模块提供了可靠的抽象和封装界限，使得应用程序中每个模块都具有条理清楚的设计和明确的目的</li>
+<li>前端模块化面对的挑战 —处理JS之外的静态资源、资源的依赖关系加载顺序、资源的请求和加载是异步的</li>
+<li>ES2015 import 语句</li>
+<li>CommonJS require() 语句</li>
+<li>AMD define 和 require 语句</li>
+<li>css/sass/less 文件中的 @import 语句</li>
+<li>样式<code>(url(...))</code>或 HTML 文件<code>(&lt;img src=...&gt;)</code>中的图片链接<code>(image url)</code></li>
+</ul>
+</li>
+<li>entry<ul>
+<li>入口起点(entry point)指示 webpack应该使用哪个模块，来作为构建其内部依赖图的开始，webpack会找出有哪些模块和 library是入口起点（直接和间接）依赖的</li>
+<li>多入口：数组结构</li>
+<li>多入口：对象结构</li>
+<li>多页面应用程序</li>
+</ul>
+</li>
+<li>output<ul>
+<li>配置 output 选项可以控制 webpack 如何向硬盘写入编译文件。即使可以存在多个入口起点，也只指定一个输出配置</li>
+<li>如果配置创建了多个单独的 “chunk”，则应该使用占位符(substitutions)来确保每个文件具有唯一的名称。</li>
+<li>线上运行时需要通过设置 public path 指向 CDN 地址</li>
+</ul>
+</li>
+<li>loader<ul>
+<li>loader 用于对模块的源代码进行转换。loader 可以使你在 import 或”加载”模块时预处理文件</li>
+<li><code>Typescript -&gt; JavaScript</code></li>
+<li><code>Image -&gt; data URL</code></li>
+<li><code>JavaScript import CSS</code></li>
+<li>loader 支持链式传递</li>
+<li>loader 可以是同步的，也可以是异步的</li>
+<li>loader 运行在 Node.js 中，并且能够执行任何可能的操作</li>
+<li>loader 能够使用options 对象进行配置</li>
+<li>babel-loader 加载ES2015+ 代码，然后使用 Babel 转译为 ES5</li>
+<li>style-loader 将模块的导出作为样式添加到 DOM 中</li>
+<li>css-loader 解析 CSS 文件后，使用 import 加载，并且返回 CSS 代码</li>
+<li>less-loader 加载和转译 LESS 文件</li>
+<li>file-loader 将文件发送到输出文件夹，并返回（相对）URL</li>
+<li>url-loader 像 file loader 一样工作，但如果文件小于限制，可以返回 data URL</li>
+<li>vue-loader 加载和转译 Vue 组件</li>
+</ul>
+</li>
+<li>plugins<ul>
+<li>插件比 loader 更加强大，可以帮助用户直接触及到编译过程。 插件可以将处理函数注册到编译过程中的不同时间点上运行的生命周期钩子函数上。</li>
+<li>打包优化</li>
+<li>资源管理</li>
+<li>注入环境变量</li>
+<li>CommonsChunkPlugin 提取 chunks 之间共享的通用模块</li>
+<li>DefinePlugin 允许在编译时(compile time)配置的全局常量</li>
+<li>ExtractTextWebpackPlugin 从 bundle 中提取文本（CSS）到单独的文件</li>
+<li>UglifyjsWebpackPlugin 使用 UglifyJS 压缩 JS</li>
+<li>HtmlWebpackPlugin 创建HTML文件来服务打包文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>开发&amp;部署</li>
+<li>开发阶段<ul>
+<li>需求阶段<ul>
+<li>前后端共同参与产品需求评审，并做一轮技术评审</li>
+<li>技术评审过程中，梳理所有交互通讯的接口</li>
+<li>把接口落地成文档，并约定好所有字段</li>
+</ul>
+</li>
+<li>开发阶段<ul>
+<li>前后端独立开发</li>
+<li>前端伪造 mock 数据</li>
+<li>可以使用 mock webpack 插件</li>
+</ul>
+</li>
+<li>联调阶段<ul>
+<li>预留联调的时间</li>
+<li>前后端开发完成后开始联调</li>
+<li>前端把接口请求指向后端的联调地址（可自动完成）</li>
+</ul>
+</li>
+<li>上线阶段<ul>
+<li>前端把接口请求指向后端的线上地址（可自动完成）</li>
+<li>一定要后端先上线</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>部署流程<ul>
+<li>预留联调的时间后端先上线 API 接口（若需要）</li>
+<li>前端项目最终编译生成静态资源文件（HTML、JS、CSS 等）</li>
+<li>增量发布，前端先全量上线 JS、CSS 等静态资源</li>
+<li>前端接着上线模板 HTML，先发布到一台 pre 机器，QA 回归</li>
+<li>回归通过后，逐步放量模板直至全量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>知识点<ul>
+<li>HTPP相关<ul>
+<li>常见 HTTP 状态码</li>
+<li>浏览器缓存原理</li>
+<li>抓包工具（fiddler、charles）</li>
+</ul>
+</li>
+<li>跨域<ul>
+<li>CORS</li>
+<li>JSONP</li>
+</ul>
+</li>
+<li>性能优化<ul>
+<li>性能监测：<a href="https://github.com/GoogleChrome/lighthouse" target="_blank" rel="noopener">https://github.com/GoogleChrome/lighthouse</a></li>
+<li>数据埋点</li>
+<li>雅虎军规：<a href="https://developer.yahoo.com/performance/rules.html、https://juejin.im/post/5b73ef38f265da281e048e51" target="_blank" rel="noopener">https://developer.yahoo.com/performance/rules.html、https://juejin.im/post/5b73ef38f265da281e048e51</a></li>
+</ul>
+</li>
+<li>Web安全<ul>
+<li>XSS</li>
+<li>CSRF</li>
+<li>HTTPS </li>
+<li><a href="https://zhuanlan.zhihu.com/p/561228" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/561228</a></li>
+</ul>
+</li>
+<li>数据结构&amp;算法<ul>
+<li>栈/队列/树/ 图</li>
+<li>排序/递归</li>
+<li>算法设计技巧</li>
+</ul>
+</li>
+<li>浏览器渲染原理<ul>
+<li><a href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/" target="_blank" rel="noopener">https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/</a></li>
+</ul>
+</li>
+<li>正则表达式<ul>
+<li>匹配原理</li>
+<li>基本语法</li>
+<li>实用技巧</li>
+</ul>
+</li>
+<li>设计模式<ul>
+<li>订阅发布模式</li>
+<li>工厂模式</li>
+<li>适配器模式</li>
+</ul>
+</li>
+<li>后端语言<ul>
+<li>PHP</li>
+<li>JAVA</li>
+<li>Node.js</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/前端知识点/">前端知识点</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/27/JavaScript/数据类型/" data-tooltip="数据类型" aria-label="下一篇: 数据类型">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/27/JavaScript/前端知识点/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/27/JavaScript/前端知识点/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/27/JavaScript/前端知识点/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：63.9k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/27/JavaScript/数据类型/" data-tooltip="数据类型" aria-label="下一篇: 数据类型">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/27/JavaScript/前端知识点/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/27/JavaScript/前端知识点/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/27/JavaScript/前端知识点/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/27/JavaScript/前端知识点/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/27/JavaScript/前端知识点/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/27/JavaScript/前端知识点/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 53 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/03/27/JavaScript/前端知识点/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
