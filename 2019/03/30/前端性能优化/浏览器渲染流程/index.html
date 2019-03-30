@@ -1,0 +1,873 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>浏览器渲染流程 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　浏览器加载、解析、渲染的过程　　【干货】十分钟读懂浏览器渲染流程\n为什么要了解浏览器加载、解析、渲染这个过程　　了解浏览器如何进行加载，可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。　　了解浏览器如何进行解析，可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。　　了解浏览器如何进行渲染，明白渲染的过程，在设置元素属性，编写js文件时，可以减少”reflow“”repaint“的消耗。\n浏览器的主要功能　　浏览器的主要功能是将用户选择的web资源呈现出来，它需要从服务器请求资源，并将其显示在浏览器窗口中，资源的格式通常是HTML，也包括PDF、image及其他格式。用户用URI（Uniform Resource Identifier统一资源标识符）来指定所请求资源的位置，通过DNS查询，将网址转换为IP地址。整个浏览器工作的流程为：　　1、 输入网址。　　2、 浏览器查找域名的IP地址。　　3、 浏览器给web服务器发送一个HTTP请求　　4、 网站服务的永久重定向响应　　5、 浏览器跟踪重定向地址。现在，浏览器知道了要访问的正确地址，所以它会发送另一个获取请求。　　6、 服务器“处理”请求，服务器接收到获取请求，然后处理并返回一个响应。　　7、 服务器发回一个HTML响应　　8、 浏览器开始显示HTML　　9、 浏览器发送请求，以获取嵌入在HTML中的对象。在浏览器显示HTML时，它会注意到需要获取其他地址内容的标签。这时，浏览器会发送一个获取请求来重新获得这些文件。这些文件就包括CSS/JS/图片等资源，这些资源的地址都要经历一个和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等…\n　　那么，一个页面，究竟是如何从我们输入一个网址到最后完整的呈现在我们面前的呢？还需要了解一下浏览器是如何渲染的：\n浏览器的渲染渲染引擎在取得内容之后的基本流程：解析html以构建dom树 -&gt; 构建render树 -&gt; 布局render树 -&gt; 绘制render树所以，浏览器会解析三个东西：（1） HTML/SVG/XHTML，解析这三种文件会产生一个 DOM Tree。（2） CSS，解析 CSS 会产生 CSS 规则树。（3） Javascript脚本，主要是通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree.\n关键渲染路径　　关键渲染路径是指浏览器从最初接收请求来的HTML、CSS、javascript等资源，然后解析、构建树、渲染布局、绘制，最后呈现给客户能看到的界面这整个过程。\n当浏览器获得一个html文件时，会“自上而下”加载，并在加载过程中进行解析渲染。解析：　　1、 DOM Tree: 浏览器会将HTML解析成一个DOM树。DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。　　2、 CSS Rule Tree: 将CSS解析成 CSS Rule Tree 。　　3、 Render Tree: 根据DOM树和CSSOM来构造 Rendering Tree。　　注意：Rendering Tree 渲染树并不等同于 DOM 树，因为一些像 Header　　或 display:none 的东西就没必要放在渲染树中了。　　4、 layout: 有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为Layout，顾名思义就是计算出每个节点在屏幕中的位置。 （遍历渲染树开始布局，计算每个节点的位置大小信息）　　5、 painting: 再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。　　(将渲染树每个节点绘制到屏幕。)\n构建DOM树　　当浏览器接收到服务器响应来的HTML文档后，会遍历文档节点，生成DOM树。需要注意的是，DOM树的生成过程中可能会被CSS和JS的加载执行阻塞。渲染阻塞问题下文会讲。\n构建CSSOM规则树　　浏览器解析CSS文件并生成CSS规则树，每个CSS文件都被分析成一个StyleSheet对象，每个对象都包含CSS规则。CSS规则对象包含对应于CSS语法的选择器和声明对象以及其他对象。\n渲染阻塞　　当浏览器遇到一个 script 标记时，DOM 构建将暂停，直至脚本完成执行，然后继续构建DOM。每次去执行JavaScript脚本都会严重地阻塞DOM树的构建，如果JavaScript脚本还操作了CSSOM，而正好这个CSSOM还没有下载和构建，浏览器甚至会延迟脚本执行和构建DOM，直至完成其CSSOM的下载和构建。　　所以，script 标签的位置很重要。实际使用时，可以遵循下面两个原则：CSS 优先：引入顺序上，CSS 资源先于 JavaScript资源。JS置后：我们通常把JS代码放到页面底部，且JavaScript 应尽量少影响 DOM 的构建。当解析html的时候，会把新来的元素插入dom树里面，同时去查找css，然后把对应的样式规则应用到元素上，查找样式表是按照从右到左的顺序去匹配的。例如： div p {font-size: 16px}，会先寻找所有p标签并判断它的父标签是否为div之后才会决定要不要采用这个样式进行渲染）。所以，我们平时写CSS时，尽量用id和class，千万不要过渡层叠。\n构建渲染树　　通过DOM树和CSS规则树我们便可以构建渲染树。浏览器会先从DOM树的根节点开始遍历每个可见节点。对每个可见节点，找到其适配的CSS样式规则并应用。渲染树构建完成后，每个节点都是可见节点并且都含有其内容和对应规则的样式。这也是渲染树与DOM树的最大区别所在。渲染树是用于显示，那些不可见的元素当然就不会在这棵树中出现了，譬如。除此之外，display等于none的也不会被显示在这棵树里头，但是visibility等于hidden的元素是会显示在这棵树里头的。\n渲染树布局　　布局阶段会从渲染树的根节点开始遍历，然后确定每个节点对象在页面上的确切大小与位置，布局阶段的输出是一个盒子模型，它会精确地捕获每个元素在屏幕内的确切位置与大小。\n渲染树绘制　　在绘制阶段，遍历渲染树，调用渲染器的paint()方法在屏幕上显示其内容。渲染树的绘制工作是由浏览器的UI后端组件完成的。\n重点　　上述这个过程是逐步完成的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的html都解析完成之后再去构建和布局render树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。几个概念： 　　（1）Reflow（回流）：浏览器要花时间去渲染，当它发现了某个部分发生了变化影响了布局，那就需要倒回去重新渲染。　　（2）Repaint（重绘）：如果只是改变了某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的repaint，重画某一部分。Reflow要比Repaint更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的Reflow。\nreflow　　（1）页面初始化的时候；　　（2）操作DOM时；　　（3）某些元素的尺寸变了；　　（4）如果 CSS 的属性发生变化了。\n减少reflow/repaint　　（1）不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。　　（2）不要把 DOM 结点的属性值放在一个循环里当成循环里的变量。　　（3）为动画的 HTML 元件使用 fixed 或 absoult 的 position，那么修改他们的 CSS 是不会 reflow 的。　　（4）千万不要使用 table 布局。因为可能很小的一个小改动会造成整个 table 的重新布局。\n注意注意：　　　(1)display:none 的节点不会被加入Render Tree，而visibility: hidden 则会，所以，如果某个节点最开始是不显示的，设为display:none是更优的。　　　(2)display:none 会触发 reflow，而 visibility:hidden 只会触发 repaint，因为没有发现位置变化。　　　(3)有些情况下，比如修改了元素的样式，浏览器并不会立刻reflow 或 repaint 一次，而是会把这样的操作积攒一批，然后做一次 reflow，这又叫异步reflow 或增量异步 reflow。但是在有些情况下，比如resize 窗口，改变了页面默认的字体等。对于这些操作，浏览器会马上进行 reflow。\nHTML页面加载和解析流程\n用户输入网址（假设是个html页面，并且是第一次访问），浏览器向服务器发出请求，服务器返回html文件； \n浏览器开始载入html代码，发现＜head＞标签内有一个＜link＞标签引用外部CSS文件； \n浏览器又发出CSS文件的请求，服务器返回这个CSS文件； \n浏览器继续载入html中＜body＞部分的代码，并且CSS文件已经拿到手了，可以开始渲染页面了； \n浏览器在代码中发现一个＜img＞标签引用了一张图片，向服务器发出请求。此时浏览器不会等到图片下载完，而是继续渲染后面的代码； \n服务器返回图片文件，由于图片占用了一定面积，影响了后面段落的排布，因此浏览器需要回过头来重新渲染这部分代码； \n浏览器发现了一个包含一行Javascript代码的＜script＞标签，赶快运行它； \nJavascript脚本执行了这条语句，它命令浏览器隐藏掉代码中的某个＜div＞ （style.display=”none”）。突然少了这么一个元素，浏览器不得不重新渲染这部分代码； \n终于等到了＜/html＞的到来，浏览器泪流满面…… \n等等，还没完，用户点了一下界面中的“换肤”按钮，Javascript让浏览器换了一下＜link＞标签的CSS路径； \n浏览器召集了在座的各位＜div＞＜span＞＜ul＞＜li＞们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。\n\n编写CSS时应该注意　　CSS选择符是从右到左进行匹配的。从右到左！所以，#nav li 我们以为这是一条很简单的规则，秒秒钟就能匹配到想要的元素，但是，但是，但是，是从右往左匹配啊，所以，会去找所有的li，然后再去确定它的父元素是不是#nav。，因此，写css的时候需要注意：　　1、dom深度尽量浅。　　2、减少inline javascript、css的数量。　　3、使用现代合法的css属性。　　4、不要为id选择器指定类名或是标签，因为id可以唯一确定一个元素。　　5、避免后代选择符，尽量使用子选择符。原因：子元素匹配符的概率要大于后代元素匹配符。后代选择符;#tp p{}子选择符：#tp&gt;p{}`　　6、避免使用通配符，举一个例子，.mod .hd *{font-size:14px;}根据匹配顺序,将首先匹配通配符,也就是说先匹配出通配符,然后匹配.hd（就是要对dom树上的所有节点进行遍历他的父级元素）,然后匹配.mod,这样的性能耗费可想而知.\n关于Script标签位置Javascript的加载和执行的特点： 　　（1）载入后马上执行；　　（2）执行时会阻塞页面后续的内容（包括页面的渲染、其它资源的下载）。原因：因为浏览器需要一个稳定的DOM树结构，而JS中很有可能有 代码直接改变了DOM树结构，比如使用 document.write 或 appendChild,甚至是直接使用的location.href进行跳转，浏览器为了防止出现JS修 改DOM树，需要重新构建DOM树的情况，所以 就会阻塞其他的下载和呈现。\n减少JavaScript对性能的影响　　（1）将所有的script标签放到页面底部，也就是body闭合标签之前，这能确保在脚本执行前页面已经完成了DOM树渲染。　　（2）尽可能地合并脚本。页面中的script标签越少，加载也就越快，响应也越迅速。无论是外链脚本还是内嵌脚本都是如此。　　（3）采用无阻塞下载 JavaScript 脚本的方法：　　　　（1）使用script标签的 defer 属性（仅适用于 IE 和 Firefox 3.5 以上版本）；　　　　（2）使用动态创建的script元素来下载并执行代码；\n","dateCreated":"2019-03-30T09:12:02+08:00","dateModified":"2019-03-30T10:19:03+08:00","datePublished":"2019-03-30T09:12:02+08:00","description":"","headline":"浏览器渲染流程","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/","keywords":"浏览器渲染流程"}</script>
+    <meta name="keywords" content="浏览器渲染流程">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="浏览器渲染流程">
+<meta property="og:url" content="http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-03-30T02:19:03.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器渲染流程">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            浏览器渲染流程
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-03-30T09:12:02+08:00">
+	
+		    3月 30, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/浏览器/">浏览器</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：3.4k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要了解浏览器加载、解析、渲染这个过程"><span class="toc-text">为什么要了解浏览器加载、解析、渲染这个过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器的主要功能"><span class="toc-text">浏览器的主要功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器的渲染"><span class="toc-text">浏览器的渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#关键渲染路径"><span class="toc-text">关键渲染路径</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#构建DOM树"><span class="toc-text">构建DOM树</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#构建CSSOM规则树"><span class="toc-text">构建CSSOM规则树</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#渲染阻塞"><span class="toc-text">渲染阻塞</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#构建渲染树"><span class="toc-text">构建渲染树</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#渲染树布局"><span class="toc-text">渲染树布局</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#渲染树绘制"><span class="toc-text">渲染树绘制</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重点"><span class="toc-text">重点</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#reflow"><span class="toc-text">reflow</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#减少reflow-repaint"><span class="toc-text">减少reflow/repaint</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#HTML页面加载和解析流程"><span class="toc-text">HTML页面加载和解析流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#编写CSS时应该注意"><span class="toc-text">编写CSS时应该注意</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#关于Script标签位置"><span class="toc-text">关于Script标签位置</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#减少JavaScript对性能的影响"><span class="toc-text">减少JavaScript对性能的影响</span></a></li></ol></li></ol></li></ol>
+<a id="more"></a>
+<p>转载：<br>　　<a href="https://blog.csdn.net/xiaozhuxmen/article/details/52014901" target="_blank" rel="noopener">浏览器加载、解析、渲染的过程</a><br>　　<a href="https://juejin.im/post/5a8e242c5188257a6b060000" target="_blank" rel="noopener">【干货】十分钟读懂浏览器渲染流程</a></p>
+<h4 id="为什么要了解浏览器加载、解析、渲染这个过程"><a href="#为什么要了解浏览器加载、解析、渲染这个过程" class="headerlink" title="为什么要了解浏览器加载、解析、渲染这个过程"></a>为什么要了解浏览器加载、解析、渲染这个过程</h4><p>　　了解浏览器如何进行加载，可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。<br>　　了解浏览器如何进行解析，可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。<br>　　了解浏览器如何进行渲染，明白渲染的过程，在设置元素属性，编写js文件时，可以减少”reflow“”repaint“的消耗。</p>
+<h4 id="浏览器的主要功能"><a href="#浏览器的主要功能" class="headerlink" title="浏览器的主要功能"></a>浏览器的主要功能</h4><p>　　浏览器的主要功能是将用户选择的web资源呈现出来，它需要从服务器请求资源，并将其显示在浏览器窗口中，资源的格式通常是HTML，也包括PDF、image及其他格式。用户用URI（Uniform Resource Identifier统一资源标识符）来指定所请求资源的位置，通过DNS查询，将网址转换为IP地址。整个浏览器工作的流程为：<br>　　1、 输入网址。<br>　　2、 浏览器查找域名的IP地址。<br>　　3、 浏览器给web服务器发送一个HTTP请求<br>　　4、 网站服务的永久重定向响应<br>　　5、 浏览器跟踪重定向地址。现在，浏览器知道了要访问的正确地址，所以它会发送另一个获取请求。<br>　　6、 服务器“处理”请求，服务器接收到获取请求，然后处理并返回一个响应。<br>　　7、 服务器发回一个HTML响应<br>　　8、 浏览器开始显示HTML<br>　　9、 浏览器发送请求，以获取嵌入在HTML中的对象。在浏览器显示HTML时，它会注意到需要获取其他地址内容的标签。这时，浏览器会发送一个获取请求来重新获得这些文件。这些文件就包括CSS/JS/图片等资源，这些资源的地址都要经历一个和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等…</p>
+<p>　　那么，一个页面，究竟是如何从我们输入一个网址到最后完整的呈现在我们面前的呢？还需要了解一下浏览器是如何渲染的：</p>
+<h4 id="浏览器的渲染"><a href="#浏览器的渲染" class="headerlink" title="浏览器的渲染"></a>浏览器的渲染</h4><p>渲染引擎在取得内容之后的基本流程：<br><code>解析html以构建dom树 -&gt; 构建render树 -&gt; 布局render树 -&gt; 绘制render树</code><br>所以，浏览器会解析三个东西：<br>（1） HTML/SVG/XHTML，解析这三种文件会产生一个 DOM Tree。<br>（2） CSS，解析 CSS 会产生 CSS 规则树。<br>（3） Javascript脚本，主要是通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree.</p>
+<h5 id="关键渲染路径"><a href="#关键渲染路径" class="headerlink" title="关键渲染路径"></a>关键渲染路径</h5><p>　　关键渲染路径是指浏览器从最初接收请求来的HTML、CSS、javascript等资源，然后解析、构建树、渲染布局、绘制，最后呈现给客户能看到的界面这整个过程。</p>
+<p>当浏览器获得一个html文件时，会“自上而下”加载，并在加载过程中进行解析渲染。<br>解析：<br>　　1、 <code>DOM Tree</code>: 浏览器会将HTML解析成一个DOM树。DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。<br>　　2、 <code>CSS Rule Tree</code>: 将CSS解析成 CSS Rule Tree 。<br>　　3、 <code>Render Tree</code>: 根据DOM树和CSSOM来构造 Rendering Tree。<br>　　注意：Rendering Tree 渲染树并不等同于 DOM 树，因为一些像 Header<br>　　或 display:none 的东西就没必要放在渲染树中了。<br>　　4、 <code>layout</code>: 有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为Layout，顾名思义就是计算出每个节点在屏幕中的位置。 （<code>遍历渲染树开始布局，计算每个节点的位置大小信息</code>）<br>　　5、 <code>painting</code>: 再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。<br>　　(<code>将渲染树每个节点绘制到屏幕</code>。)</p>
+<h6 id="构建DOM树"><a href="#构建DOM树" class="headerlink" title="构建DOM树"></a>构建DOM树</h6><p>　　当浏览器接收到服务器响应来的HTML文档后，会遍历文档节点，生成DOM树。<br>需要注意的是，DOM树的生成过程中可能会被CSS和JS的加载执行阻塞。渲染阻塞问题下文会讲。</p>
+<h6 id="构建CSSOM规则树"><a href="#构建CSSOM规则树" class="headerlink" title="构建CSSOM规则树"></a>构建CSSOM规则树</h6><p>　　浏览器解析CSS文件并生成CSS规则树，每个CSS文件都被分析成一个StyleSheet对象，每个对象都包含CSS规则。CSS规则对象包含对应于CSS语法的选择器和声明对象以及其他对象。</p>
+<h6 id="渲染阻塞"><a href="#渲染阻塞" class="headerlink" title="渲染阻塞"></a>渲染阻塞</h6><p>　　当浏览器遇到一个 script 标记时，DOM 构建将暂停，直至脚本完成执行，然后继续构建DOM。每次去执行JavaScript脚本都会严重地阻塞DOM树的构建，如果JavaScript脚本还操作了CSSOM，而正好这个CSSOM还没有下载和构建，浏览器甚至会延迟脚本执行和构建DOM，直至完成其CSSOM的下载和构建。<br>　　所以，script 标签的位置很重要。实际使用时，可以遵循下面两个原则：<br><code>CSS 优先</code>：引入顺序上，CSS 资源先于 JavaScript资源。<br><code>JS置后</code>：我们通常把JS代码放到<code>页面底部</code>，且JavaScript 应尽量少影响 DOM 的构建。当解析html的时候，会把新来的元素插入dom树里面，同时去查找css，然后把对应的样式规则应用到元素上，查找样式表是按照从右到左的顺序去匹配的。例如： div p {font-size: 16px}，会先寻找所有p标签并判断它的父标签是否为div之后才会决定要不要采用这个样式进行渲染）。所以，我们平时写CSS时，尽量用id和class，千万不要过渡层叠。</p>
+<h6 id="构建渲染树"><a href="#构建渲染树" class="headerlink" title="构建渲染树"></a>构建渲染树</h6><p>　　通过DOM树和CSS规则树我们便可以构建渲染树。浏览器会先从DOM树的根节点开始遍历每个可见节点。对每个可见节点，找到其适配的CSS样式规则并应用。渲染树构建完成后，每个节点都是可见节点并且都含有其内容和对应规则的样式。这也是渲染树与DOM树的最大区别所在。渲染树是用于显示，那些不可见的元素当然就不会在这棵树中出现了，譬如。除此之外，display等于none的也不会被显示在这棵树里头，但是visibility等于hidden的元素是会显示在这棵树里头的。</p>
+<h6 id="渲染树布局"><a href="#渲染树布局" class="headerlink" title="渲染树布局"></a>渲染树布局</h6><p>　　布局阶段会从渲染树的根节点开始遍历，然后确定每个节点对象在页面上的确切大小与位置，布局阶段的输出是一个盒子模型，它会精确地捕获每个元素在屏幕内的确切位置与大小。</p>
+<h6 id="渲染树绘制"><a href="#渲染树绘制" class="headerlink" title="渲染树绘制"></a>渲染树绘制</h6><p>　　在绘制阶段，遍历渲染树，调用渲染器的paint()方法在屏幕上显示其内容。渲染树的绘制工作是由浏览器的UI后端组件完成的。</p>
+<h5 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h5><p>　　上述这个过程是<code>逐步完成</code>的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的html都解析完成之后再去构建和布局render树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。<br><strong>几个概念： </strong><br>　　（1）Reflow（回流）：浏览器要花时间去渲染，当它发现了某个部分发生了变化影响了布局，那就需要倒回去重新渲染。<br>　　（2）Repaint（重绘）：如果只是改变了某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的repaint，重画某一部分。<br>Reflow要比Repaint更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的Reflow。</p>
+<h6 id="reflow"><a href="#reflow" class="headerlink" title="reflow"></a>reflow</h6><p>　　（1）页面初始化的时候；<br>　　（2）操作DOM时；<br>　　（3）某些元素的尺寸变了；<br>　　（4）如果 CSS 的属性发生变化了。</p>
+<h6 id="减少reflow-repaint"><a href="#减少reflow-repaint" class="headerlink" title="减少reflow/repaint"></a>减少reflow/repaint</h6><p>　　（1）不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。<br>　　（2）不要把 DOM 结点的属性值放在一个循环里当成循环里的变量。<br>　　（3）为动画的 HTML 元件使用 fixed 或 absoult 的 position，那么修改他们的 CSS 是不会 reflow 的。<br>　　（4）千万不要使用 table 布局。因为可能很小的一个小改动会造成整个 table 的重新布局。</p>
+<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><p>注意：<br>　　　(1)<code>display:none</code> 的节点不会被加入<code>Render Tree</code>，而<code>visibility: hidden</code> 则会，所以，如果某个节点最开始是不显示的，设为<code>display:none</code>是更优的。<br>　　　(2)<code>display:none</code> 会触发 <code>reflow</code>，而 <code>visibility:hidden</code> 只会触发 <code>repaint</code>，因为没有发现位置变化。<br>　　　(3)有些情况下，比如修改了元素的样式，浏览器并不会立刻<code>reflow</code> 或 <code>repaint</code> 一次，而是会把这样的操作积攒一批，然后做一次 <code>reflow</code>，这又叫异步<code>reflow</code> 或增量异步 <code>reflow</code>。但是在有些情况下，比如<code>resize</code> 窗口，改变了页面默认的字体等。对于这些操作，浏览器会马上进行 <code>reflow</code>。</p>
+<h6 id="HTML页面加载和解析流程"><a href="#HTML页面加载和解析流程" class="headerlink" title="HTML页面加载和解析流程"></a>HTML页面加载和解析流程</h6><ol>
+<li>用户输入网址（假设是个html页面，并且是第一次访问），浏览器向服务器发出请求，服务器返回html文件； </li>
+<li>浏览器开始载入<code>html</code>代码，发现<code>＜head＞</code>标签内有一个<code>＜link＞</code>标签引用外部<code>CSS</code>文件； </li>
+<li>浏览器又发出<code>CSS</code>文件的请求，服务器返回这个<code>CSS</code>文件； </li>
+<li>浏览器继续载入<code>html</code>中<code>＜body＞</code>部分的代码，并且<code>CSS</code>文件已经拿到手了，可以开始渲染页面了； </li>
+<li>浏览器在代码中发现一个<code>＜img＞</code>标签引用了一张图片，向服务器发出请求。此时浏览器不会等到图片下载完，而是继续渲染后面的代码； </li>
+<li>服务器返回图片文件，由于图片占用了一定面积，影响了后面段落的排布，因此浏览器需要回过头来重新渲染这部分代码； </li>
+<li>浏览器发现了一个包含一行<code>Javascript</code>代码的<code>＜script＞</code>标签，赶快运行它； </li>
+<li><code>Javascript</code>脚本执行了这条语句，它命令浏览器隐藏掉代码中的某个＜div＞ （<code>style.display=”none”</code>）。突然少了这么一个元素，浏览器不得不重新渲染这部分代码； </li>
+<li>终于等到了<code>＜/html＞</code>的到来，浏览器泪流满面…… </li>
+<li>等等，还没完，用户点了一下界面中的“换肤”按钮，<code>Javascript</code>让浏览器换了一下<code>＜link＞</code>标签的CSS路径； </li>
+<li>浏览器召集了在座的各位<code>＜div＞＜span＞＜ul＞＜li＞</code>们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。</li>
+</ol>
+<h6 id="编写CSS时应该注意"><a href="#编写CSS时应该注意" class="headerlink" title="编写CSS时应该注意"></a>编写CSS时应该注意</h6><p>　　CSS选择符是从右到左进行匹配的。从右到左！所以，#nav li 我们以为这是一条很简单的规则，秒秒钟就能匹配到想要的元素，但是，但是，但是，是从右往左匹配啊，所以，会去找所有的li，然后再去确定它的父元素是不是#nav。，因此，写css的时候需要注意：<br>　　1、dom深度尽量浅。<br>　　2、减少<code>inline javascript、css</code>的数量。<br>　　3、使用现代合法的css属性。<br>　　4、不要为id选择器指定类名或是标签，因为id可以唯一确定一个元素。<br>　　5、避免后代选择符，尽量使用子选择符。原因：子元素匹配符的概率要大于后代元素匹配符。后代选择符;<code>#tp p{}</code>子选择符：<code>#tp&gt;p{}`</code><br>　　6、避免使用通配符，举一个例子，<code>.mod .hd *{font-size:14px;}</code>根据匹配顺序,将首先匹配通配符,也就是说先匹配出通配符,然后匹配<code>.hd</code>（就是要对dom树上的所有节点进行遍历他的父级元素）,然后匹配.mod,这样的性能耗费可想而知.</p>
+<h6 id="关于Script标签位置"><a href="#关于Script标签位置" class="headerlink" title="关于Script标签位置"></a>关于Script标签位置</h6><p><strong>Javascript的加载和执行的特点： </strong><br>　　（1）载入后马上执行；<br>　　（2）执行时会阻塞页面后续的内容（包括页面的渲染、其它资源的下载）。原因：因为浏览器需要一个稳定的DOM树结构，而JS中很有可能有 代码直接改变了DOM树结构，比如使用 document.write 或 appendChild,甚至是直接使用的location.href进行跳转，浏览器为了防止出现JS修 改DOM树，需要重新构建DOM树的情况，所以 就会阻塞其他的下载和呈现。</p>
+<h6 id="减少JavaScript对性能的影响"><a href="#减少JavaScript对性能的影响" class="headerlink" title="减少JavaScript对性能的影响"></a>减少JavaScript对性能的影响</h6><p>　　（1）将所有的script标签放到页面底部，也就是body闭合标签之前，这能确保在脚本执行前页面已经完成了DOM树渲染。<br>　　（2）尽可能地合并脚本。页面中的script标签越少，加载也就越快，响应也越迅速。无论是外链脚本还是内嵌脚本都是如此。<br>　　（3）采用无阻塞下载 JavaScript 脚本的方法：<br>　　　　（1）使用script标签的 defer 属性（仅适用于 IE 和 Firefox 3.5 以上版本）；<br>　　　　（2）使用动态创建的script元素来下载并执行代码；</p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/浏览器渲染流程/">浏览器渲染流程</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/30/前端性能优化/DOM结构/" data-tooltip="DOM结构" aria-label="上一篇: DOM结构">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/29/页面布局/BFC&IFC/" data-tooltip="BFC&amp;IFC&amp;GFC&amp;FFC" aria-label="下一篇: BFC&amp;IFC&amp;GFC&amp;FFC">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：69.5k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/30/前端性能优化/DOM结构/" data-tooltip="DOM结构" aria-label="上一篇: DOM结构">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/29/页面布局/BFC&IFC/" data-tooltip="BFC&amp;IFC&amp;GFC&amp;FFC" aria-label="下一篇: BFC&amp;IFC&amp;GFC&amp;FFC">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 57 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/03/30/前端性能优化/浏览器渲染流程/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
