@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>GET和POST请求 - 昨夜小楼又东风</title>
+    <title>DOM基本操作 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,22 +15,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n关于HTTP协议　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。\n两种常见的HTTP请求：GET 和 POST在客户机和服务器之间进行请求-响应时，两种最常被用到的请求方式是：GET和 POST。GET - 从指定的资源请求数据。POST - 向指定的资源提交要被处理的数据\nGET请求get把请求的数据放在url上，即HTTP协议头上，其格式为：　　以?分割URL和传输数据，参数之间以&amp;相连。　　数据如果是英文字母/数字，原样发送，　　如果是空格，转换为+，　　如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。特点　　GET 请求可被缓存　　GET 请求保留在浏览器历史记录中　　GET 请求可被收藏为书签　　GET 请求不应在处理敏感数据时使用　　GET 请求有长度限制　　GET 请求只应当用于取回数据\nPOST 请求post把数据放在HTTP的包体内（requrest body）。特点　　POST 请求不会被缓存　　POST 请求不会保留在浏览器历史记录中　　POST 不能被收藏为书签　　POST 请求对数据长度没有要求\n比较 GET 和 POST　　get提交的数据最大是2k（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。　　post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。　　GET产生一个TCP数据包，浏览器会把http header和data一并发送出去，服务器响应200(返回数据);　　POST产生两个TCP数据包，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。　　GET在浏览器回退时是无害的，POST会再次提交请求。　　GET产生的URL地址可以被Bookmark，而POST不可以。　　GET请求会被浏览器主动cache，而POST不会，除非手动设置。　　GET请求只能进行url编码，而POST支持多种编码方式。　　GET只接受ASCII字符的参数的数据类型，而POST没有限制那么，post那么好为什么还用get？get效率高！。\n\n其他 HTTP 请求方法转载：　　HTTP 方法：GET 对比 POST参考文章:　　HTTP 方法：GET 对比 POST　　get和post的区别–面试经常被问到！\n","dateCreated":"2018-10-10T18:52:53+08:00","dateModified":"2019-03-18T21:05:47+08:00","datePublished":"2018-10-10T18:52:53+08:00","description":"\n关于HTTP协议　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。","headline":"GET和POST请求","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/10/10/HTTP/GET和POST请求/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/10/10/HTTP/GET和POST请求/","keywords":"HTTP"}</script>
-    <meta name="description" content="关于HTTP协议　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。">
-<meta name="keywords" content="HTTP">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n获取节点\ndocument\ngetElementById\n语法： document.getElementById(元素ID)\n功能： 通过元素ID获取节点\n\n\ngetElementsByName\n语法： document.getElementsByName(元素name属性)\n功能： 通过元素name属性获取节点\n\n\ngetElementsByTagName\n语法： document.getElementsByTagName(元素标签)\n功能： 通过元素标签获取节点\n\n\ngetElementsByClassName\n语法： document.getElementsByClassName(“classname”)\n功能： 根据class获取元素节点\n\n\n\n\nCSS选择器\nquerySelector()\n语法： document.querySelector()\n功能： 根据CSS选择器的规则，返回第一个匹配到的元素\n\n\nquerySelectorAll()\n语法： document.querySelectorAll()\n功能： 根据CSS选择器的规则，返回所有匹配到的元素\n\n\n\n\n节点指针\nfirstChild\n语法： 父节点.firstChild\n功能： 获取元素首个节点\n\n\nlastChild\n语法： 父节点.lastChild\n功能： 获取元素最后一个节点\n\n\nchildNodes\n语法： 父节点.childNodes\n功能： 获取元素子节点列表\n\n\npreviousSibling\n语法： 兄弟节点.previousSibling\n功能： 获取已知节点前一个节点\n\n\nnextSibling\n语法： 兄弟节点.nextSibling\n功能： 获取已知节点后一个节点\n\n\nparentNode\n语法： 子节点.parentNode\n功能： 获取已知节点的父节点\n\n\n\n\n\n节点操作\n创建节点\ncreateElement\n语法： document.createElement(元素标签)\n功能： 创造元素节点\n\n\ncreateAttribute\n语法： document.createAttribute(元素属性)\n功能： 创建属性节点\n\n\ncreateTextNode\n语法： document.createTextNode(文本内容)\n功能： 创建文本节点\n\n\n\n\n插入节点\nappendChild\n语法： appendChild(所添加的新节点)\n功能： 向节点的子节点列表的末尾添加新的子节点\n\n\ninsertBefore\n语法： insertBefore(所要添加的新节点, 已知子节点)\n功能： 向已知的子节点前插入一个新的子节点\n\n\n\n\n替换节点\nreplaceChild\n语法： replaceChild(要插入的新元素， 将被替换的老元素)\n功能： 将子节点替换成另一个\n\n\n\n\n复制节点\ncloneNode\n语法： 需要被复制的节点.cloneNode(true/false)\n功能： 创建指定节点的副本\n参数： \ntrue 复制当前节点以及其他所有子节点\nfalse 仅复制当前节点\n\n\n\n\n\n\n删除节点\nremoveChild\n语法： removeChild(要删除的节点)\n功能： 删除指定的节点\n\n\n\n\n\n属性操作\n获取属性\ngetAttribute\n语法： 元素节点.getAttribute(元素属性名)\n功能： 获取元素节点中指定属性的属性值\n\n\n\n\n设置属性\nsetAttribute\n语法： 元素节点.setAttribute(属性名， 属性值)\n功能： 创建或者改变元素的属性\n\n\n\n\n删除属性\nremoveAttribute\n语法： 元素节点.removeAttribute(属性名)\n功能： 删除元素中的指定属性\n\n\n\n\n\n文本操作\n文本操作\ninsterData(offset, string)\n从offset指定的位置插入string\n\n\nappendData(string)\n将string插入到文本节点的末尾处\n\n\ndeleteData(offset, count)\n从offset起删除count个字符\n\n\nreplaceData(off, count, string)\n从off将count个字符用string\n\n\nsplitData(offset)\n从offset起将文本节点分成两个节点\n\n\nsubstring(offset, count)\n返回由offset起的count个节点\n\n\n\n\n\n","dateCreated":"2019-03-31T17:27:50+08:00","dateModified":"2019-03-31T19:53:13+08:00","datePublished":"2019-03-31T17:27:50+08:00","description":"","headline":"DOM基本操作","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/","keywords":"JavaScript"}</script>
+    <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="GET和POST请求">
-<meta property="og:url" content="http://yoursite.com/2018/10/10/HTTP/GET和POST请求/index.html">
+<meta property="og:title" content="DOM基本操作">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="关于HTTP协议　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="http://yoursite.com/assets/images/get-post.png">
-<meta property="og:image" content="http://yoursite.com/assets/images/http.png">
-<meta property="og:updated_time" content="2019-03-18T13:05:47.011Z">
+<meta property="og:updated_time" content="2019-03-31T11:53:13.836Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GET和POST请求">
-<meta name="twitter:description" content="关于HTTP协议　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。get是获取数据，post是修改数据。">
-<meta name="twitter:image" content="http://yoursite.com/assets/images/get-post.png">
+<meta name="twitter:title" content="DOM基本操作">
     
     
         
@@ -225,14 +219,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            GET和POST请求
+            DOM基本操作
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2018-10-10T18:52:53+08:00">
+    <time datetime="2019-03-31T17:27:50+08:00">
 	
-		    10月 10, 2018
+		    3月 31, 2019
     	
     </time>
     
@@ -247,7 +241,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：736字
+        字数统计：686字
     </span>
 </div>
 
@@ -255,14 +249,196 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#关于HTTP协议"><span class="toc-text">关于HTTP协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#两种常见的HTTP请求：GET-和-POST"><span class="toc-text">两种常见的HTTP请求：GET 和 POST</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#GET请求"><span class="toc-text">GET请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#POST-请求"><span class="toc-text">POST 请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#比较-GET-和-POST"><span class="toc-text">比较 GET 和 POST</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#其他-HTTP-请求方法"><span class="toc-text">其他 HTTP 请求方法</span></a></li></ol>
-<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。<a id="more"></a><br><!-- more --></p>
-<h5 id="两种常见的HTTP请求：GET-和-POST"><a href="#两种常见的HTTP请求：GET-和-POST" class="headerlink" title="两种常见的HTTP请求：GET 和 POST"></a>两种常见的HTTP请求：GET 和 POST</h5><p>在客户机和服务器之间进行请求-响应时，两种最常被用到的请求方式是：<code>GET</code>和 <code>POST</code>。<br><code>GET</code> - 从指定的资源请求数据。<br><code>POST</code> - 向指定的资源提交要被处理的数据</p>
-<h5 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h5><p>get把请求的数据放在url上，即HTTP协议头上，其格式为：<br>　　以?分割URL和传输数据，参数之间以&amp;相连。<br>　　数据如果是英文字母/数字，原样发送，<br>　　如果是空格，转换为+，<br>　　如果是中文/其他字符，则直接把字符串用BASE64加密，及“%”加上“字符串的16进制ASCII码”。<br><strong>特点</strong><br>　　GET 请求可被缓存<br>　　GET 请求保留在浏览器历史记录中<br>　　GET 请求可被收藏为书签<br>　　GET 请求不应在处理敏感数据时使用<br>　　GET 请求有长度限制<br>　　GET 请求只应当用于取回数据</p>
-<h5 id="POST-请求"><a href="#POST-请求" class="headerlink" title="POST 请求"></a>POST 请求</h5><p>post把数据放在HTTP的包体内（requrest body）。<br><strong>特点</strong><br>　　POST 请求不会被缓存<br>　　POST 请求不会保留在浏览器历史记录中<br>　　POST 不能被收藏为书签<br>　　POST 请求对数据长度没有要求</p>
-<h5 id="比较-GET-和-POST"><a href="#比较-GET-和-POST" class="headerlink" title="比较 GET 和 POST"></a>比较 GET 和 POST</h5><p>　　get提交的数据最大是<code>2k</code>（原则上url长度无限制，那么get提交的数据也没有限制咯？限制实际上取决于浏览器，(大多数)浏览器通常都会限制url长度在2K个字节，即使(大多数)服务器最多处理64K大小的url。也没有卵用。）。<br>　　post理论上没有限制。实际上IIS4中最大量为80KB，IIS5中为100KB。<br>　　GET产生一个TCP数据包，浏览器会把<code>http</code> <code>header</code>和<code>data</code>一并发送出去，服务器响应200(返回数据);<br>　　POST产生两个TCP数据包，浏览器先发送<code>header</code>，服务器响应100 <code>continue</code>，浏览器再发送<code>data</code>，服务器响应200 ok(返回数据)。<br>　　GET在浏览器回退时是无害的，POST会再次提交请求。<br>　　GET产生的URL地址可以被Bookmark，而POST不可以。<br>　　GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>　　GET请求只能进行url编码，而POST支持多种编码方式。<br>　　GET只接受ASCII字符的参数的数据类型，而POST没有限制<br>那么，post那么好为什么还用get？get效率高！。</p>
-<p><img src="/assets/images/get-post.png" alt="get post"></p>
-<h5 id="其他-HTTP-请求方法"><a href="#其他-HTTP-请求方法" class="headerlink" title="其他 HTTP 请求方法"></a>其他 HTTP 请求方法</h5><p><img src="/assets/images/http.png" alt="get post"><br>转载：<br>　　<a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">HTTP 方法：GET 对比 POST</a><br>参考文章:<br>　　<a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">HTTP 方法：GET 对比 POST</a><br>　　<a href="https://blog.csdn.net/qq_26360877/article/details/70665820" target="_blank" rel="noopener">get和post的区别–面试经常被问到！</a></p>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取节点"><span class="toc-text">获取节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#节点操作"><span class="toc-text">节点操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性操作"><span class="toc-text">属性操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文本操作"><span class="toc-text">文本操作</span></a></li></ol>
+<a id="more"></a>
+<h4 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h4><ul>
+<li>document<ul>
+<li>getElementById<ul>
+<li>语法： document.getElementById(元素ID)</li>
+<li>功能： 通过元素ID获取节点</li>
+</ul>
+</li>
+<li>getElementsByName<ul>
+<li>语法： document.getElementsByName(元素name属性)</li>
+<li>功能： 通过元素name属性获取节点</li>
+</ul>
+</li>
+<li>getElementsByTagName<ul>
+<li>语法： document.getElementsByTagName(元素标签)</li>
+<li>功能： 通过元素标签获取节点</li>
+</ul>
+</li>
+<li>getElementsByClassName<ul>
+<li>语法： document.getElementsByClassName(“classname”)</li>
+<li>功能： 根据class获取元素节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CSS选择器<ul>
+<li>querySelector()<ul>
+<li>语法： document.querySelector()</li>
+<li>功能： 根据CSS选择器的规则，返回第一个匹配到的元素</li>
+</ul>
+</li>
+<li>querySelectorAll()<ul>
+<li>语法： document.querySelectorAll()</li>
+<li>功能： 根据CSS选择器的规则，返回所有匹配到的元素</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>节点指针<ul>
+<li>firstChild<ul>
+<li>语法： 父节点.firstChild</li>
+<li>功能： 获取元素首个节点</li>
+</ul>
+</li>
+<li>lastChild<ul>
+<li>语法： 父节点.lastChild</li>
+<li>功能： 获取元素最后一个节点</li>
+</ul>
+</li>
+<li>childNodes<ul>
+<li>语法： 父节点.childNodes</li>
+<li>功能： 获取元素子节点列表</li>
+</ul>
+</li>
+<li>previousSibling<ul>
+<li>语法： 兄弟节点.previousSibling</li>
+<li>功能： 获取已知节点前一个节点</li>
+</ul>
+</li>
+<li>nextSibling<ul>
+<li>语法： 兄弟节点.nextSibling</li>
+<li>功能： 获取已知节点后一个节点</li>
+</ul>
+</li>
+<li>parentNode<ul>
+<li>语法： 子节点.parentNode</li>
+<li>功能： 获取已知节点的父节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="节点操作"><a href="#节点操作" class="headerlink" title="节点操作"></a>节点操作</h4><ul>
+<li>创建节点<ul>
+<li>createElement<ul>
+<li>语法： document.createElement(元素标签)</li>
+<li>功能： 创造元素节点</li>
+</ul>
+</li>
+<li>createAttribute<ul>
+<li>语法： document.createAttribute(元素属性)</li>
+<li>功能： 创建属性节点</li>
+</ul>
+</li>
+<li>createTextNode<ul>
+<li>语法： document.createTextNode(文本内容)</li>
+<li>功能： 创建文本节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>插入节点<ul>
+<li>appendChild<ul>
+<li>语法： appendChild(所添加的新节点)</li>
+<li>功能： 向节点的子节点列表的末尾添加新的子节点</li>
+</ul>
+</li>
+<li>insertBefore<ul>
+<li>语法： insertBefore(所要添加的新节点, 已知子节点)</li>
+<li>功能： 向已知的子节点前插入一个新的子节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>替换节点<ul>
+<li>replaceChild<ul>
+<li>语法： replaceChild(要插入的新元素， 将被替换的老元素)</li>
+<li>功能： 将子节点替换成另一个</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>复制节点<ul>
+<li>cloneNode<ul>
+<li>语法： 需要被复制的节点.cloneNode(true/false)</li>
+<li>功能： 创建指定节点的副本</li>
+<li>参数： <ul>
+<li>true 复制当前节点以及其他所有子节点</li>
+<li>false 仅复制当前节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>删除节点<ul>
+<li>removeChild<ul>
+<li>语法： removeChild(要删除的节点)</li>
+<li>功能： 删除指定的节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h4><ul>
+<li>获取属性<ul>
+<li>getAttribute<ul>
+<li>语法： 元素节点.getAttribute(元素属性名)</li>
+<li>功能： 获取元素节点中指定属性的属性值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设置属性<ul>
+<li>setAttribute<ul>
+<li>语法： 元素节点.setAttribute(属性名， 属性值)</li>
+<li>功能： 创建或者改变元素的属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>删除属性<ul>
+<li>removeAttribute<ul>
+<li>语法： 元素节点.removeAttribute(属性名)</li>
+<li>功能： 删除元素中的指定属性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="文本操作"><a href="#文本操作" class="headerlink" title="文本操作"></a>文本操作</h4><ul>
+<li>文本操作<ul>
+<li>insterData(offset, string)<ul>
+<li>从offset指定的位置插入string</li>
+</ul>
+</li>
+<li>appendData(string)<ul>
+<li>将string插入到文本节点的末尾处</li>
+</ul>
+</li>
+<li>deleteData(offset, count)<ul>
+<li>从offset起删除count个字符</li>
+</ul>
+</li>
+<li>replaceData(off, count, string)<ul>
+<li>从off将count个字符用string</li>
+</ul>
+</li>
+<li>splitData(offset)<ul>
+<li>从offset起将文本节点分成两个节点</li>
+</ul>
+</li>
+<li>substring(offset, count)<ul>
+<li>返回由offset起的count个节点</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
             
 
@@ -273,7 +449,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/HTTP/">HTTP</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/JavaScript/">JavaScript</a>
 
             </div>
         
@@ -284,7 +460,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/JavaScript/冒泡和捕获/" data-tooltip="冒泡和捕获" aria-label="上一篇: 冒泡和捕获">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/31/JavaScript/优化DOM/" data-tooltip="优化DOM" aria-label="上一篇: 优化DOM">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -293,7 +469,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/H5/语义化标签/" data-tooltip="语义化标签" aria-label="下一篇: 语义化标签">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/30/Ajax/Axios/" data-tooltip="Vue中使用Axios" aria-label="下一篇: Vue中使用Axios">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -311,7 +487,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -319,7 +495,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -327,7 +503,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -398,7 +574,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/JavaScript/冒泡和捕获/" data-tooltip="冒泡和捕获" aria-label="上一篇: 冒泡和捕获">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/31/JavaScript/优化DOM/" data-tooltip="优化DOM" aria-label="上一篇: 优化DOM">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -407,7 +583,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/10/H5/语义化标签/" data-tooltip="语义化标签" aria-label="下一篇: 语义化标签">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/30/Ajax/Axios/" data-tooltip="Vue中使用Axios" aria-label="下一篇: Vue中使用Axios">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -425,7 +601,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -433,7 +609,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -441,7 +617,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -474,7 +650,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -482,7 +658,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -490,7 +666,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -820,7 +996,7 @@ setInterval("createtime()",250);
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2018/10/10/HTTP/GET和POST请求/',
+                        id: 'http://yoursite.com/2019/03/31/JavaScript/DOM基本操作/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
