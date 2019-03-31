@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\ttest\n\t\n\t\n\t\tbody {\n\t\t\tbackground: yellow;\n\t\t}\n\t\t@media not all and (min-width: 400px) {\n\t\t\tbody {\n\t\t\t\tbackground: blue;\n\t\t\t}\n\t\t}\n\t\n\n\n\nvar typeName = {\n  '[object Function]': 'function',\n  '[object Boolean]': 'boolean - object',\n  '[object Number]': 'number - object',\n  '[object String]': 'string - object',\n  '[object Object]': 'object',\n  '[object RegExp]': 'regExp',\n  '[object Array]': 'array',\n  '[object Error]': 'error',\n  '[object Date]' : 'date'  \n};\n\n//获取Object的toString方法，通过call调用\nvar toStringFn = Object.prototype.toString;\n\nfunction checkType(obj){\n  if( obj == null ){\n    //js自带的的String方法，用于检测null和undefined\n    return String( obj );\n  }\n  //safari5及之前版本，Chrome7, typeof RegExp返回的是function\n  return typeof obj === 'object' || typeof obj === 'function' ? typeName[toStringFn.call(obj)]:typeof obj;\n}\ncheckType(\"123\")\n\n\n\n\nFunction.prototype.call = function(context) {\n\tcontext = context || window\n\tcontext.fn = this\n\tconst args = [...arguments].slice(1)\n\tconst result = context.fn(...args)\n\tdelete context.fn\n\treturn result\n}\n\nFunction.prototype.bind = function(context) {\n\tconst _this = this\n\tconst args = [...arguments].slice(1)\n\t// 返回一个高阶函数\n\treturn function F() {\n\t\tif(this instanceof F) {\n\t\t\treturn new _this(...args, ...arguments)\n\t\t}\n\t\treturn _this.apply(context, args.concat(...arguments))\n\t}\n}\n\n\n\n\n","dateCreated":"2019-03-15T10:25:58+08:00","dateModified":"2019-03-27T17:23:13+08:00","datePublished":"2019-03-15T10:25:58+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/15/JavaScript/index/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/15/JavaScript/index/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\ttest\n\t\n\t\n\t\tbody {\n\t\t\tbackground: yellow;\n\t\t}\n\t\t@media not all and (min-width: 400px) {\n\t\t\tbody {\n\t\t\t\tbackground: blue;\n\t\t\t}\n\t\t}\n\t\n\n\n\nvar typeName = {\n  '[object Function]': 'function',\n  '[object Boolean]': 'boolean - object',\n  '[object Number]': 'number - object',\n  '[object String]': 'string - object',\n  '[object Object]': 'object',\n  '[object RegExp]': 'regExp',\n  '[object Array]': 'array',\n  '[object Error]': 'error',\n  '[object Date]' : 'date'  \n};\n\n//获取Object的toString方法，通过call调用\nvar toStringFn = Object.prototype.toString;\n\nfunction checkType(obj){\n  if( obj == null ){\n    //js自带的的String方法，用于检测null和undefined\n    return String( obj );\n  }\n  //safari5及之前版本，Chrome7, typeof RegExp返回的是function\n  return typeof obj === 'object' || typeof obj === 'function' ? typeName[toStringFn.call(obj)]:typeof obj;\n}\ncheckType(\"123\")\n\n\n\n\nFunction.prototype.call = function(context) {\n\tcontext = context || window\n\tcontext.fn = this\n\tconst args = [...arguments].slice(1)\n\tconst result = context.fn(...args)\n\tdelete context.fn\n\treturn result\n}\n\nFunction.prototype.bind = function(context) {\n\tconst _this = this\n\tconst args = [...arguments].slice(1)\n\t// 返回一个高阶函数\n\treturn function F() {\n\t\tif(this instanceof F) {\n\t\t\treturn new _this(...args, ...arguments)\n\t\t}\n\t\treturn _this.apply(context, args.concat(...arguments))\n\t}\n}\n\n\nconst xhr = new XMLHttpRequest()\nxhr.open('get', 'example.php', false)\nxhr.setRequestHeader('myHeader', 'goodHeader')\nxhr.send(null)\n\n\nif((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {\n\tconsole.log(\"xhr.responseText:\", xhr.responseText);\n} else {\n\tconsole.log(\"Request was unsuccessful:\", xhr.status);\n}\n/*\n\nconst xhr = new XMLHttpRequest()\nxhr.onreadystatechange = () => {\n\tif(xhr.readyState == 4) {\n\t\tif ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {\n\t\t\tconsole.log(\"xhr.responseText:\", xhr.responseText);\n\t\t} else {\n\t\t\tconsole.log(\"Request was unsuccessful:\", xhr.status);\n\t\t}\n\t}\n}\n\nxhr.open('GET', 'example.php', true)\nxhr.send(null)\n\n */\n\n\n","dateCreated":"2019-03-15T10:25:58+08:00","dateModified":"2019-03-30T18:57:02+08:00","datePublished":"2019-03-15T10:25:58+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/15/JavaScript/index/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/15/JavaScript/index/"}</script>
     <meta name="description" content="test 	 	 		body { 			background: yellow; 		} 		@media not all and (min-width: 400px) { 			body { 				background: blue; 			} 		} 	    var typeName = {   &apos;[object Function]&apos;: &apos;function&apos;,   &apos;[objec">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="昨夜小楼又东风">
@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:description" content="test 	 	 		body { 			background: yellow; 		} 		@media not all and (min-width: 400px) { 			body { 				background: blue; 			} 		} 	    var typeName = {   &apos;[object Function]&apos;: &apos;function&apos;,   &apos;[objec">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-27T09:23:13.698Z">
+<meta property="og:updated_time" content="2019-03-30T10:57:02.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="昨夜小楼又东风">
 <meta name="twitter:description" content="test 	 	 		body { 			background: yellow; 		} 		@media not all and (min-width: 400px) { 			body { 				background: blue; 			} 		} 	    var typeName = {   &apos;[object Function]&apos;: &apos;function&apos;,   &apos;[objec">
@@ -237,7 +237,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：178字
+        字数统计：262字
     </span>
 </div>
 
@@ -314,6 +314,34 @@ Function.prototype.bind = function(context) {
 }
 
 
+const xhr = new XMLHttpRequest()
+xhr.open('get', 'example.php', false)
+xhr.setRequestHeader('myHeader', 'goodHeader')
+xhr.send(null)
+
+
+if((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+	console.log("xhr.responseText:", xhr.responseText);
+} else {
+	console.log("Request was unsuccessful:", xhr.status);
+}
+/*
+
+const xhr = new XMLHttpRequest()
+xhr.onreadystatechange = () => {
+	if(xhr.readyState == 4) {
+		if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+			console.log("xhr.responseText:", xhr.responseText);
+		} else {
+			console.log("Request was unsuccessful:", xhr.status);
+		}
+	}
+}
+
+xhr.open('GET', 'example.php', true)
+xhr.send(null)
+
+ */
 </script>
 
 </html>
@@ -330,7 +358,7 @@ Function.prototype.bind = function(context) {
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/Axios/" data-tooltip="Axios" aria-label="上一篇: Axios">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/同源策略和跨域/" data-tooltip="同源策略和跨域" aria-label="上一篇: 同源策略和跨域">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -416,7 +444,7 @@ Function.prototype.bind = function(context) {
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：69.5k</span>
+		<span class="post-count">字数统计：73.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -444,7 +472,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/Axios/" data-tooltip="Axios" aria-label="上一篇: Axios">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/17/Ajax/同源策略和跨域/" data-tooltip="同源策略和跨域" aria-label="上一篇: 同源策略和跨域">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -646,8 +674,29 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -687,25 +736,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
                             <h3 class="media-heading">CSS模块化</h3>
                         </a>
@@ -725,8 +755,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -735,9 +765,7 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>

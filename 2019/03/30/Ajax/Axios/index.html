@@ -1,0 +1,862 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>Vue中使用Axios - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　axios参考：　　axio github　　Axios中文\n基本流程安装: npm install axios --save设置全局都可以使用axios设置在 main.js 中引入 axios:　　import axios from &#39;axios&#39;axios 改写为 Vue 的原型属性（不推荐这样用）　　Vue.prototype.$http= axios在 main.js 中添加了这两行代码之后，就能直接在组件的 methods 中使用 $http命令例如1234567891011methods: &#123;  show() &#123;    this.$http(&#123;      method: 'get',      url: '/user',      data: &#123;        name: 'virus'      &#125;   &#125;)&#125;&#125;\n发送请求GET请求1234567891011121314151617181920# 通过给定的ID来发送请求axios.get('/user?ID=12345')  .then(function(response)&#123;    console.log(response);  &#125;)  .catch(function(err)&#123;    console.log(err);  &#125;);# 以上请求也可以通过这种方式来发送axios.get('/user',&#123;  params:&#123;    ID:12345  &#125;&#125;).then(function(response)&#123;  console.log(response);&#125;).catch(function(err)&#123;  console.log(err);&#125;);\nPOST请求12345678910axios.post('/user',&#123;  firstName:'Fred',  lastName:'Flintstone'&#125;).then(function(res)&#123;  console.log(res);&#125;).catch(function(err)&#123;  console.log(err);&#125;);\n一次性并发多个请求12345678910function getUserAccount()&#123;  return axios.get('/user/12345');&#125;function getUserPermissions()&#123;  return axios.get('/user/12345/permissions');&#125;axios.all([getUserAccount(),getUserPermissions()])  .then(axios.spread(function(acct,perms)&#123;    # 当这两个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果  &#125;))\naxios的APIaxios可以通过配置（config）来发送请求axios(config)123456789# 发送一个`POST`请求axios(&#123;    method:\"POST\",    url:'/user/12345',    data:&#123;        firstName:\"Fred\",        lastName:\"Flintstone\"    &#125;&#125;);\naxios(url[,config])12# 发送一个`GET`请求（默认的请求方式）axios('/user/12345');\n请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名1234567axios.request(config);axios.get(url[,config]);axios.delete(url[,config]);axios.head(url[,config]);axios.post(url[,data[,config]]);axios.put(url[,data[,config]])axios.patch(url[,data[,config]])\n注意：当我们在使用别名方法的时候，url,method,data这几个参数不需要在配置中声明\n并发请求（concurrency）,即是帮助处理并发请求的辅助函数1234# iterable是一个可以迭代的参数如数组等axios.all(iterable)# callback要等到所有请求都完成才会执行axios.spread(callback)\n创建一个axios实例，并且可以自定义其配置123456# axios.create([config])var instance = axios.create(&#123;  baseURL:\"https://some-domain.com/api/\",  timeout:1000,  headers: &#123;'X-Custom-Header':'foobar'&#125;&#125;);\n123456789# 实例的方法# 一下是实例方法，注意已经定义的配置将和利用create创建的实例的配置合并axios#request(config)axios#get(url[,config])axios#delete(url[,config])axios#head(url[,config])axios#post(url[,data[,config]])axios#put(url[,data[,config]])axios#patch(url[,data[,config]])\n请求的配置（request config）　　以下就是请求的配置选项，只有url选项是必须的，如果method选项未定义，那么它默认是以GET的方式发出请求123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103&#123;  # `url`是请求的服务器地址  url:'/user',  # `method`是请求资源的方式  method:'get'# default  # 如果`url`不是绝对地址，那么`baseURL`将会加到`url`的前面  # 当`url`是相对地址的时候，设置`baseURL`会非常的方便  baseURL:'https://some-domain.com/api/',  # `transformRequest`选项允许我们在请求发送到服务器之前对请求的数据做出一些改动  # 该选项只适用于以下请求方式：`put/post/patch`  # 数组里面的最后一个函数必须返回一个字符串、-一个`ArrayBuffer`或者`Stream`  transformRequest:[function(data)&#123;    # 在这里根据自己的需求改变数据    return data;  &#125;],  # `transformResponse`选项允许我们在数据传送到`then/catch`方法之前对数据进行改动  transformResponse:[function(data)&#123;    # 在这里根据自己的需求改变数据    return data;  &#125;],  # `headers`选项是需要被发送的自定义请求头信息  headers: &#123;'X-Requested-With':'XMLHttpRequest'&#125;,  # `params`选项是要随请求一起发送的请求参数----一般链接在URL后面  # 他的类型必须是一个纯对象或者是URLSearchParams对象  params: &#123;    ID:12345  &#125;,  # `paramsSerializer`是一个可选的函数，起作用是让参数（params）序列化  # 例如(https://www.npmjs.com/package/qs,http://api.jquery.com/jquery.param)  paramsSerializer: function(params)&#123;    return Qs.stringify(params,&#123;arrayFormat:'brackets'&#125;)  &#125;,  # `data`选项是作为一个请求体而需要被发送的数据  # 该选项只适用于方法：`put/post/patch`  # 当没有设置`transformRequest`选项时dada必须是以下几种类型之一  # string/plain/object/ArrayBuffer/ArrayBufferView/URLSearchParams  # 仅仅浏览器：FormData/File/Bold  # 仅node:Stream  data &#123;    firstName:\"Fred\"  &#125;,  # `timeout`选项定义了请求发出的延迟毫秒数  # 如果请求花费的时间超过延迟的时间，那么请求会被终止  timeout:1000,  # `withCredentails`选项表明了是否是跨域请求    withCredentials:false,# default  # `adapter`适配器选项允许自定义处理请求，这会使得测试变得方便  # 返回一个promise,并提供验证返回  adapter: function(config)&#123;    /*..........*/  &#125;,  # `auth`表明HTTP基础的认证应该被使用，并提供证书  # 这会设置一个authorization头（header）,并覆盖你在header  # 设置的Authorization头信息  auth: &#123;    username:\"zhangsan\",    password: \"s00sdkf\"  &#125;,  # 返回数据的格式  # 其可选项是arraybuffer,blob,document,json,text,stream  responseType:'json',# default  #   xsrfCookieName: 'XSRF-TOKEN',# default  xsrfHeaderName:'X-XSRF-TOKEN',# default  # `onUploadProgress`上传进度事件  onUploadProgress:function(progressEvent)&#123;    # 下载进度的事件onDownloadProgress:function(progressEvent)&#123;&#125;  &#125;,  # 相应内容的最大值  maxContentLength:2000,  # `validateStatus`定义了是否根据http相应状态码，来resolve或者reject promise  # 如果`validateStatus`返回true(或者设置为`null`或者`undefined`),  # 那么promise的状态将会是resolved,否则其状态就是rejected  validateStatus:function(status)&#123;    return status &gt;= 200 &amp;&amp; status &lt;300;# default  &#125;,  # `maxRedirects`定义了在nodejs中重定向的最大数量  maxRedirects: 5,# default  # `httpAgent/httpsAgent`定义了当发送http/https请求要用到的自定义代理  # keeyAlive在选项中没有被默认激活  httpAgent: new http.Agent(&#123;keeyAlive:true&#125;),  httpsAgent: new https.Agent(&#123;keeyAlive:true&#125;),  # proxy定义了主机名字和端口号，  # `auth`表明http基本认证应该与proxy代理链接，并提供证书  # 这将会设置一个`Proxy-Authorization` header,并且会覆盖掉已经存在的  # Proxy-Authorization  header  proxy: &#123;    host:'127.0.0.1',    port: 9000,    auth: &#123;      username:'skda',      password:'radsd'    &#125;  &#125;,  # `cancelToken`定义了一个用于取消请求的cancel token  # 详见cancelation部分  cancelToken: new cancelToken(function(cancel)&#123;  &#125;)&#125;\n请求返回的内容1234567891011&#123;  data:&#123;&#125;,  status:200,  # 从服务器返回的http状态文本  statusText:'OK',  # 响应头信息  headers: &#123;&#125;,  # `config`是在请求的时候的一些配置信息  config: &#123;&#125;&#125;\n123456789# 你可以这样来获取响应信息axios.get('/user/12345')  .then(function(res)&#123;    console.log(res.data);    console.log(res.status);    console.log(res.statusText);    console.log(res.headers);    console.log(res.config);  &#125;)\n默认配置你可以设置默认配置，对所有请求都有效12341、 全局默认配置axios.defaults.baseURL = 'http://api.exmple.com';axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';\n2、 自定义的实例默认设置1234567# 当创建实例的时候配置默认配置var instance = axios.create(&#123;    baseURL: 'https://api.example.com'&#125;);# 当实例创建时候修改配置instance.defaults.headers.common[\"Authorization\"] = AUTH_TOKEN;\n3、 配置中的有优先级　　config配置将会以优先级别来合并，顺序是lib/defauts.js中的默认配置，然后是实例中的默认配置，最后是请求中的config参数的配置，越往后等级越高，后面的会覆盖前面的例子。12345678910# 创建一个实例的时候会使用libray目录中的默认配置# 在这里timeout配置的值为0，来自于libray的默认值var instance = axios.create();# 回覆盖掉library的默认值# 现在所有的请求都要等2.5S之后才会发出instance.defaults.timeout = 2500;# 这里的timeout回覆盖之前的2.5S变成5sinstance.get('/longRequest',&#123;  timeout: 5000&#125;);\n拦截器你可以在请求、响应在到达then/catch之前拦截他们12345678910111213141516# 添加一个请求拦截器axios.interceptors.request.use(function(config)&#123;  # 在请求发出之前进行一些操作  return config;&#125;,function(err)&#123;  # Do something with request error  return Promise.reject(error);&#125;);# 添加一个响应拦截器axios.interceptors.response.use(function(res)&#123;  # 在这里对返回的数据进行处理  return res;&#125;,function(err)&#123;  # Do something with response error  return Promise.reject(error);&#125;)\n2、取消拦截器12var myInterceptor = axios.interceptor.request.use(function()&#123;/*....*/&#125;);axios.interceptors.request.eject(myInterceptor);\n3、 给自定义的axios实例添加拦截器12var instance = axios.create();instance.interceptors.request.use(function()&#123;&#125;)\n错误处理12345678910111213axios.get('/user/12345')  .catch(function(error)&#123;    if(error.response)&#123;      # 请求已经发出，但是服务器响应返回的状态吗不在2xx的范围内      console.log(error.response.data);      console.log(error.response.status);      console.log(error.response.header);    &#125;else &#123;      # 一些错误是在设置请求的时候触发      console.log('Error',error.message);    &#125;    console.log(error.config);  &#125;);\n取消1、你可以通过一个cancel token来取消一个请求你可以通过CancelToken.source工厂函数来创建一个cancel token123456789101112131415var CancelToken = axios.CancelToken;var source = CancelToken.source();axios.get('/user/12345',&#123;  cancelToken: source.token&#125;).catch(function(thrown)&#123;  if(axios.isCancel(thrown))&#123;    console.log('Request canceled',thrown.message);  &#125;else &#123;    # handle error  &#125;&#125;);# 取消请求（信息的参数可以设置的）source.cance(\"操作被用户取消\");\n2、你可以给cancelToken构造函数传递一个executor function来创建一个cancel token:12345678910var cancelToken = axios.CancelToken;var cance;axios.get('/user/12345',&#123;  cancelToken: new CancelToken(function(c)&#123;    # 这个executor函数接受一个cancel function作为参数    cancel = c;  &#125;)&#125;)# 取消请求cancel();\n创建axios实例123456789101112131415161718192021222324252627282930313233343536# helpers.jsimport axios from 'axios'# 定义常量ERR_OKconst ERR_OK = 0# 导出一个getDate方法export default getDate(url) &#123;  return function(params) &#123;    return axios.get(url, &#123;      params      # 成功之后的.then方法    &#125;).then((res) =&gt; &#123;      # 通过结构赋值的方法难道error和data的数值      const &#123; error, data&#125; = res.data      # 如果成功的话，返回data数据      if(error === ERR_OK) &#123;        return data      &#125;      # 如果失败的话打印失败的原因    &#125;).catch(function(error) =&gt; &#123;      console.log(\"error:\", error)    &#125;)  &#125;&#125;# 出口文件# index.jsimport &#123; getDate &#125; from './helpers'# 定义getSeller方法const getSeller = getDate('./api/seller')# 导出getSeller方法export &#123;  getSeller&#125;","dateCreated":"2019-03-30T21:06:58+08:00","dateModified":"2019-03-31T13:47:28+08:00","datePublished":"2019-03-30T21:06:58+08:00","description":"","headline":"Vue中使用Axios","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/30/Ajax/Axios/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/30/Ajax/Axios/","keywords":"AJAX"}</script>
+    <meta name="keywords" content="AJAX">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Vue中使用Axios">
+<meta property="og:url" content="http://yoursite.com/2019/03/30/Ajax/Axios/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-03-31T05:47:28.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue中使用Axios">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Vue中使用Axios
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-03-30T21:06:58+08:00">
+	
+		    3月 30, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/AJAX/">AJAX</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：2.4k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本流程"><span class="toc-text">基本流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发送请求"><span class="toc-text">发送请求</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#GET请求"><span class="toc-text">GET请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#POST请求"><span class="toc-text">POST请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一次性并发多个请求"><span class="toc-text">一次性并发多个请求</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#axios的API"><span class="toc-text">axios的API</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#axios可以通过配置（config）来发送请求"><span class="toc-text">axios可以通过配置（config）来发送请求</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#axios-config"><span class="toc-text">axios(config)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#axios-url-config"><span class="toc-text">axios(url[,config])</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名"><span class="toc-text">请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#并发请求（concurrency）-即是帮助处理并发请求的辅助函数"><span class="toc-text">并发请求（concurrency）,即是帮助处理并发请求的辅助函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建一个axios实例，并且可以自定义其配置"><span class="toc-text">创建一个axios实例，并且可以自定义其配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求的配置（request-config）"><span class="toc-text">请求的配置（request config）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求返回的内容"><span class="toc-text">请求返回的内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#默认配置"><span class="toc-text">默认配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拦截器"><span class="toc-text">拦截器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#错误处理"><span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#取消"><span class="toc-text">取消</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建axios实例"><span class="toc-text">创建axios实例</span></a></li></ol>
+<a id="more"></a>
+<p>转载：<br>　　<a href="https://www.jianshu.com/p/df464b26ae58" target="_blank" rel="noopener">axios</a><br>参考：<br>　　<a href="https://github.com/axios/axios/blob/master/README.md" target="_blank" rel="noopener">axio github</a><br>　　<a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">Axios中文</a></p>
+<h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><p>安装: <code>npm install axios --save</code><br>设置全局都可以使用axios<br>设置在 main.js 中引入 axios:<br>　　<code>import axios from &#39;axios&#39;</code><br>axios 改写为 Vue 的原型属性（不推荐这样用）<br>　　<code>Vue.prototype.$http= axios</code><br>在 main.js 中添加了这两行代码之后，就能直接在组件的 methods 中使用 $http命令<br>例如<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  <span class="function"><span class="title">show</span></span>() &#123;</span><br><span class="line">    this.<span class="variable">$http</span>(&#123;</span><br><span class="line">      method: <span class="string">'get'</span>,</span><br><span class="line">      url: <span class="string">'/user'</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        name: <span class="string">'virus'</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h4><h5 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过给定的ID来发送请求</span></span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .<span class="keyword">then</span>(<span class="keyword">function</span>(response)&#123;</span><br><span class="line">    console.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="keyword">function</span>(err)&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="comment"># 以上请求也可以通过这种方式来发送</span></span><br><span class="line">axios.get(<span class="string">'/user'</span>,&#123;</span><br><span class="line">  params:&#123;</span><br><span class="line">    ID:12345</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(response)&#123;</span><br><span class="line">  console.log(response);</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="keyword">function</span>(err)&#123;</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">axios.post(<span class="string">'/user'</span>,&#123;</span><br><span class="line">  firstName:<span class="string">'Fred'</span>,</span><br><span class="line">  lastName:<span class="string">'Flintstone'</span></span><br><span class="line">&#125;)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(res)&#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="keyword">function</span>(err)&#123;</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="一次性并发多个请求"><a href="#一次性并发多个请求" class="headerlink" title="一次性并发多个请求"></a>一次性并发多个请求</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">getUserAccount</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">getUserPermissions</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line">axios.all([getUserAccount(),getUserPermissions()])</span><br><span class="line">  .<span class="keyword">then</span>(axios.spread(<span class="keyword">function</span>(acct,perms)&#123;</span><br><span class="line">    <span class="comment"># 当这两个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果</span></span><br><span class="line">  &#125;))</span><br></pre></td></tr></table></figure>
+<h4 id="axios的API"><a href="#axios的API" class="headerlink" title="axios的API"></a>axios的API</h4><h5 id="axios可以通过配置（config）来发送请求"><a href="#axios可以通过配置（config）来发送请求" class="headerlink" title="axios可以通过配置（config）来发送请求"></a>axios可以通过配置（config）来发送请求</h5><h6 id="axios-config"><a href="#axios-config" class="headerlink" title="axios(config)"></a>axios(config)</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送一个`POST`请求</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    method:<span class="string">"POST"</span>,</span><br><span class="line">    url:<span class="string">'/user/12345'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        firstName:<span class="string">"Fred"</span>,</span><br><span class="line">        lastName:<span class="string">"Flintstone"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h6 id="axios-url-config"><a href="#axios-url-config" class="headerlink" title="axios(url[,config])"></a>axios(url[,config])</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发送一个`GET`请求（默认的请求方式）</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名"><a href="#请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名" class="headerlink" title="请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名"></a>请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">axios.request(config);</span><br><span class="line">axios.get(url[,config]);</span><br><span class="line">axios.delete(url[,config]);</span><br><span class="line">axios.head(url[,config]);</span><br><span class="line">axios.post(url[,data[,config]]);</span><br><span class="line">axios.put(url[,data[,config]])</span><br><span class="line">axios.patch(url[,data[,config]])</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>当我们在使用别名方法的时候，url,method,data这几个参数不需要在配置中声明</p>
+<h5 id="并发请求（concurrency）-即是帮助处理并发请求的辅助函数"><a href="#并发请求（concurrency）-即是帮助处理并发请求的辅助函数" class="headerlink" title="并发请求（concurrency）,即是帮助处理并发请求的辅助函数"></a>并发请求（concurrency）,即是帮助处理并发请求的辅助函数</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iterable是一个可以迭代的参数如数组等</span></span><br><span class="line">axios.all(iterable)</span><br><span class="line"><span class="comment"># callback要等到所有请求都完成才会执行</span></span><br><span class="line">axios.spread(callback)</span><br></pre></td></tr></table></figure>
+<h5 id="创建一个axios实例，并且可以自定义其配置"><a href="#创建一个axios实例，并且可以自定义其配置" class="headerlink" title="创建一个axios实例，并且可以自定义其配置"></a>创建一个axios实例，并且可以自定义其配置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># axios.create([config])</span></span><br><span class="line">var instance = axios.create(&#123;</span><br><span class="line">  baseURL:<span class="string">"https://some-domain.com/api/"</span>,</span><br><span class="line">  timeout:1000,</span><br><span class="line">  headers: &#123;<span class="string">'X-Custom-Header'</span>:<span class="string">'foobar'</span>&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例的方法</span></span><br><span class="line"><span class="comment"># 一下是实例方法，注意已经定义的配置将和利用create创建的实例的配置合并</span></span><br><span class="line">axios<span class="comment">#request(config)</span></span><br><span class="line">axios<span class="comment">#get(url[,config])</span></span><br><span class="line">axios<span class="comment">#delete(url[,config])</span></span><br><span class="line">axios<span class="comment">#head(url[,config])</span></span><br><span class="line">axios<span class="comment">#post(url[,data[,config]])</span></span><br><span class="line">axios<span class="comment">#put(url[,data[,config]])</span></span><br><span class="line">axios<span class="comment">#patch(url[,data[,config]])</span></span><br></pre></td></tr></table></figure>
+<h4 id="请求的配置（request-config）"><a href="#请求的配置（request-config）" class="headerlink" title="请求的配置（request config）"></a>请求的配置（request config）</h4><p>　　以下就是请求的配置选项，只有url选项是必须的，如果method选项未定义，那么它默认是以GET的方式发出请求<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment"># `url`是请求的服务器地址</span></span><br><span class="line">  url:<span class="string">'/user'</span>,</span><br><span class="line">  <span class="comment"># `method`是请求资源的方式</span></span><br><span class="line">  method:<span class="string">'get'</span><span class="comment"># default</span></span><br><span class="line">  <span class="comment"># 如果`url`不是绝对地址，那么`baseURL`将会加到`url`的前面</span></span><br><span class="line">  <span class="comment"># 当`url`是相对地址的时候，设置`baseURL`会非常的方便</span></span><br><span class="line">  baseURL:<span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  <span class="comment"># `transformRequest`选项允许我们在请求发送到服务器之前对请求的数据做出一些改动</span></span><br><span class="line">  <span class="comment"># 该选项只适用于以下请求方式：`put/post/patch`</span></span><br><span class="line">  <span class="comment"># 数组里面的最后一个函数必须返回一个字符串、-一个`ArrayBuffer`或者`Stream`</span></span><br><span class="line">  transformRequest:[<span class="keyword">function</span>(data)&#123;</span><br><span class="line">    <span class="comment"># 在这里根据自己的需求改变数据</span></span><br><span class="line">    <span class="built_in">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="comment"># `transformResponse`选项允许我们在数据传送到`then/catch`方法之前对数据进行改动</span></span><br><span class="line">  transformResponse:[<span class="keyword">function</span>(data)&#123;</span><br><span class="line">    <span class="comment"># 在这里根据自己的需求改变数据</span></span><br><span class="line">    <span class="built_in">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="comment"># `headers`选项是需要被发送的自定义请求头信息</span></span><br><span class="line">  headers: &#123;<span class="string">'X-Requested-With'</span>:<span class="string">'XMLHttpRequest'</span>&#125;,</span><br><span class="line">  <span class="comment"># `params`选项是要随请求一起发送的请求参数----一般链接在URL后面</span></span><br><span class="line">  <span class="comment"># 他的类型必须是一个纯对象或者是URLSearchParams对象</span></span><br><span class="line">  params: &#123;</span><br><span class="line">    ID:12345</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># `paramsSerializer`是一个可选的函数，起作用是让参数（params）序列化</span></span><br><span class="line">  <span class="comment"># 例如(https://www.npmjs.com/package/qs,http://api.jquery.com/jquery.param)</span></span><br><span class="line">  paramsSerializer: <span class="keyword">function</span>(params)&#123;</span><br><span class="line">    <span class="built_in">return</span> Qs.stringify(params,&#123;arrayFormat:<span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># `data`选项是作为一个请求体而需要被发送的数据</span></span><br><span class="line">  <span class="comment"># 该选项只适用于方法：`put/post/patch`</span></span><br><span class="line">  <span class="comment"># 当没有设置`transformRequest`选项时dada必须是以下几种类型之一</span></span><br><span class="line">  <span class="comment"># string/plain/object/ArrayBuffer/ArrayBufferView/URLSearchParams</span></span><br><span class="line">  <span class="comment"># 仅仅浏览器：FormData/File/Bold</span></span><br><span class="line">  <span class="comment"># 仅node:Stream</span></span><br><span class="line">  data &#123;</span><br><span class="line">    firstName:<span class="string">"Fred"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># `timeout`选项定义了请求发出的延迟毫秒数</span></span><br><span class="line">  <span class="comment"># 如果请求花费的时间超过延迟的时间，那么请求会被终止</span></span><br><span class="line"></span><br><span class="line">  timeout:1000,</span><br><span class="line">  <span class="comment"># `withCredentails`选项表明了是否是跨域请求</span></span><br><span class="line">  </span><br><span class="line">  withCredentials:<span class="literal">false</span>,<span class="comment"># default</span></span><br><span class="line">  <span class="comment"># `adapter`适配器选项允许自定义处理请求，这会使得测试变得方便</span></span><br><span class="line">  <span class="comment"># 返回一个promise,并提供验证返回</span></span><br><span class="line">  adapter: <span class="keyword">function</span>(config)&#123;</span><br><span class="line">    /*..........*/</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># `auth`表明HTTP基础的认证应该被使用，并提供证书</span></span><br><span class="line">  <span class="comment"># 这会设置一个authorization头（header）,并覆盖你在header</span></span><br><span class="line">  <span class="comment"># 设置的Authorization头信息</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    username:<span class="string">"zhangsan"</span>,</span><br><span class="line">    password: <span class="string">"s00sdkf"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># 返回数据的格式</span></span><br><span class="line">  <span class="comment"># 其可选项是arraybuffer,blob,document,json,text,stream</span></span><br><span class="line">  responseType:<span class="string">'json'</span>,<span class="comment"># default</span></span><br><span class="line">  <span class="comment"># </span></span><br><span class="line">  xsrfCookieName: <span class="string">'XSRF-TOKEN'</span>,<span class="comment"># default</span></span><br><span class="line">  xsrfHeaderName:<span class="string">'X-XSRF-TOKEN'</span>,<span class="comment"># default</span></span><br><span class="line">  <span class="comment"># `onUploadProgress`上传进度事件</span></span><br><span class="line">  onUploadProgress:<span class="keyword">function</span>(progressEvent)&#123;</span><br><span class="line">    <span class="comment"># 下载进度的事件</span></span><br><span class="line">onDownloadProgress:<span class="keyword">function</span>(progressEvent)&#123;</span><br><span class="line">&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># 相应内容的最大值</span></span><br><span class="line">  maxContentLength:2000,</span><br><span class="line">  <span class="comment"># `validateStatus`定义了是否根据http相应状态码，来resolve或者reject promise</span></span><br><span class="line">  <span class="comment"># 如果`validateStatus`返回true(或者设置为`null`或者`undefined`),</span></span><br><span class="line">  <span class="comment"># 那么promise的状态将会是resolved,否则其状态就是rejected</span></span><br><span class="line">  validateStatus:<span class="keyword">function</span>(status)&#123;</span><br><span class="line">    <span class="built_in">return</span> status &gt;= 200 &amp;&amp; status &lt;300;<span class="comment"># default</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># `maxRedirects`定义了在nodejs中重定向的最大数量</span></span><br><span class="line">  maxRedirects: 5,<span class="comment"># default</span></span><br><span class="line">  <span class="comment"># `httpAgent/httpsAgent`定义了当发送http/https请求要用到的自定义代理</span></span><br><span class="line">  <span class="comment"># keeyAlive在选项中没有被默认激活</span></span><br><span class="line">  httpAgent: new http.Agent(&#123;keeyAlive:<span class="literal">true</span>&#125;),</span><br><span class="line">  httpsAgent: new https.Agent(&#123;keeyAlive:<span class="literal">true</span>&#125;),</span><br><span class="line">  <span class="comment"># proxy定义了主机名字和端口号，</span></span><br><span class="line">  <span class="comment"># `auth`表明http基本认证应该与proxy代理链接，并提供证书</span></span><br><span class="line">  <span class="comment"># 这将会设置一个`Proxy-Authorization` header,并且会覆盖掉已经存在的</span></span><br><span class="line">  <span class="comment"># Proxy-Authorization  header</span></span><br><span class="line">  proxy: &#123;</span><br><span class="line">    host:<span class="string">'127.0.0.1'</span>,</span><br><span class="line">    port: 9000,</span><br><span class="line">    auth: &#123;</span><br><span class="line">      username:<span class="string">'skda'</span>,</span><br><span class="line">      password:<span class="string">'radsd'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment"># `cancelToken`定义了一个用于取消请求的cancel token</span></span><br><span class="line">  <span class="comment"># 详见cancelation部分</span></span><br><span class="line">  cancelToken: new cancelToken(<span class="keyword">function</span>(cancel)&#123;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="请求返回的内容"><a href="#请求返回的内容" class="headerlink" title="请求返回的内容"></a>请求返回的内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  data:&#123;&#125;,</span><br><span class="line">  status:200,</span><br><span class="line">  <span class="comment"># 从服务器返回的http状态文本</span></span><br><span class="line">  statusText:<span class="string">'OK'</span>,</span><br><span class="line">  <span class="comment"># 响应头信息</span></span><br><span class="line">  headers: &#123;&#125;,</span><br><span class="line">  <span class="comment"># `config`是在请求的时候的一些配置信息</span></span><br><span class="line">  config: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 你可以这样来获取响应信息</span></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .<span class="keyword">then</span>(<span class="keyword">function</span>(res)&#123;</span><br><span class="line">    console.log(res.data);</span><br><span class="line">    console.log(res.status);</span><br><span class="line">    console.log(res.statusText);</span><br><span class="line">    console.log(res.headers);</span><br><span class="line">    console.log(res.config);</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="默认配置"><a href="#默认配置" class="headerlink" title="默认配置"></a>默认配置</h4><p>你可以设置默认配置，对所有请求都有效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、 全局默认配置</span><br><span class="line">axios.defaults.baseURL = <span class="string">'http://api.exmple.com'</span>;</span><br><span class="line">axios.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br><span class="line">axios.defaults.headers.post[<span class="string">'content-Type'</span>] = <span class="string">'appliction/x-www-form-urlencoded'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>2、 自定义的实例默认设置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当创建实例的时候配置默认配置</span></span><br><span class="line">var instance = axios.create(&#123;</span><br><span class="line">    baseURL: <span class="string">'https://api.example.com'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当实例创建时候修改配置</span></span><br><span class="line">instance.defaults.headers.common[<span class="string">"Authorization"</span>] = AUTH_TOKEN;</span><br></pre></td></tr></table></figure></p>
+<p>3、 配置中的有优先级<br>　　config配置将会以优先级别来合并，顺序是lib/defauts.js中的默认配置，然后是实例中的默认配置，最后是请求中的config参数的配置，越往后等级越高，后面的会覆盖前面的例子。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个实例的时候会使用libray目录中的默认配置</span></span><br><span class="line"><span class="comment"># 在这里timeout配置的值为0，来自于libray的默认值</span></span><br><span class="line">var instance = axios.create();</span><br><span class="line"><span class="comment"># 回覆盖掉library的默认值</span></span><br><span class="line"><span class="comment"># 现在所有的请求都要等2.5S之后才会发出</span></span><br><span class="line">instance.defaults.timeout = 2500;</span><br><span class="line"><span class="comment"># 这里的timeout回覆盖之前的2.5S变成5s</span></span><br><span class="line">instance.get(<span class="string">'/longRequest'</span>,&#123;</span><br><span class="line">  timeout: 5000</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h4><p>你可以在请求、响应在到达then/catch之前拦截他们<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加一个请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(<span class="keyword">function</span>(config)&#123;</span><br><span class="line">  <span class="comment"># 在请求发出之前进行一些操作</span></span><br><span class="line">  <span class="built_in">return</span> config;</span><br><span class="line">&#125;,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">  <span class="comment"># Do something with request error</span></span><br><span class="line">  <span class="built_in">return</span> Promise.reject(error);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment"># 添加一个响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(<span class="keyword">function</span>(res)&#123;</span><br><span class="line">  <span class="comment"># 在这里对返回的数据进行处理</span></span><br><span class="line">  <span class="built_in">return</span> res;</span><br><span class="line">&#125;,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">  <span class="comment"># Do something with response error</span></span><br><span class="line">  <span class="built_in">return</span> Promise.reject(error);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>2、取消拦截器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var myInterceptor = axios.interceptor.request.use(<span class="function"><span class="title">function</span></span>()&#123;/*....*/&#125;);</span><br><span class="line">axios.interceptors.request.eject(myInterceptor);</span><br></pre></td></tr></table></figure></p>
+<p>3、 给自定义的axios实例添加拦截器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var instance = axios.create();</span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="title">function</span></span>()&#123;&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .catch(<span class="keyword">function</span>(error)&#123;</span><br><span class="line">    <span class="keyword">if</span>(error.response)&#123;</span><br><span class="line">      <span class="comment"># 请求已经发出，但是服务器响应返回的状态吗不在2xx的范围内</span></span><br><span class="line">      console.log(error.response.data);</span><br><span class="line">      console.log(error.response.status);</span><br><span class="line">      console.log(error.response.header);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment"># 一些错误是在设置请求的时候触发</span></span><br><span class="line">      console.log(<span class="string">'Error'</span>,error.message);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(error.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="取消"><a href="#取消" class="headerlink" title="取消"></a>取消</h4><p>1、你可以通过一个cancel token来取消一个请求<br>你可以通过CancelToken.source工厂函数来创建一个cancel token<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var CancelToken = axios.CancelToken;</span><br><span class="line">var <span class="built_in">source</span> = CancelToken.source();</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>,&#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;).catch(<span class="keyword">function</span>(thrown)&#123;</span><br><span class="line">  <span class="keyword">if</span>(axios.isCancel(thrown))&#123;</span><br><span class="line">    console.log(<span class="string">'Request canceled'</span>,thrown.message);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment"># handle error</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取消请求（信息的参数可以设置的）</span></span><br><span class="line">source.cance(<span class="string">"操作被用户取消"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>2、你可以给cancelToken构造函数传递一个executor function来创建一个cancel token:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var cancelToken = axios.CancelToken;</span><br><span class="line">var cance;</span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>,&#123;</span><br><span class="line">  cancelToken: new CancelToken(<span class="keyword">function</span>(c)&#123;</span><br><span class="line">    <span class="comment"># 这个executor函数接受一个cancel function作为参数</span></span><br><span class="line">    cancel = c;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment"># 取消请求</span></span><br><span class="line">cancel();</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建axios实例"><a href="#创建axios实例" class="headerlink" title="创建axios实例"></a>创建axios实例</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># helpers.js</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"># 定义常量ERR_OK</span><br><span class="line"><span class="keyword">const</span> ERR_OK = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 导出一个getDate方法</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> getDate(url) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> axios.get(url, &#123;</span><br><span class="line">      params</span><br><span class="line">      # 成功之后的.then方法</span><br><span class="line">    &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      # 通过结构赋值的方法难道error和data的数值</span><br><span class="line">      <span class="keyword">const</span> &#123; error, data&#125; = res.data</span><br><span class="line">      # 如果成功的话，返回data数据</span><br><span class="line">      <span class="keyword">if</span>(error === ERR_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line">      &#125;</span><br><span class="line">      # 如果失败的话打印失败的原因</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) =&gt; </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"error:"</span>, error)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 出口文件</span><br><span class="line"># index.js</span><br><span class="line"><span class="keyword">import</span> &#123; getDate &#125; <span class="keyword">from</span> <span class="string">'./helpers'</span></span><br><span class="line"></span><br><span class="line"># 定义getSeller方法</span><br><span class="line"><span class="keyword">const</span> getSeller = getDate(<span class="string">'./api/seller'</span>)</span><br><span class="line"></span><br><span class="line"># 导出getSeller方法</span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">  getSeller</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/AJAX/">AJAX</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/30/Ajax/AJAX/" data-tooltip="AJAX" aria-label="下一篇: AJAX">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/30/Ajax/Axios/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/30/Ajax/Axios/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/30/Ajax/Axios/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：73.3k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/30/Ajax/AJAX/" data-tooltip="AJAX" aria-label="下一篇: AJAX">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/30/Ajax/Axios/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/30/Ajax/Axios/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/30/Ajax/Axios/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/30/Ajax/Axios/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/03/30/Ajax/Axios/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/30/Ajax/Axios/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 57 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/03/30/Ajax/Axios/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
