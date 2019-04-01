@@ -402,7 +402,9 @@
 <p>一个 XHTML 元素必须要有一个 XHTML <doctype><br>属性值必须用引号包裹<br>禁止属性简写（例如，checked=”checked” 不能简写为 checked）<br>元素必须正确的被嵌套<br>元素必须闭合<br>特殊字符必须被转义<br>小贴士<br>任何被标签都是自闭合<br>标签和属性区分大小写，通常小写</doctype></p>
 <h3 id="你能说出-media-属性的四种类型吗？"><a href="#你能说出-media-属性的四种类型吗？" class="headerlink" title="你能说出 @media 属性的四种类型吗？"></a>你能说出 @media 属性的四种类型吗？</h3><p>查看答案<br>all，适用于所有媒体设备<br>print，仅适用于打印机<br>screen，仅适用于屏幕设备（台式电脑、平板电脑、移动设备等）<br>speech，仅适用于屏幕阅读器</p>
 <p>如何统计网页里出现多少种html标签<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取所有标签</span></span><br><span class="line">var doms = document.getElementsByTagName(<span class="string">"*"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#去重</span></span><br><span class="line">var obj = &#123;&#125;</span><br><span class="line">var ret = []</span><br><span class="line"><span class="keyword">for</span> (var j = 0; j &lt; doms.length; i++) &#123;</span><br><span class="line">  var name = doms[j].nodeName</span><br><span class="line">  <span class="keyword">if</span>(!obj[name]) &#123;</span><br><span class="line">    ret.push(name)</span><br><span class="line">    obj[name] = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(ret.length);</span><br><span class="line"></span><br><span class="line"><span class="comment"># ES6方法</span></span><br><span class="line">const names = [...document.getElementsByTagName(<span class="string">"*"</span>)].map(v=&gt;v.nodeName)</span><br><span class="line"></span><br><span class="line">console.log(new Set(names).size);</span><br></pre></td></tr></table></figure></p>
-<p>手写bind call<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.call = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  context = context || <span class="built_in">window</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">const</span> result = context.fn(...args)</span><br><span class="line">  <span class="keyword">delete</span> context.fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> _this = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="comment">// 返回一个高阶函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> F) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> _this(...args, ...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _this.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>手写bind call<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.call = <span class="keyword">function</span>(context) &#123;</span><br><span class="line">  context = context || window</span><br><span class="line">  context.fn = this</span><br><span class="line">  const args = [...arguments].slice(1)</span><br><span class="line">  const result = context.fn(...args)</span><br><span class="line">  delete context.fn</span><br><span class="line">  <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Function.prototype.bind = <span class="keyword">function</span>(context) &#123;</span><br><span class="line">  const _this = this</span><br><span class="line">  const args = [...arguments].slice(1)</span><br><span class="line">  // 返回一个高阶函数</span><br><span class="line">  <span class="built_in">return</span> <span class="keyword">function</span> <span class="function"><span class="title">F</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span>(this instanceof F) &#123;</span><br><span class="line">      <span class="built_in">return</span> new _this(...args, ...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> _this.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如何提升渲染性能<br>服务端渲染<br>为什么要进行服务端渲染</p>
+<p>JS<br>回收机制<br>String、Array类型的方法使用<br>原型与原型链<br>构造函数模型/原型模型<br>闭包/递归<br>BOM<br>操作BOM结构<br>事件冒泡/捕获<br>AJAX请求</p>
 
                     
                         
@@ -748,7 +750,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：73.8k</span>
+		<span class="post-count">字数统计：78.2k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -889,28 +891,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
-                            <h3 class="media-heading">语义化标签</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
-<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
-<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
                             <h3 class="media-heading">清除浮动</h3>
                         </a>
@@ -962,6 +942,28 @@ setInterval("createtime()",250);
                             </span>
                         </span>
                         <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1072,7 +1074,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 59 篇文章
+                找到 63 篇文章
             </p>
         </div>
     </div>
