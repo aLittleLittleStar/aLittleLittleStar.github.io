@@ -577,7 +577,7 @@
 <h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><p>　　捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)<br>　　上面的例子在事件捕获的概念下发生click事件的顺序应该是: <code>document -&gt; html -&gt; body -&gt; div -&gt; p</code></p>
 <p>　　IE只支持事件冒泡，Chrome,Mozilla, Opera 7 和 Konqueror两种都支持，旧版本的Opera’s 和 iCab两种都不支持 。</p>
 <h4 id="捕获和冒泡过程图"><a href="#捕获和冒泡过程图" class="headerlink" title="捕获和冒泡过程图"></a>捕获和冒泡过程图</h4><p><img src="/assets/images/maopao.png" alt="冒泡和捕获"></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>event<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"obj1"</span>&gt;</span></span><br><span class="line">        welcome</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj2"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj3"</span>&gt;</span>world<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> obj1=<span class="built_in">document</span>.getElementById(<span class="string">'obj1'</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> obj2=<span class="built_in">document</span>.getElementById(<span class="string">'obj2'</span>);</span></span><br><span class="line"><span class="javascript">        obj1.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">'hello'</span>);</span></span><br><span class="line"><span class="javascript">        &#125;,<span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript">        obj2.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">'world'</span>);</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>event<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"obj1"</span>&gt;</span></span><br><span class="line">        welcome</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj2"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj3"</span>&gt;</span>world<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        var obj1=document.getElementById('obj1');</span></span><br><span class="line"><span class="undefined">        var obj2=document.getElementById('obj2');</span></span><br><span class="line"><span class="undefined">        obj1.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="undefined">            alert('hello');</span></span><br><span class="line"><span class="undefined">        &#125;,false);</span></span><br><span class="line"><span class="undefined">        obj2.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="undefined">            alert('world');</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>　　并且分别在obj1,obj2上绑定了一个点击事件，由于addEventListener的第三个参数为false,所以页面是在冒泡阶段处理绑定事件。此时整个页面可以有三种行为出现: </p>
 <ol>
 <li>点击文字welcome时，弹出hello。<br>此时就只触发了绑定在obj1上的点击事件。具体冒泡实现过程如下：welcome 属于文本节点，点击后，开始从文本节点查找，当前文本节点没有绑定点击事件，继续向上找，找到父级（id为obj1的div），有绑定的点击事件，执行，再向上找，body，没有绑定点击事件，再到html,document,都没再有绑定的点击事件，好，整个冒泡过程结束。</li>
@@ -737,8 +737,8 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/H5/语义化标签/">
-                            语义化标签
+                        <a class="link-unstyled" href="/2018/10/10/CSS3/清除浮动/">
+                            清除浮动
                         </a>
                     
                 </h1>
@@ -761,11 +761,10 @@
             
                 <div class="postShorten-excerpt">
                     <!-- toc -->
-<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
-<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
-<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p>
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p>
                     
-                        <a href="/2018/10/10/H5/语义化标签/" class="postShorten-excerpt_link link">
+                        <a href="/2018/10/10/CSS3/清除浮动/" class="postShorten-excerpt_link link">
                             阅读全文
                         </a>
                         
@@ -809,7 +808,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：81.9k</span>
+		<span class="post-count">字数统计：82.9k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -931,6 +930,25 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
                             <h3 class="media-heading">语义化标签</h3>
                         </a>
@@ -953,8 +971,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -985,25 +1003,6 @@ setInterval("createtime()",250);
                         <div class="media-content hide-xs font-merryweather"><!-- toc -->
 <p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
 <h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
