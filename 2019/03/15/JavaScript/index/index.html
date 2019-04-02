@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\ttest\n\t\n\n\t\n\t\n\n\n\t\n\t\t\n\t\n\n\n\nvar app = new Vue({\n\tel: '#app',\n\tdata: {\n\t\tmessage : \"xuxiao is boy\"\n\t},\n\tbeforeCreate: function () {\n\t\tconsole.group('beforeCreate 创建前状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\" , \"el     : \" + this.$el);\n\t\t//undefined \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t},\n\tcreated: function () {\n\t\tconsole.group('created 创建完毕状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t//已被初始化 \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t//已被初始化\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeMount: function () {\n\t\t\tconsole.group('beforeMount 挂载前状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + (this.$el));\n\t\t\tconsole.log(this.$el);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tmounted: function () {\n\t\t\tconsole.group('mounted 挂载结束状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);    \n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化 \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeUpdate: function () {\n\t\t\tconsole.group('beforeUpdate 更新前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tupdated: function () {\n\t\t\tconsole.group('updated 更新完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tbeforeDestroy: function () {\n\t\t\tconsole.group('beforeDestroy 销毁前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tdestroyed: function () {\n\t\t\tconsole.group('destroyed 销毁完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t\t}\n})\n\n\n\n\n\n\n","dateCreated":"2019-03-15T10:25:58+08:00","dateModified":"2019-04-01T15:38:33+08:00","datePublished":"2019-03-15T10:25:58+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/15/JavaScript/index/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/15/JavaScript/index/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\ttest\n\t\n\n\t\n\t\n\n\n\t\n\t\t\n\t\n\n\n\nvar app = new Vue({\n\tel: '#app',\n\tdata: {\n\t\tmessage : \"xuxiao is boy\"\n\t},\n\tbeforeCreate: function () {\n\t\tconsole.group('beforeCreate 创建前状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\" , \"el     : \" + this.$el);\n\t\t//undefined \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t},\n\tcreated: function () {\n\t\tconsole.group('created 创建完毕状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t//已被初始化 \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t//已被初始化\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeMount: function () {\n\t\t\tconsole.group('beforeMount 挂载前状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + (this.$el));\n\t\t\tconsole.log(this.$el);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tmounted: function () {\n\t\t\tconsole.group('mounted 挂载结束状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);    \n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化 \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeUpdate: function () {\n\t\t\tconsole.group('beforeUpdate 更新前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tupdated: function () {\n\t\t\tconsole.group('updated 更新完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tbeforeDestroy: function () {\n\t\t\tconsole.group('beforeDestroy 销毁前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tdestroyed: function () {\n\t\t\tconsole.group('destroyed 销毁完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t\t}\n})\n\n/*\nfor(var i =0; i< 5; i++) {\n\tsetTimeout(function() {\n\t\tconsole.log(\"new Date\", new Date, i);\n\t}, 1000)\n}\n\nconsole.log(new Date, i);\n\n*/\n\n\tfunction outer() {\n\t\tvar num = 0;\n\t\treturn function add() {\n\t\t\tnum++;\n\t\t\tconsole.log(\"num:\", num);\n\t\t}\n\t}\n\n\tvar func1 = outer()\n\tfunc1()\n\tfunc1()\n\tvar func2 = outer()\n\tfunc2()\n\tfunc2()\n\n\n\n\n\n\n","dateCreated":"2019-03-15T10:25:58+08:00","dateModified":"2019-04-02T17:05:57+08:00","datePublished":"2019-03-15T10:25:58+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/15/JavaScript/index/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/15/JavaScript/index/"}</script>
     <meta name="description" content="test 	  	 	   	 		 	    var app = new Vue({ 	el: &apos;#app&apos;, 	data: { 		message : &quot;xuxiao is boy&quot; 	}, 	beforeCreate: function () { 		console.group(&apos;beforeCreate 创建前状态===============》&apos;); 		//undefine">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="昨夜小楼又东风">
@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:description" content="test 	  	 	   	 		 	    var app = new Vue({ 	el: &apos;#app&apos;, 	data: { 		message : &quot;xuxiao is boy&quot; 	}, 	beforeCreate: function () { 		console.group(&apos;beforeCreate 创建前状态===============》&apos;); 		//undefine">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-04-01T07:38:33.914Z">
+<meta property="og:updated_time" content="2019-04-02T09:05:57.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="昨夜小楼又东风">
 <meta name="twitter:description" content="test 	  	 	   	 		 	    var app = new Vue({ 	el: &apos;#app&apos;, 	data: { 		message : &quot;xuxiao is boy&quot; 	}, 	beforeCreate: function () { 		console.group(&apos;beforeCreate 创建前状态===============》&apos;); 		//undefine">
@@ -237,7 +237,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：379字
+        字数统计：424字
     </span>
 </div>
 
@@ -333,6 +333,32 @@ var app = new Vue({
 			console.log("%c%s", "color:red","message: " + this.message)
 		}
 })
+
+/*
+for(var i =0; i< 5; i++) {
+	setTimeout(function() {
+		console.log("new Date", new Date, i);
+	}, 1000)
+}
+
+console.log(new Date, i);
+
+*/
+
+	function outer() {
+		var num = 0;
+		return function add() {
+			num++;
+			console.log("num:", num);
+		}
+	}
+
+	var func1 = outer()
+	func1()
+	func1()
+	var func2 = outer()
+	func2()
+	func2()
 
 
 </script>
@@ -439,7 +465,7 @@ var app = new Vue({
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：78.2k</span>
+		<span class="post-count">字数统计：81.9k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -669,8 +695,30 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -709,6 +757,25 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
                             <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
@@ -720,47 +787,6 @@ setInterval("createtime()",250);
                             </span>
                         </span>
                         <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
-                            <h3 class="media-heading">语义化标签</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
-<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
-<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -799,8 +825,7 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><p>事件冒泡和事件捕获分别由微软和网景公司提出，这两个概念都是为了解决页面中事件流（事件发生顺序）的问题。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"inner"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>上面的代码当中一个div元素当中有一个p子元素，如果两个元素都有一个click的处理函数，那么我们怎么才能知道哪一个函数会首先被触发呢？<br></div>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -871,7 +896,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 63 篇文章
+                找到 65 篇文章
             </p>
         </div>
     </div>
