@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>标签: 前端性能优化 - 昨夜小楼又东风</title>
+    <title>浏览器兼容性 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,17 +15,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{}</script>
-    <meta name="description" content="雨打梨花深闭门，忘了青春，误了青春">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　如何机智地回答浏览器兼容性问题\n浏览器兼容性　　浏览器的兼容性无非还是样式兼容性（css），交互兼容性（javascript），浏览器 hack三个方面。\n样式兼容(CSS)方面　　1、因为历史原因，不同的浏览器样式存在差异，可以通过 Normalize.css 抹平差异，也可以定制自己的 reset.css，例如通过通配符选择器，全局重置样式:* { margin: 0; padding: 0; }　　2、在CSS3还没有成为真正的标准时，浏览器厂商就开始支持这些属性的使用了。CSS3样式语法还存在波动时，浏览器厂商提供了针对浏览器的前缀，直到现在还是有部分的属性需要加上浏览器前缀。在开发过程中我们一般通过IDE开发插件、css 预处理器以及前端自动化构建工程帮我们处理。浏览器内核与前缀的对应关系如下:\n\n\n\n内核\n主要代表的浏览器\n前缀\n\n\n\n\nTrident\nIE浏览器\n-ms\n\n\nGecko\nFirefox\n-moz\n\n\nPresto\nOpera\n-o\n\n\nWebkit\nChrome(bink)、Safari\n-webkit\n\n\n\n　　3、在还原设计稿的时候我们常常会需要用到透明属性，所以解决 IE9 以下浏览器不能使用 opacity。12345opacity: 0.5;//IE6-IE8我们习惯使用filter滤镜属性来进行实现filter: alpha(opacity = 50); //IE4-IE9都支持滤镜写法progid:DXImageTransform.Microsoft.Alpha(Opacity=xx)filter: progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 50);\n交互兼容(javascript)　　1、事件兼容的问题，我们通常需要会封装一个适配器的方法，过滤事件句柄绑定、移除、冒泡阻止以及默认事件行为处理1234567891011121314151617181920212223var  helper = &#123;&#125;//绑定事件helper.on = function(target, type, handler) &#123; if(target.addEventListener) &#123;   target.addEventListener(type, handler, false); &#125; else &#123;   target.attachEvent(\"on\" + type,     function(event) &#123;       return handler.call(target, event);       &#125;, false); &#125;&#125;;//取消事件监听helper.remove = function(target, type, handler) &#123; if(target.removeEventListener) &#123;   target.removeEventListener(type, handler); &#125; else &#123;   target.detachEvent(\"on\" + type,     function(event) &#123;     return handler.call(target, event);   &#125;, true);    &#125;&#125;;\n　　2、new Date()构造函数使用，’2018-07-05’是无法被各个浏览器中，使用new Date(str)来正确生成日期对象的。 正确的用法是’2018/07/05’.　　3、获取 scrollTop 通过 document.documentElement.scrollTop 兼容非chrome浏览器var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;\n浏览器 hack(CSS hack)　　由于不同厂商的流览器或某浏览器的不同版本（如IE6-IE11,Firefox/Safari/Opera/Chrome等），对CSS的支持、解析不一样，导致在不同浏览器的环境中呈现出不一致的页面展现效果。这时，我们为了获得统一的页面效果，就需要针对不同的浏览器或不同版本写特定的CSS样式，我们把这个针对不同的浏览器/不同版本写相应的CSS code的过程，叫做CSS hack!　　1、快速判断 IE 浏览器版本12&lt;!--[if IE 8]&gt; ie8 &lt;![endif]--&gt;&lt;!--[if IE 9]&gt; 骚气的 ie9 浏览器 &lt;![endif]--&gt;\n　　2、判断是否是 Safari 浏览器12/* Safari */var isSafari = /a/.__proto__=='//';\n　　3、判断是否是 Chrome 浏览器12/* Chrome */var isChrome = Boolean(window.chrome);\n关于 浏览器hack:　　英文：BROWSERHACKS　　中文：主流浏览器的Hack写法　　史上最全的CSS hack方式一览\n","dateCreated":"2019-04-05T19:46:31+08:00","dateModified":"2019-04-05T20:21:45+08:00","datePublished":"2019-04-05T19:46:31+08:00","description":"","headline":"浏览器兼容性","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/","keywords":"浏览器"}</script>
+    <meta name="keywords" content="浏览器">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="昨夜小楼又东风">
-<meta property="og:url" content="http://yoursite.com/tags/前端性能优化/index.html">
+<meta property="og:title" content="浏览器兼容性">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="雨打梨花深闭门，忘了青春，误了青春">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-04-05T12:21:45.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昨夜小楼又东风">
-<meta name="twitter:description" content="雨打梨花深闭门，忘了青春，误了青春">
+<meta name="twitter:title" content="浏览器兼容性">
     
     
         
@@ -55,7 +54,7 @@
         
     
 
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
@@ -79,7 +78,7 @@
         
     
 
-<nav id="sidebar" data-behavior="2">
+<nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -209,177 +208,187 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="5"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/03/14/前端性能优化/SSR和客户端渲染/">
-                            客户端渲染和服务端渲染详细执行流程
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-03-14T21:09:08+08:00">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            浏览器兼容性
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-04-05T19:46:31+08:00">
 	
-		    3月 14, 2019
+		    4月 05, 2019
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
+    <a class="category-link" href="/categories/浏览器/">浏览器</a>
 
 
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content">
-                    <ol>
-<li><p>客户端渲染：CSR (client side render)<br>在服务端放了一个html 页面，里面有<script>//发请求，拿数据，模版引擎渲染等，$.ajax  ,</script><br>客户端发起请求，服务端把页面（响应的是字符串）发送过去，客户端从上到下依次解析，如果在解析的过程中，发现ajax<br>请求，再次像服务器发送新的请求，客户端拿到ajax 响应结果，模板引擎渲染。<br>过程至少和服务端发起两次请求</p>
-</li>
-<li><p>服务端渲染：SSR (server side render)<br>sever 端页面+数据，服务端过程：<br>1.读取index.html<br>2.模版进行渲染，在发送给客户端之前，在服务端已经把index.html 渲染处理了。var 渲染结果 = tempeter.render(模板字符串，｛解析替换对象｝)   response.end(渲染结果)，服务端响应的就是最总的结果<br>服务端只请求一次<br>多数网站既有服务端渲染又有客户端渲染</p>
-</li>
-<li><p>服务端渲染和客户端渲染的区别</p>
-<ul>
-<li>客户端渲染不利于 SEO 搜索引擎优化</li>
-<li>服务端渲染是可以被爬虫抓取到的，客户端异步渲染是很难被爬虫抓取到的</li>
-<li>所以你会发现真正的网站既不是纯异步也不是纯服务端渲染出来的</li>
-<li>而是两者结合来做的</li>
-<li>例如京东的商品列表就采用的是服务端渲染，目的了为了 SEO 搜索引擎优化</li>
-<li>而它的商品评论列表为了用户体验，而且也不需要 SEO 优化，所以采用是客户端渲染</li>
-</ul>
-</li>
-</ol>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/03/14/前端性能优化/SSR和客户端渲染/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/">
-                            重绘(repaint)与回流(reflow)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-02-14T15:07:34+08:00">
-	
-		    2月 14, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
-
-
-    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：809字
+    </span>
 </div>
 
-            </div>
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器兼容性"><span class="toc-text">浏览器兼容性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#样式兼容-CSS-方面"><span class="toc-text">样式兼容(CSS)方面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交互兼容-javascript"><span class="toc-text">交互兼容(javascript)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器-hack-CSS-hack"><span class="toc-text">浏览器 hack(CSS hack)</span></a></li></ol></li></ol>
+<a id="more"></a>
+<p>转载：<br>　　<a href="https://juejin.im/post/5b3da006e51d4518f140edb2#heading-5" target="_blank" rel="noopener">如何机智地回答浏览器兼容性问题</a></p>
+<h3 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h3><p>　　浏览器的兼容性无非还是<code>样式兼容性（css）</code>，<code>交互兼容性（javascript）</code>，<code>浏览器 hack</code>三个方面。</p>
+<h4 id="样式兼容-CSS-方面"><a href="#样式兼容-CSS-方面" class="headerlink" title="样式兼容(CSS)方面"></a>样式兼容(CSS)方面</h4><p>　　1、因为历史原因，不同的浏览器样式存在差异，可以通过 Normalize.css 抹平差异，也可以定制自己的 reset.css，例如通过通配符选择器，全局重置样式:<code>* { margin: 0; padding: 0; }</code><br>　　2、在CSS3还没有成为真正的标准时，浏览器厂商就开始支持这些属性的使用了。CSS3样式语法还存在波动时，浏览器厂商提供了针对浏览器的前缀，直到现在还是有部分的属性需要加上浏览器前缀。在开发过程中我们一般通过IDE开发插件、css 预处理器以及前端自动化构建工程帮我们处理。<br>浏览器内核与前缀的对应关系如下:</p>
+<table>
+<thead>
+<tr>
+<th>内核</th>
+<th>主要代表的浏览器</th>
+<th>前缀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trident</td>
+<td>IE浏览器</td>
+<td>-ms</td>
+</tr>
+<tr>
+<td>Gecko</td>
+<td>Firefox</td>
+<td>-moz</td>
+</tr>
+<tr>
+<td>Presto</td>
+<td>Opera</td>
+<td>-o</td>
+</tr>
+<tr>
+<td>Webkit</td>
+<td>Chrome(bink)、Safari</td>
+<td>-webkit</td>
+</tr>
+</tbody>
+</table>
+<p>　　3、在还原设计稿的时候我们常常会需要用到透明属性，所以解决 IE9 以下浏览器不能使用 opacity。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">opacity: 0.5;</span><br><span class="line">//IE6-IE8我们习惯使用filter滤镜属性来进行实现</span><br><span class="line">filter: alpha(opacity = 50); </span><br><span class="line">//IE4-IE9都支持滤镜写法progid:DXImageTransform.Microsoft.Alpha(Opacity=xx)</span><br><span class="line">filter: progid:DXImageTransform.Microsoft.Alpha(style = 0, opacity = 50);</span><br></pre></td></tr></table></figure></p>
+<h4 id="交互兼容-javascript"><a href="#交互兼容-javascript" class="headerlink" title="交互兼容(javascript)"></a>交互兼容(javascript)</h4><p>　　1、事件兼容的问题，我们通常需要会封装一个适配器的方法，过滤事件句柄绑定、移除、冒泡阻止以及默认事件行为处理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var  helper = &#123;&#125;</span><br><span class="line">//绑定事件</span><br><span class="line">helper.on = <span class="keyword">function</span>(target, <span class="built_in">type</span>, handler) &#123;</span><br><span class="line"> <span class="keyword">if</span>(target.addEventListener) &#123;</span><br><span class="line">   target.addEventListener(<span class="built_in">type</span>, handler, <span class="literal">false</span>);</span><br><span class="line"> &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   target.attachEvent(<span class="string">"on"</span> + <span class="built_in">type</span>,</span><br><span class="line">     <span class="keyword">function</span>(event) &#123;</span><br><span class="line">       <span class="built_in">return</span> handler.call(target, event);</span><br><span class="line">       &#125;, <span class="literal">false</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line">//取消事件监听</span><br><span class="line">helper.remove = <span class="keyword">function</span>(target, <span class="built_in">type</span>, handler) &#123;</span><br><span class="line"> <span class="keyword">if</span>(target.removeEventListener) &#123;</span><br><span class="line">   target.removeEventListener(<span class="built_in">type</span>, handler);</span><br><span class="line"> &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   target.detachEvent(<span class="string">"on"</span> + <span class="built_in">type</span>,</span><br><span class="line">     <span class="keyword">function</span>(event) &#123;</span><br><span class="line">     <span class="built_in">return</span> handler.call(target, event);</span><br><span class="line">   &#125;, <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>　　2、<code>new Date()</code>构造函数使用，’2018-07-05’是无法被各个浏览器中，使用<code>new Date(str)</code>来正确生成日期对象的。 正确的用法是’2018/07/05’.<br>　　3、获取 scrollTop 通过 <code>document.documentElement.scrollTop</code> 兼容非chrome浏览器<br><code>var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;</code></p>
+<h4 id="浏览器-hack-CSS-hack"><a href="#浏览器-hack-CSS-hack" class="headerlink" title="浏览器 hack(CSS hack)"></a>浏览器 hack(CSS hack)</h4><p>　　由于不同厂商的流览器或某浏览器的不同版本（如<code>IE6-IE11</code>,<code>Firefox/Safari/Opera/Chrome</code>等），对CSS的支持、解析不一样，导致在不同浏览器的环境中呈现出不一致的页面展现效果。这时，我们为了获得统一的页面效果，就需要针对不同的浏览器或不同版本写特定的CSS样式，我们把这个针对不同的浏览器/不同版本写相应的CSS code的过程，叫做CSS hack!<br>　　1、快速判断 IE 浏览器版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--[<span class="keyword">if</span> IE 8]&gt; ie8 &lt;![endif]--&gt;</span><br><span class="line">&lt;!--[<span class="keyword">if</span> IE 9]&gt; 骚气的 ie9 浏览器 &lt;![endif]--&gt;</span><br></pre></td></tr></table></figure></p>
+<p>　　2、判断是否是 Safari 浏览器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Safari */</span><br><span class="line">var isSafari = /a/.__proto__==<span class="string">'//'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>　　3、判断是否是 Chrome 浏览器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Chrome */</span><br><span class="line">var isChrome = Boolean(window.chrome);</span><br></pre></td></tr></table></figure></p>
+<p>关于 浏览器hack:<br>　　英文：<a href="http://browserhacks.com/" target="_blank" rel="noopener">BROWSERHACKS</a><br>　　中文：<a href="https://www.w3cplus.com/css/browser-hacks.html" target="_blank" rel="noopener">主流浏览器的Hack写法</a><br>　　<a href="https://blog.csdn.net/freshlover/article/details/12132801" target="_blank" rel="noopener">史上最全的CSS hack方式一览</a></p>
+
             
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-<p>文章转载：<br>　<a href="http://www.cnblogs.com/blackmanba/p/browser-repaint-reflow.html" target="_blank" rel="noopener">浏览器重绘和重排</a><br>文章参考：<br>　<a href="https://www.cnblogs.com/jiayuexuan/p/7490140.html" target="_blank" rel="noopener">重构与回流</a><br>　<a href="https://kb.cnblogs.com/page/169820/" target="_blank" rel="noopener">浏览器的重绘与重排</a><br>　<a href="http://www.cnblogs.com/shenqi0920/p/3545820.html" target="_blank" rel="noopener">探讨css中repaint和reflow</a></p>
-<h5 id="前言："><a href="#前言：" class="headerlink" title="前言："></a><strong>前言：</strong></h5><p>　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。</p>
-<h5 id="概述："><a href="#概述：" class="headerlink" title="概述："></a><strong>概述：</strong></h5><p>　　<strong>重排(回流)</strong>, 顾名思义就是重新排版的意思; <strong>重绘</strong>, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。<br>　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。<strong>回流必将引起重绘，而重绘不一定会引起回流</strong>，repaint和reflow的目的是：展示一个新的页面样貌。</p>
-                    
-                        <a href="/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
+
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/02/13/前端性能优化/前端性能优化/">
-                            前端性能优化
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-02-13T20:37:12+08:00">
-	
-		    2月 13, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
-
-
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/浏览器/">浏览器</a>
 
             </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- 目录 -->
-<!-- toc -->
-<p>转载：<br><a href="http://www.cnblogs.com/lei2007/archive/2013/08/16/3262897.html" target="_blank" rel="noopener">前端性能优化–yahoo前端性能团队总结的35条黄金定律</a><br>参考文章：<br><a href="https://www.zhihu.com/question/21658448/answer/18903129" target="_blank" rel="noopener">Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎</a><br><a href="https://segmentfault.com/a/1190000008829958" target="_blank" rel="noopener">WEB前端性能优化常见方法</a><br>　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？<br></p>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
                     
-                        <a href="/2019/02/13/前端性能优化/前端性能优化/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/JavaScript/ES6新特性/" data-tooltip="ES6新特性" aria-label="下一篇: ES6新特性">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
             
-        </div>
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
         
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
         
         
-        <li class="pagination-number">第 1 页 共 1 页</li>
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
 
 
                 <footer id="footer" class="main-content-wrap">
@@ -409,6 +418,113 @@ setInterval("createtime()",250);
 </script>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/JavaScript/ES6新特性/" data-tooltip="ES6新特性" aria-label="下一篇: ES6新特性">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
             
         </div>
         
@@ -724,6 +840,37 @@ setInterval("createtime()",250);
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/04/05/前端性能优化/浏览器兼容性/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
 
 
 
