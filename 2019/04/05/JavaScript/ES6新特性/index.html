@@ -1,0 +1,863 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>ES6新特性 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　带你一起敲敲ES6的新特性\n变量声明1、常量(const， 不会变量提升，块级作用域，作用域内值不能改，const 对象仍然可以被改变的)1234const aa = &#123;a: '12'&#125;;aa.a // 12aa.a = \"123456\";console.log(aa); // a: '123456'\n2、块级作用域(let，不会变量提升)12345678910for (let i = 0; i&lt;5; i++) &#123;  setTimeout(() =&gt; &#123;    console.log(i)    //0 1 2 3 4  &#125;,30)&#125;for (var i = 0; i&lt;5; i++) &#123;  setTimeout(() =&gt; &#123;    console.log(i)   //5 5 5 5 5  &#125;,30)&#125;\n注意：1234let 关键词声明的变量不具备变量提升（hoisting）特性let 和 const 声明只在最靠近的一个块中（花括号内）有效当使用常量 const 声明时，请使用大写变量，如：CAPITAL_CASINGconst 在声明时必须被赋值\n　　特别要说明一点的是对于const和let都有暂存死区，所谓暂存死区就是:如果作用域内有这样一个变量那么这个作用域内就会绑定这个变量,不会继续向上查找了,以下代码运行会报错。\n123456const a = 1;&#123;  console.log(a);  const a = 2;&#125;console.log(a)\n结构赋值　　所谓解构赋值就是 声明和赋值都放到了一起一般都是数组 对 数组, 对象 对 对象, 数组能够设置默认值，对象也能够设置默认值，默认值必须采用等号的方式。12345let [zhan, si, xl = 5] = [3, 4];console.log(zhan, si, xl) //3, 4, 5let &#123;name, age = 23&#125; = &#123;name: 'xl', bigAge: 24&#125;console.log(name, age) //xl, 23\n特别的，可能有时会有关键字的情况可以通过:的形式来更改名字，看下面代码12let &#123; name, age: xl, default: d &#125; = &#123; name: 'xlei', age: 9, default: 'xxx' &#125;;console.log(name, xl, d);\n来一个默认值的具体应用吧：1234567891011function ajax(&#123;    url = new Error('url without'),    type = 'get',    data = xxx&#125;)&#123;  console.log(data, type)   //&#123;a: 5&#125;, get&#125;ajax(&#123;    url: '/test',    data: &#123;a:5&#125;&#125;)\n字符串1、模板字符串（拼接方便，可以换行）12基本的字符串格式化。将表达式嵌入字符串中进行拼接。用$&#123;&#125;来界定；ES6反引号(``)直接搞定；\n12let exe1 = '张三'let exe2 = `我的名字是：$&#123;exe1&#125;`\n2、startWith, endWith 返回一个布尔值12345let str1 = 'www.bsym.online'let str2 = 'http://www.bsym.online'console.log(str1.startsWith('http://'))   //falseconsole.log(str2.startsWith('http://'))   //trueconsole.log(str2.endsWith('online'))     //true\n3、padStart, padEnd补全 – 不会删除原有内容12345// padStart padEnd 补全(记住只能增加，不能减少)let str1 = 'nihao'let newStr = str1.padStart(8,'xl')let newStr2 = str1.padEnd(8,'xl')console.log(newStr, newStr2)   //xlxnihao, nihaoxlx\n箭头函数(解决this问题，书写起来更简单)　　传统函数内的this是定义时所在的环境，而箭头函数内的this是使用时上下文的环境。　　ES6 中，箭头函数就是函数的一种简写形式，使用括号包裹参数，跟随一个 =&gt;，紧接着是函数体；123不需要 function 关键字来创建函数省略 return 关键字继承当前上下文的 this 关键字\n12345678910var add = (a, b) =&gt; a + b;[1,2,3].map(x =&gt; x + 1);let aa = (arg1, arg2) =&gt; &#123;  console.log(arg1, arg2)&#125;aa(1, 2)   //1, 2;((arg1, arg2) =&gt; &#123;  console.log(arg1, arg2)&#125;)(3, 4);\n注意：　　这里顺带提一下，像上面的自执行匿名函数前后都要加分号，这样既不会被坑，也不会坑别人。另外不要使用箭头函数的argeuments细节：　　当你的函数有且仅有一个参数的时候，是可以省略掉括号的。当你函数返回有且仅有一个表达式的时候可以省略{} 和 return\nSpread / Rest 操作符Spread / Rest 操作符指的是 ...，具体是 Spread 还是 Rest 需要看上下文语境。　　当被用于迭代器中时，它是一个 Spread 操作符：12345function foo(x,y,z) &#123;  console.log(x,y,z);&#125;let arr = [1,2,3];foo(...arr); // 1 2 3\n　　当被用于函数传参时，是一个 Rest 操作符：当被用于函数传参时，是一个 Rest 操作符：1234function foo(...args) &#123;  console.log(args);&#125;foo( 1, 2, 3, 4, 5); // [1, 2, 3, 4, 5]\n要点1、数组的扩展运算符：将一个数组转为用逗号分隔的参数序列123let arr = [...[1, 2, 3], ...[4, 5, 6]]console.log(arr)   // 1, 2, 3, 4, 5, 6console.log(Math.min(...arr))  // 1\n2、对象的解构赋值　　对象的 Rest 解构赋值用于从一个对象取值，相当于将所有可遍历的、但尚未被读取的属性，分配到指定的对象上面,注意Rest 解构赋值必须是最后一个参数，否则会报错。Rest解构赋值所在的对象，拷贝了对象obj的属性，Rest解构赋值的拷贝是浅拷贝，即如果一个键的值是复合类型的值（数组、对象、函数）、那么Rest解构赋值拷贝的是这个值的引用，而不是这个值的副本，解构赋值不会拷贝继承自原型对象的属性1234567let obj = &#123;name: 'xl', age: 23, say:'ok', eat: &#123;xl: 'okok'&#125;&#125;//尚未被读取的属性，分配到指定的对象上面,浅拷贝了对象obj的属性let &#123;name, age, ...z&#125; = objobj.say = 'oo'obj.eat.xl = 'o?o?'console.log(name, age, z)  //xl 23 &#123; say: 'ok', eat: &#123; xl: 'o?o?' &#125; &#125;\n123456789let z = &#123;a: 3, b: 4, c:&#123;    eat:'ok'&#125;&#125;// 注意这个地方和直接赋值的区别 let n = z; // 一个是浅拷贝对象属性，一个是浅拷贝对象let n = &#123;...z&#125;z.a = 5z.c.eat = 'ok?'console.log(n)  //&#123; a: 3, b: 4, c: &#123; eat: 'ok?' &#125; &#125;\n　　那么要是想实现一个深拷贝，怎么实现呢？其实就是遍历属性如果属性是一个普通值就赋值，不是普通值就递归知道是普通值为止，然后赋值，代码如下：123456789101112131415161718192021222324// 实现深拷贝 保留继承关系 可以实现各种类型的拷贝 实现递归拷贝    function deepClone(obj) &#123;        if (typeof obj !== 'object') return obj;        if (obj == null) return null;        if (obj instanceof Date) return new Date(obj);        if (obj instanceof RegExp) return new RegExp(obj);        let o = new obj.constructor(); // 保留类的继承关系        Object.keys(obj).forEach((key, index) =&gt; &#123;            if(typeof (obj[key]) == 'object')&#123;                o[key] = deepClone(obj[key])            &#125;else&#123;                // console.log(obj[key])                o[key] = obj[key]            &#125;        &#125;)        return o;    &#125;    let o = &#123; a: &#123; a: 1 &#125;, b: function()&#123;        console.log(this.a)    &#125; &#125;    let newObj = deepClone(o);    o.a.a = 2;    console.log( newObj.b());\n数组常用方式1234567891011121314151617181920212223242526272829303132// (1)map返回值 返回值是一个新数组    Array.prototype.map = function (fn) &#123;        let arr = [];        for (let i = 0; i &lt; this.length; i++) &#123;            arr.push(fn(this[i], i));        &#125;        return arr;    &#125;;    let arr = [1, 2, 3].map(item =&gt; &#123;        return item * 2;    &#125;);    console.log(arr);    // (2)filter 过滤 如果返回true表示留下 返回false表示删除    let arr = [1, 2, 3];    let filterArr = arr.filter(item =&gt; &#123;        return item &gt; 2;    &#125;);    console.log(filterArr);    // (3)some找到后返回true,找false可以用every     let r = [2, 1, 3].some(item =&gt; &#123;        return item &gt; 2;    &#125;);    console.log(r);  //true    // (4)every 检测数组 ages 的所有元素是否都符合条件 :    var ages = [2, 1, 3];    let r = ages.every((item) =&gt; &#123;        return item &gt; 2    &#125;)    console.log(r)  //false    // (5)Array.from();   将类数组转为数组\nES6的Class先复习一下es5中的几个名词：1234成员属性（方法）| 实例属性（方法） ：在构造函数中通过this.属性声明的静态属性（方法）：通过类来声明的 类.xxx私有属性（方法）：只有在类的内部可以使用，其他任何地方都不可以使用的公有属性（方法）|原型属性（方法）：在原型上声明的属性或者方法 xx.prototype.xxx\n123456789101112function Parent(name) &#123;  this.name = name; //成员属性|实例属性  this.say = function() &#123;   //成员方法    console.log(this.name)  &#125;&#125;//静态属性Parent.smoking = 'no'//公有方法|原型方法Parent.prototype.up = function() &#123;  console.log('ok')&#125;\n再来说说es6中的class(es6中不考虑私有属性和方法):ES6 中支持 class 语法，不过，ES6的class不是新的对象继承模型，它只是原型链的语法糖表现形式。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879class Parent&#123;    constructor(x, y)&#123;        this.x = x;        //成员属性|实例属性  可遍历 打印实例可直接打印出来,         // 与 ES5 一样，实例的属性除非显式定义在其本身（即定义在this对象上），        // 否则都是定义在原型上（即定义在class上）。        this.y = y;        //如果不返回 默认返回实例对象 this        return this.x     &#125;    static b()&#123; // 属于类上的方法 也称静态方法        return 2;    &#125;    eat()&#123;      //原型上的方法 | 公有方法 并且都是不可枚举的       // 打印实例不能显示的打印出来       console.log(this.x);      return this.x    &#125;&#125;class Child extends Parent&#123; //     constructor(x, y, z)&#123;        // Parent.call(this);返回的是子类的实例，        super(x, y);         this.age = z; // 成员属性|实例属性    &#125;    static a()&#123; // 属于类上的方法        return 1;    &#125;    smoking()&#123; // 原型上的方法        return super.eat() + this.age        //需要说明的是 super不仅可以调用父类的原型方法        // 还可以调用父类的静态方法，方法内部的this指向当前的子类，        // 而不是子类的实例        // console.log(this.age)    &#125;&#125;let child = new Child(2, 3, 4);// console.log(child);console.log(child.smoking())class Foo &#123;    constructor() &#123;    //constructor函数默认返回this,    //这里返回一个全新的对象，结果导致实例对象不是Foo类的实例    return Object.create(null);    &#125;&#125;new Foo() instanceof Foo// false//定义类class Point &#123;    constructor(x, y) &#123;        this.x = x;                this.y = y;    &#125;    toString() &#123;    return '(' + this.x + ', ' + this.y + ')';    &#125;&#125;var point = new Point(2, 3);console.log(point)point.toString() // (2, 3)point.hasOwnProperty('x') // truepoint.hasOwnProperty('y') // truepoint.hasOwnProperty('toString') // falsepoint.__proto__.hasOwnProperty('toString') // trueclass A &#123;&#125;class B extends A &#123;&#125;B.__proto__ === A // trueB.prototype.__proto__ === A.prototype // true\n迭代器(Iterators)生成器(Generators)对象和数组解构123456789101112131415161718// 对象const student = &#123;    name: 'Sam',    age: 22,    sex: '男'&#125;// 数组// const student = ['Sam', 22, '男'];// ES5；const name = student.name;const age = student.age;const sex = student.sex;console.log(name + ' --- ' + age + ' --- ' + sex);// ES6const &#123; name, age, sex &#125; = student;console.log(name + ' --- ' + age + ' --- ' + sex);","dateCreated":"2019-04-05T16:50:51+08:00","dateModified":"2019-04-05T19:26:06+08:00","datePublished":"2019-04-05T16:50:51+08:00","description":"","headline":"ES6新特性","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/05/JavaScript/ES6新特性/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/05/JavaScript/ES6新特性/","keywords":"ES6"}</script>
+    <meta name="keywords" content="ES6">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="ES6新特性">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/JavaScript/ES6新特性/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-04-05T11:26:06.837Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6新特性">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            ES6新特性
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-04-05T16:50:51+08:00">
+	
+		    4月 05, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：2.5k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量声明"><span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结构赋值"><span class="toc-text">结构赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#箭头函数-解决this问题，书写起来更简单"><span class="toc-text">箭头函数(解决this问题，书写起来更简单)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spread-Rest-操作符"><span class="toc-text">Spread / Rest 操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#要点"><span class="toc-text">要点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组常用方式"><span class="toc-text">数组常用方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ES6的Class"><span class="toc-text">ES6的Class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#迭代器-Iterators"><span class="toc-text">迭代器(Iterators)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成器-Generators"><span class="toc-text">生成器(Generators)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象和数组解构"><span class="toc-text">对象和数组解构</span></a></li></ol>
+<a id="more"></a>
+<p>转载：<br>　　<a href="https://juejin.im/post/5b1fd28d6fb9a01e615ed6d1" target="_blank" rel="noopener">带你一起敲敲ES6的新特性</a></p>
+<h4 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h4><p>1、常量(const， 不会变量提升，块级作用域，作用域内值不能改，const 对象仍然可以被改变的)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const aa = &#123;a: <span class="string">'12'</span>&#125;;</span><br><span class="line">aa.a // 12</span><br><span class="line">aa.a = <span class="string">"123456"</span>;</span><br><span class="line">console.log(aa); // a: <span class="string">'123456'</span></span><br></pre></td></tr></table></figure></p>
+<p>2、块级作用域(let，不会变量提升)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i&lt;5; i++) &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(i)    //0 1 2 3 4</span><br><span class="line">  &#125;,30)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (var i = 0; i&lt;5; i++) &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(i)   //5 5 5 5 5</span><br><span class="line">  &#125;,30)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> 关键词声明的变量不具备变量提升（hoisting）特性</span><br><span class="line"><span class="built_in">let</span> 和 const 声明只在最靠近的一个块中（花括号内）有效</span><br><span class="line">当使用常量 const 声明时，请使用大写变量，如：CAPITAL_CASING</span><br><span class="line">const 在声明时必须被赋值</span><br></pre></td></tr></table></figure></p>
+<p>　　特别要说明一点的是对于const和let都有<code>暂存死区</code>，所谓暂存死区就是:<code>如果作用域内有这样一个变量那么这个作用域内就会绑定这个变量,不会继续向上查找了,以下代码运行会报错</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const a = 1;</span><br><span class="line">&#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  const a = 2;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a)</span><br></pre></td></tr></table></figure>
+<h4 id="结构赋值"><a href="#结构赋值" class="headerlink" title="结构赋值"></a>结构赋值</h4><p>　　所谓解构赋值就是 声明和赋值都放到了一起<code>一般都是数组 对 数组, 对象 对 对象, 数组能够设置默认值，对象也能够设置默认值，默认值必须采用等号的方式</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> [zhan, si, xl = 5] = [3, 4];</span><br><span class="line">console.log(zhan, si, xl) //3, 4, 5</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> &#123;name, age = 23&#125; = &#123;name: <span class="string">'xl'</span>, bigAge: 24&#125;</span><br><span class="line">console.log(name, age) //xl, 23</span><br></pre></td></tr></table></figure></p>
+<p>特别的，可能有时会有关键字的情况可以通过:的形式来更改名字，看下面代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> &#123; name, age: xl, default: d &#125; = &#123; name: <span class="string">'xlei'</span>, age: 9, default: <span class="string">'xxx'</span> &#125;;</span><br><span class="line">console.log(name, xl, d);</span><br></pre></td></tr></table></figure></p>
+<p>来一个默认值的具体应用吧：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> ajax(&#123;</span><br><span class="line">    url = new Error(<span class="string">'url without'</span>),</span><br><span class="line">    <span class="built_in">type</span> = <span class="string">'get'</span>,</span><br><span class="line">    data = xxx</span><br><span class="line">&#125;)&#123;</span><br><span class="line">  console.log(data, <span class="built_in">type</span>)   //&#123;a: 5&#125;, get</span><br><span class="line">&#125;</span><br><span class="line">ajax(&#123;</span><br><span class="line">    url: <span class="string">'/test'</span>,</span><br><span class="line">    data: &#123;a:5&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>1、模板字符串（拼接方便，可以换行）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">基本的字符串格式化。将表达式嵌入字符串中进行拼接。用<span class="variable">$&#123;&#125;</span>来界定；</span><br><span class="line">ES6反引号(``)直接搞定；</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> exe1 = <span class="string">'张三'</span></span><br><span class="line"><span class="built_in">let</span> exe2 = `我的名字是：<span class="variable">$&#123;exe1&#125;</span>`</span><br></pre></td></tr></table></figure>
+<p>2、startWith, endWith 返回一个布尔值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> str1 = <span class="string">'www.bsym.online'</span></span><br><span class="line"><span class="built_in">let</span> str2 = <span class="string">'http://www.bsym.online'</span></span><br><span class="line">console.log(str1.startsWith(<span class="string">'http://'</span>))   //<span class="literal">false</span></span><br><span class="line">console.log(str2.startsWith(<span class="string">'http://'</span>))   //<span class="literal">true</span></span><br><span class="line">console.log(str2.endsWith(<span class="string">'online'</span>))     //<span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>3、padStart, padEnd补全 – 不会删除原有内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// padStart padEnd 补全(记住只能增加，不能减少)</span><br><span class="line"><span class="built_in">let</span> str1 = <span class="string">'nihao'</span></span><br><span class="line"><span class="built_in">let</span> newStr = str1.padStart(8,<span class="string">'xl'</span>)</span><br><span class="line"><span class="built_in">let</span> newStr2 = str1.padEnd(8,<span class="string">'xl'</span>)</span><br><span class="line">console.log(newStr, newStr2)   //xlxnihao, nihaoxlx</span><br></pre></td></tr></table></figure></p>
+<h4 id="箭头函数-解决this问题，书写起来更简单"><a href="#箭头函数-解决this问题，书写起来更简单" class="headerlink" title="箭头函数(解决this问题，书写起来更简单)"></a>箭头函数(解决this问题，书写起来更简单)</h4><p>　　传统函数内的this是定义时所在的环境，而箭头函数内的this是使用时上下文的环境。<br>　　ES6 中，箭头函数就是函数的一种简写形式，使用括号包裹参数，跟随一个 =&gt;，紧接着是函数体；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不需要 <span class="keyword">function</span> 关键字来创建函数</span><br><span class="line">省略 <span class="built_in">return</span> 关键字</span><br><span class="line">继承当前上下文的 this 关键字</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var add = (a, b) =&gt; a + b;</span><br><span class="line">[1,2,3].map(x =&gt; x + 1);</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> aa = (arg1, arg2) =&gt; &#123;</span><br><span class="line">  console.log(arg1, arg2)</span><br><span class="line">&#125;</span><br><span class="line">aa(1, 2)   //1, 2</span><br><span class="line">;((arg1, arg2) =&gt; &#123;</span><br><span class="line">  console.log(arg1, arg2)</span><br><span class="line">&#125;)(3, 4);</span><br></pre></td></tr></table></figure>
+<p>注意：<br>　　这里顺带提一下，像上面的<code>自执行匿名函数前后都要加分号</code>，这样既不会被坑，也不会坑别人。另外<code>不要使用箭头函数的argeuments</code><br>细节：<br>　　当你的函数有且仅有一个参数的时候，是可以省略掉括号的。当你函数返回有且仅有一个表达式的时候可以省略<code>{}</code> 和 <code>return</code></p>
+<h4 id="Spread-Rest-操作符"><a href="#Spread-Rest-操作符" class="headerlink" title="Spread / Rest 操作符"></a>Spread / Rest 操作符</h4><p><code>Spread / Rest 操作符指的是 ...，具体是 Spread 还是 Rest 需要看上下文语境。</code><br>　　当被用于迭代器中时，它是一个 Spread 操作符：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> foo(x,y,z) &#123;</span><br><span class="line">  console.log(x,y,z);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">let</span> arr = [1,2,3];</span><br><span class="line">foo(...arr); // 1 2 3</span><br></pre></td></tr></table></figure></p>
+<p>　　当被用于函数传参时，是一个 Rest 操作符：当被用于函数传参时，是一个 Rest 操作符：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> foo(...args) &#123;</span><br><span class="line">  console.log(args);</span><br><span class="line">&#125;</span><br><span class="line">foo( 1, 2, 3, 4, 5); // [1, 2, 3, 4, 5]</span><br></pre></td></tr></table></figure></p>
+<h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><p>1、数组的扩展运算符：将一个数组转为用逗号分隔的参数序列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [...[1, 2, 3], ...[4, 5, 6]]</span><br><span class="line">console.log(arr)   // 1, 2, 3, 4, 5, 6</span><br><span class="line">console.log(Math.min(...arr))  // 1</span><br></pre></td></tr></table></figure></p>
+<p>2、对象的解构赋值<br>　　对象的 Rest 解构赋值用于从一个对象取值，相当于将所有可遍历的、但尚未被读取的属性，分配到指定的对象上面,注意Rest 解构赋值必须是最后一个参数，否则会报错。Rest解构赋值所在的对象，拷贝了对象obj的属性，Rest解构赋值的拷贝是浅拷贝，即如果一个键的值是复合类型的值（数组、对象、函数）、那么Rest解构赋值拷贝的是这个值的引用，而不是这个值的副本，解构赋值不会拷贝继承自原型对象的属性<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> obj = &#123;name: <span class="string">'xl'</span>, age: 23, say:<span class="string">'ok'</span>, eat: &#123;xl: <span class="string">'okok'</span>&#125;&#125;</span><br><span class="line">//尚未被读取的属性，分配到指定的对象上面,浅拷贝了对象obj的属性</span><br><span class="line"><span class="built_in">let</span> &#123;name, age, ...z&#125; = obj</span><br><span class="line">obj.say = <span class="string">'oo'</span></span><br><span class="line">obj.eat.xl = <span class="string">'o?o?'</span></span><br><span class="line">console.log(name, age, z)  </span><br><span class="line">//xl 23 &#123; say: <span class="string">'ok'</span>, eat: &#123; xl: <span class="string">'o?o?'</span> &#125; &#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> z = &#123;a: 3, b: 4, c:&#123;</span><br><span class="line">    eat:<span class="string">'ok'</span></span><br><span class="line">&#125;&#125;</span><br><span class="line">// 注意这个地方和直接赋值的区别 <span class="built_in">let</span> n = z; </span><br><span class="line">// 一个是浅拷贝对象属性，一个是浅拷贝对象</span><br><span class="line"><span class="built_in">let</span> n = &#123;...z&#125;</span><br><span class="line">z.a = 5</span><br><span class="line">z.c.eat = <span class="string">'ok?'</span></span><br><span class="line">console.log(n)  //&#123; a: 3, b: 4, c: &#123; eat: <span class="string">'ok?'</span> &#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>　　那么要是想实现一个深拷贝，怎么实现呢？其实就是遍历属性如果属性是一个普通值就赋值，不是普通值就递归知道是普通值为止，然后赋值，代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 实现深拷贝 保留继承关系 可以实现各种类型的拷贝 实现递归拷贝</span><br><span class="line">    <span class="keyword">function</span> deepClone(obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (typeof obj !== <span class="string">'object'</span>) <span class="built_in">return</span> obj;</span><br><span class="line">        <span class="keyword">if</span> (obj == null) <span class="built_in">return</span> null;</span><br><span class="line">        <span class="keyword">if</span> (obj instanceof Date) <span class="built_in">return</span> new Date(obj);</span><br><span class="line">        <span class="keyword">if</span> (obj instanceof RegExp) <span class="built_in">return</span> new RegExp(obj);</span><br><span class="line">        <span class="built_in">let</span> o = new obj.constructor(); // 保留类的继承关系</span><br><span class="line"></span><br><span class="line">        Object.keys(obj).forEach((key, index) =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(typeof (obj[key]) == <span class="string">'object'</span>)&#123;</span><br><span class="line">                o[key] = deepClone(obj[key])</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                // console.log(obj[key])</span><br><span class="line">                o[key] = obj[key]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="built_in">return</span> o;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">let</span> o = &#123; a: &#123; a: 1 &#125;, b: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        console.log(this.a)</span><br><span class="line">    &#125; &#125;</span><br><span class="line">    <span class="built_in">let</span> newObj = deepClone(o);</span><br><span class="line">    o.a.a = 2;</span><br><span class="line">    console.log( newObj.b());</span><br></pre></td></tr></table></figure></p>
+<h4 id="数组常用方式"><a href="#数组常用方式" class="headerlink" title="数组常用方式"></a>数组常用方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// (1)map返回值 返回值是一个新数组</span><br><span class="line">    Array.prototype.map = <span class="keyword">function</span> (fn) &#123;</span><br><span class="line">        <span class="built_in">let</span> arr = [];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; this.length; i++) &#123;</span><br><span class="line">            arr.push(fn(this[i], i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> arr;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">let</span> arr = [1, 2, 3].map(item =&gt; &#123;</span><br><span class="line">        <span class="built_in">return</span> item * 2;</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(arr);</span><br><span class="line">    // (2)filter 过滤 如果返回<span class="literal">true</span>表示留下 返回<span class="literal">false</span>表示删除</span><br><span class="line">    <span class="built_in">let</span> arr = [1, 2, 3];</span><br><span class="line">    <span class="built_in">let</span> filterArr = arr.filter(item =&gt; &#123;</span><br><span class="line">        <span class="built_in">return</span> item &gt; 2;</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(filterArr);</span><br><span class="line">    // (3)some找到后返回<span class="literal">true</span>,找<span class="literal">false</span>可以用every </span><br><span class="line">    <span class="built_in">let</span> r = [2, 1, 3].some(item =&gt; &#123;</span><br><span class="line">        <span class="built_in">return</span> item &gt; 2;</span><br><span class="line">    &#125;);</span><br><span class="line">    console.log(r);  //<span class="literal">true</span></span><br><span class="line">    // (4)every 检测数组 ages 的所有元素是否都符合条件 :</span><br><span class="line"></span><br><span class="line">    var ages = [2, 1, 3];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">let</span> r = ages.every((item) =&gt; &#123;</span><br><span class="line">        <span class="built_in">return</span> item &gt; 2</span><br><span class="line">    &#125;)</span><br><span class="line">    console.log(r)  //<span class="literal">false</span></span><br><span class="line">    // (5)Array.from();   将类数组转为数组</span><br></pre></td></tr></table></figure>
+<h4 id="ES6的Class"><a href="#ES6的Class" class="headerlink" title="ES6的Class"></a>ES6的Class</h4><p>先复习一下es5中的几个名词：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">成员属性（方法）| 实例属性（方法） ：在构造函数中通过this.属性声明的</span><br><span class="line">静态属性（方法）：通过类来声明的 类.xxx</span><br><span class="line">私有属性（方法）：只有在类的内部可以使用，其他任何地方都不可以使用的</span><br><span class="line">公有属性（方法）|原型属性（方法）：在原型上声明的属性或者方法 xx.prototype.xxx</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Parent(name) &#123;</span><br><span class="line">  this.name = name; //成员属性|实例属性</span><br><span class="line">  this.say = <span class="function"><span class="title">function</span></span>() &#123;   //成员方法</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//静态属性</span><br><span class="line">Parent.smoking = <span class="string">'no'</span></span><br><span class="line">//公有方法|原型方法</span><br><span class="line">Parent.prototype.up = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">  console.log(<span class="string">'ok'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来说说es6中的class(es6中不考虑私有属性和方法):<br>ES6 中支持 class 语法，不过，ES6的class不是新的对象继承模型，它只是原型链的语法糖表现形式。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">class Parent&#123;</span><br><span class="line">    constructor(x, y)&#123;</span><br><span class="line">        this.x = x;</span><br><span class="line">        //成员属性|实例属性  可遍历 打印实例可直接打印出来, </span><br><span class="line">        // 与 ES5 一样，实例的属性除非显式定义在其本身（即定义在this对象上），</span><br><span class="line">        // 否则都是定义在原型上（即定义在class上）。</span><br><span class="line">        this.y = y;</span><br><span class="line">        //如果不返回 默认返回实例对象 this</span><br><span class="line">        <span class="built_in">return</span> this.x </span><br><span class="line">    &#125;</span><br><span class="line">    static <span class="function"><span class="title">b</span></span>()&#123; // 属于类上的方法 也称静态方法</span><br><span class="line">        <span class="built_in">return</span> 2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">eat</span></span>()&#123;</span><br><span class="line">      //原型上的方法 | 公有方法 并且都是不可枚举的 </span><br><span class="line">      // 打印实例不能显示的打印出来 </span><br><span class="line">      console.log(this.x);</span><br><span class="line">      <span class="built_in">return</span> this.x</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Child extends Parent&#123; // </span><br><span class="line">    constructor(x, y, z)&#123;</span><br><span class="line">        // Parent.call(this);返回的是子类的实例，</span><br><span class="line">        super(x, y); </span><br><span class="line">        this.age = z; // 成员属性|实例属性</span><br><span class="line">    &#125;</span><br><span class="line">    static <span class="function"><span class="title">a</span></span>()&#123; // 属于类上的方法</span><br><span class="line">        <span class="built_in">return</span> 1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">smoking</span></span>()&#123; // 原型上的方法</span><br><span class="line">        <span class="built_in">return</span> super.eat() + this.age</span><br><span class="line">        //需要说明的是 super不仅可以调用父类的原型方法</span><br><span class="line">        // 还可以调用父类的静态方法，方法内部的this指向当前的子类，</span><br><span class="line">        // 而不是子类的实例</span><br><span class="line">        // console.log(this.age)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">let</span> child = new Child(2, 3, 4);</span><br><span class="line">// console.log(child);</span><br><span class="line">console.log(child.smoking())</span><br><span class="line"></span><br><span class="line">class Foo &#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span></span>() &#123;</span><br><span class="line">    //constructor函数默认返回this,</span><br><span class="line">    //这里返回一个全新的对象，结果导致实例对象不是Foo类的实例</span><br><span class="line">    <span class="built_in">return</span> Object.create(null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">new Foo() instanceof Foo</span><br><span class="line">// <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">//定义类</span><br><span class="line">class Point &#123;</span><br><span class="line">    constructor(x, y) &#123;</span><br><span class="line">        this.x = x;        </span><br><span class="line">        this.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">toString</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">'('</span> + this.x + <span class="string">', '</span> + this.y + <span class="string">')'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var point = new Point(2, 3);</span><br><span class="line">console.log(point)</span><br><span class="line">point.toString() // (2, 3)</span><br><span class="line"></span><br><span class="line">point.hasOwnProperty(<span class="string">'x'</span>) // <span class="literal">true</span></span><br><span class="line">point.hasOwnProperty(<span class="string">'y'</span>) // <span class="literal">true</span></span><br><span class="line">point.hasOwnProperty(<span class="string">'toString'</span>) // <span class="literal">false</span></span><br><span class="line">point.__proto__.hasOwnProperty(<span class="string">'toString'</span>) // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">class A &#123;</span><br><span class="line">&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B.__proto__ === A // <span class="literal">true</span></span><br><span class="line">B.prototype.__proto__ === A.prototype // <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="迭代器-Iterators"><a href="#迭代器-Iterators" class="headerlink" title="迭代器(Iterators)"></a>迭代器(Iterators)</h4><h4 id="生成器-Generators"><a href="#生成器-Generators" class="headerlink" title="生成器(Generators)"></a>生成器(Generators)</h4><h4 id="对象和数组解构"><a href="#对象和数组解构" class="headerlink" title="对象和数组解构"></a>对象和数组解构</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 对象</span><br><span class="line">const student = &#123;</span><br><span class="line">    name: <span class="string">'Sam'</span>,</span><br><span class="line">    age: 22,</span><br><span class="line">    sex: <span class="string">'男'</span></span><br><span class="line">&#125;</span><br><span class="line">// 数组</span><br><span class="line">// const student = [<span class="string">'Sam'</span>, 22, <span class="string">'男'</span>];</span><br><span class="line"></span><br><span class="line">// ES5；</span><br><span class="line">const name = student.name;</span><br><span class="line">const age = student.age;</span><br><span class="line">const sex = student.sex;</span><br><span class="line">console.log(name + <span class="string">' --- '</span> + age + <span class="string">' --- '</span> + sex);</span><br><span class="line"></span><br><span class="line">// ES6</span><br><span class="line">const &#123; name, age, sex &#125; = student;</span><br><span class="line">console.log(name + <span class="string">' --- '</span> + age + <span class="string">' --- '</span> + sex);</span><br></pre></td></tr></table></figure>
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/ES6/">ES6</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/JavaScript/常见的设计模式/" data-tooltip="常见的设计模式" aria-label="下一篇: 常见的设计模式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：93.7k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/JavaScript/常见的设计模式/" data-tooltip="常见的设计模式" aria-label="下一篇: 常见的设计模式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/JavaScript/ES6新特性/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 68 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/04/05/JavaScript/ES6新特性/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>

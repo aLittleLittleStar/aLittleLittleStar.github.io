@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>常见的设计模式 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　前端常用的设计模式　　常用的 JavaScript 设计模式\n设计模式　　设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。　　使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的；设计模式使代码编制真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。\n工程模式　　定义： 将其成员对象的实例化推迟到子类来实现的类　　需求： 创建对象的流程赋值的时候，比如依赖很多设置文件等；处理大量具有相同属性的小对象，注：不能滥用　　优点： 不暴露创建对象的具体逻辑，而是将逻辑封装在一个函数中　　缺点： 当工厂增加到一定程度的时候，提升了代码的复杂度，可读性下降。而且没有解决对象的识别问题，即怎么知道一个对象的类型。\n简单工厂模式(创建单一对象，需要的类比较少)　　使用一个类，通常为单体，来生成实例。12345678910111213141516171819202122232425262728let UserFactory = function (role) &#123;  function SuperAdmin() &#123;    this.name = \"超级管理员\",    this.viewPage = ['首页', '通讯录', '发现页', '应用数据', '权限管理']  &#125;  function Admin() &#123;    this.name = \"管理员\",    this.viewPage = ['首页', '通讯录', '发现页', '应用数据']  &#125;  function NormalUser() &#123;    this.name = '普通用户',    this.viewPage = ['首页', '通讯录', '发现页']  &#125;  switch (role) &#123;    case 'superAdmin':      return new SuperAdmin();      break;    case 'admin':      return new Admin();      break;    case 'user':      return new NormalUser();      break;    default:      throw new Error('参数错误, 可选参数:superAdmin、admin、user');  &#125;&#125;\n工厂方法模式(创建多类对象，需要的类比较多)　　为方便后续新增类方便，只需改一处代码，封装了工厂方法而已。并且把类都放在工厂类原型中实现。　　将其成员对象的实列化推到子类中，子类可以重写父类接口方法以便创建的时候指定自己的对象类型。　　父类只对创建过程中的一般性问题进行处理，这些处理会被子类继承，子类之间是相互独立的，具体的业务逻辑会放在子类中进行编写。123456789101112131415161718192021222324252627282930//安全模式创建的工厂方法函数let UserFactory = function(role) &#123;  if(this instanceof UserFactory) &#123;    var s = new this[role]();    return s;  &#125; else &#123;    return new UserFactory(role);  &#125;&#125;//工厂方法函数的原型中设置所有对象的构造函数UserFactory.prototype = &#123;  SuperAdmin: function() &#123;    this.name = \"超级管理员\",    this.viewPage = ['首页', '通讯录', '发现页', '应用数据', '权限管理']  &#125;,  Admin: function() &#123;    this.name = \"管理员\",    this.viewPage = ['首页', '通讯录', '发现页', '应用数据']  &#125;,  NormalUser: function() &#123;    this.name = '普通用户',    this.viewPage = ['首页', '通讯录', '发现页']  &#125;&#125;//调用let superAdmin = UserFactory('SuperAdmin');let admin = UserFactory('Admin') let normalUser = UserFactory('NormalUser')\n抽象工厂模式(创建父类，子类继承父类，具体实现在子类)　　抽象工厂其实是实现子类继承父类的方法，只是一个方法。　　抽象工厂模式一般用在多人协作的超大型项目中，并且严格的要求项目以面向对象的思想进行完成。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758// 抽象工厂方法var VehicleFatory = function(subType, superType) &#123;    // 判断抽象工厂中是否有该抽象类    if(typeof VehicleFactory[superType] === 'function') &#123;        // 缓存类        function F() &#123;&#125;;        // 继承父类属性和方法        F.prototype = new VehicleFactory[superType] ();        // 将子类constructor 指向子类        subType.constructor = subType;        // 子类原型继承'父类'        subType.prototype = new F();    &#125; else &#123;        // 不存在该抽象类抛出错误        throw new Error('未创建该抽象类');    &#125;&#125;;// 小汽车抽象类VehicleFactory.Car = function() &#123;    this.type = 'car';&#125;;VehicleFactory.Car.prototype = &#123;    getPrice: function() &#123; return new Error('抽象方法不能调用'); &#125;,    getSpeed: function() &#123; return new Error('抽象方法不能调用'); &#125;&#125;;// 公交车抽象类VehicleFactory.Bus = function() &#123;    this.type = 'bus';&#125;;VehicleFactory.Bus.prototype = &#123;    getPrice: function() &#123; return new Error('抽象方法不能调用'); &#125;,    getSpeed: function() &#123; return new Error('抽象方法不能调用'); &#125;&#125;;// 货车抽象类VehicleFactory.Truck = function() &#123;    this.type = 'truck';&#125;;VehicleFactory.Truck.prototype = &#123;    getPrice: function() &#123; return new Error('抽象方法不能调用'); &#125;,    getSpeed: function() &#123; return new Error('抽象方法不能调用'); &#125;&#125;;// 创建产品子类继承相应的产品簇抽象类// 宝马汽车子类var BMW = function(price, speed) &#123;    this.price = price;    this.speed = speed;&#125;//抽象工厂实现对Car抽象类的继承VehicleFactory(BMW, 'Car');BMW.prototype.getPrice = function() &#123; return this.price &#125;;BMW.prototype.getSpeed = function() &#123; return this.speed &#125;;// 公交车...// 货车...\n单例模式　　定义：是保证一个类只有一个实例，并且提供一个访问它的全局访问点。　　需求：一些对象我们往往只需要一个，比如线程池、全局缓存、浏览器中的window对象、登录浮窗等。　　实现：用一个变量标识当前是否已经为某个类创建过对象，如果是，则在下一次获取这个类的实例时，直接返回之前创建的对象。　　优点：　　　　可以用来划分命名空间，减少全局变量的数量　　　　可以被实例化，且实例化一次，再次实例化生成的也是第一个实例\n基础例子1234567891011121314151617181920// 单例模式var Singleton = function(name)&#123;    this.name = name;    this.instance = null;&#125;;Singleton.prototype.getName = function()&#123;    return this.name;&#125;;// 获取实例对象Singleton.getInstance = function(name) &#123;    if(!this.instance) &#123;        this.instance = new Singleton(name);    &#125;    return this.instance;&#125;;// 测试单例模式的实例var a = Singleton.getInstance(\"aa\");var b = Singleton.getInstance(\"bb\");console.log(a===b)    // true\n实践例子12345678910111213141516171819202122232425(function () &#123;    //管理单例的逻辑代码，如果没有数据则创建，有数据则返回   var getSingle = function(fn)&#123; //参数为创建对象的方法       var result;       return function()&#123; //判断是Null或赋值           return result || (result = fn.apply(this,arguments));       &#125;;   &#125;;    //创建登录窗口方法    var createLoginLayer = function()&#123;        var div = document.createElement('div');        div.innerHTML = '我是登录浮窗';        div.style.display = 'none';        document.body.appendChild(div);        return div;    &#125;;    //单例方法    var createSingleLoginLayer = getSingle(createLoginLayer);    //使用惰性单例，进行创建    document.getElementById('loginBtn').onclick = function()&#123;        var loginLayer = createSingleLoginLayer();        loginLayer.style.display = 'block';    &#125;;&#125;)()\n观察者模式(发布-订阅模式)　　定义：定义对象间的一种一对多的依赖关系，以便当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并自动刷新，也被称为是发布订阅模式。　　需求：当一个对象的状态发生变化时，所有依赖于他的对象都将得到通知。　　优点：时间上的解耦，对象之间的解耦。当我们需要维护相关对象的一致性的时候，使用观察者模式，，就可以避免对象之间的紧密耦合。例如，一个对象可以通知另外一个对象，而不需要知道这个对象的信息。　　缺点：在发布/订阅模式中，如果我们需要将发布者同订阅者上解耦，将会在一些情况下，导致很难确保我们应用中的特定部分按照我们预期的那样正常工作。也就是说它的优点也可能是它的缺点　　实现：　　　　首先，指定好谁充当发布者；　　　　然后，给发布者添加一个缓存列表，用于存放回调函数以便通知订阅者；　　　　最后，发布消息的时候，发布者会遍历这个缓存列表，依次触发里面存放的订阅者回调函数。　　　　退订（比如不想再接收到这些订阅的信息了，就可以取消掉）\n基础例子12345678910111213141516var salesOffices = &#123;&#125;;                           // 定义售楼处salesOffices.clientList = [];                    // 缓存列表，存放订阅者的回调函数salesOffices.listen = function( fn )&#123;            // 增加订阅者    this.clientList.push( fn );                  // 订阅的消息添加进缓存列表&#125;;salesOffices.trigger = function()&#123;               // 发布消息    for( var i = 0, fn; fn = this.clientList[ i++ ]; )&#123;        fn.apply( this, arguments );             // arguments 是发布消息时带上的参数    &#125;&#125;;//调用salesOffices.listen( function( price, squareMeter )&#123;//订阅消息    console.log( '价格= ' + price );    console.log( 'squareMeter= ' + squareMeter );&#125;);salesOffices.trigger( 2000000, 88 );                // 输出：200 万，88 平方米\n实践例子　　登录页面登录后，会需要刷新各个模块的信息（头像、nav）这类。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071var ObserverEvent = (function () &#123;        var clientList = [], listen, trigger, remove;        listen = function (key, fn) &#123;            if (!clientList[key]) &#123;                clientList[key] = [];            &#125;            clientList[key].push(fn);        &#125;;        trigger = function () &#123;            var key = Array.prototype.shift.call(arguments), fns = clientList[key];            if (!fns || fns.length === 0) &#123;                return false;            &#125;            for (var i = 0, fn; fn = fns[i++];) &#123;                fn.apply(this, arguments);            &#125;        &#125;;        remove = function (key, fn) &#123;            var fns = clientList[key];            if (!fns) &#123;                return false;            &#125;            if (!fn) &#123;                fns &amp;&amp; (fns.length = 0);            &#125; else &#123;                for (var l = fns.length - 1; l &gt;= 0; l--) &#123;                    var _fn = fns[l];                    if (_fn === fn) &#123;                        fns.splice(l, 1);                    &#125;                &#125;            &#125;        &#125;;        return &#123;            listen:listen,            trigger:trigger,            remove:remove        &#125;    &#125;)();    ObserverEvent.listen('squareMeter88', fn1 = function (price) &#123;        console.log('价格=' + price);    &#125;);    ObserverEvent.listen('squareMeter100', function (price) &#123;        console.log('价格=' + price);    &#125;);    ObserverEvent.trigger('squareMeter88', 200000);//刷新模块信息var header = (function () &#123;        ObserverEvent.listen('loginSucc', function (data) &#123;            header.setAvatar(data.avatar);        &#125;);        return &#123;            setAvatar: function (data) &#123;                console.log(data + \"设置header成功\");            &#125;        &#125;    &#125;)();    var nav = (function () &#123;        ObserverEvent.listen('loginSucc', function (data) &#123;            nav.setAvatar(data.avatar)        &#125;);        return &#123;            setAvatar: function (data) &#123;                console.log(data + '设置nav成功');            &#125;        &#125;    &#125;)();    var data = &#123;&#125;;    data.avatar = \"参数\";    ObserverEvent.trigger('loginSucc', data);\n策略模式　　策略模式指的是定义一些列的算法，把他们一个个封装起来，目的就是将算法的使用与算法的实现分离开来。说白了就是以前要很多判断的写法，现在把判断里面的内容抽离开来，变成一个个小的个体。\n代码实现　　代码情景为超市促销，vip为5折，老客户3折，普通顾客没折，计算最后需要支付的金额。　　没有使用策略模式的情况：1234567891011function Price(personType, price) &#123;    //vip 5 折    if (personType == 'vip') &#123;        return price * 0.5;    &#125;     else if (personType == 'old')&#123; //老客户 3 折        return price * 0.3;    &#125; else &#123;        return price; //其他都全价    &#125;&#125;\n　　不足之处：不好的地方，当我有其他方面的折扣时，又或者我活动的折扣时经常变化的，这样就要不断的修改if..else里面的条件了。而且也违背了设计模式的一个原则：对修改关闭，对扩展开放的原则；　　使用策略模式之后：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748// 对于vip客户function vipPrice() &#123;    this.discount = 0.5;&#125;vipPrice.prototype.getPrice = function(price) &#123;　　return price * this.discount;&#125;// 对于老客户function oldPrice() &#123;    this.discount = 0.3;&#125;oldPrice.prototype.getPrice = function(price) &#123;    return price * this.discount;&#125;// 对于普通客户function Price() &#123;    this.discount = 1;&#125;Price.prototype.getPrice = function(price) &#123;    return price ;&#125;// 上下文，对于客户端的使用function Context() &#123;    this.name = '';    this.strategy = null;    this.price = 0;&#125;Context.prototype.set = function(name, strategy, price) &#123;    this.name = name;    this.strategy = strategy;    this.price = price;&#125;Context.prototype.getResult = function() &#123;    console.log(this.name + ' 的结账价为: ' + this.strategy.getPrice(this.price));&#125;var context = new Context();var vip = new vipPrice();context.set ('vip客户', vip, 200);context.getResult();   // vip客户 的结账价为: 100var old = new oldPrice();context.set ('老客户', old, 200);context.getResult();  // 老客户 的结账价为: 60var Price = new Price();context.set ('普通客户', Price, 200);context.getResult();  // 普通客户 的结账价为: 200\n　　通过策略模式，使得客户的折扣与算法解藕，又使得修改跟扩展能独立的进行，不影到客户端或其他算法的使用；\n模板模式　　定义了一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。 通俗的讲，就是将一些公共方法封装到父类，子类可以继承这个父类，并且可以在子类中重写父类的方法，从而实现自己的业务逻辑。\n代码实现　　比如前端面试，基本包括笔试，技术面试，领导面试，HR面试等，但是每个公司的笔试题，技术面可能不一样，也可能一样，一样的就继承父类的方法，不一样的就重写父类的方法12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849var Interview = function()&#123;&#125;;// 笔试Interview.prototype.writtenTest = function()&#123;    console.log(\"这里是前端笔试题\");&#125;;// 技术面试Interview.prototype.technicalInterview = function()&#123;    console.log(\"这里是技术面试\");&#125;; // 领导面试Interview.prototype.leader = function()&#123;    console.log(\"领导面试\");&#125;;// 领导面试Interview.prototype.HR = function()&#123;    console.log(\"HR面试\");&#125;;// 等通知Interview.prototype.waitNotice = function()&#123;    console.log(\"等通知啊，不知道过了没有哦\");&#125;;// 代码初始化Interview.prototype.init = function()&#123;    this.writtenTest();    this.technicalInterview();    this.leader();    this.HR();    this.waitNotice();&#125;;// 阿里巴巴的笔试和技术面不同，重写父类方法，其他继承父类方法。var AliInterview = function()&#123;&#125;;AliInterview.prototype = new Interview();// 子类重写方法 实现自己的业务逻辑AliInterview.prototype.writtenTest = function()&#123;    console.log(\"阿里的技术题就是难啊\");&#125;AliInterview.prototype.technicalInterview = function()&#123;    console.log(\"阿里的技术面就是叼啊\");&#125;var AliInterview = new AliInterview();AliInterview.init();// 阿里的技术题就是难啊// 阿里的技术面就是叼啊// 领导面试// HR面试// 等通知啊，不知道过了没有哦\n应用场景：　　模板模式主要应用在一些代码刚开要一次性实现不变的部分。但是将来页面有修改，需要更改业务逻辑的部分或者重新添加新业务的情况。主要是通过子类来改写父类的情况，其他不需要改变的部分继承父类。\n　　\n代理模式概念：　　代理模式的中文含义就是帮别人做事，javascript的解释为：把对一个对象的访问, 交给另一个代理对象来操作.代码实现：　　比如我们公司的补打卡是最后是要交给大boss来审批的，但是公司那么多人，每天都那么多补打卡，那大boss岂不是被这些琐事累死。所以大boss下会有一个助理，来帮忙做这个审批，最后再将每个月的补打卡统一交给大boss看看就行。12345678910111213141516171819202122232425// 补打卡事件var fillOut = function (lateDate) &#123;    this.lateDate = lateDate;&#125;;// 这是bigBossvar bigBoss = function (fillOut) &#123;    this.state = function (isSuccess) &#123;        console.log(\"忘记打卡的日期为：\" + fillOut.lateDate + \", 补打卡状态：\" + isSuccess);    &#125;&#125;;// 助理代理大boss 完成补打卡审批var proxyAssis = function (fillOut) &#123;        this.state = function (isSuccess) &#123;        (new bigBoss(fillOut)).state(isSuccess); // 替bigBoss审批    &#125;&#125;;// 调用方法：var proxyAssis = new proxyAssis(new fillOut(\"2016-9-11\"));proxyAssis.state(\"补打卡成功\");// 忘记打卡的日期为：2016-9-11, 补打卡状态：补打卡成功\n应用场景：　　比如图片的懒加载，我们就可以运用这种技术。在图片未加载完成之前，给个loading图片，加载完成后再替换成实体路径。12345678910111213141516171819202122var myImage = (function()&#123;    var imgNode = document.createElement(\"img\");    document.body.appendChild(imgNode);    return function(src)&#123;        imgNode.src = src;     &#125;&#125;)();// 代理模式var ProxyImage = (function()&#123;    var img = new Image();    img.onload = function()&#123;        myImage(this.src);    &#125;;    return function(src) &#123;      // 占位图片loading      myImage(\"http://img.lanrentuku.com/img/allimg/1212/5-121204193Q9-50.gif\");      img.src = src;    &#125;&#125;)();// 调用方式ProxyImage(\"https://img.alicdn.com/tps/i4/TB1b_neLXXXXXcoXFXXc8PZ9XXX-130-200.png\"); // 真实要展示的图片\n　　当然，这种懒加载方法不用代理模式也是可以实现的，只是用代理模式。我们可以让 myImage 只做一件事，只负责将实际图片加入到页面中，而loading图片交给ProxyImage去做。从而降低代码的耦合度。因为当我不想用loading的时候，可以直接调用myImage 方法。也即是说假如我门不需要代理对象的话，直接可以换成本体对象调用该方法即可。\n外观模式　　概念：　　外观模式是很常见。其实它就是通过编写一个单独的函数，来简化对一个或多个更大型的，可能更为复杂的函数的访问。也就是说可以视外观模式为一种简化某些内容的手段。　　说白了，外观模式就是一个函数，封装了复杂的操作。代码实现：　　比如一个跨浏览器的ajax调用12345678910111213141516171819202122232425262728293031323334353637383940414243function ajaxCall(type,url,callback,data)&#123;    // 根据当前浏览器获取对ajax连接对象的引用    var xhr=(function()&#123;        try &#123;            // 所有现代浏览器所使用的标准方法            return new XMLHttpRequest();        &#125;catch(e)&#123;&#125;        // 较老版本的internet Explorer兼容        try&#123;            return new ActiveXObject(\"Msxml2.XMLHTTP.6.0\");        &#125;catch(e)&#123;&#125;        try&#123;            return new ActiveXObject(\"Msxml2.XMLHTTP.3.0\");                    &#125;catch(e)&#123;&#125;        try&#123;            return new ActiveXObject(\"Microsoft.XMLHTTP\");        &#125;catch(e)&#123;&#125;        // 如果没能找到相关的ajax连接对象，则跑出一个错误。        throw new Error(\"Ajax not support in this browser.\")    &#125;()),    STATE_LOADED=4,    STATUS_OK=200;    // 一但从服务器收到表示成功的相应消息，则执行所给定的回调方法    xhr.onreadystatechange=function&#123;        if(xhr.readyState !==STATE_LOADED)&#123;            return;        &#125;        if(xhr.state==STATUS_OK)&#123;            callback(xhr.responseText);        &#125;    &#125;    // 使用浏览器的ajax连接对象来向所给定的URL发出相关的调用    xhr.open(type.toUpperCase(),url);    xhr.send(data);&#125;// 使用方法ajaxCall(\"get\",\"/user/12345\",function(rs)&#123;    alert('收到的数据为：'+rs);&#125;)\n应用场景：　　当需要通过一个单独的函数或方法来访问一系列的函数或方法调用，以简化代码库的其余内容，使得代码更容易跟踪管理或者更好的维护时，可以使用外观模式。其实我们平时代码中这种模式应该是用的比较多的。\n","dateCreated":"2019-04-05T11:21:41+08:00","dateModified":"2019-04-05T15:45:20+08:00","datePublished":"2019-04-05T11:21:41+08:00","description":"","headline":"常见的设计模式","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/","keywords":"设计模式"}</script>
+    <meta name="keywords" content="设计模式">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="常见的设计模式">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-04-05T07:45:20.496Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见的设计模式">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            常见的设计模式
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-04-05T11:21:41+08:00">
+	
+		    4月 05, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：4.3k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计模式"><span class="toc-text">设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#工程模式"><span class="toc-text">工程模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#简单工厂模式-创建单一对象，需要的类比较少"><span class="toc-text">简单工厂模式(创建单一对象，需要的类比较少)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#工厂方法模式-创建多类对象，需要的类比较多"><span class="toc-text">工厂方法模式(创建多类对象，需要的类比较多)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#抽象工厂模式-创建父类，子类继承父类，具体实现在子类"><span class="toc-text">抽象工厂模式(创建父类，子类继承父类，具体实现在子类)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单例模式"><span class="toc-text">单例模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基础例子"><span class="toc-text">基础例子</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实践例子"><span class="toc-text">实践例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#观察者模式-发布-订阅模式"><span class="toc-text">观察者模式(发布-订阅模式)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基础例子-1"><span class="toc-text">基础例子</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实践例子-1"><span class="toc-text">实践例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#策略模式"><span class="toc-text">策略模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模板模式"><span class="toc-text">模板模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码实现-1"><span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代理模式"><span class="toc-text">代理模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#外观模式"><span class="toc-text">外观模式</span></a></li></ol></li></ol>
+<a id="more"></a>
+<p>转载：<br>　　<a href="https://www.cnblogs.com/smlp/p/9776789.html" target="_blank" rel="noopener">前端常用的设计模式</a><br>　　<a href="https://juejin.im/entry/5816e545570c3500607205f1" target="_blank" rel="noopener">常用的 JavaScript 设计模式</a></p>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><p>　　设计模式（<code>Design pattern</code>）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。<br>　　使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的；设计模式使代码编制真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。</p>
+<h4 id="工程模式"><a href="#工程模式" class="headerlink" title="工程模式"></a>工程模式</h4><p>　　定义： 将其成员对象的实例化推迟到子类来实现的类<br>　　需求： 创建对象的流程赋值的时候，比如依赖很多设置文件等；处理大量具有相同属性的小对象，注：不能滥用<br>　　优点： 不暴露创建对象的具体逻辑，而是将逻辑封装在一个函数中<br>　　缺点： 当工厂增加到一定程度的时候，提升了代码的复杂度，可读性下降。而且没有解决对象的识别问题，即怎么知道一个对象的类型。</p>
+<h5 id="简单工厂模式-创建单一对象，需要的类比较少"><a href="#简单工厂模式-创建单一对象，需要的类比较少" class="headerlink" title="简单工厂模式(创建单一对象，需要的类比较少)"></a>简单工厂模式(创建单一对象，需要的类比较少)</h5><p>　　使用一个类，通常为单体，来生成实例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> UserFactory = <span class="keyword">function</span> (role) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">SuperAdmin</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">"超级管理员"</span>,</span><br><span class="line">    this.viewPage = [<span class="string">'首页'</span>, <span class="string">'通讯录'</span>, <span class="string">'发现页'</span>, <span class="string">'应用数据'</span>, <span class="string">'权限管理'</span>]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">Admin</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">"管理员"</span>,</span><br><span class="line">    this.viewPage = [<span class="string">'首页'</span>, <span class="string">'通讯录'</span>, <span class="string">'发现页'</span>, <span class="string">'应用数据'</span>]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">NormalUser</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">'普通用户'</span>,</span><br><span class="line">    this.viewPage = [<span class="string">'首页'</span>, <span class="string">'通讯录'</span>, <span class="string">'发现页'</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  switch (role) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'superAdmin'</span>:</span><br><span class="line">      <span class="built_in">return</span> new SuperAdmin();</span><br><span class="line">      <span class="built_in">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'admin'</span>:</span><br><span class="line">      <span class="built_in">return</span> new Admin();</span><br><span class="line">      <span class="built_in">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'user'</span>:</span><br><span class="line">      <span class="built_in">return</span> new NormalUser();</span><br><span class="line">      <span class="built_in">break</span>;</span><br><span class="line">    default:</span><br><span class="line">      throw new Error(<span class="string">'参数错误, 可选参数:superAdmin、admin、user'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="工厂方法模式-创建多类对象，需要的类比较多"><a href="#工厂方法模式-创建多类对象，需要的类比较多" class="headerlink" title="工厂方法模式(创建多类对象，需要的类比较多)"></a>工厂方法模式(创建多类对象，需要的类比较多)</h5><p>　　为方便后续新增类方便，只需改一处代码，封装了工厂方法而已。并且把类都放在工厂类原型中实现。<br>　　将其成员对象的实列化推到子类中，子类可以<code>重写</code>父类接口方法以便创建的时候指定自己的对象类型。<br>　　父类只对创建过程中的一般性问题进行处理，这些处理<code>会被子类继承，子类之间是相互独立的</code>，具体的业务逻辑会放在子类中进行编写。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">//安全模式创建的工厂方法函数</span><br><span class="line"><span class="built_in">let</span> UserFactory = <span class="keyword">function</span>(role) &#123;</span><br><span class="line">  <span class="keyword">if</span>(this instanceof UserFactory) &#123;</span><br><span class="line">    var s = new this[role]();</span><br><span class="line">    <span class="built_in">return</span> s;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">return</span> new UserFactory(role);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//工厂方法函数的原型中设置所有对象的构造函数</span><br><span class="line">UserFactory.prototype = &#123;</span><br><span class="line">  SuperAdmin: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">"超级管理员"</span>,</span><br><span class="line">    this.viewPage = [<span class="string">'首页'</span>, <span class="string">'通讯录'</span>, <span class="string">'发现页'</span>, <span class="string">'应用数据'</span>, <span class="string">'权限管理'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  Admin: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">"管理员"</span>,</span><br><span class="line">    this.viewPage = [<span class="string">'首页'</span>, <span class="string">'通讯录'</span>, <span class="string">'发现页'</span>, <span class="string">'应用数据'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  NormalUser: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">'普通用户'</span>,</span><br><span class="line">    this.viewPage = [<span class="string">'首页'</span>, <span class="string">'通讯录'</span>, <span class="string">'发现页'</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//调用</span><br><span class="line"><span class="built_in">let</span> superAdmin = UserFactory(<span class="string">'SuperAdmin'</span>);</span><br><span class="line"><span class="built_in">let</span> admin = UserFactory(<span class="string">'Admin'</span>) </span><br><span class="line"><span class="built_in">let</span> normalUser = UserFactory(<span class="string">'NormalUser'</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="抽象工厂模式-创建父类，子类继承父类，具体实现在子类"><a href="#抽象工厂模式-创建父类，子类继承父类，具体实现在子类" class="headerlink" title="抽象工厂模式(创建父类，子类继承父类，具体实现在子类)"></a>抽象工厂模式(创建父类，子类继承父类，具体实现在子类)</h5><p>　　抽象工厂其实是实现子类继承父类的方法，只是一个方法。<br>　　抽象工厂模式一般用在多人协作的超大型项目中，并且严格的要求项目以面向对象的思想进行完成。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">// 抽象工厂方法</span><br><span class="line">var VehicleFatory = <span class="keyword">function</span>(subType, superType) &#123;</span><br><span class="line">    // 判断抽象工厂中是否有该抽象类</span><br><span class="line">    <span class="keyword">if</span>(typeof VehicleFactory[superType] === <span class="string">'function'</span>) &#123;</span><br><span class="line">        // 缓存类</span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">F</span></span>() &#123;&#125;;</span><br><span class="line">        // 继承父类属性和方法</span><br><span class="line">        F.prototype = new VehicleFactory[superType] ();</span><br><span class="line">        // 将子类constructor 指向子类</span><br><span class="line">        subType.constructor = subType;</span><br><span class="line">        // 子类原型继承<span class="string">'父类'</span></span><br><span class="line">        subType.prototype = new F();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        // 不存在该抽象类抛出错误</span><br><span class="line">        throw new Error(<span class="string">'未创建该抽象类'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 小汽车抽象类</span><br><span class="line">VehicleFactory.Car = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    this.type = <span class="string">'car'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">VehicleFactory.Car.prototype = &#123;</span><br><span class="line">    getPrice: <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> new Error(<span class="string">'抽象方法不能调用'</span>); &#125;,</span><br><span class="line">    getSpeed: <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> new Error(<span class="string">'抽象方法不能调用'</span>); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 公交车抽象类</span><br><span class="line">VehicleFactory.Bus = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    this.type = <span class="string">'bus'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">VehicleFactory.Bus.prototype = &#123;</span><br><span class="line">    getPrice: <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> new Error(<span class="string">'抽象方法不能调用'</span>); &#125;,</span><br><span class="line">    getSpeed: <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> new Error(<span class="string">'抽象方法不能调用'</span>); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 货车抽象类</span><br><span class="line">VehicleFactory.Truck = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    this.type = <span class="string">'truck'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">VehicleFactory.Truck.prototype = &#123;</span><br><span class="line">    getPrice: <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> new Error(<span class="string">'抽象方法不能调用'</span>); &#125;,</span><br><span class="line">    getSpeed: <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> new Error(<span class="string">'抽象方法不能调用'</span>); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 创建产品子类继承相应的产品簇抽象类</span><br><span class="line">// 宝马汽车子类</span><br><span class="line">var BMW = <span class="keyword">function</span>(price, speed) &#123;</span><br><span class="line">    this.price = price;</span><br><span class="line">    this.speed = speed;</span><br><span class="line">&#125;</span><br><span class="line">//抽象工厂实现对Car抽象类的继承</span><br><span class="line">VehicleFactory(BMW, <span class="string">'Car'</span>);</span><br><span class="line">BMW.prototype.getPrice = <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> this.price &#125;;</span><br><span class="line">BMW.prototype.getSpeed = <span class="function"><span class="title">function</span></span>() &#123; <span class="built_in">return</span> this.speed &#125;;</span><br><span class="line"></span><br><span class="line">// 公交车...</span><br><span class="line">// 货车...</span><br></pre></td></tr></table></figure></p>
+<h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>　　定义：是保证一个类只有一个实例，并且提供一个访问它的全局访问点。<br>　　需求：一些对象我们往往只需要一个，比如线程池、全局缓存、浏览器中的window对象、登录浮窗等。<br>　　实现：用一个变量标识当前是否已经为某个类创建过对象，如果是，则在下一次获取这个类的实例时，直接返回之前创建的对象。<br>　　优点：<br>　　　　<code>可以用来划分命名空间，减少全局变量的数量</code><br>　　　　<code>可以被实例化，且实例化一次，再次实例化生成的也是第一个实例</code></p>
+<h5 id="基础例子"><a href="#基础例子" class="headerlink" title="基础例子"></a>基础例子</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 单例模式</span><br><span class="line">var Singleton = <span class="keyword">function</span>(name)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.instance = null;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton.prototype.getName = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="built_in">return</span> this.name;</span><br><span class="line">&#125;;</span><br><span class="line">// 获取实例对象</span><br><span class="line">Singleton.getInstance = <span class="keyword">function</span>(name) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!this.instance) &#123;</span><br><span class="line">        this.instance = new Singleton(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> this.instance;</span><br><span class="line">&#125;;</span><br><span class="line">// 测试单例模式的实例</span><br><span class="line">var a = Singleton.getInstance(<span class="string">"aa"</span>);</span><br><span class="line">var b = Singleton.getInstance(<span class="string">"bb"</span>);</span><br><span class="line"></span><br><span class="line">console.log(a===b)    // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h5 id="实践例子"><a href="#实践例子" class="headerlink" title="实践例子"></a>实践例子</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    //管理单例的逻辑代码，如果没有数据则创建，有数据则返回</span><br><span class="line">   var getSingle = <span class="keyword">function</span>(fn)&#123; //参数为创建对象的方法</span><br><span class="line">       var result;</span><br><span class="line">       <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123; //判断是Null或赋值</span><br><span class="line">           <span class="built_in">return</span> result || (result = fn.apply(this,arguments));</span><br><span class="line">       &#125;;</span><br><span class="line">   &#125;;</span><br><span class="line">    //创建登录窗口方法</span><br><span class="line">    var createLoginLayer = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        var div = document.createElement(<span class="string">'div'</span>);</span><br><span class="line">        div.innerHTML = <span class="string">'我是登录浮窗'</span>;</span><br><span class="line">        div.style.display = <span class="string">'none'</span>;</span><br><span class="line">        document.body.appendChild(div);</span><br><span class="line">        <span class="built_in">return</span> div;</span><br><span class="line">    &#125;;</span><br><span class="line">    //单例方法</span><br><span class="line">    var createSingleLoginLayer = getSingle(createLoginLayer);</span><br><span class="line"></span><br><span class="line">    //使用惰性单例，进行创建</span><br><span class="line">    document.getElementById(<span class="string">'loginBtn'</span>).onclick = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        var loginLayer = createSingleLoginLayer();</span><br><span class="line">        loginLayer.style.display = <span class="string">'block'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h4 id="观察者模式-发布-订阅模式"><a href="#观察者模式-发布-订阅模式" class="headerlink" title="观察者模式(发布-订阅模式)"></a>观察者模式(发布-订阅模式)</h4><p>　　定义：定义对象间的一种一对多的依赖关系，以便当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并自动刷新，也被称为是发布订阅模式。<br>　　需求：当一个对象的状态发生变化时，所有依赖于他的对象都将得到通知。<br>　　优点：时间上的解耦，对象之间的解耦。当我们需要维护相关对象的一致性的时候，使用观察者模式，，就可以避免对象之间的紧密耦合。例如，一个对象可以通知另外一个对象，而不需要知道这个对象的信息。<br>　　缺点：在发布/订阅模式中，如果我们需要将发布者同订阅者上解耦，将会在一些情况下，导致很难确保我们应用中的特定部分按照我们预期的那样正常工作。也就是说它的优点也可能是它的缺点<br>　　实现：<br>　　　　<code>首先，指定好谁充当发布者</code>；<br>　　　　<code>然后，给发布者添加一个缓存列表，用于存放回调函数以便通知订阅者</code>；<br>　　　　<code>最后，发布消息的时候，发布者会遍历这个缓存列表，依次触发里面存放的订阅者回调函数</code>。<br>　　　　<code>退订（比如不想再接收到这些订阅的信息了，就可以取消掉）</code></p>
+<h5 id="基础例子-1"><a href="#基础例子-1" class="headerlink" title="基础例子"></a>基础例子</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var salesOffices = &#123;&#125;;                           // 定义售楼处</span><br><span class="line">salesOffices.clientList = [];                    // 缓存列表，存放订阅者的回调函数</span><br><span class="line">salesOffices.listen = <span class="keyword">function</span>( fn )&#123;            // 增加订阅者</span><br><span class="line">    this.clientList.push( fn );                  // 订阅的消息添加进缓存列表</span><br><span class="line">&#125;;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="title">function</span></span>()&#123;               // 发布消息</span><br><span class="line">    <span class="keyword">for</span>( var i = 0, fn; fn = this.clientList[ i++ ]; )&#123;</span><br><span class="line">        fn.apply( this, arguments );             // arguments 是发布消息时带上的参数</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">//调用</span><br><span class="line">salesOffices.listen( <span class="keyword">function</span>( price, squareMeter )&#123;//订阅消息</span><br><span class="line">    console.log( <span class="string">'价格= '</span> + price );</span><br><span class="line">    console.log( <span class="string">'squareMeter= '</span> + squareMeter );</span><br><span class="line">&#125;);</span><br><span class="line">salesOffices.trigger( 2000000, 88 );                // 输出：200 万，88 平方米</span><br></pre></td></tr></table></figure>
+<h5 id="实践例子-1"><a href="#实践例子-1" class="headerlink" title="实践例子"></a>实践例子</h5><p>　　登录页面登录后，会需要刷新各个模块的信息（头像、nav）这类。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">var ObserverEvent = (<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        var clientList = [], listen, trigger, remove;</span><br><span class="line">        listen = <span class="keyword">function</span> (key, fn) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!clientList[key]) &#123;</span><br><span class="line">                clientList[key] = [];</span><br><span class="line">            &#125;</span><br><span class="line">            clientList[key].push(fn);</span><br><span class="line">        &#125;;</span><br><span class="line">        trigger = <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">            var key = Array.prototype.shift.call(arguments), fns = clientList[key];</span><br><span class="line">            <span class="keyword">if</span> (!fns || fns.length === 0) &#123;</span><br><span class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (var i = 0, fn; fn = fns[i++];) &#123;</span><br><span class="line">                fn.apply(this, arguments);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        remove = <span class="keyword">function</span> (key, fn) &#123;</span><br><span class="line">            var fns = clientList[key];</span><br><span class="line">            <span class="keyword">if</span> (!fns) &#123;</span><br><span class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!fn) &#123;</span><br><span class="line">                fns &amp;&amp; (fns.length = 0);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> (var l = fns.length - 1; l &gt;= 0; l--) &#123;</span><br><span class="line">                    var _fn = fns[l];</span><br><span class="line">                    <span class="keyword">if</span> (_fn === fn) &#123;</span><br><span class="line">                        fns.splice(l, 1);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            listen:listen,</span><br><span class="line">            trigger:trigger,</span><br><span class="line">            remove:remove</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)();</span><br><span class="line">    ObserverEvent.listen(<span class="string">'squareMeter88'</span>, fn1 = <span class="keyword">function</span> (price) &#123;</span><br><span class="line">        console.log(<span class="string">'价格='</span> + price);</span><br><span class="line">    &#125;);</span><br><span class="line">    ObserverEvent.listen(<span class="string">'squareMeter100'</span>, <span class="keyword">function</span> (price) &#123;</span><br><span class="line">        console.log(<span class="string">'价格='</span> + price);</span><br><span class="line">    &#125;);</span><br><span class="line">    ObserverEvent.trigger(<span class="string">'squareMeter88'</span>, 200000);</span><br><span class="line"></span><br><span class="line">//刷新模块信息</span><br><span class="line">var header = (<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        ObserverEvent.listen(<span class="string">'loginSucc'</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">            header.setAvatar(data.avatar);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            setAvatar: <span class="keyword">function</span> (data) &#123;</span><br><span class="line">                console.log(data + <span class="string">"设置header成功"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)();</span><br><span class="line">    var nav = (<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        ObserverEvent.listen(<span class="string">'loginSucc'</span>, <span class="keyword">function</span> (data) &#123;</span><br><span class="line">            nav.setAvatar(data.avatar)</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            setAvatar: <span class="keyword">function</span> (data) &#123;</span><br><span class="line">                console.log(data + <span class="string">'设置nav成功'</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)();</span><br><span class="line">    var data = &#123;&#125;;</span><br><span class="line">    data.avatar = <span class="string">"参数"</span>;</span><br><span class="line">    ObserverEvent.trigger(<span class="string">'loginSucc'</span>, data);</span><br></pre></td></tr></table></figure></p>
+<h4 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h4><p>　　策略模式指的是定义一些列的算法，把他们一个个封装起来，目的就是将算法的使用与算法的实现分离开来。说白了就是以前要很多判断的写法，现在把判断里面的内容抽离开来，变成一个个小的个体。</p>
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><p>　　代码情景为超市促销，vip为5折，老客户3折，普通顾客没折，计算最后需要支付的金额。<br>　　没有使用策略模式的情况：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Price(personType, price) &#123;</span><br><span class="line">    //vip 5 折</span><br><span class="line">    <span class="keyword">if</span> (personType == <span class="string">'vip'</span>) &#123;</span><br><span class="line">        <span class="built_in">return</span> price * 0.5;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (personType == <span class="string">'old'</span>)&#123; //老客户 3 折</span><br><span class="line">        <span class="built_in">return</span> price * 0.3;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">return</span> price; //其他都全价</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　不足之处：不好的地方，当我有其他方面的折扣时，又或者我活动的折扣时经常变化的，这样就要不断的修改if..else里面的条件了。而且也违背了设计模式的一个原则：对修改关闭，对扩展开放的原则；<br>　　使用策略模式之后：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">// 对于vip客户</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">vipPrice</span></span>() &#123;</span><br><span class="line">    this.discount = 0.5;</span><br><span class="line">&#125;</span><br><span class="line">vipPrice.prototype.getPrice = <span class="keyword">function</span>(price) &#123;</span><br><span class="line">　　<span class="built_in">return</span> price * this.discount;</span><br><span class="line">&#125;</span><br><span class="line">// 对于老客户</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">oldPrice</span></span>() &#123;</span><br><span class="line">    this.discount = 0.3;</span><br><span class="line">&#125;</span><br><span class="line">oldPrice.prototype.getPrice = <span class="keyword">function</span>(price) &#123;</span><br><span class="line">    <span class="built_in">return</span> price * this.discount;</span><br><span class="line">&#125;</span><br><span class="line">// 对于普通客户</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Price</span></span>() &#123;</span><br><span class="line">    this.discount = 1;</span><br><span class="line">&#125;</span><br><span class="line">Price.prototype.getPrice = <span class="keyword">function</span>(price) &#123;</span><br><span class="line">    <span class="built_in">return</span> price ;</span><br><span class="line">&#125;</span><br><span class="line">// 上下文，对于客户端的使用</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Context</span></span>() &#123;</span><br><span class="line">    this.name = <span class="string">''</span>;</span><br><span class="line">    this.strategy = null;</span><br><span class="line">    this.price = 0;</span><br><span class="line">&#125;</span><br><span class="line">Context.prototype.set = <span class="keyword">function</span>(name, strategy, price) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.strategy = strategy;</span><br><span class="line">    this.price = price;</span><br><span class="line">&#125;</span><br><span class="line">Context.prototype.getResult = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(this.name + <span class="string">' 的结账价为: '</span> + this.strategy.getPrice(this.price));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var context = new Context();</span><br><span class="line">var vip = new vipPrice();</span><br><span class="line">context.set (<span class="string">'vip客户'</span>, vip, 200);</span><br><span class="line">context.getResult();   // vip客户 的结账价为: 100</span><br><span class="line"></span><br><span class="line">var old = new oldPrice();</span><br><span class="line">context.set (<span class="string">'老客户'</span>, old, 200);</span><br><span class="line">context.getResult();  // 老客户 的结账价为: 60</span><br><span class="line"></span><br><span class="line">var Price = new Price();</span><br><span class="line">context.set (<span class="string">'普通客户'</span>, Price, 200);</span><br><span class="line">context.getResult();  // 普通客户 的结账价为: 200</span><br></pre></td></tr></table></figure></p>
+<p>　　通过策略模式，使得客户的折扣与算法解藕，又使得修改跟扩展能独立的进行，不影到客户端或其他算法的使用；</p>
+<h4 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h4><p>　　定义了一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。 通俗的讲，就是将一些公共方法封装到父类，子类可以继承这个父类，并且可以在子类中重写父类的方法，从而实现自己的业务逻辑。</p>
+<h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><p>　　比如前端面试，基本包括笔试，技术面试，领导面试，HR面试等，但是每个公司的笔试题，技术面可能不一样，也可能一样，一样的就继承父类的方法，不一样的就重写父类的方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">var Interview = <span class="function"><span class="title">function</span></span>()&#123;&#125;;</span><br><span class="line">// 笔试</span><br><span class="line">Interview.prototype.writtenTest = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"这里是前端笔试题"</span>);</span><br><span class="line">&#125;;</span><br><span class="line">// 技术面试</span><br><span class="line">Interview.prototype.technicalInterview = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"这里是技术面试"</span>);</span><br><span class="line">&#125;; </span><br><span class="line">// 领导面试</span><br><span class="line">Interview.prototype.leader = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"领导面试"</span>);</span><br><span class="line">&#125;;</span><br><span class="line">// 领导面试</span><br><span class="line">Interview.prototype.HR = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"HR面试"</span>);</span><br><span class="line">&#125;;</span><br><span class="line">// 等通知</span><br><span class="line">Interview.prototype.waitNotice = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"等通知啊，不知道过了没有哦"</span>);</span><br><span class="line">&#125;;</span><br><span class="line">// 代码初始化</span><br><span class="line">Interview.prototype.init = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    this.writtenTest();</span><br><span class="line">    this.technicalInterview();</span><br><span class="line">    this.leader();</span><br><span class="line">    this.HR();</span><br><span class="line">    this.waitNotice();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 阿里巴巴的笔试和技术面不同，重写父类方法，其他继承父类方法。</span><br><span class="line">var AliInterview = <span class="function"><span class="title">function</span></span>()&#123;&#125;;</span><br><span class="line">AliInterview.prototype = new Interview();</span><br><span class="line"></span><br><span class="line">// 子类重写方法 实现自己的业务逻辑</span><br><span class="line">AliInterview.prototype.writtenTest = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"阿里的技术题就是难啊"</span>);</span><br><span class="line">&#125;</span><br><span class="line">AliInterview.prototype.technicalInterview = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">"阿里的技术面就是叼啊"</span>);</span><br><span class="line">&#125;</span><br><span class="line">var AliInterview = new AliInterview();</span><br><span class="line">AliInterview.init();</span><br><span class="line"></span><br><span class="line">// 阿里的技术题就是难啊</span><br><span class="line">// 阿里的技术面就是叼啊</span><br><span class="line">// 领导面试</span><br><span class="line">// HR面试</span><br><span class="line">// 等通知啊，不知道过了没有哦</span><br></pre></td></tr></table></figure></p>
+<p><strong>应用场景：</strong><br>　　模板模式主要应用在一些代码刚开要一次性实现不变的部分。但是将来页面有修改，需要更改业务逻辑的部分或者重新添加新业务的情况。主要是通过子类来改写父类的情况，其他不需要改变的部分继承父类。
+　　</p>
+<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>概念：<br>　　代理模式的中文含义就是帮别人做事，<code>javascript</code>的解释为：把对一个对象的访问, 交给另一个代理对象来操作.<br>代码实现：<br>　　比如我们公司的补打卡是最后是要交给大boss来审批的，但是公司那么多人，每天都那么多补打卡，那大boss岂不是被这些琐事累死。所以大boss下会有一个助理，来帮忙做这个审批，最后再将每个月的补打卡统一交给大boss看看就行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 补打卡事件</span><br><span class="line">var fillOut = <span class="keyword">function</span> (lateDate) &#123;</span><br><span class="line"></span><br><span class="line">    this.lateDate = lateDate;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 这是bigBoss</span><br><span class="line">var bigBoss = <span class="keyword">function</span> (fillOut) &#123;</span><br><span class="line"></span><br><span class="line">    this.state = <span class="keyword">function</span> (isSuccess) &#123;</span><br><span class="line">        console.log(<span class="string">"忘记打卡的日期为："</span> + fillOut.lateDate + <span class="string">", 补打卡状态："</span> + isSuccess);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">// 助理代理大boss 完成补打卡审批</span><br><span class="line">var proxyAssis = <span class="keyword">function</span> (fillOut) &#123;</span><br><span class="line">    </span><br><span class="line">    this.state = <span class="keyword">function</span> (isSuccess) &#123;</span><br><span class="line">        (new bigBoss(fillOut)).state(isSuccess); // 替bigBoss审批</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 调用方法：</span><br><span class="line">var proxyAssis = new proxyAssis(new fillOut(<span class="string">"2016-9-11"</span>));</span><br><span class="line">proxyAssis.state(<span class="string">"补打卡成功"</span>);</span><br><span class="line">// 忘记打卡的日期为：2016-9-11, 补打卡状态：补打卡成功</span><br></pre></td></tr></table></figure></p>
+<p>应用场景：<br>　　比如图片的懒加载，我们就可以运用这种技术。在图片未加载完成之前，给个loading图片，加载完成后再替换成实体路径。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var myImage = (<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    var imgNode = document.createElement(<span class="string">"img"</span>);</span><br><span class="line">    document.body.appendChild(imgNode);</span><br><span class="line">    <span class="built_in">return</span> <span class="keyword">function</span>(src)&#123;</span><br><span class="line">        imgNode.src = src; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">// 代理模式</span><br><span class="line">var ProxyImage = (<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    var img = new Image();</span><br><span class="line">    img.onload = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        myImage(this.src);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">return</span> <span class="keyword">function</span>(src) &#123;</span><br><span class="line">      // 占位图片loading</span><br><span class="line">      myImage(<span class="string">"http://img.lanrentuku.com/img/allimg/1212/5-121204193Q9-50.gif"</span>);</span><br><span class="line">      img.src = src;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">// 调用方式</span><br><span class="line"></span><br><span class="line">ProxyImage(<span class="string">"https://img.alicdn.com/tps/i4/TB1b_neLXXXXXcoXFXXc8PZ9XXX-130-200.png"</span>); // 真实要展示的图片</span><br></pre></td></tr></table></figure></p>
+<p>　　当然，这种懒加载方法不用代理模式也是可以实现的，只是用代理模式。我们可以让 myImage 只做一件事，只负责将实际图片加入到页面中，而loading图片交给ProxyImage去做。从而降低代码的耦合度。因为当我不想用loading的时候，可以直接调用myImage 方法。也即是说假如我门不需要代理对象的话，直接可以换成本体对象调用该方法即可。</p>
+<h4 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h4><p>　　概念：<br>　　外观模式是很常见。其实它就是通过编写一个单独的函数，来简化对一个或多个更大型的，可能更为复杂的函数的访问。也就是说可以视外观模式为一种简化某些内容的手段。<br>　　说白了，外观模式就是一个函数，封装了复杂的操作。<br>代码实现：<br>　　比如一个跨浏览器的ajax调用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> ajaxCall(<span class="built_in">type</span>,url,callback,data)&#123;</span><br><span class="line">    // 根据当前浏览器获取对ajax连接对象的引用</span><br><span class="line">    var xhr=(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            // 所有现代浏览器所使用的标准方法</span><br><span class="line">            <span class="built_in">return</span> new XMLHttpRequest();</span><br><span class="line">        &#125;catch(e)&#123;&#125;</span><br><span class="line">        // 较老版本的internet Explorer兼容</span><br><span class="line">        try&#123;</span><br><span class="line">            <span class="built_in">return</span> new ActiveXObject(<span class="string">"Msxml2.XMLHTTP.6.0"</span>);</span><br><span class="line">        &#125;catch(e)&#123;&#125;</span><br><span class="line">        try&#123;</span><br><span class="line">            <span class="built_in">return</span> new ActiveXObject(<span class="string">"Msxml2.XMLHTTP.3.0"</span>);</span><br><span class="line">            </span><br><span class="line">        &#125;catch(e)&#123;&#125;</span><br><span class="line">        try&#123;</span><br><span class="line">            <span class="built_in">return</span> new ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br><span class="line">        &#125;catch(e)&#123;&#125;</span><br><span class="line"></span><br><span class="line">        // 如果没能找到相关的ajax连接对象，则跑出一个错误。</span><br><span class="line">        throw new Error(<span class="string">"Ajax not support in this browser."</span>)</span><br><span class="line"></span><br><span class="line">    &#125;()),</span><br><span class="line">    STATE_LOADED=4,</span><br><span class="line">    STATUS_OK=200;</span><br><span class="line"></span><br><span class="line">    // 一但从服务器收到表示成功的相应消息，则执行所给定的回调方法</span><br><span class="line">    xhr.onreadystatechange=<span class="keyword">function</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(xhr.readyState !==STATE_LOADED)&#123;</span><br><span class="line">            <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(xhr.state==STATUS_OK)&#123;</span><br><span class="line">            callback(xhr.responseText);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 使用浏览器的ajax连接对象来向所给定的URL发出相关的调用</span><br><span class="line">    xhr.open(type.toUpperCase(),url);</span><br><span class="line">    xhr.send(data);</span><br><span class="line">&#125;</span><br><span class="line">// 使用方法</span><br><span class="line">ajaxCall(<span class="string">"get"</span>,<span class="string">"/user/12345"</span>,<span class="keyword">function</span>(rs)&#123;</span><br><span class="line">    alert(<span class="string">'收到的数据为：'</span>+rs);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>应用场景：<br>　　当需要通过一个单独的函数或方法来访问一系列的函数或方法调用，以简化代码库的其余内容，使得代码更容易跟踪管理或者更好的维护时，可以使用外观模式。其实我们平时代码中这种模式应该是用的比较多的。</p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/设计模式/">设计模式</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/JavaScript/ES6新特性/" data-tooltip="ES6新特性" aria-label="上一篇: ES6新特性">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/HTTP/TCP&&UDP/" data-tooltip="TCP和UDP的区别" aria-label="下一篇: TCP和UDP的区别">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：93.7k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/JavaScript/ES6新特性/" data-tooltip="ES6新特性" aria-label="上一篇: ES6新特性">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/05/HTTP/TCP&&UDP/" data-tooltip="TCP和UDP的区别" aria-label="下一篇: TCP和UDP的区别">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h5 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h5><p>　　浮动的元素是脱离文档标准流的，如果我们不清楚浮动，那么就会造成父元素高度塌陷，影响页面布局。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/GET和POST请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 68 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/04/05/JavaScript/常见的设计模式/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
