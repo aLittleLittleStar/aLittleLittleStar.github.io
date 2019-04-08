@@ -15,18 +15,18 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\ttest\n\t\n\n\t\n\t\n\n\n\t\n\t\t\n\t\n\n\n\nvar app = new Vue({\n\tel: '#app',\n\tdata: {\n\t\tmessage : \"xuxiao is boy\"\n\t},\n\tbeforeCreate: function () {\n\t\tconsole.group('beforeCreate 创建前状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\" , \"el     : \" + this.$el);\n\t\t//undefined \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t},\n\tcreated: function () {\n\t\tconsole.group('created 创建完毕状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t//已被初始化 \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t//已被初始化\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeMount: function () {\n\t\t\tconsole.group('beforeMount 挂载前状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + (this.$el));\n\t\t\tconsole.log(this.$el);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tmounted: function () {\n\t\t\tconsole.group('mounted 挂载结束状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);    \n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化 \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeUpdate: function () {\n\t\t\tconsole.group('beforeUpdate 更新前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tupdated: function () {\n\t\t\tconsole.group('updated 更新完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tbeforeDestroy: function () {\n\t\t\tconsole.group('beforeDestroy 销毁前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tdestroyed: function () {\n\t\t\tconsole.group('destroyed 销毁完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t\t}\n})\n\n/*\nfor(var i =0; i< 5; i++) {\n\tsetTimeout(function() {\n\t\tconsole.log(\"new Date\", new Date, i);\n\t}, 1000)\n}\n\nconsole.log(new Date, i);\n\n*/\n\n\tfunction outer() {\n\t\tvar num = 0;\n\t\treturn function add() {\n\t\t\tnum++;\n\t\t\tconsole.log(\"num:\", num);\n\t\t}\n\t}\n\n\tvar func1 = outer()\n\tfunc1()\n\tfunc1()\n\tvar func2 = outer()\n\tfunc2()\n\tfunc2()\n\n\n\n\n\n\n","dateCreated":"2019-03-15T10:25:58+08:00","dateModified":"2019-04-02T17:05:57+08:00","datePublished":"2019-03-15T10:25:58+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/15/JavaScript/index/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/15/JavaScript/index/"}</script>
-    <meta name="description" content="test 	  	 	   	 		 	    var app = new Vue({ 	el: &apos;#app&apos;, 	data: { 		message : &quot;xuxiao is boy&quot; 	}, 	beforeCreate: function () { 		console.group(&apos;beforeCreate 创建前状态===============》&apos;); 		//undefine">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\ttest\n\t\n\n\t\n\t\t#app {\n/*\t\t\tbackground: orange;\n\t\t\twidth: 100%;\n\t\t\theight: 400px;\n\t\t\tdisplay: flex;\n\t\t\talign-items: center;*/\n\t\t\t/*position: relative;*/\n\t\t\t/*text-align: center;*/\n\t\t\t/*margin: auto;*/\n\t\t}\n\t\t.box {\n\t\t\tbackground: yellow;\n\t\t\twidth: 100px;\n\t\t\theight: 100px;\n/*\t\t\tposition: absolute;\n\t\t\ttop: 50%;\n\t\t\tleft: 50%;*/\n/*\t\t\tmargin-top: -50px;\n\t\t\tmargin-left: -50px;*/\n\t\t\t/*transform: translate(-50px, -50px);*/\n\t\t}\n\t\t.layout{\n/*   width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/\n  max-width: 960px;\n  margin: 0 auto;\n}\n\t\n\n\n\t\n\t\t\n\t\t\n\t\t\n\t\t\n  头部\n\n内容\n\n  尾部\n\n\t\n\n\n\nvar app = new Vue({\n\tel: '#app',\n\tdata: {\n\t\tmessage : \"xuxiao is boy\"\n\t},\n\tbeforeCreate: function () {\n\t\tconsole.group('beforeCreate 创建前状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\" , \"el     : \" + this.$el);\n\t\t//undefined \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t},\n\tcreated: function () {\n\t\tconsole.group('created 创建完毕状态===============》');\n\t\t//undefined\n\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t//已被初始化 \n\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t//已被初始化\n\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeMount: function () {\n\t\t\tconsole.group('beforeMount 挂载前状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + (this.$el));\n\t\t\tconsole.log(this.$el);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化  \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tmounted: function () {\n\t\t\tconsole.group('mounted 挂载结束状态===============》');\n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);    \n\t\t\t//已被初始化\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data);\n\t\t\t//已被初始化 \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message);\n\t\t},\n\t\tbeforeUpdate: function () {\n\t\t\tconsole.group('beforeUpdate 更新前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tupdated: function () {\n\t\t\tconsole.group('updated 更新完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tbeforeDestroy: function () {\n\t\t\tconsole.group('beforeDestroy 销毁前状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message); \n\t\t},\n\t\tdestroyed: function () {\n\t\t\tconsole.group('destroyed 销毁完成状态===============》');\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"el     : \" + this.$el);\n\t\t\tconsole.log(this.$el);\n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"data   : \" + this.$data); \n\t\t\tconsole.log(\"%c%s\", \"color:red\",\"message: \" + this.message)\n\t\t}\n})\n\n/*\nfor(var i =0; i< 5; i++) {\n\tsetTimeout(function() {\n\t\tconsole.log(\"new Date\", new Date, i);\n\t}, 1000)\n}\n\nconsole.log(new Date, i);\n\n*/\n\n\tfunction outer() {\n\t\tvar num = 0;\n\t\treturn function add() {\n\t\t\tnum++;\n\t\t\tconsole.log(\"num:\", num);\n\t\t}\n\t}\n\n\tvar func1 = outer()\n\tfunc1()\n\tfunc1()\n\tvar func2 = outer()\n\tfunc2()\n\tfunc2()\n\n\n\n\n\n\n","dateCreated":"2019-03-15T10:25:58+08:00","dateModified":"2019-04-08T09:20:39+08:00","datePublished":"2019-03-15T10:25:58+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/15/JavaScript/index/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/15/JavaScript/index/"}</script>
+    <meta name="description" content="test 	  	 		#app { /*			background: orange; 			width: 100%; 			height: 400px; 			display: flex; 			align-items: center;*/ 			/*position: relative;*/ 			/*text-align: center;*/ 			/*margin: auto;">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="昨夜小楼又东风">
 <meta property="og:url" content="http://yoursite.com/2019/03/15/JavaScript/index/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="test 	  	 	   	 		 	    var app = new Vue({ 	el: &apos;#app&apos;, 	data: { 		message : &quot;xuxiao is boy&quot; 	}, 	beforeCreate: function () { 		console.group(&apos;beforeCreate 创建前状态===============》&apos;); 		//undefine">
+<meta property="og:description" content="test 	  	 		#app { /*			background: orange; 			width: 100%; 			height: 400px; 			display: flex; 			align-items: center;*/ 			/*position: relative;*/ 			/*text-align: center;*/ 			/*margin: auto;">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-04-02T09:05:57.989Z">
+<meta property="og:updated_time" content="2019-04-08T01:20:39.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="昨夜小楼又东风">
-<meta name="twitter:description" content="test 	  	 	   	 		 	    var app = new Vue({ 	el: &apos;#app&apos;, 	data: { 		message : &quot;xuxiao is boy&quot; 	}, 	beforeCreate: function () { 		console.group(&apos;beforeCreate 创建前状态===============》&apos;); 		//undefine">
+<meta name="twitter:description" content="test 	  	 		#app { /*			background: orange; 			width: 100%; 			height: 400px; 			display: flex; 			align-items: center;*/ 			/*position: relative;*/ 			/*text-align: center;*/ 			/*margin: auto;">
     
     
         
@@ -237,7 +237,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：424字
+        字数统计：504字
     </span>
 </div>
 
@@ -253,11 +253,46 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/vue/2.1.3/vue.js"></script>
 
 	<style>
+		#app {
+/*			background: orange;
+			width: 100%;
+			height: 400px;
+			display: flex;
+			align-items: center;*/
+			/*position: relative;*/
+			/*text-align: center;*/
+			/*margin: auto;*/
+		}
+		.box {
+			background: yellow;
+			width: 100px;
+			height: 100px;
+/*			position: absolute;
+			top: 50%;
+			left: 50%;*/
+/*			margin-top: -50px;
+			margin-left: -50px;*/
+			/*transform: translate(-50px, -50px);*/
+		}
+		.layout{
+/*   width: 960px; *//*设置width当浏览器窗口宽度小于960px时，单列布局不会自适应。*/
+  max-width: 960px;
+  margin: 0 auto;
+}
 	</style>
 </head>
 <body>
 	<div id="app">
-		<p></p>
+		<!-- <p></p> -->
+		<!-- <p></p> -->
+		<!-- <div class="box">1231</div> -->
+		<div id="header">
+  <div class="layout">头部</div>
+</div>
+<div id="content" class="layout">内容</div>
+<div id="footer">
+  <div class="layout">尾部</div>
+</div>
 	</div>
 
 
@@ -465,7 +500,7 @@ console.log(new Date, i);
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：95k</span>
+		<span class="post-count">字数统计：95.1k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -716,25 +751,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
                             <h3 class="media-heading">语义化标签</h3>
                         </a>
@@ -778,6 +794,25 @@ setInterval("createtime()",250);
                     <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
                             <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
