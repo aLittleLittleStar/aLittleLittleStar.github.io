@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title> - 昨夜小楼又东风</title>
+    <title>CSS3选择器 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,18 +15,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n\n\t\n\t防抖和节流\n\t\n\t\tbutton {\n\t\t\twidth: 100px;\n\t\t\theight: 50px;\n\t\t}\n\t\t.log {\n\t\t\twidth: 100%;\n\t\t\theight: 30px;\n\t\t\tborder: 1px solid #ccc;\n\t\t\tmargin-top: 10px;\n\t\t}\n\t\n\n\n\tDebounced\n\tThrottled\n\t\n\t\n\n\n\t\n\t\t/*\n\t\t  节流说白了就是每ms执行一次函数，\n\t\t  防抖就是 我最后一次触发后ms后执行一次回调函数\n\t\t*/\n\t\t/*debounced（防抖动）函数，该函数会从上一次被调用后，延迟 wait 毫秒后调用 fn 方法。*/\n\t\tfunction debounce(fn, wait, options) {\n\t\t\t// 等待时间\n\t\t\twait = wait || 0\n\t\t\t// 点击次数\n\t\t\tlet timerId;\n\t\t\tconsole.log(\"timerId:\", timerId);\n\t\t\t// 这个函数的功能是：\n\t\t\t// \n\t\t\treturn function() {\n\t\t\t\tif (timerId) {\n\t\t\t\t\tclearTimeout(timerId);\n\t\t\t\t\ttimerId = null;\n\t\t\t\t}\n\t\t\t\ttimerId = setTimeout(function() {\n\t\t\t\t\tfn();\n\t\t\t\t}, wait);\n\t\t\t\tconsole.log(\"timerId:\", timerId);\n\t\t\t}\n\t\t}\n\n\t\t// 节流函数，在 wait 秒内最多执行 fn 一次的函数。\n\t\tfunction throttle(fn, wait, options) {\n\t\t\twait = wait || 0;\n\t\t\tlet timerId;\n\t\t\tlet lastTime = 0;\n\n\t\t\treturn function() {\n\t\t\t\tlet currentTime = new Date();\n\t\t\t\tif (currentTime >= lastTime + wait) {\n\t\t\t\t\tfn();\n\t\t\t\t\tlastTime = currentTime;\n\t\t\t\t} else {\n\t\t\t\t\tif (timerId) {\n\t\t\t\t\t\tclearTimeout(timerId);\n\t\t\t\t\t\ttimerId = null;\n\t\t\t\t\t}\n\t\t\t\t\ttimerId = setTimeout(function() {\n\t\t\t\t\t\tfn();\n\t\t\t\t\t}, wait);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tlet debouncedBtn = document.getElementById('debounced');\n\t\tlet throttledBtn = document.getElementById('throttled');\n\t\tlet log1 = document.getElementById('log1');\n\t\tlet log2 = document.getElementById('log2');\n\n\t\tfunction handleDebounce() {\n\t\t\tlog1.innerHTML += 'debounced';\n\t\t\tconsole.log(\"debounced\");\n\t\t}\n\t\tfunction handleThrottle() {\n\t\t\tlog2.innerHTML += 'throttle';\n\t\t\tconsole.log(\"throttle\");\n\n\t\t}\n\t\tdebouncedBtn.addEventListener('click', debounce(handleDebounce, 2000));\n\t\tthrottledBtn.addEventListener('click', throttle(handleThrottle, 2000));\n\t\n\n","dateCreated":"2019-04-09T08:40:16+08:00","dateModified":"2019-04-09T09:18:37+08:00","datePublished":"2019-04-09T08:40:16+08:00","description":"","headline":"","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/09/JavaScript/debounce/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/09/JavaScript/debounce/"}</script>
-    <meta name="description" content="防抖和节流 	 		button { 			width: 100px; 			height: 50px; 		} 		.log { 			width: 100%; 			height: 30px; 			border: 1px solid #ccc; 			margin-top: 10px; 		} 	   	Debounced 	Throttled 	 	   	 		/*">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：CSS &gt; 选择器优先级与效率优化\n选择器优先级　　important声明 1,0,0,0　　ID选择器      0,1,0,0　　类选择器      0,0,1,0　　伪类选择器    0,0,1,0　　属性选择器    0,0,1,0　　标签选择器    0,0,0,1　　伪元素选择器  0,0,0,1　　通配符选择器  0,0,0,0important &gt; 行内样式\n选择器效率　　读取选择器的原则是从右到左。因此，我们书写的右边的最后一个选择器，被称作关键选择器，对于效率有决定性影响。选择器效率：　　ID选择器　　类选择器　　标签选择器　　相邻选择器　　子选择器　　后代选择器　　通配符选择器　　属性选择器　　伪类选择器优先级高的不一定效率高举个例子：#id .class 与 div#id p.class前者效率高于后者，而后者优先级高于前者。我们需要在效率与优先级之间平衡取舍。\n优化建议扼要摘其精要总结如下：　　避免使用通配符　　不使用标签名或类名修饰ID规则：如果规则使用ID选择器作为关键选择器，不要给规则添加标签名。因为ID本身就是唯一的，添加标签名会不必要地降低匹配效率。　　不使用标签名修饰类：相较于标签，类更具独特性。　　尽量选择最具体的方式：造成低效的最简单粗暴的原因就是在标签上使用太多规则。给元素添加类可以更快细分到类方式，可以减少规则去匹配标签的时间。　　关于后代选择器和子选择器：避免使用后代选择器，非要用的话建议用子选择器代替，但子选择器也要慎用，标签规则永远不要包含子选择器。　　利用可继承性：没必要在一般内容上声明样式。\n","dateCreated":"2019-04-11T10:13:51+08:00","dateModified":"2019-04-11T11:13:05+08:00","datePublished":"2019-04-11T10:13:51+08:00","description":"","headline":"CSS3选择器","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/11/CSS3/CSS3选择器/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/11/CSS3/CSS3选择器/","keywords":"CSS3"}</script>
+    <meta name="keywords" content="CSS3">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="昨夜小楼又东风">
-<meta property="og:url" content="http://yoursite.com/2019/04/09/JavaScript/debounce/index.html">
+<meta property="og:title" content="CSS3选择器">
+<meta property="og:url" content="http://yoursite.com/2019/04/11/CSS3/CSS3选择器/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="防抖和节流 	 		button { 			width: 100px; 			height: 50px; 		} 		.log { 			width: 100%; 			height: 30px; 			border: 1px solid #ccc; 			margin-top: 10px; 		} 	   	Debounced 	Throttled 	 	   	 		/*">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-04-09T01:18:37.451Z">
+<meta property="og:updated_time" content="2019-04-11T03:13:05.791Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昨夜小楼又东风">
-<meta name="twitter:description" content="防抖和节流 	 		button { 			width: 100px; 			height: 50px; 		} 		.log { 			width: 100%; 			height: 30px; 			border: 1px solid #ccc; 			margin-top: 10px; 		} 	   	Debounced 	Throttled 	 	   	 		/*">
+<meta name="twitter:title" content="CSS3选择器">
     
     
         
@@ -221,23 +219,29 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            (无标题)
+            CSS3选择器
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2019-04-09T08:40:16+08:00">
+    <time datetime="2019-04-11T10:13:51+08:00">
 	
-		    4月 09, 2019
+		    4月 11, 2019
     	
     </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
     
 </div>
 
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：241字
+        字数统计：504字
     </span>
 </div>
 
@@ -245,104 +249,25 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>防抖和节流</title>
-	<style>
-		button {
-			width: 100px;
-			height: 50px;
-		}
-		.log {
-			width: 100%;
-			height: 30px;
-			border: 1px solid #ccc;
-			margin-top: 10px;
-		}
-	</style>
-</head>
-<body>
-	<button id="debounced">Debounced</button>
-	<button id="throttled">Throttled</button>
-	<div id="log1" class="log"></div>
-	<div id="log2" class="log"></div>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择器优先级"><span class="toc-text">选择器优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择器效率"><span class="toc-text">选择器效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化建议"><span class="toc-text">优化建议</span></a></li></ol>
+<a id="more"></a>
+<p>转载：<br><a href="https://segmentfault.com/a/1190000003064142" target="_blank" rel="noopener">CSS &gt; 选择器优先级与效率优化</a></p>
+<h3 id="选择器优先级"><a href="#选择器优先级" class="headerlink" title="选择器优先级"></a>选择器优先级</h3><p>　　important声明 1,0,0,0<br>　　ID选择器      0,1,0,0<br>　　类选择器      0,0,1,0<br>　　伪类选择器    0,0,1,0<br>　　属性选择器    0,0,1,0<br>　　标签选择器    0,0,0,1<br>　　伪元素选择器  0,0,0,1<br>　　通配符选择器  0,0,0,0<br>important &gt; 行内样式</p>
+<h3 id="选择器效率"><a href="#选择器效率" class="headerlink" title="选择器效率"></a>选择器效率</h3><p>　　读取选择器的原则是<code>从右到左</code>。因此，我们书写的右边的最后一个选择器，被称作<code>关键选择器</code>，对于效率有决定性影响。<br>选择器效率：<br>　　ID选择器<br>　　类选择器<br>　　标签选择器<br>　　相邻选择器<br>　　子选择器<br>　　后代选择器<br>　　通配符选择器<br>　　属性选择器<br>　　伪类选择器<br><strong>优先级高的不一定效率高</strong><br>举个例子：<code>#id .class</code> 与 <code>div#id p.class</code><br>前者效率高于后者，而后者优先级高于前者。我们需要在效率与优先级之间平衡取舍。</p>
+<h3 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h3><p>扼要摘其精要总结如下：<br>　　避免使用通配符<br>　　不使用标签名或类名修饰ID规则：如果规则使用ID选择器作为关键选择器，不要给规则添加标签名。因为ID本身就是唯一的，添加标签名会不必要地降低匹配效率。<br>　　不使用标签名修饰类：相较于标签，类更具独特性。<br>　　尽量选择最具体的方式：造成低效的最简单粗暴的原因就是在标签上使用太多规则。给元素添加类可以更快细分到类方式，可以减少规则去匹配标签的时间。<br>　　关于后代选择器和子选择器：避免使用后代选择器，非要用的话建议用子选择器代替，但子选择器也要慎用，标签规则永远不要包含子选择器。<br>　　利用可继承性：没必要在一般内容上声明样式。</p>
 
-
-	<script>
-		/*
-		  节流说白了就是每ms执行一次函数，
-		  防抖就是 我最后一次触发后ms后执行一次回调函数
-		*/
-		/*debounced（防抖动）函数，该函数会从上一次被调用后，延迟 wait 毫秒后调用 fn 方法。*/
-		function debounce(fn, wait, options) {
-			// 等待时间
-			wait = wait || 0
-			// 点击次数
-			let timerId;
-			console.log("timerId:", timerId);
-			// 这个函数的功能是：
-			// 
-			return function() {
-				if (timerId) {
-					clearTimeout(timerId);
-					timerId = null;
-				}
-				timerId = setTimeout(function() {
-					fn();
-				}, wait);
-				console.log("timerId:", timerId);
-			}
-		}
-
-		// 节流函数，在 wait 秒内最多执行 fn 一次的函数。
-		function throttle(fn, wait, options) {
-			wait = wait || 0;
-			let timerId;
-			let lastTime = 0;
-
-			return function() {
-				let currentTime = new Date();
-				if (currentTime >= lastTime + wait) {
-					fn();
-					lastTime = currentTime;
-				} else {
-					if (timerId) {
-						clearTimeout(timerId);
-						timerId = null;
-					}
-					timerId = setTimeout(function() {
-						fn();
-					}, wait);
-				}
-			}
-		}
-
-		let debouncedBtn = document.getElementById('debounced');
-		let throttledBtn = document.getElementById('throttled');
-		let log1 = document.getElementById('log1');
-		let log2 = document.getElementById('log2');
-
-		function handleDebounce() {
-			log1.innerHTML += 'debounced';
-			console.log("debounced");
-		}
-		function handleThrottle() {
-			log2.innerHTML += 'throttle';
-			console.log("throttle");
-
-		}
-		debouncedBtn.addEventListener('click', debounce(handleDebounce, 2000));
-		throttledBtn.addEventListener('click', throttle(handleThrottle, 2000));
-	</script>
-</body>
-</html>
             
 
         </div>
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS3/">CSS3</a>
+
+            </div>
         
         
             <div class="post-actions-wrap">
@@ -351,7 +276,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/09/JavaScript/宏任务&&微任务/" data-tooltip="宏任务&amp;&amp;微任务" aria-label="上一篇: 宏任务&amp;&amp;微任务">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/11/Ajax/跨域/" data-tooltip="跨域" aria-label="上一篇: 跨域">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -360,7 +285,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/08/HTTP/HTTP/" data-tooltip="HTTP" aria-label="下一篇: HTTP">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/11/JavaScript/数组操作/" data-tooltip="数组操作" aria-label="下一篇: 数组操作">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -370,7 +295,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -378,7 +303,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/09/JavaScript/debounce/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -386,7 +311,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/09/JavaScript/debounce/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -394,7 +319,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/09/JavaScript/debounce/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -410,7 +335,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -437,7 +362,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：102.7k</span>
+		<span class="post-count">字数统计：105.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -465,7 +390,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/09/JavaScript/宏任务&&微任务/" data-tooltip="宏任务&amp;&amp;微任务" aria-label="上一篇: 宏任务&amp;&amp;微任务">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/11/Ajax/跨域/" data-tooltip="跨域" aria-label="上一篇: 跨域">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -474,7 +399,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/08/HTTP/HTTP/" data-tooltip="HTTP" aria-label="下一篇: HTTP">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/11/JavaScript/数组操作/" data-tooltip="数组操作" aria-label="下一篇: 数组操作">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -484,7 +409,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -492,7 +417,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/09/JavaScript/debounce/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -500,7 +425,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/09/JavaScript/debounce/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -508,7 +433,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/09/JavaScript/debounce/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -524,7 +449,7 @@ setInterval("createtime()",250);
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -541,7 +466,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/09/JavaScript/debounce/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -549,7 +474,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/09/JavaScript/debounce/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -557,7 +482,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/09/JavaScript/debounce/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/11/CSS3/CSS3选择器/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -667,67 +592,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
                             <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -759,6 +625,65 @@ setInterval("createtime()",250);
 <h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
 <h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
 <h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -868,7 +793,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 76 篇文章
+                找到 78 篇文章
             </p>
         </div>
     </div>
@@ -886,7 +811,7 @@ setInterval("createtime()",250);
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2019/04/09/JavaScript/debounce/',
+                        id: 'http://yoursite.com/2019/04/11/CSS3/CSS3选择器/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
