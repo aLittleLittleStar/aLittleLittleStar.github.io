@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>Koa2基础 - 昨夜小楼又东风</title>
+    <title>编程风格 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,22 +15,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\nKoa官网《Koa2进阶学习笔记》已完结\n使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn　　　　　　　　　　　　　　　　　-e 添加ejs模板引擎支持(默认是jade)　　　　　　　　　　　　　　　　　koa2-learn 项目名123456789101112131415161718192021222324$ koa2 -e koa2-learning   create : koa2-learning   create : koa2-learning/package.json   create : koa2-learning/app.js   create : koa2-learning/public/javascripts   create : koa2-learning/routes   create : koa2-learning/routes/index.js   create : koa2-learning/routes/users.js   create : koa2-learning/public/images   create : koa2-learning/public/stylesheets   create : koa2-learning/public/stylesheets/style.css   create : koa2-learning/public   create : koa2-learning/views   create : koa2-learning/views/index.ejs   create : koa2-learning/views/error.ejs   create : koa2-learning/bin   create : koa2-learning/bin/www   install dependencies:     $ cd koa2-learning &amp;&amp; npm install   run the app:     $ DEBUG=koa2-learning:* npm start\nPS: 如果出现 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;})  不用担心。出现原因：fsevents 不在 package.json里，但是仍然安装了，是因为你的系统是Windows系统，fsevents是苹果系统的可选依赖,你的项目有可能是团队项目，别人在他的mac上安装了fsevents相关依赖库，所以到这边你也就安装到你的windows上边了。你可以检查你的package.json 文件中是不是有fsevents相关依赖，删除即好！如果没有，其他的npm包也会有依赖fsevents的！！！这是warning错误，是因为mac下需要fsevents，这里是在windows环境，所以可以忽略这个警告，对你没什么影响的。运行: DEBUG=koa2-learning:* npm start || npm run dev效果： 出现 node bin/www 访问 http://localhost:3000/注意： npm start 、 npm test 、 npm run dev 、 npm run prd\nasync 和 await 语法异步概念\n是指一个进程在执行某个请求的时候，如果这个请求没有执行完毕，进程不会等待，而是继续执行下面的请求。\n\n理解async 和 awaitKoa2 中间件koa2 中间件的原理\n自定义 koa2 中间件koa2 路由路由写法接口举例cookie 和 sessioncookie 和 session 的定义cookie 和 session 的作用推荐：　　从头实现一个koa框架　　浅析koa的洋葱模型实现\n","dateCreated":"2019-02-21T23:54:01+08:00","dateModified":"2019-03-08T21:36:25+08:00","datePublished":"2019-02-21T23:54:01+08:00","description":"\nKoa官网《Koa2进阶学习笔记》已完结\n使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn　　　　　　　　　　　　　　　　　-e 添加ejs模板引擎支持(默认是jade)　　　　　　　　　　　　　　　　　koa2-learn 项目名","headline":"Koa2基础","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/","keywords":"Koa2基础"}</script>
-    <meta name="description" content="Koa官网《Koa2进阶学习笔记》已完结 使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn　　　　　　　　　　　　　　　　　-e 添加ejs模板引擎支持(默认是jade)　　　　　　　　　　　　　　　　　koa2-lea">
-<meta name="keywords" content="Koa2基础">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n块级作用域字符串解构赋值对象数组函数Map函数Class模板ESLint 使用\n正则：两种模糊匹配横向模糊匹配横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。{m,n}，表示连续出现最少m次，最多n次。比如/ab{2,5}c/表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”。\n纵向模糊匹配纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。\n字符串量词分支结构案例分析","dateCreated":"2019-04-17T20:42:01+08:00","dateModified":"2019-04-18T08:19:09+08:00","datePublished":"2019-04-17T20:42:01+08:00","description":"","headline":"编程风格","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/17/JavaScript/编程风格/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/17/JavaScript/编程风格/","keywords":"JavaScript"}</script>
+    <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Koa2基础">
-<meta property="og:url" content="http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/index.html">
+<meta property="og:title" content="编程风格">
+<meta property="og:url" content="http://yoursite.com/2019/04/17/JavaScript/编程风格/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="Koa官网《Koa2进阶学习笔记》已完结 使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn　　　　　　　　　　　　　　　　　-e 添加ejs模板引擎支持(默认是jade)　　　　　　　　　　　　　　　　　koa2-lea">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="http://yoursite.com/assets/images/koa2.png">
-<meta property="og:image" content="http://yoursite.com/assets/images/koa2中间件.png">
-<meta property="og:updated_time" content="2019-03-08T13:36:25.000Z">
+<meta property="og:updated_time" content="2019-04-18T00:19:09.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Koa2基础">
-<meta name="twitter:description" content="Koa官网《Koa2进阶学习笔记》已完结 使用koa-generator生成koa2项目全局安装koa-generator: npm install -g koa-generator使用koa-generator生成koa2项目: koa2 -e koa2-learn　　　　　　　　　　　　　　　　　-e 添加ejs模板引擎支持(默认是jade)　　　　　　　　　　　　　　　　　koa2-lea">
-<meta name="twitter:image" content="http://yoursite.com/assets/images/koa2.png">
+<meta name="twitter:title" content="编程风格">
     
     
         
@@ -225,20 +219,20 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Koa2基础
+            编程风格
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2019-02-21T23:54:01+08:00">
+    <time datetime="2019-04-17T20:42:01+08:00">
 	
-		    2月 21, 2019
+		    4月 17, 2019
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/Koa2/">Koa2</a>
+    <a class="category-link" href="/categories/前端/">前端</a>
 
 
     
@@ -247,7 +241,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：527字
+        字数统计：193字
     </span>
 </div>
 
@@ -255,16 +249,12 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用koa-generator生成koa2项目"><span class="toc-text">使用koa-generator生成koa2项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#async-和-await-语法"><span class="toc-text">async 和 await 语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#异步概念"><span class="toc-text">异步概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#理解async-和-await"><span class="toc-text">理解async 和 await</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Koa2-中间件"><span class="toc-text">Koa2 中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#koa2-中间件的原理"><span class="toc-text">koa2 中间件的原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义-koa2-中间件"><span class="toc-text">自定义 koa2 中间件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#koa2-路由"><span class="toc-text">koa2 路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#路由写法"><span class="toc-text">路由写法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口举例"><span class="toc-text">接口举例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie-和-session"><span class="toc-text">cookie 和 session</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie-和-session-的定义"><span class="toc-text">cookie 和 session 的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie-和-session-的作用"><span class="toc-text">cookie 和 session 的作用</span></a></li></ol></li></ol>
-<p><a href="https://koa.bootcss.com" target="_blank" rel="noopener">Koa官网</a><br><a href="https://chenshenhai.github.io/koa2-note/" target="_blank" rel="noopener">《Koa2进阶学习笔记》已完结</a></p>
-<h3 id="使用koa-generator生成koa2项目"><a href="#使用koa-generator生成koa2项目" class="headerlink" title="使用koa-generator生成koa2项目"></a>使用koa-generator生成koa2项目</h3><p>全局安装koa-generator: <code>npm install -g koa-generator</code><br>使用koa-generator生成koa2项目: <code>koa2 -e koa2-learn</code><br>　　　　　　　　　　　　　　　　　<strong>-e 添加ejs模板引擎支持(默认是jade)</strong><br>　　　　　　　　　　　　　　　　　koa2-learn 项目名<a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ koa2 -e koa2-learning</span><br><span class="line"></span><br><span class="line">   create : koa2-learning</span><br><span class="line">   create : koa2-learning/package.json</span><br><span class="line">   create : koa2-learning/app.js</span><br><span class="line">   create : koa2-learning/public/javascripts</span><br><span class="line">   create : koa2-learning/routes</span><br><span class="line">   create : koa2-learning/routes/index.js</span><br><span class="line">   create : koa2-learning/routes/users.js</span><br><span class="line">   create : koa2-learning/public/images</span><br><span class="line">   create : koa2-learning/public/stylesheets</span><br><span class="line">   create : koa2-learning/public/stylesheets/style.css</span><br><span class="line">   create : koa2-learning/public</span><br><span class="line">   create : koa2-learning/views</span><br><span class="line">   create : koa2-learning/views/index.ejs</span><br><span class="line">   create : koa2-learning/views/error.ejs</span><br><span class="line">   create : koa2-learning/bin</span><br><span class="line">   create : koa2-learning/bin/www</span><br><span class="line"></span><br><span class="line">   install dependencies:</span><br><span class="line">     $ cd koa2-learning &amp;&amp; npm install</span><br><span class="line"></span><br><span class="line">   run the app:</span><br><span class="line">     $ DEBUG=koa2-learning:* npm start</span><br></pre></td></tr></table></figure></p>
-<p>PS: 如果出现 <code>npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.7: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;win32&quot;,&quot;arch&quot;:&quot;x64&quot;})</code>  不用担心。出现原因：<br><code>fsevents</code> 不在 <code>package.json</code>里，但是仍然安装了，是因为你的系统是Windows系统，fsevents是苹果系统的可选依赖,你的项目有可能是团队项目，别人在他的mac上安装了fsevents相关依赖库，所以到这边你也就安装到你的windows上边了。你可以检查你的package.json 文件中是不是有fsevents相关依赖，删除即好！<br>如果没有，其他的npm包也会有依赖fsevents的！！！<br><strong>这是warning错误，是因为mac下需要fsevents，这里是在windows环境，所以可以忽略这个警告，对你没什么影响的。</strong><br>运行: <code>DEBUG=koa2-learning:* npm start</code> || <code>npm run dev</code><br>效果： 出现 <strong>node bin/www</strong> 访问 <code>http://localhost:3000/</code><br>注意： npm start 、 npm test 、 npm run dev 、 npm run prd</p>
-<h3 id="async-和-await-语法"><a href="#async-和-await-语法" class="headerlink" title="async 和 await 语法"></a>async 和 await 语法</h3><h4 id="异步概念"><a href="#异步概念" class="headerlink" title="异步概念"></a>异步概念</h4><blockquote>
-<p>是指一个进程在执行某个请求的时候，如果这个请求没有执行完毕，进程不会等待，而是继续执行下面的请求。</p>
-</blockquote>
-<h4 id="理解async-和-await"><a href="#理解async-和-await" class="headerlink" title="理解async 和 await"></a>理解async 和 await</h4><h3 id="Koa2-中间件"><a href="#Koa2-中间件" class="headerlink" title="Koa2 中间件"></a>Koa2 中间件</h3><h4 id="koa2-中间件的原理"><a href="#koa2-中间件的原理" class="headerlink" title="koa2 中间件的原理"></a>koa2 中间件的原理</h4><p><img src="/assets/images/koa2.png" alt="koa2"><br><img src="/assets/images/koa2中间件.png" alt="koa2"></p>
-<h4 id="自定义-koa2-中间件"><a href="#自定义-koa2-中间件" class="headerlink" title="自定义 koa2 中间件"></a>自定义 koa2 中间件</h4><h3 id="koa2-路由"><a href="#koa2-路由" class="headerlink" title="koa2 路由"></a>koa2 路由</h3><h4 id="路由写法"><a href="#路由写法" class="headerlink" title="路由写法"></a>路由写法</h4><h4 id="接口举例"><a href="#接口举例" class="headerlink" title="接口举例"></a>接口举例</h4><h3 id="cookie-和-session"><a href="#cookie-和-session" class="headerlink" title="cookie 和 session"></a>cookie 和 session</h3><h4 id="cookie-和-session-的定义"><a href="#cookie-和-session-的定义" class="headerlink" title="cookie 和 session 的定义"></a>cookie 和 session 的定义</h4><h4 id="cookie-和-session-的作用"><a href="#cookie-和-session-的作用" class="headerlink" title="cookie 和 session 的作用"></a>cookie 和 session 的作用</h4><p>推荐：<br>　　<a href="https://zhuanlan.zhihu.com/p/35040744" target="_blank" rel="noopener">从头实现一个koa框架</a><br>　　<a href="https://segmentfault.com/a/1190000013981513" target="_blank" rel="noopener">浅析koa的洋葱模型实现</a></p>
-
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#正则："><span class="toc-text">正则：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两种模糊匹配"><span class="toc-text">两种模糊匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#横向模糊匹配"><span class="toc-text">横向模糊匹配</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#纵向模糊匹配"><span class="toc-text">纵向模糊匹配</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#量词"><span class="toc-text">量词</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分支结构"><span class="toc-text">分支结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#案例分析"><span class="toc-text">案例分析</span></a></li></ol></li></ol>
+<a id="more"></a>
+<p>块级作用域<br>字符串<br>解构赋值<br>对象<br>数组<br>函数<br>Map函数<br>Class<br>模板<br>ESLint 使用</p>
+<h3 id="正则："><a href="#正则：" class="headerlink" title="正则："></a>正则：</h3><h4 id="两种模糊匹配"><a href="#两种模糊匹配" class="headerlink" title="两种模糊匹配"></a>两种模糊匹配</h4><h5 id="横向模糊匹配"><a href="#横向模糊匹配" class="headerlink" title="横向模糊匹配"></a>横向模糊匹配</h5><p>横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。<br>{m,n}，表示连续出现最少m次，最多n次。<br>比如/ab{2,5}c/表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”。</p>
+<h5 id="纵向模糊匹配"><a href="#纵向模糊匹配" class="headerlink" title="纵向模糊匹配"></a>纵向模糊匹配</h5><p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。</p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><h4 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h4><h4 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h4><h4 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h4>
             
 
         </div>
@@ -274,7 +264,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Koa2基础/">Koa2基础</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/JavaScript/">JavaScript</a>
 
             </div>
         
@@ -284,8 +274,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/02/22/数据库/mongoose/" data-tooltip="mongoose" aria-label="上一篇: mongoose">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -294,7 +283,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/02/15/Vue/基础知识点/" data-tooltip="Vue.js基础" aria-label="下一篇: Vue.js基础">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/15/JavaScript/蘑菇街面试题详解/" data-tooltip="蘑菇街面试准备" aria-label="下一篇: 蘑菇街面试准备">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -312,7 +301,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/17/JavaScript/编程风格/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -320,7 +309,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/17/JavaScript/编程风格/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -328,7 +317,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/17/JavaScript/编程风格/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -398,8 +387,7 @@ setInterval("createtime()",250);
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/02/22/数据库/mongoose/" data-tooltip="mongoose" aria-label="上一篇: mongoose">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -408,7 +396,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/02/15/Vue/基础知识点/" data-tooltip="Vue.js基础" aria-label="下一篇: Vue.js基础">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/15/JavaScript/蘑菇街面试题详解/" data-tooltip="蘑菇街面试准备" aria-label="下一篇: 蘑菇街面试准备">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -426,7 +414,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/17/JavaScript/编程风格/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -434,7 +422,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/17/JavaScript/编程风格/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -442,7 +430,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/17/JavaScript/编程风格/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -475,7 +463,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/17/JavaScript/编程风格/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -483,7 +471,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/17/JavaScript/编程风格/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -491,7 +479,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/17/JavaScript/编程风格/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -820,7 +808,7 @@ setInterval("createtime()",250);
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2019/02/21/Koa2/Koa2基础知识/',
+                        id: 'http://yoursite.com/2019/04/17/JavaScript/编程风格/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
