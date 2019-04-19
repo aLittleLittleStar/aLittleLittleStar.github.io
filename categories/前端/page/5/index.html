@@ -428,7 +428,7 @@
 <h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><p>　　捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)<br>　　上面的例子在事件捕获的概念下发生click事件的顺序应该是: <code>document -&gt; html -&gt; body -&gt; div -&gt; p</code></p>
 <p>　　IE只支持事件冒泡，Chrome,Mozilla, Opera 7 和 Konqueror两种都支持，旧版本的Opera’s 和 iCab两种都不支持 。</p>
 <h4 id="捕获和冒泡过程图"><a href="#捕获和冒泡过程图" class="headerlink" title="捕获和冒泡过程图"></a>捕获和冒泡过程图</h4><p><img src="/assets/images/maopao.png" alt="冒泡和捕获"></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>event<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"obj1"</span>&gt;</span></span><br><span class="line">        welcome</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj2"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj3"</span>&gt;</span>world<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> obj1=<span class="built_in">document</span>.getElementById(<span class="string">'obj1'</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> obj2=<span class="built_in">document</span>.getElementById(<span class="string">'obj2'</span>);</span></span><br><span class="line"><span class="javascript">        obj1.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">'hello'</span>);</span></span><br><span class="line"><span class="javascript">        &#125;,<span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript">        obj2.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">'world'</span>);</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>event<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"obj1"</span>&gt;</span></span><br><span class="line">        welcome</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj2"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span> <span class="attr">id</span>=<span class="string">"obj3"</span>&gt;</span>world<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        var obj1=document.getElementById('obj1');</span></span><br><span class="line"><span class="undefined">        var obj2=document.getElementById('obj2');</span></span><br><span class="line"><span class="undefined">        obj1.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="undefined">            alert('hello');</span></span><br><span class="line"><span class="undefined">        &#125;,false);</span></span><br><span class="line"><span class="undefined">        obj2.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="undefined">            alert('world');</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>　　并且分别在obj1,obj2上绑定了一个点击事件，由于addEventListener的第三个参数为false,所以页面是在冒泡阶段处理绑定事件。此时整个页面可以有三种行为出现: </p>
 <ol>
 <li>点击文字welcome时，弹出hello。<br>此时就只触发了绑定在obj1上的点击事件。具体冒泡实现过程如下：welcome 属于文本节点，点击后，开始从文本节点查找，当前文本节点没有绑定点击事件，继续向上找，找到父级（id为obj1的div），有绑定的点击事件，执行，再向上找，body，没有绑定点击事件，再到html,document,都没再有绑定的点击事件，好，整个冒泡过程结束。</li>
@@ -511,14 +511,14 @@
     </article>
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom">
+    <article class="postShorten postShorten--thumbnailimg-right">
         <div class="postShorten-wrap">
             
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/10/10/CSS3/CSS3模块化/">
-                            CSS模块化
+                        <a class="link-unstyled" href="/2018/10/10/CSS3/清除浮动/">
+                            清除浮动
                         </a>
                     
                 </h1>
@@ -539,54 +539,15 @@
 
             </div>
             
-                <div class="postShorten-content">
-                    <p>未完成ing…</p>
-<ul>
-<li>设计原则<ul>
-<li>可复用能继承要完整</li>
-<li>周期性迭代<ul>
-<li>优秀的代码是模仿/设计/重构出来的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>设计方法<ul>
-<li>先整体后部分再颗粒化<ul>
-<li>布局-&gt; 页面 -&gt; 功能-&gt;业务</li>
-</ul>
-</li>
-<li>先抽象再具体</li>
-</ul>
-</li>
-</ul>
-<p>css模块化设计<br><img src="/assets/images/css模块化.webp" alt="模块化"></p>
-<p>reset.scss：<br>浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。<br>layout.scss:<br>布局抽象成这个<br>element.scss:<br>列表、按钮</p>
-<p>global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。<br>scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。</p>
-<ul>
-<li>优点：<ul>
-<li>提高代码重用率</li>
-<li>提高开发效率、减少沟通成本</li>
-<li>降低耦合</li>
-<li>降低发布风险</li>
-<li>减少Bug定位时间和Fix成本</li>
-<li>提高页面容错</li>
-<li>更好的实现快速迭代</li>
-<li>更好的支持灰度发布</li>
-</ul>
-</li>
-</ul>
-<p>参考: <a href="https://www.aliyun.com/jiaocheng/693575.html" target="_blank" rel="noopener">CSS模块化如何实现？</a></p>
-
+                <div class="postShorten-excerpt">
+                    <!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p>
                     
+                        <a href="/2018/10/10/CSS3/清除浮动/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
                         
-
-                    
-                    
-                        <p>
-                            <a href="/2018/10/10/CSS3/CSS3模块化/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
                     
                 </div>
             
@@ -658,51 +619,6 @@
                                 评论和共享
                             </a>
                         </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/10/CSS3/清除浮动/">
-                            清除浮动
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-10T18:21:49+08:00">
-	
-		    10月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p>
-                    
-                        <a href="/2018/10/10/CSS3/清除浮动/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
                     
                 </div>
             
@@ -805,6 +721,90 @@
         
     </article>
     
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/10/10/CSS3/CSS3模块化/">
+                            CSS模块化
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-10-10T18:21:49+08:00">
+	
+		    10月 10, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>未完成ing…</p>
+<ul>
+<li>设计原则<ul>
+<li>可复用能继承要完整</li>
+<li>周期性迭代<ul>
+<li>优秀的代码是模仿/设计/重构出来的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设计方法<ul>
+<li>先整体后部分再颗粒化<ul>
+<li>布局-&gt; 页面 -&gt; 功能-&gt;业务</li>
+</ul>
+</li>
+<li>先抽象再具体</li>
+</ul>
+</li>
+</ul>
+<p>css模块化设计<br><img src="/assets/images/css模块化.webp" alt="模块化"></p>
+<p>reset.scss：<br>浏览器不同，对默认的标签有默认的样式，为了表现统一化，要加一个这个。<br>layout.scss:<br>布局抽象成这个<br>element.scss:<br>列表、按钮</p>
+<p>global的方式引用，比如说直接把某个模块引用进来，然后就可以写具体的样式了。<br>scope就是用的module方法。比如说两个组件都叫做.btn，这样在之前会导致两个样式的名称一致，会被覆盖，如果想用相同的名称，样式不一样，就要用css module这样就不一致，因为编译出来的class带了一串编码。</p>
+<ul>
+<li>优点：<ul>
+<li>提高代码重用率</li>
+<li>提高开发效率、减少沟通成本</li>
+<li>降低耦合</li>
+<li>降低发布风险</li>
+<li>减少Bug定位时间和Fix成本</li>
+<li>提高页面容错</li>
+<li>更好的实现快速迭代</li>
+<li>更好的支持灰度发布</li>
+</ul>
+</li>
+</ul>
+<p>参考: <a href="https://www.aliyun.com/jiaocheng/693575.html" target="_blank" rel="noopener">CSS模块化如何实现？</a></p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/10/10/CSS3/CSS3模块化/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -838,7 +838,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：113k</span>
+		<span class="post-count">字数统计：114.2k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -960,8 +960,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -970,7 +970,9 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -981,25 +983,6 @@ setInterval("createtime()",250);
                     <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
                             <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -1039,8 +1022,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -1049,9 +1032,26 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
