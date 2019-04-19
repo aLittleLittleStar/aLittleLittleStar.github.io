@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-04-18T00:19:09.704Z</updated>
+  <updated>2019-04-19T11:08:59.824Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>编程风格</title>
+    <title>杨雨飞</title>
     <link href="http://yoursite.com/2019/04/17/JavaScript/%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/"/>
     <id>http://yoursite.com/2019/04/17/JavaScript/编程风格/</id>
     <published>2019-04-17T12:42:01.000Z</published>
-    <updated>2019-04-18T00:19:09.704Z</updated>
+    <updated>2019-04-19T11:08:59.824Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><a id="more"></a><p>块级作用域<br>字符串<br>解构赋值<br>对象<br>数组<br>函数<br>Map函数<br>Class<br>模板<br>ESLint 使用</p><h3 id="正则："><a href="#正则：" class="headerlink" title="正则："></a>正则：</h3><h4 id="两种模糊匹配"><a href="#两种模糊匹配" class="headerlink" title="两种模糊匹配"></a>两种模糊匹配</h4><h5 id="横向模糊匹配"><a href="#横向模糊匹配" class="headerlink" title="横向模糊匹配"></a>横向模糊匹配</h5><p>横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。<br>{m,n}，表示连续出现最少m次，最多n次。<br>比如/ab{2,5}c/表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”。</p><h5 id="纵向模糊匹配"><a href="#纵向模糊匹配" class="headerlink" title="纵向模糊匹配"></a>纵向模糊匹配</h5><p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。</p><h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><h4 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h4><h4 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h4><h4 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h4>]]></content>
     
