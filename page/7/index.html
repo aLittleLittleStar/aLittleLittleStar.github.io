@@ -218,6 +218,57 @@
                 <section class="postShorten-group main-content-wrap">
     
     
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2019/02/14/像素/像素/">
+                            像素：(px、pt、em、rem、rpx)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-02-14T20:04:32+08:00">
+	
+		    2月 14, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <a id="more"></a>
+<p>参考资料：<br><a href="http://www.runoob.com/w3cnote/px-em-rem-different.html" target="_blank" rel="noopener">px、em、rem区别介绍</a><br><a href="https://www.cnblogs.com/zhaowy/p/8400271.html" target="_blank" rel="noopener">字体大小之px、em、rem、pt,字号详解</a><br><strong>px:</strong><br>　　px像素（Pixel）。相对长度单位。<code>像素px是相对于显示器屏幕分辨率而言的</code>。<br>　　PX特点:<br>　　　　1、 <code>IE无法调整那些使用px作为单位的字体大小</code>；<br>　　　　2、 <code>国外的大部分网站能够调整的原因在于其使用了em或rem作为字体单位</code>；<br>　　　　3、 <code>Firefox能够调整px和em，rem，但是96%以上的中国网民使用IE浏览器(或内核)</code>。<br><strong>pt:</strong><br>　　pt(point，磅)：是一个物理长度单位，指的是72分之一英寸。表示绝对长度。<br><strong>em:</strong><br>　　em是相对长度单位，<code>相对于父元素的font-size</code>。如当前对行内文本的字体尺寸未被人为设置，则相对浏览器的默认字体尺寸。它会继承父级元素的字体大小，因此并不是一个固定的值。<br>　　em特点：<br>　　　　1、 <code>em的值并不是固定的</code>；<br>　　　　2、 <code>em会继承父级元素的字体大小</code>。<br>　　注意：任意浏览器的<code>默认字体高都是16px</code>。所有未经调整的浏览器都符合: 1em=16px。那么12px=0.75em,10px=0.625em。为了简化font-size的换算，需要在css中的body选择器中声明Font-size=62.5%，这就使em值变为 16px<em>62.5%=10px, 这样12px=1.2em, 10px=1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。<br>所以我们在写CSS的时候，需要注意两点：<br>　　　　1、 <code>body选择器中声明Font-size=62.5%</code>；<br>　　　　2、 <code>将你的原来的px数值除以10，然后换上em作为单位</code>；<br>　　　　3、 重新计算那些被放大的字体的em数值。避免字体大小的重复声明。也就是避免1.2 </em> 1.2= 1.44的现象。比如说你在#content中声明了字体大小为1.2em，那么在声明p的字体大小时就只能是1em，而不是1.2em, 因为此em非彼em，它因继承<code>#content</code>的字体高而变为了1em=12px。<br><strong>rem:</strong><br>　　rem（root em，根em）：是CSS3新增的一个相对单位，相对的是<code>HTML根元素</code>，可以只修改根元素就可以成比例地调整所有字体大小，又可以避免字体大小逐层复合的连锁反应。兼容性IE9+都可以兼容，对于不兼容的浏览器写一个绝对单位的声明就可以了。<br><strong>rpx:</strong><br>　　rpx单位是微信小程序中css的尺寸单位，rpx可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。<br><strong>vw vh:</strong><br>vw,vh是css3的新单位，是相对于viewport视窗的宽高进行计算的单位。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1vw=1/100浏览器宽度</span><br><span class="line">1vh=1/100浏览器高度</span><br><span class="line">vmin：当前 vw 和 vh 中较小的一个值</span><br><span class="line">vmax：当前 vw 和 vh 中较大的一个值</span><br></pre></td></tr></table></figure></p>
+<p><strong>vmin、vmax用处</strong><br>做移动页面开发时，如果使用 vw、wh 设置字体大小（比如 5vw），在竖屏和横屏状态下显示的字体大小是不一样的。<br>由于 vmin 和 vmax 是当前较小的 vw 和 vh 和当前较大的 vw 和 vh。这里就可以用到 vmin 和 vmax。使得文字大小在横竖屏下保持一致。</p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/02/14/像素/像素/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
     <article class="postShorten postShorten--thumbnailimg-right">
         <div class="postShorten-wrap">
             
@@ -401,57 +452,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2018/11/06/H5/HTML5/">
-                            H5新特性
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-11-06T20:10:06+08:00">
-	
-		    11月 06, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p>语义化标签: <code>header</code> <code>footer</code> <code>nav</code> <code>section</code> <code>article</code> <code>aside</code> 等<br>增强型表单：<br><code>HTML4</code>: <code>text</code>、<code>checkbox</code>、<code>password</code>、<code>radio</code>、<code>submit</code>、<code>reset</code>、<code>File</code><br><code>HTML5</code>： <code>date</code>(从一个日期选择器选择一个日期) <code>email</code>(包含 <code>e-mail</code> 地址的输入域) <code>number</code>(数值的输入域) <code>range</code>(一定范围内数字值的输入域) <code>search</code>(用于搜索域) <code>tel</code>(定义输入电话号码字段) <code>url</code>、 <code>color</code>、 <code>month</code>、week<code>等
-视频和音频：</code>audio<code></code>video<code></code>Canvas<code>绘图</code>SVG<code>绘图
-地理定位：</code>Geolocation<code>拖放API：</code>drag<code></code>web worker<code>：是运行在后台的</code>JavaScript<code>,独立于其他脚本，不会影响页面的性能</code>web storage<code>:</code>localStorage sessionStorage<code></code>WebSocket<code>:</code>HTML5<code>开始提供的一种在单个</code>TCP` 连接上进行全双工通讯的协议</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/11/06/H5/HTML5/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
                         <a class="link-unstyled" href="/2018/11/06/CSS3/盒子模型/">
                             盒子模型
                         </a>
@@ -496,6 +496,57 @@
                     
                         <p>
                             <a href="/2018/11/06/CSS3/盒子模型/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2018/11/06/H5/HTML5/">
+                            H5新特性
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-11-06T20:10:06+08:00">
+	
+		    11月 06, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>语义化标签: <code>header</code> <code>footer</code> <code>nav</code> <code>section</code> <code>article</code> <code>aside</code> 等<br>增强型表单：<br><code>HTML4</code>: <code>text</code>、<code>checkbox</code>、<code>password</code>、<code>radio</code>、<code>submit</code>、<code>reset</code>、<code>File</code><br><code>HTML5</code>： <code>date</code>(从一个日期选择器选择一个日期) <code>email</code>(包含 <code>e-mail</code> 地址的输入域) <code>number</code>(数值的输入域) <code>range</code>(一定范围内数字值的输入域) <code>search</code>(用于搜索域) <code>tel</code>(定义输入电话号码字段) <code>url</code>、 <code>color</code>、 <code>month</code>、week<code>等
+视频和音频：</code>audio<code></code>video<code></code>Canvas<code>绘图</code>SVG<code>绘图
+地理定位：</code>Geolocation<code>拖放API：</code>drag<code></code>web worker<code>：是运行在后台的</code>JavaScript<code>,独立于其他脚本，不会影响页面的性能</code>web storage<code>:</code>localStorage sessionStorage<code></code>WebSocket<code>:</code>HTML5<code>开始提供的一种在单个</code>TCP` 连接上进行全双工通讯的协议</p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/06/H5/HTML5/#post-footer" class="postShorten-excerpt_link link">
                                 评论和共享
                             </a>
                         </p>
@@ -592,12 +643,12 @@
                 <div class="postShorten-content">
                     <p>It just a test music, but i like it </p>
 
-        <div id="aplayer-veZLYhwd" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-EdMEmhrK" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-veZLYhwd"),
+            element: document.getElementById("aplayer-EdMEmhrK"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -674,66 +725,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2018/10/16/面试题-思维/面试题-思维/">
-                            面试题-思维
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-10-16T17:53:08+08:00">
-	
-		    10月 16, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/思维能力/">思维能力</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#题目：-给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值"><span class="toc-text">题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目：-给两个杯子，一个5升，一个6升，水随便用，最后取出3升水"><span class="toc-text">题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目：-给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子"><span class="toc-text">题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子</span></a></li></ol>
-<h4 id="题目：-给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值"><a href="#题目：-给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值" class="headerlink" title="题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值"></a>题目： 给定两个整数a和b，要求在使用任何辅助空间的情况下，交换两个的值</h4><p>方法一：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a + b;</span><br><span class="line">b = a - b;</span><br><span class="line">a = a - b;</span><br></pre></td></tr></table></figure></p>
-<p>方法二：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a^b;</span><br><span class="line">b = a^b;</span><br><span class="line">a = a^b;</span><br></pre></td></tr></table></figure></p>
-<h4 id="题目：-给两个杯子，一个5升，一个6升，水随便用，最后取出3升水"><a href="#题目：-给两个杯子，一个5升，一个6升，水随便用，最后取出3升水" class="headerlink" title="题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水"></a>题目： 给两个杯子，一个5升，一个6升，水随便用，最后取出3升水</h4><p>方法：</p>
-<ol>
-<li>6升装满倒入5升杯子，6升杯子里剩1升水；</li>
-<li>6升杯子中的1升倒入5升杯子；</li>
-<li>6升杯子装满水倒入5升杯子，6升杯子里剩2升水；把5升杯子水倒掉；</li>
-<li>6升杯子中的2升倒入5升杯子；</li>
-<li>6升杯子装满水倒入5升杯子，6升杯子里剩3升水，完成。</li>
-</ol>
-<h4 id="题目：-给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子"><a href="#题目：-给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子" class="headerlink" title="题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子"></a>题目： 给10个箱子，有一个比其他得要轻，用最少的比较次数找出这个箱子</h4><p>方法：<br>二分法：<br>用天平左右各五个进行称量，10 =&gt; 5<br>较轻的一组留下一个，继续进行分开称量，如果左右相等，则剩余的那一个为最轻的，否则剩下的两个继续进行比较5 =&gt; 1 || 5 =&gt; 2<br>最后一次比较 2 =&gt; 1</p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/10/16/面试题-思维/面试题-思维/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -766,7 +757,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：115.3k</span>
+		<span class="post-count">字数统计：118k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -888,65 +879,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
-                            <h3 class="media-heading">清除浮动</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
-<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
                             <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
@@ -980,6 +912,65 @@ setInterval("createtime()",250);
 <h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
 <h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
 <h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1089,7 +1080,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 83 篇文章
+                找到 84 篇文章
             </p>
         </div>
     </div>
