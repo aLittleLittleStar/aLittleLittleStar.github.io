@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-04-19T11:13:42.566Z</updated>
+  <updated>2019-04-21T10:55:10.384Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>项目的总结</title>
+    <link href="http://yoursite.com/2019/04/21/Project/Backstage/"/>
+    <id>http://yoursite.com/2019/04/21/Project/Backstage/</id>
+    <published>2019-04-21T10:50:06.000Z</published>
+    <updated>2019-04-21T10:55:10.384Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><a id="more"></a><p>项目名： 森尚宅配全屋定制流程控制系统<br>项目地址： <a href="https://github.com/aLittleLittleStar/Backstage" target="_blank" rel="noopener">https://github.com/aLittleLittleStar/Backstage</a><br>项目技术：<br>Asp.net<br>MySQL8.0.13<br>JQuery2.2.4<br>BootStarp3.3.7<br>负责功能：<br>前端页面的设计与编写<br>登录交互功能的编写<br>（如何根据不同的用户权限对内容页面的展示进行修改。解决方法使用localStrong把用户类别放到本地前端读取之后进行相对应页面的显示和隐藏），<br>时间组件bootstrap-datetimepicker的使用<br>页面的布局 flex布局<br>iframe 的使用： 点击侧边栏菜单内容页面进行相应的切换<br>项目的难点：<br>登录功能的实现</p><p>Travel去哪儿网</p><p>项目地址： <a href="https://github.com/aLittleLittleStar/Travel" target="_blank" rel="noopener">https://github.com/aLittleLittleStar/Travel</a><br>项目技术：<br>node10.5.0<br>npm 3.0.0<br>axios 0.18.0<br>better-scroll 6.26.0<br>faskclick 1.0.6<br>stylus 0.54.5<br>vue 2.5.2<br>vue-router 3.0.1<br>vuex 3.0.1<br>ESLint 4.15.0<br>webpack 3.6.0</p><p>负责功能：页面的设计，功能分析，编译打包<br>数据的传递共享（vuex）<br>项目的难点：<br>解决一像素边框问题 fastclick<br>使用ajax获取数据</p><p>刷新页面是轮播图无法显示第一页<br>解决方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;swiper :options=&quot;swiperOption&quot; v-if=&quot;showSwiper&quot;&gt;</span><br><span class="line">&lt;!-- 计算属性：计算list数组长度，刚开始没有加载数据所以数组长度为0，v-if为false页面不显示 --&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    computed: &#123;</span><br><span class="line">        showSwiper () &#123;</span><br><span class="line">            return this.list.length</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+    
+    </summary>
+    
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="项目总结" scheme="http://yoursite.com/tags/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title>编程风格</title>
@@ -431,28 +453,6 @@
     
     
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vuex</title>
-    <link href="http://yoursite.com/2019/04/01/Vue/Vuex/"/>
-    <id>http://yoursite.com/2019/04/01/Vue/Vuex/</id>
-    <published>2019-04-01T11:52:12.000Z</published>
-    <updated>2019-04-02T00:59:17.069Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><!-- toc --><a id="more"></a><h3 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>　　Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。<br>　　每一个 Vuex 应用的核心就是<code>store</code>（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (<code>state</code>)。<code>Vuex</code> 和单纯的全局对象有以下两点不同：<br>　　1、<code>Vuex</code> 的状态存储是响应式的。当 <code>Vue</code> 组件从 <code>store</code> 中读取状态的时候，若 <code>store</code> 中的状态发生变化，那么相应的组件也会相应地得到高效更新。<br>　　2、你不能直接改变 <code>store</code> 中的状态。改变 <code>store</code> 中的状态的唯一途径就是显式地提交 <code>(commit) mutation</code>。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。</p><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车</p><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>下载: <code>&lt;script src=&quot;/path/to/vue.js&quot;&gt;&lt;/script&gt;</code><br><code>&lt;script src=&quot;/path/to/vuex.js&quot;&gt;&lt;/script&gt;</code><br>CND: <code>https://unpkg.com/vuex</code><br>也可以通过 <code>https://unpkg.com/vuex@2.0.0</code> 这样的方式指定特定的版本。<br>npm: <code>npm install vuex --save</code><br>在一个模块化的打包系统中，您必须显式地通过 Vue.use() 来安装 Vuex：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import Vue from <span class="string">'vue'</span></span><br><span class="line">import Vuex from <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br></pre></td></tr></table></figure></p><p>当使用全局 script 标签引用 Vuex 时，不需要以上安装过程。</p><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4>]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- toc --&gt;
-    
-    </summary>
-    
-      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-    
-      <category term="Vue" scheme="http://yoursite.com/tags/Vue/"/>
     
   </entry>
   
