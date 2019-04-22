@@ -15,14 +15,14 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n定义JavaScript 是单线程、异步、非阻塞、解释型脚本语言。　　微任务和宏任务皆为异步任务，它们都属于一个队列，主要区别在于他们的执行顺序，Event Loop的走向和取值。\n(macrotask)宏任务　　macrotask： 包括整体代码script、setTimeout、setInterval、setImmediate等（可以看到，事件队列中的每一个事件都是一个 macrotask，现在称之为宏任务队列）\n(microtask)微任务　　microtask:原生Promise(有些实现的promise将then方法放到了宏任务中)、process.nextTick、Object.observe(已废弃)、 MutationObserver 记住就行了。12345678910111213141516171819console.log('script start')setTimeout(function() &#123;    console.log('timer over')&#125;, 0)Promise.resolve().then(function() &#123;    console.log('promise1')&#125;).then(function() &#123;    console.log('promise2')&#125;)console.log('script end')// script start// script end// promise1// promise2// timer over\nJS引擎线程首先执行主代码块。　　每次执行栈执行的代码就是一个宏任务，包括任务队列(宏任务队列)中的，因为执行栈中的宏任务执行完会去取任务队列（宏任务队列）中的任务加入执行栈中，即同样是事件循环的机制。　　在执行宏任务时遇到Promise等，会创建微任务（.then()里面的回调），并加入到微任务队列队尾。　　microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(task &gt;&gt; 渲染 &gt;&gt; 下一个task(从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。　　也就是说: 在某一个 macrotask 执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有 microtask 都执行完毕（在渲染前）。　　这样就可以解释 “promise 1” “promise 2” 在 “timer over” 之前打印了。”promise 1” “promise 2” 做为微任务加入到微任务队列中，而 “timer over” 做为宏任务加入到宏任务队列中，它们同时在等待被执行，但是微任务队列中的所有微任务都会在开始下一个宏任务之前都被执行完。\n\n在node环境下，process.nextTick的优先级高于Promise，也就是说：在宏任务结束后会先执行微任务队列中的nextTickQueue，然后才会执行微任务中的Promise。\n\n执行机制：　　执行一个宏任务（栈中没有就从事件队列中获取）　　执行过程中如果遇到微任务，就将它添加到微任务的任务队列中　　宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）　　当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染　　渲染完毕后，JS引擎线程继续，开始下一个宏任务（从宏任务队列中获取）\n总结　　JavaScript 是单线程语言，决定于它的设计最初是用来处理浏览器网页的交互。浏览器负责解释和执行 JavaScript 的线程只有一个（所有说是单线程），即JS引擎线程，但是浏览器同样提供其他线程，如：事件触发线程、定时器触发线程等。异步一般是指：　　网络请求`　　计时器`　　DOM事件监听`事件循环机制：　　JS引擎线程会维护一个执行栈，同步代码会依次加入到执行栈中依次执行并出栈。　　JS引擎线程遇到异步函数，会将异步函数交给相应的Webapi，而继续执行后面的任务。　　Webapi会在条件满足的时候，将异步对应的回调加入到消息队列中，等待执行。　　执行栈为空时，JS引擎线程会去取消息队列中的回调函数（如果有的话），并加入到执行栈中执行。　　完成后出栈，执行栈再次为空，重复上面的操作，这就是事件循环(event loop)机制。\n原文：　　总结：JavaScript异步、事件循环与消息队列、微任务与宏任务　　JS事件循环机制（event loop）之宏任务/微任务\n","dateCreated":"2019-04-09T09:46:03+08:00","dateModified":"2019-04-09T10:22:35+08:00","datePublished":"2019-04-09T09:46:03+08:00","description":"","headline":"宏任务&&微任务","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/09/JavaScript/宏任务&&微任务/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/09/JavaScript/宏任务&&微任务/","keywords":"JavaScript"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n定义JavaScript 是单线程、异步、非阻塞、解释型脚本语言。　　微任务和宏任务皆为异步任务，它们都属于一个队列，主要区别在于他们的执行顺序，Event Loop的走向和取值。\n(macrotask)宏任务　　macrotask： 包括整体代码script、setTimeout、setInterval、setImmediate、requestAnimationFrame、I/O、UI rendering等（可以看到，事件队列中的每一个事件都是一个 macrotask，现在称之为宏任务队列）\n(microtask)微任务　　microtask:原生Promise(有些实现的promise将then方法放到了宏任务中)、process.nextTick、Promises、Object.observe(已废弃)、 MutationObserver 记住就行了。12345678910111213141516171819console.log('script start')setTimeout(function() &#123;    console.log('timer over')&#125;, 0)Promise.resolve().then(function() &#123;    console.log('promise1')&#125;).then(function() &#123;    console.log('promise2')&#125;)console.log('script end')// script start// script end// promise1// promise2// timer over\nJS引擎线程首先执行主代码块。　　每次执行栈执行的代码就是一个宏任务，包括任务队列(宏任务队列)中的，因为执行栈中的宏任务执行完会去取任务队列（宏任务队列）中的任务加入执行栈中，即同样是事件循环的机制。　　在执行宏任务时遇到Promise等，会创建微任务（.then()里面的回调），并加入到微任务队列队尾。　　microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(task &gt;&gt; 渲染 &gt;&gt; 下一个task(从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。　　也就是说: 在某一个 macrotask 执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有 microtask 都执行完毕（在渲染前）。　　这样就可以解释 “promise 1” “promise 2” 在 “timer over” 之前打印了。”promise 1” “promise 2” 做为微任务加入到微任务队列中，而 “timer over” 做为宏任务加入到宏任务队列中，它们同时在等待被执行，但是微任务队列中的所有微任务都会在开始下一个宏任务之前都被执行完。\n\n在node环境下，process.nextTick的优先级高于Promise，也就是说：在宏任务结束后会先执行微任务队列中的nextTickQueue，然后才会执行微任务中的Promise。\n\n执行机制：　　执行一个宏任务（栈中没有就从事件队列中获取）　　执行过程中如果遇到微任务，就将它添加到微任务的任务队列中　　宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）　　当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染　　渲染完毕后，JS引擎线程继续，开始下一个宏任务（从宏任务队列中获取）\n总结　　JavaScript 是单线程语言，决定于它的设计最初是用来处理浏览器网页的交互。浏览器负责解释和执行 JavaScript 的线程只有一个（所有说是单线程），即JS引擎线程，但是浏览器同样提供其他线程，如：事件触发线程、定时器触发线程等。异步一般是指：　　网络请求`　　计时器`　　DOM事件监听`事件循环机制：　　JS引擎线程会维护一个执行栈，同步代码会依次加入到执行栈中依次执行并出栈。　　JS引擎线程遇到异步函数，会将异步函数交给相应的Webapi，而继续执行后面的任务。　　Webapi会在条件满足的时候，将异步对应的回调加入到消息队列中，等待执行。　　执行栈为空时，JS引擎线程会去取消息队列中的回调函数（如果有的话），并加入到执行栈中执行。　　完成后出栈，执行栈再次为空，重复上面的操作，这就是事件循环(event loop)机制。\n原文：　　总结：JavaScript异步、事件循环与消息队列、微任务与宏任务　　JS事件循环机制（event loop）之宏任务/微任务\n","dateCreated":"2019-04-09T09:46:03+08:00","dateModified":"2019-04-22T11:08:16+08:00","datePublished":"2019-04-09T09:46:03+08:00","description":"","headline":"宏任务&&微任务","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/09/JavaScript/宏任务&&微任务/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/09/JavaScript/宏任务&&微任务/","keywords":"JavaScript"}</script>
     <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="宏任务&amp;&amp;微任务">
 <meta property="og:url" content="http://yoursite.com/2019/04/09/JavaScript/宏任务&&微任务/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-04-09T02:22:35.835Z">
+<meta property="og:updated_time" content="2019-04-22T03:08:16.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="宏任务&amp;&amp;微任务">
     
@@ -252,8 +252,8 @@
             <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#macrotask-宏任务"><span class="toc-text">(macrotask)宏任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#microtask-微任务"><span class="toc-text">(microtask)微任务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
 <a id="more"></a>
 <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><code>JavaScript 是单线程、异步、非阻塞、解释型脚本语言。</code><br>　　微任务和宏任务皆为异步任务，它们都属于一个队列，主要区别在于他们的执行顺序，Event Loop的走向和取值。</p>
-<h4 id="macrotask-宏任务"><a href="#macrotask-宏任务" class="headerlink" title="(macrotask)宏任务"></a>(macrotask)宏任务</h4><p>　　<code>macrotask</code>： 包括整体代码<code>script</code>、<code>setTimeout</code>、<code>setInterval</code>、<code>setImmediate</code>等（可以看到，事件队列中的每一个事件都是一个 <code>macrotask</code>，现在称之为宏任务队列）</p>
-<h4 id="microtask-微任务"><a href="#microtask-微任务" class="headerlink" title="(microtask)微任务"></a>(microtask)微任务</h4><p>　　<code>microtask</code>:<code>原生Promise</code>(有些实现的promise将then方法放到了宏任务中)、<code>process.nextTick</code>、Object.observe(已废弃)、 <code>MutationObserver</code> 记住就行了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">console.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'timer over'</span>)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">Promise.resolve().<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'promise1'</span>)</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line">// script start</span><br><span class="line">// script end</span><br><span class="line">// promise1</span><br><span class="line">// promise2</span><br><span class="line">// timer over</span><br></pre></td></tr></table></figure></p>
+<h4 id="macrotask-宏任务"><a href="#macrotask-宏任务" class="headerlink" title="(macrotask)宏任务"></a>(macrotask)宏任务</h4><p>　　<code>macrotask</code>： 包括整体代码<code>script</code>、<code>setTimeout</code>、<code>setInterval</code>、<code>setImmediate</code>、<code>requestAnimationFrame</code>、<code>I/O</code>、<code>UI rendering</code>等（可以看到，事件队列中的每一个事件都是一个 <code>macrotask</code>，现在称之为宏任务队列）</p>
+<h4 id="microtask-微任务"><a href="#microtask-微任务" class="headerlink" title="(microtask)微任务"></a>(microtask)微任务</h4><p>　　<code>microtask</code>:<code>原生Promise</code>(有些实现的promise将then方法放到了宏任务中)、<code>process.nextTick</code>、<code>Promises</code>、Object.observe(已废弃)、 <code>MutationObserver</code> 记住就行了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">console.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'timer over'</span>)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">Promise.resolve().<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'promise1'</span>)</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line">// script start</span><br><span class="line">// script end</span><br><span class="line">// promise1</span><br><span class="line">// promise2</span><br><span class="line">// timer over</span><br></pre></td></tr></table></figure></p>
 <p>JS引擎线程首先执行主代码块。<br>　　每次执行栈执行的代码就是一个宏任务，包括任务队列(宏任务队列)中的，因为执行栈中的宏任务执行完会去取任务队列（宏任务队列）中的任务加入执行栈中，即同样是事件循环的机制。<br>　　在执行宏任务时遇到<code>Promise</code>等，会<code>创建微任务</code>（.then()里面的回调），并加入到<code>微任务队列队尾</code>。<br>　　<code>microtask</code>必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(<code>task &gt;&gt; 渲染 &gt;&gt; 下一个task(从任务队列中取一个)</code>)。同时，<code>在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务</code>。<br>　　也就是说: <code>在某一个 macrotask 执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有 microtask 都执行完毕（在渲染前）</code>。<br>　　这样就可以解释 “promise 1” “promise 2” 在 “timer over” 之前打印了。”promise 1” “promise 2” 做为微任务加入到微任务队列中，而 “timer over” 做为宏任务加入到宏任务队列中，它们同时在等待被执行，但是微任务队列中的所有微任务都会在开始下一个宏任务之前都被执行完。</p>
 <blockquote>
 <p>在node环境下，<code>process.nextTick</code>的优先级高于<code>Promise</code>，也就是说：<code>在宏任务结束后会先执行微任务队列中的nextTickQueue，然后才会执行微任务中的Promise</code>。</p>
@@ -301,7 +301,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -368,7 +368,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：118k</span>
+		<span class="post-count">字数统计：119.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -415,7 +415,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -660,8 +660,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -679,8 +679,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -728,7 +728,7 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -799,7 +799,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 84 篇文章
+                找到 85 篇文章
             </p>
         </div>
     </div>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>分类: 前端优化 - 昨夜小楼又东风</title>
+    <title>事件循环与任务队列 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,17 +15,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{}</script>
-    <meta name="description" content="雨打梨花深闭门，忘了青春，误了青春">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n从面试题看 JS 事件循环与 macro micro 任务队列\n事件轮询同步任务 指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务 指的是，不进入主线程、而进入”任务队列”（task queue）的任务，等待同步任务执行完毕之后，轮询执行异步任务队列中的任务macrotask队列 等同于我们常说的任务队列，macrotask是由宿主环境分发的异步任务，事件轮询的时候总是一个一个任务队列去查看执行的，”任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。microtask 即微任务，是由js引擎分发的任务，总是添加到当前任务队列末尾执行。另外在处理microtask期间，如果有新添加的microtasks，也会被添加到队列的末尾并执行。注意与setTimeout(fn,0)的区别：　　setTimeOut(fn(),0) 指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在”任务队列”的尾部添加一个事件，因此要等到同步任务和”任务队列”现有的事件都处理完，才会得到执行。所以我们可以得到js执行顺序是：\n\n开始 -&gt; 取第一个task queue里的任务执行(可以认为同步任务队列是第一个task queue) -&gt; 取 microtask 全部任务依次执行 -&gt; 取下一个task queue里的任务执行 -&gt; 再次取出microtask全部任务执行 -&gt; … 这样循环往复\n\n","dateCreated":"2019-04-22T10:52:17+08:00","dateModified":"2019-04-22T11:05:43+08:00","datePublished":"2019-04-22T10:52:17+08:00","description":"","headline":"事件循环与任务队列","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/","keywords":"JavaScript"}</script>
+    <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="昨夜小楼又东风">
-<meta property="og:url" content="http://yoursite.com/categories/前端优化/index.html">
+<meta property="og:title" content="事件循环与任务队列">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="雨打梨花深闭门，忘了青春，误了青春">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-04-22T03:05:43.051Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昨夜小楼又东风">
-<meta name="twitter:description" content="雨打梨花深闭门，忘了青春，误了青春">
+<meta name="twitter:title" content="事件循环与任务队列">
     
     
         
@@ -55,7 +54,7 @@
         
     
 
-<header id="header" data-behavior="2">
+<header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
@@ -79,7 +78,7 @@
         
     
 
-<nav id="sidebar" data-behavior="2">
+<nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -209,177 +208,150 @@
 </nav>
 
             
-            <div id="main" data-behavior="2"
+            <div id="main" data-behavior="5"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/03/14/前端性能优化/SSR和客户端渲染/">
-                            客户端渲染和服务端渲染详细执行流程
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-03-14T21:09:08+08:00">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            事件循环与任务队列
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-04-22T10:52:17+08:00">
 	
-		    3月 14, 2019
+		    4月 22, 2019
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
+    <a class="category-link" href="/categories/前端/">前端</a>
 
 
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content">
-                    <ol>
-<li><p>客户端渲染：CSR (client side render)<br>在服务端放了一个html 页面，里面有<script>//发请求，拿数据，模版引擎渲染等，$.ajax  ,</script><br>客户端发起请求，服务端把页面（响应的是字符串）发送过去，客户端从上到下依次解析，如果在解析的过程中，发现ajax<br>请求，再次像服务器发送新的请求，客户端拿到ajax 响应结果，模板引擎渲染。<br>过程至少和服务端发起两次请求</p>
-</li>
-<li><p>服务端渲染：SSR (server side render)<br>sever 端页面+数据，服务端过程：<br>1.读取index.html<br>2.模版进行渲染，在发送给客户端之前，在服务端已经把index.html 渲染处理了。var 渲染结果 = tempeter.render(模板字符串，｛解析替换对象｝)   response.end(渲染结果)，服务端响应的就是最总的结果<br>服务端只请求一次<br>多数网站既有服务端渲染又有客户端渲染</p>
-</li>
-<li><p>服务端渲染和客户端渲染的区别</p>
-<ul>
-<li>客户端渲染不利于 SEO 搜索引擎优化</li>
-<li>服务端渲染是可以被爬虫抓取到的，客户端异步渲染是很难被爬虫抓取到的</li>
-<li>所以你会发现真正的网站既不是纯异步也不是纯服务端渲染出来的</li>
-<li>而是两者结合来做的</li>
-<li>例如京东的商品列表就采用的是服务端渲染，目的了为了 SEO 搜索引擎优化</li>
-<li>而它的商品评论列表为了用户体验，而且也不需要 SEO 优化，所以采用是客户端渲染</li>
-</ul>
-</li>
-</ol>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/03/14/前端性能优化/SSR和客户端渲染/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/">
-                            重绘(repaint)与回流(reflow)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-02-14T15:07:34+08:00">
-	
-		    2月 14, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
-
-
-    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：430字
+    </span>
 </div>
 
-            </div>
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件轮询"><span class="toc-text">事件轮询</span></a></li></ol>
+<a id="more"></a>
+<p><a href="https://juejin.im/post/5c8a024d51882546be0a3082" target="_blank" rel="noopener">从面试题看 JS 事件循环与 macro micro 任务队列</a></p>
+<h3 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h3><p><strong>同步任务</strong> 指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；<br><strong>异步任务</strong> 指的是，不进入主线程、而进入”任务队列”（<code>task queue</code>）的任务，等待同步任务执行完毕之后，轮询执行异步任务队列中的任务<br><strong>macrotask队列</strong> 等同于我们常说的任务队列，macrotask是由宿主环境分发的异步任务，事件轮询的时候总是一个一个任务队列去查看执行的，”任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。<br><strong>microtask</strong> 即<code>微任务</code>，是由js引擎分发的任务，总是添加到当前任务队列末尾执行。另外在处理<code>microtask</code>期间，如果有新添加的<code>microtasks</code>，也会被添加到队列的末尾并执行。注意与<code>setTimeout(fn,0)</code>的区别：<br>　　<code>setTimeOut(fn(),0)</code> 指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在”任务队列”的尾部添加一个事件，因此要等到同步任务和”任务队列”现有的事件都处理完，才会得到执行。<br><strong>所以我们可以得到js执行顺序是：</strong></p>
+<blockquote>
+<p>开始 -&gt; 取第一个task queue里的任务执行(可以认为同步任务队列是第一个task queue) -&gt; 取 microtask 全部任务依次执行 -&gt; 取下一个task queue里的任务执行 -&gt; 再次取出microtask全部任务执行 -&gt; … 这样循环往复</p>
+</blockquote>
+
             
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-<p>文章转载：<br>　<a href="http://www.cnblogs.com/blackmanba/p/browser-repaint-reflow.html" target="_blank" rel="noopener">浏览器重绘和重排</a><br>文章参考：<br>　<a href="https://www.cnblogs.com/jiayuexuan/p/7490140.html" target="_blank" rel="noopener">重构与回流</a><br>　<a href="https://kb.cnblogs.com/page/169820/" target="_blank" rel="noopener">浏览器的重绘与重排</a><br>　<a href="http://www.cnblogs.com/shenqi0920/p/3545820.html" target="_blank" rel="noopener">探讨css中repaint和reflow</a></p>
-<h5 id="前言："><a href="#前言：" class="headerlink" title="前言："></a><strong>前言：</strong></h5><p>　　页面设计中，不可避免的需要浏览器进行repaint和reflow。那到底什么是repaint和reflow呢。下面谈谈自己对repaint和reflow的理解，以及结合其他技术牛的讲解，谈谈如何优化repaint和reflow。</p>
-<h5 id="概述："><a href="#概述：" class="headerlink" title="概述："></a><strong>概述：</strong></h5><p>　　<strong>重排(回流)</strong>, 顾名思义就是重新排版的意思; <strong>重绘</strong>, 就是浏览器重新绘制。理解重排和重绘的含义十分重要, 因为在评审页面交互效果的时候, 重绘和重排是必须考虑的因素。并不是说交互效果实现了就可以了, 必须同时考虑到这样做会引发什么性能问题。也就是说, 浏览器在进行重绘和重排的时候是要付出高昂的性能代价的。<br>　　只有静态页面才会不存在repaint和reflow。repaint主要是针对某一个DOM元素进行的重绘，reflow则是回流，针对整个页面的重排。字面意思来说：repaint就是重绘，reflow就是回流。<strong>回流必将引起重绘，而重绘不一定会引起回流</strong>，repaint和reflow的目的是：展示一个新的页面样貌。</p>
-                    
-                        <a href="/2019/02/14/前端性能优化/重绘(repaint)与回流(reflow)/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
+
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/02/13/前端性能优化/前端性能优化/">
-                            前端性能优化
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-02-13T20:37:12+08:00">
-	
-		    2月 13, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
-
-
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/JavaScript/">JavaScript</a>
 
             </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- 目录 -->
-<!-- toc -->
-<p>转载：<br><a href="http://www.cnblogs.com/lei2007/archive/2013/08/16/3262897.html" target="_blank" rel="noopener">前端性能优化–yahoo前端性能团队总结的35条黄金定律</a><br>参考文章：<br><a href="https://www.zhihu.com/question/21658448/answer/18903129" target="_blank" rel="noopener">Web前端应该从哪些方面来优化网站? - 斯迪的回答 - 知乎</a><br><a href="https://segmentfault.com/a/1190000008829958" target="_blank" rel="noopener">WEB前端性能优化常见方法</a><br>　　前端是庞大的，包括 HTML、 CSS、 Javascript、Image 、Flash等等各种各样的资源。前端优化是复杂的，针对方方面面的资源都有不同的方式。那么，为什么要进行前端性能优化？ 怎么进行优化？ 优化到达的效果是什么？<br></p>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
                     
-                        <a href="/2019/02/13/前端性能优化/前端性能优化/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/21/JavaScript/CommonJS&&AMD&&CMD/" data-tooltip="CommonJS&amp;&amp;AMD&amp;&amp;CMD" aria-label="下一篇: CommonJS&amp;&amp;AMD&amp;&amp;CMD">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
             
-        </div>
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
         
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
         
         
-        <li class="pagination-number">第 1 页 共 1 页</li>
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
 
 
 
@@ -410,6 +382,113 @@ setInterval("createtime()",250);
 </script>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/04/21/JavaScript/CommonJS&&AMD&&CMD/" data-tooltip="CommonJS&amp;&amp;AMD&amp;&amp;CMD" aria-label="下一篇: CommonJS&amp;&amp;AMD&amp;&amp;CMD">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
             
         </div>
         
@@ -725,6 +804,37 @@ setInterval("createtime()",250);
         <!--SCRIPTS-->
 <script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
 <!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/04/22/JavaScript/事件循环与任务队列/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
 
 
 
