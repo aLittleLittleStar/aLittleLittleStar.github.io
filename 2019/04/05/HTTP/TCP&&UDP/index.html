@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　TCP和UDP比较\nTCP/IP网络模型　　计算机与网络设备要相互通信，双方就必须基于相同的方法。比如，如何探测到通信目标、由哪一边先发起通信、使用哪种语言进行通信、怎样结束通信等规则都需要事先确定。不同的硬件、操作系统之间的通信，所有的这一切都需要一种规则。而我们就把这种规则称为协议（protocol）。　　TCP/IP 是互联网相关的各类协议族的总称，比如：TCP，UDP，IP，FTP，HTTP，ICMP，SMTP 等都属于 TCP/IP 族内的协议。　　TCP/IP模型是互联网的基础，它是一系列网络协议的总称。这些协议可以划分为四层，分别为链路层、网络层、传输层和应用层。1234链路层：负责封装和解封装IP报文，发送和接受ARP/RARP报文等。网络层：负责路由以及把分组报文发送给目标网络或主机。传输层：负责对报文进行分组和重组，并以TCP或UDP协议格式封装报文。应用层：负责向用户提供应用程序，比如HTTP、FTP、Telnet、DNS、SMTP等。\n详情图片:　　在网络体系结构中网络通信的建立必须是在通信双方的对等层进行，不能交错。 在整个数据传输过程中，数据在发送端时经过各层时都要附加上相应层的协议头和协议尾（仅数据链路层需要封装协议尾）部分，也就是要对数据进行协议封装，以标识对应层所用的通信协议。接下去介绍TCP/IP 中有两个具有代表性的传输层协议—-TCP 和 UDP。\nTCP　　当一台计算机想要与另一台计算机通讯时，两台计算机之间的通信需要畅通且可靠，这样才能保证正确收发数据。例如，当你想查看网页或查看电子邮件时，希望完整且按顺序查看网页，而不丢失任何内容。当你下载文件时，希望获得的是完整的文件，而不仅仅是文件的一部分，因为如果数据丢失或乱序，都不是你希望得到的结果，于是就用到了TCP。　　TCP协议全称是传输控制协议是一种面向连接的、可靠的、基于字节流的传输层通信协议，由 IETF 的RFC 793定义。TCP 是面向连接的、可靠的流协议。流就是指不间断的数据结构，你可以把它想象成排水管中的水流。\nTCP连接过程三次握手:第一次握手　　客户端向服务端发送连接请求报文段。该报文段中包含自身的数据通讯初始序号。请求发送后，客户端便进入 SYN-SENT 状态。第二次握手　　服务端收到连接请求报文段后，如果同意连接，则会发送一个应答，该应答中也会包含自身的数据通讯初始序号，发送完成后便进入 SYN-RECEIVED 状态。第三次握手　　当客户端收到连接同意的应答后，还要向服务端发送一个确认报文。客户端发完这个报文段后便进入 ESTABLISHED 状态，服务端收到这个应答后也进入 ESTABLISHED 状态，此时连接建立成功。　　这里可能大家会有个疑惑：为什么 TCP 建立连接需要三次握手，而不是两次？这是因为这是为了防止出现失效的连接请求报文段被服务端接收的情况，从而产生错误。\nTCP断开连接　　TCP 是全双工的，在断开连接时两端都需要发送 FIN 和 ACK。第一次挥手　　若客户端 A 认为数据发送完成，则它需要向服务端 B 发送连接释放请求。第二次挥手　　B 收到连接释放请求后，会告诉应用层要释放 TCP 链接。然后会发送 ACK 包，并进入 CLOSE_WAIT 状态，此时表明 A 到 B 的连接已经释放，不再接收 A 发的数据了。但是因为 TCP 连接是双向的，所以 B 仍旧可以发送数据给 A。第三次挥手　　B 如果此时还有没发完的数据会继续发送，完毕后会向 A 发送连接释放请求，然后 B 便进入 LAST-ACK 状态。第四次挥手　　A 收到释放请求后，向 B 发送确认应答，此时 A 进入 TIME-WAIT 状态。该状态会持续 2MSL（最大段生存期，指报文段在网络中生存的时间，超时会被抛弃） 时间，若该时间段内没有 B 的重发请求的话，就进入 CLOSED 状态。当 B 收到确认应答后，也便进入 CLOSED 状态。\nTCP协议的特点面向连接　　面向连接，是指发送数据之前必须在两端建立连接。建立连接的方法是“三次握手”，这样能建立可靠的连接。建立连接，是为数据的可靠传输打下了基础。\n仅支持单播传输　　每条TCP传输连接只能有两个端点，只能进行点对点的数据传输，不支持多播和广播传输方式。\n面向字节流　　TCP不像UDP一样那样一个个报文独立地传输，而是在不保留报文边界的情况下以字节流方式进行传输。\n可靠传输　　对于可靠传输，判断丢包，误码靠的是TCP的段编号以及确认号。TCP为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认(ACK)；如果发送端实体在合理的往返时延(RTT)内未收到确认，那么对应的数据（假设丢失了）将会被重传。\n提供拥塞控制　　当网络出现拥塞的时候，TCP能够减小向网络注入数据的速率和数量，缓解拥塞\nTCP提供双工通信　　TCP允许通信双方的应用程序在任何时候都能发送数据，因为TCP连接的两端都设有缓存，用来临时存放双向通信的数据。当然，TCP可以立即发送一个数据段，也可以缓存一段时间以便一次发送更多的数据段（最大的数据段大小取决于MSS）\nUDP　　UDP协议全称是用户数据报协议，在网络中它与TCP协议一样用于处理数据包，是一种无连接的协议。在OSI模型中，在第四层——传输层，处于IP协议的上一层。UDP有不提供数据包分组、组装和不能对数据包进行排序的缺点，也就是说，当报文发送之后，是无法得知其是否安全完整到达的。\nUDP的特点面向无连接　　首先 UDP 是不需要和 TCP一样在发送数据前进行三次握手建立连接的，想发数据就可以开始发送了。并且也只是数据报文的搬运工，不会对数据报文进行任何拆分和拼接操作。具体来说就是：　　在发送端，应用层将数据传递给传输层的 UDP 协议，UDP 只会给数据增加一个 UDP 头标识下是 UDP 协议，然后就传递给网络层了　　在接收端，网络层将数据传递给传输层，UDP 只去除 IP 报文头就传递给应用层，不会任何拼接操作\n有单播、多播、广播的功能　　UDP 不止支持一对一的传输方式，同样支持一对多，多对多，多对一的方式，也就是说 UDP 提供了单播，多播，广播的功能。\nUDP是面向报文的　　发送方的UDP对应用程序交下来的报文，在添加首部后就向下交付IP层。UDP对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。因此，应用程序必须选择合适大小的报文\n不可靠性　　首先不可靠性体现在无连接上，通信都不需要建立连接，想发就发，这样的情况肯定不可靠。　　并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了。　　再者网络环境时好时坏，但是 UDP 因为没有拥塞控制，一直会以恒定的速度发送数据。即使网络条件不好，也不会对发送速率进行调整。这样实现的弊端就是在网络条件不好的情况下可能会导致丢包，但是优点也很明显，在某些实时性要求高的场景（比如电话会议）就需要使用 UDP 而不是 TCP。\n头部开销小，传输数据报文时是很高效的。UDP 头部包含了以下几个数据：　　两个十六位的端口号，分别为源端口（可选字段）和目标端口　　整个数据报文的长度　　整个数据报文的检验和（IPv4 可选 字段），该字段用于发现头部信息和数据中的错误因此 UDP 的头部开销小，只有八字节，相比 TCP 的至少二十字节要少得多，在传输数据报文时是很高效的\nTCP和UDP的比较\n\n\n对比项\nTCP\nUDP\n\n\n\n\n是否连接\n面向连接\n无连接\n\n\n是否可靠\n可靠传输，使用流量控制和拥塞控制\n不可靠传输，不使用流量控制和拥塞控制\n\n\n连接对象个数\n只能是一对一通信\n支持一对一，一对多，多对一和多对多交互通信\n\n\n传输方式\n面向字节流\n面向报文\n\n\n首部开销\n首部最小20字节，最大60字节\n首部开销小，仅8字节\n\n\n使用场景\n适用于要求可靠传输的应用，例如文件传输\n适用于实时应用（IP电话、视频会议、直播等）\n\n\n\n总结　　TCP向上层提供面向连接的可靠服务 ，UDP向上层提供无连接不可靠服务。　　虽然 UDP 并没有 TCP 传输来的准确，但是也能在很多实时性要求高的地方有所作为　　对数据准确性要求高，速度可以相对较慢的，可以选用TCP\n","dateCreated":"2019-04-05T10:25:09+08:00","dateModified":"2019-04-05T11:08:22+08:00","datePublished":"2019-04-05T10:25:09+08:00","description":"","headline":"TCP和UDP的区别","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/05/HTTP/TCP&&UDP/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/05/HTTP/TCP&&UDP/","keywords":"HTTP"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转载：　　TCP和UDP比较\nTCP/IP网络模型　　计算机与网络设备要相互通信，双方就必须基于相同的方法。比如，如何探测到通信目标、由哪一边先发起通信、使用哪种语言进行通信、怎样结束通信等规则都需要事先确定。不同的硬件、操作系统之间的通信，所有的这一切都需要一种规则。而我们就把这种规则称为协议（protocol）。　　TCP/IP 是互联网相关的各类协议族的总称，比如：TCP，UDP，IP，FTP，HTTP，ICMP，SMTP 等都属于 TCP/IP 族内的协议。　　TCP/IP模型是互联网的基础，它是一系列网络协议的总称。这些协议可以划分为四层，分别为链路层、网络层、传输层和应用层。1234链路层：负责封装和解封装IP报文，发送和接受ARP/RARP报文等。网络层：负责路由以及把分组报文发送给目标网络或主机。传输层：负责对报文进行分组和重组，并以TCP或UDP协议格式封装报文。应用层：负责向用户提供应用程序，比如HTTP、FTP、Telnet、DNS、SMTP等。\n详情图片:　　在网络体系结构中网络通信的建立必须是在通信双方的对等层进行，不能交错。 在整个数据传输过程中，数据在发送端时经过各层时都要附加上相应层的协议头和协议尾（仅数据链路层需要封装协议尾）部分，也就是要对数据进行协议封装，以标识对应层所用的通信协议。接下去介绍TCP/IP 中有两个具有代表性的传输层协议—-TCP 和 UDP。\nTCP　　当一台计算机想要与另一台计算机通讯时，两台计算机之间的通信需要畅通且可靠，这样才能保证正确收发数据。例如，当你想查看网页或查看电子邮件时，希望完整且按顺序查看网页，而不丢失任何内容。当你下载文件时，希望获得的是完整的文件，而不仅仅是文件的一部分，因为如果数据丢失或乱序，都不是你希望得到的结果，于是就用到了TCP。　　TCP协议全称是传输控制协议是一种面向连接的、可靠的、基于字节流的传输层通信协议，由 IETF 的RFC 793定义。TCP 是面向连接的、可靠的流协议。流就是指不间断的数据结构，你可以把它想象成排水管中的水流。\nTCP连接过程三次握手:第一次握手　　客户端向服务端发送连接请求报文段。该报文段中包含自身的数据通讯初始序号。请求发送后，客户端便进入 SYN-SENT 状态。第二次握手　　服务端收到连接请求报文段后，如果同意连接，则会发送一个应答，该应答中也会包含自身的数据通讯初始序号，发送完成后便进入 SYN-RECEIVED 状态。第三次握手　　当客户端收到连接同意的应答后，还要向服务端发送一个确认报文。客户端发完这个报文段后便进入 ESTABLISHED 状态，服务端收到这个应答后也进入 ESTABLISHED 状态，此时连接建立成功。　　这里可能大家会有个疑惑：为什么 TCP 建立连接需要三次握手，而不是两次？这是因为这是为了防止出现失效的连接请求报文段被服务端接收的情况，从而产生错误。\nTCP断开连接　　TCP 是全双工的，在断开连接时两端都需要发送 FIN 和 ACK。第一次挥手　　若客户端 A 认为数据发送完成，则它需要向服务端 B 发送连接释放请求。第二次挥手　　B 收到连接释放请求后，会告诉应用层要释放 TCP 链接。然后会发送 ACK 包，并进入 CLOSE_WAIT 状态，此时表明 A 到 B 的连接已经释放，不再接收 A 发的数据了。但是因为 TCP 连接是双向的，所以 B 仍旧可以发送数据给 A。第三次挥手　　B 如果此时还有没发完的数据会继续发送，完毕后会向 A 发送连接释放请求，然后 B 便进入 LAST-ACK 状态。第四次挥手　　A 收到释放请求后，向 B 发送确认应答，此时 A 进入 TIME-WAIT 状态。该状态会持续 2MSL（最大段生存期，指报文段在网络中生存的时间，超时会被抛弃） 时间，若该时间段内没有 B 的重发请求的话，就进入 CLOSED 状态。当 B 收到确认应答后，也便进入 CLOSED 状态。\nTCP协议的特点面向连接　　面向连接，是指发送数据之前必须在两端建立连接。建立连接的方法是“三次握手”，这样能建立可靠的连接。建立连接，是为数据的可靠传输打下了基础。\n仅支持单播传输　　每条TCP传输连接只能有两个端点，只能进行点对点的数据传输，不支持多播和广播传输方式。\n面向字节流　　TCP不像UDP一样那样一个个报文独立地传输，而是在不保留报文边界的情况下以字节流方式进行传输。\n可靠传输　　对于可靠传输，判断丢包，误码靠的是TCP的段编号以及确认号。TCP为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认(ACK)；如果发送端实体在合理的往返时延(RTT)内未收到确认，那么对应的数据（假设丢失了）将会被重传。\n\nTCP 内部的很多算法机制让他保持连接的过程中是很可靠的。比如：TCP 的超时重传、错误重传、TCP 的流量控制、阻塞控制、慢热启动算法、拥塞避免算法、快速恢复算法 等等。\n\n超时重传其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。　　这里比较重要的是重传超时时间，怎样设置这个定时器的时间（RTO），从而保证对网络资源最小的浪费。因为若RTO太小，可能有些报文只是遇到拥堵或网络不好延迟较大而已，这样就会造成不必要的重传。太大的话，使发送端需要等待过长的时间才能发现数据丢失，影响网络传输效率。　　由于不同的网络情况不一样，不可能设置一样的RTO，实际中RTO是根据网络中的RTT（传输往返时间）来自适应调整的。具体关系参考相关算法。TCP超时与重传机制\n提供拥塞控制　　当网络出现拥塞的时候，TCP能够减小向网络注入数据的速率和数量，缓解拥塞\nTCP提供双工通信　　TCP允许通信双方的应用程序在任何时候都能发送数据，因为TCP连接的两端都设有缓存，用来临时存放双向通信的数据。当然，TCP可以立即发送一个数据段，也可以缓存一段时间以便一次发送更多的数据段（最大的数据段大小取决于MSS）\nUDP　　UDP协议全称是用户数据报协议，在网络中它与TCP协议一样用于处理数据包，是一种无连接的协议。在OSI模型中，在第四层——传输层，处于IP协议的上一层。UDP有不提供数据包分组、组装和不能对数据包进行排序的缺点，也就是说，当报文发送之后，是无法得知其是否安全完整到达的。\nUDP的特点面向无连接　　首先 UDP 是不需要和 TCP一样在发送数据前进行三次握手建立连接的，想发数据就可以开始发送了。并且也只是数据报文的搬运工，不会对数据报文进行任何拆分和拼接操作。具体来说就是：　　在发送端，应用层将数据传递给传输层的 UDP 协议，UDP 只会给数据增加一个 UDP 头标识下是 UDP 协议，然后就传递给网络层了　　在接收端，网络层将数据传递给传输层，UDP 只去除 IP 报文头就传递给应用层，不会任何拼接操作\n有单播、多播、广播的功能　　UDP 不止支持一对一的传输方式，同样支持一对多，多对多，多对一的方式，也就是说 UDP 提供了单播，多播，广播的功能。\nUDP是面向报文的　　发送方的UDP对应用程序交下来的报文，在添加首部后就向下交付IP层。UDP对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。因此，应用程序必须选择合适大小的报文\n不可靠性　　首先不可靠性体现在无连接上，通信都不需要建立连接，想发就发，这样的情况肯定不可靠。　　并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了。　　再者网络环境时好时坏，但是 UDP 因为没有拥塞控制，一直会以恒定的速度发送数据。即使网络条件不好，也不会对发送速率进行调整。这样实现的弊端就是在网络条件不好的情况下可能会导致丢包，但是优点也很明显，在某些实时性要求高的场景（比如电话会议）就需要使用 UDP 而不是 TCP。\n\nUDP 是一个面向非连接的协议，UDP 发送的每个数据报带有自己的 IP 地址和接收方的 IP 地址，它本身对这个数据报是否出错，是否到达不关心，只要发出去了就好了。所以来研究下，什么情况会导致 UDP 丢包：数据报分片重组丢失：在文章之前我们就说过，UDP 的每个数据报大小多少最合适，事实上 UDP 协议本身规定的大小是 64kb，但是在数据链路层有 MTU 的限制，大小大概在 5kb，所以当你发送一个很大的 UDP 包的时候，这个包会在 IP 层进行分片，然后重组。这个过程就有可能导致分片的包丢失。UDP 本身有 CRC 检测机制，会抛弃掉丢失的 UDP 包。UDP 缓冲区填满当 UDP 的缓冲区已经被填满的时候，接收方还没有处理这部分的 UDP 数据报，这个时候再过来的数据报就没有地方可以存了，自然就都被丢弃了。\n\n头部开销小，传输数据报文时是很高效的。UDP 头部包含了以下几个数据：　　两个十六位的端口号，分别为源端口（可选字段）和目标端口　　整个数据报文的长度　　整个数据报文的检验和（IPv4 可选 字段），该字段用于发现头部信息和数据中的错误因此 UDP 的头部开销小，只有八字节，相比 TCP 的至少二十字节要少得多，在传输数据报文时是很高效的\nTCP和UDP的比较\n\n\n对比项\nTCP\nUDP\n\n\n\n\n是否连接\n面向连接\n无连接\n\n\n是否可靠\n可靠传输，使用流量控制和拥塞控制\n不可靠传输，不使用流量控制和拥塞控制\n\n\n连接对象个数\n只能是一对一通信\n支持一对一，一对多，多对一和多对多交互通信\n\n\n传输方式\n面向字节流\n面向报文\n\n\n首部开销\n首部最小20字节，最大60字节\n首部开销小，仅8字节\n\n\n使用场景\n适用于要求可靠传输的应用，例如文件传输\n适用于实时应用（IP电话、视频会议、直播等）\n\n\n\n总结　　TCP向上层提供面向连接的可靠服务 ，UDP向上层提供无连接不可靠服务。　　虽然 UDP 并没有 TCP 传输来的准确，但是也能在很多实时性要求高的地方有所作为　　对数据准确性要求高，速度可以相对较慢的，可以选用TCP\n","dateCreated":"2019-04-05T10:25:09+08:00","dateModified":"2019-09-02T08:46:32+08:00","datePublished":"2019-04-05T10:25:09+08:00","description":"","headline":"TCP和UDP的区别","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/05/HTTP/TCP&&UDP/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/05/HTTP/TCP&&UDP/","keywords":"HTTP"}</script>
     <meta name="keywords" content="HTTP">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="TCP和UDP的区别">
@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="昨夜小楼又东风">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/assets/images/httposi.png">
-<meta property="og:updated_time" content="2019-04-05T03:08:22.518Z">
+<meta property="og:updated_time" content="2019-09-02T00:46:32.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP和UDP的区别">
 <meta name="twitter:image" content="http://yoursite.com/assets/images/httposi.png">
@@ -243,7 +243,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：2.7k字
+        字数统计：3.3k字
     </span>
 </div>
 
@@ -251,7 +251,7 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-IP网络模型"><span class="toc-text">TCP/IP网络模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP连接过程"><span class="toc-text">TCP连接过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP断开连接"><span class="toc-text">TCP断开连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP协议的特点"><span class="toc-text">TCP协议的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#面向连接"><span class="toc-text">面向连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#仅支持单播传输"><span class="toc-text">仅支持单播传输</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#面向字节流"><span class="toc-text">面向字节流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#可靠传输"><span class="toc-text">可靠传输</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#提供拥塞控制"><span class="toc-text">提供拥塞控制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TCP提供双工通信"><span class="toc-text">TCP提供双工通信</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-text">UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP的特点"><span class="toc-text">UDP的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#面向无连接"><span class="toc-text">面向无连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#有单播、多播、广播的功能"><span class="toc-text">有单播、多播、广播的功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP是面向报文的"><span class="toc-text">UDP是面向报文的</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不可靠性"><span class="toc-text">不可靠性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#头部开销小，传输数据报文时是很高效的。"><span class="toc-text">头部开销小，传输数据报文时是很高效的。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP和UDP的比较"><span class="toc-text">TCP和UDP的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-IP网络模型"><span class="toc-text">TCP/IP网络模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP连接过程"><span class="toc-text">TCP连接过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP断开连接"><span class="toc-text">TCP断开连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP协议的特点"><span class="toc-text">TCP协议的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#面向连接"><span class="toc-text">面向连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#仅支持单播传输"><span class="toc-text">仅支持单播传输</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#面向字节流"><span class="toc-text">面向字节流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#可靠传输"><span class="toc-text">可靠传输</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#超时重传"><span class="toc-text">超时重传</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。"><span class="toc-text">其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#提供拥塞控制"><span class="toc-text">提供拥塞控制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TCP提供双工通信"><span class="toc-text">TCP提供双工通信</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-text">UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP的特点"><span class="toc-text">UDP的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#面向无连接"><span class="toc-text">面向无连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#有单播、多播、广播的功能"><span class="toc-text">有单播、多播、广播的功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#UDP是面向报文的"><span class="toc-text">UDP是面向报文的</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不可靠性"><span class="toc-text">不可靠性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#头部开销小，传输数据报文时是很高效的。"><span class="toc-text">头部开销小，传输数据报文时是很高效的。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP和UDP的比较"><span class="toc-text">TCP和UDP的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
 <a id="more"></a>
 <p>转载：<br>　　<a href="https://segmentfault.com/a/1190000018582150" target="_blank" rel="noopener">TCP和UDP比较</a></p>
 <h3 id="TCP-IP网络模型"><a href="#TCP-IP网络模型" class="headerlink" title="TCP/IP网络模型"></a>TCP/IP网络模型</h3><p>　　计算机与网络设备要相互通信，双方就必须基于相同的方法。比如，如何探测到通信目标、由哪一边先发起通信、使用哪种语言进行通信、怎样结束通信等规则都需要事先确定。不同的硬件、操作系统之间的通信，所有的这一切都需要一种规则。而我们就把这种规则称为协议（<code>protocol</code>）。<br>　　<code>TCP/IP</code> 是互联网相关的各类协议族的总称，比如：<code>TCP</code>，<code>UDP</code>，<code>IP</code>，<code>FTP</code>，<code>HTTP</code>，<code>ICMP</code>，<code>SMTP</code> 等都属于 <code>TCP/IP</code> 族内的协议。<br>　　<code>TCP/IP</code>模型是互联网的基础，它是一系列网络协议的总称。这些协议可以划分为四层，分别为<code>链路层</code>、<code>网络层</code>、<code>传输层</code>和<code>应用层</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">链路层：负责封装和解封装IP报文，发送和接受ARP/RARP报文等。</span><br><span class="line">网络层：负责路由以及把分组报文发送给目标网络或主机。</span><br><span class="line">传输层：负责对报文进行分组和重组，并以TCP或UDP协议格式封装报文。</span><br><span class="line">应用层：负责向用户提供应用程序，比如HTTP、FTP、Telnet、DNS、SMTP等。</span><br></pre></td></tr></table></figure></p>
@@ -263,6 +263,10 @@
 <h5 id="仅支持单播传输"><a href="#仅支持单播传输" class="headerlink" title="仅支持单播传输"></a>仅支持单播传输</h5><p>　　每条TCP传输连接只能有两个端点，只能进行点对点的数据传输，不支持多播和广播传输方式。</p>
 <h5 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h5><p>　　TCP不像UDP一样那样一个个报文独立地传输，而是在不保留报文边界的情况下以字节流方式进行传输。</p>
 <h5 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h5><p>　　对于可靠传输，判断丢包，误码靠的是TCP的段编号以及确认号。TCP为了保证报文传输的可靠，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的字节发回一个相应的确认(ACK)；如果发送端实体在合理的往返时延(RTT)内未收到确认，那么对应的数据（假设丢失了）将会被重传。</p>
+<blockquote>
+<p>TCP 内部的很多算法机制让他保持连接的过程中是很可靠的。比如：TCP 的超时重传、错误重传、TCP 的流量控制、阻塞控制、慢热启动算法、拥塞避免算法、快速恢复算法 等等。</p>
+</blockquote>
+<h5 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h5><h6 id="其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。"><a href="#其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。" class="headerlink" title="其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。"></a>其基本原理：在发送一个数据之后，就开启一个定时器，若是在这个时间内没有收到发送数据的ACK确认报文，则对该报文进行重传，在达到一定次数还没有成功时放弃并发送一个复位信号。</h6><p>　　这里比较重要的是重传超时时间，怎样设置这个定时器的时间（RTO），从而保证对网络资源最小的浪费。因为若RTO太小，可能有些报文只是遇到拥堵或网络不好延迟较大而已，这样就会造成不必要的重传。太大的话，使发送端需要等待过长的时间才能发现数据丢失，影响网络传输效率。<br>　　由于不同的网络情况不一样，不可能设置一样的RTO，实际中RTO是根据网络中的RTT（传输往返时间）来自适应调整的。具体关系参考相关算法。<br><a href="https://www.cnblogs.com/duan2/p/9180861.html" target="_blank" rel="noopener">TCP超时与重传机制</a></p>
 <h5 id="提供拥塞控制"><a href="#提供拥塞控制" class="headerlink" title="提供拥塞控制"></a>提供拥塞控制</h5><p>　　当网络出现拥塞的时候，TCP能够减小向网络注入数据的速率和数量，缓解拥塞</p>
 <h5 id="TCP提供双工通信"><a href="#TCP提供双工通信" class="headerlink" title="TCP提供双工通信"></a>TCP提供双工通信</h5><p>　　TCP允许通信双方的应用程序在任何时候都能发送数据，因为TCP连接的两端都设有缓存，用来临时存放双向通信的数据。当然，TCP可以立即发送一个数据段，也可以缓存一段时间以便一次发送更多的数据段（最大的数据段大小取决于MSS）</p>
 <h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>　　UDP协议全称是<code>用户数据报协议</code>，在网络中它与<code>TCP</code>协议一样用于处理数据包，是一种<code>无连接的协议</code>。在OSI模型中，在<code>第四层——传输层</code>，处于IP协议的上一层。<code>UDP</code>有<code>不提供数据包分组</code>、<code>组装</code>和<code>不能对数据包进行排序</code>的缺点，也就是说，<code>当报文发送之后，是无法得知其是否安全完整到达的</code>。</p>
@@ -270,6 +274,9 @@
 <h5 id="有单播、多播、广播的功能"><a href="#有单播、多播、广播的功能" class="headerlink" title="有单播、多播、广播的功能"></a>有单播、多播、广播的功能</h5><p>　　UDP 不止支持一对一的传输方式，同样支持一对多，多对多，多对一的方式，也就是说 UDP 提供了单播，多播，广播的功能。</p>
 <h5 id="UDP是面向报文的"><a href="#UDP是面向报文的" class="headerlink" title="UDP是面向报文的"></a>UDP是面向报文的</h5><p>　　发送方的UDP对应用程序交下来的报文，在添加首部后就向下交付IP层。UDP对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。因此，应用程序必须选择合适大小的报文</p>
 <h5 id="不可靠性"><a href="#不可靠性" class="headerlink" title="不可靠性"></a>不可靠性</h5><p>　　首先不可靠性体现在无连接上，通信都不需要建立连接，想发就发，这样的情况肯定不可靠。<br>　　并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了。<br>　　再者网络环境时好时坏，但是 UDP 因为没有拥塞控制，一直会以恒定的速度发送数据。即使网络条件不好，也不会对发送速率进行调整。这样实现的弊端就是在网络条件不好的情况下可能会导致丢包，但是优点也很明显，在某些实时性要求高的场景（比如电话会议）就需要使用 UDP 而不是 TCP。</p>
+<blockquote>
+<p>UDP 是一个面向非连接的协议，UDP 发送的每个数据报带有自己的 IP 地址和接收方的 IP 地址，它本身对这个数据报是否出错，是否到达不关心，只要发出去了就好了。所以来研究下，什么情况会导致 UDP 丢包：<br>数据报分片重组丢失：<br>在文章之前我们就说过，UDP 的每个数据报大小多少最合适，事实上 UDP 协议本身规定的大小是 64kb，但是在数据链路层有 MTU 的限制，大小大概在 5kb，所以当你发送一个很大的 UDP 包的时候，这个包会在 IP 层进行分片，然后重组。这个过程就有可能导致分片的包丢失。UDP 本身有 CRC 检测机制，会抛弃掉丢失的 UDP 包。<br>UDP 缓冲区填满<br>当 UDP 的缓冲区已经被填满的时候，接收方还没有处理这部分的 UDP 数据报，这个时候再过来的数据报就没有地方可以存了，自然就都被丢弃了。</p>
+</blockquote>
 <h5 id="头部开销小，传输数据报文时是很高效的。"><a href="#头部开销小，传输数据报文时是很高效的。" class="headerlink" title="头部开销小，传输数据报文时是很高效的。"></a>头部开销小，传输数据报文时是很高效的。</h5><p>UDP 头部包含了以下几个数据：<br>　　两个十六位的端口号，分别为源端口（可选字段）和目标端口<br>　　整个数据报文的长度<br>　　整个数据报文的检验和（IPv4 可选 字段），该字段用于发现头部信息和数据中的错误<br>因此 UDP 的头部开销小，只有八字节，相比 TCP 的至少二十字节要少得多，在传输数据报文时是很高效的</p>
 <h3 id="TCP和UDP的比较"><a href="#TCP和UDP的比较" class="headerlink" title="TCP和UDP的比较"></a>TCP和UDP的比较</h3><table>
 <thead>
@@ -420,7 +427,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：121.3k</span>
+		<span class="post-count">字数统计：122.3k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -669,8 +676,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -709,6 +716,25 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
                             <h3 class="media-heading">语义化标签</h3>
                         </a>
@@ -723,25 +749,6 @@ setInterval("createtime()",250);
 <h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
 <h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
 <h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
