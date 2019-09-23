@@ -216,6 +216,113 @@
                 <section class="postShorten-group main-content-wrap">
     
     
+    <article class="postShorten postShorten--thumbnailimg-right">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2019/09/23/Ajax/AJAX/">
+                            AJAX
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-09-23T19:47:04+08:00">
+	
+		    9月 23, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/AJAX/">AJAX</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt">
+                    <!-- toc -->
+<h3 id="AJAX简介"><a href="#AJAX简介" class="headerlink" title="AJAX简介"></a>AJAX简介</h3><p>　　AJAX全称为“Asynchronous Javascript And XML”， 即“异步JavaScript和XML”的意思。通过AJAX我们可以向服务器发送请求，在不阻塞页面的情况下进行数据交互，也可以理解为异步数据传输。在AJAX的帮助下我们的网页只需局部刷新即可更新数据的显示，减少了不必要的数据量，大大提高了用户体验，缩短了用户等待的时间，使得web应用程序更小、更快，更友好。</p>
+                    
+                        <a href="/2019/09/23/Ajax/AJAX/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2019/09/23/JavaScript/数据埋点/">
+                            数据埋点
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-09-23T19:28:09+08:00">
+	
+		    9月 23, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据埋点"><span class="toc-text">数据埋点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指标"><span class="toc-text">指标</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#访问与访客"><span class="toc-text">访问与访客</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#停留时长"><span class="toc-text">停留时长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#跳出率"><span class="toc-text">跳出率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#退出率"><span class="toc-text">退出率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#转化率"><span class="toc-text">转化率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#埋点的内容"><span class="toc-text">埋点的内容</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用处"><span class="toc-text">用处</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、提高网站的转化率"><span class="toc-text">1、提高网站的转化率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、反应用户黏度"><span class="toc-text">2、反应用户黏度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、为网站内容管理和网站的产品策划提供方向"><span class="toc-text">3、为网站内容管理和网站的产品策划提供方向</span></a></li></ol></li></ol></li></ol>
+<h2 id="数据埋点"><a href="#数据埋点" class="headerlink" title="数据埋点"></a>数据埋点</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>　　所谓埋点就是在应用中特定的流程收集一些信息，用来跟踪应用使用的状况，后续用来进一步优化产品或是提供运营的数据支撑，包括访问数（<code>Visits</code>），访客数（<code>Visitor</code>），停留时长（<code>Time On Site</code>），页面浏览数（<code>Page Views</code>）和跳出率（<code>Bounce Rate</code>）。这样的信息收集可以大致分为两种：页面统计（<code>track this virtual page view</code>），统计操作行为（<code>track this button by an event</code>）</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>现在埋点的主流有两种方式：<br>　　第一种：自己公司研发在产品中注入代码统计，并搭建起相应的后台查询。<br>　　第二种：第三方统计工具，如友盟、神策、<code>Talkingdata</code>、<code>GrowingIO</code>等。</p>
+<h3 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h3><h4 id="访问与访客"><a href="#访问与访客" class="headerlink" title="访问与访客"></a>访问与访客</h4><p>　　访问次数（Visits）与访问人数（Vistors）是几乎所有应用都需要统计的指标，这也是最基础的指标。<br>　　对于应用的统计来说，经常看到的DAU，MAU，UV等指标都是指统计访客（Vistors）。访问（Visits）是指会话层，用户打开应用花一段时间浏览又离开，从指标定义（访问次数）来说这被称之为统计会话（Session）数。<br>　　一次会话（Session 或 Visit）是打开应用的第一个请求（打开应用）和最后一个请求决定的。如果用户打开应用然后放下手机或是离开电脑，并在接下来30分钟内没有任何动作，此次会话自动结束，通常也算作一次访问或会话期（30分钟是早起网页版应用约定俗成的会话数定义，目前用户停留在应用的时长变长，30分钟的限定也可能随之不同，总之是能代表一次用户访问的时长）。<br>　　在计算访问人数（Vistors）时，埋点上报的数据是尽可能接近真实访客的人数。对于有需要统计独立访客这个指标的场景，这里还是需要强调一下，访问人数（Vistors）并不是真实独立的人，因此收集数据时必须知道访问人数虽然能够很好的反映使用应用的真实访问者的数量，但不等于使用应用的真实人数。（原因是，重复安装的应用，或是手机参数被修改都会使得独立访客的指标收到影响。计算访问人数的埋点都是依赖Cookie，用户打开应用，应用都会在此人的终端创建一个独立Cookie, Cookie会被保留，但还是难免会被用户手动清理或是Cookie被禁用导致同一用户使用应用Cookie不一致，所以独立访客只能高度接近于使用应用的真实人数。）</p>
+<h4 id="停留时长"><a href="#停留时长" class="headerlink" title="停留时长"></a>停留时长</h4><p>　　停留时长用来衡量用户在应用的某一个页面或是一次访问（会话）所停留的时间。<br>　　页面停留时长，表示在每个页面所花费的时间；例如：首页就是进入首页（10：00）到离开首页进入下一个页面(10:01)的时长，首页停留时长计算为1分钟。页面A是2分钟。停留时长的数据并不都是一定采集得到的，比如页面B进入时间（10：03），离开出现异常或是退出时间没有记录，这时候计算就是0 （所以指标计算时需要了解埋点的状况，剔除这样的无效数据）。<br>　　应用的停留时长，表示一次访问（会话）所停留的时间，计算起来就是所有页面的访问时长，同样是上一个流程，应用的停留时长就是4分钟。</p>
+<h4 id="跳出率"><a href="#跳出率" class="headerlink" title="跳出率"></a>跳出率</h4><p>　　跳出率的计算方法现在在各个公司还是很多种，最经常被使用的是：用户只访问了一个页面所占的会话比例（原因是：假设这种场景，用户来了访问了一个页面就离开了，想想用户使用的心里画面应该是：打开应用，心想什么鬼，然后关闭应用甚至卸载了。这个场景多可怕，这也是为什么跳出率指标被如此关注）<br>　　跳出率可以分解到两个层次：<code>一是整个应用的跳出率</code>，<code>二是重点的着陆页的跳出率</code>，甚至是搜索关键词的跳出率。跳出率的指标可操作性非常强，通过统计跳出率可以直接发现页面的问题发现关键词的问题。</p>
+<h4 id="退出率"><a href="#退出率" class="headerlink" title="退出率"></a>退出率</h4><p>　　退出率是针对页面的，这个指标的目标很简单，就是在针对某个页面有多少用户离开了应用，主要用户反映用户从应用离开的情况。哪些页面需要被改进最快的方式被发掘。（注意：退出率高不一定是坏事。例如：预测流程的最终节点的退出率就应该是高的）</p>
+<h4 id="转化率"><a href="#转化率" class="headerlink" title="转化率"></a>转化率</h4><p>　　我们在产品上投入这么多，不就是为了衡量产出么？所以对于电商类应用，还有比转化率更值得关注的指标吗？转化率的计算方法是某种产出除以独立访客或是访问量，对于电商产品来说，就是提交订单用户数除以独立访客。<br>　　转化率的计算看起来想到那简单，但却是埋点中最贴近业务的数据收集。这也是最体现埋点技巧的指标，需要结合业务特点制定计算方法。提交订单量/访客数是最基本的转化率，转化率还可以分层次，指定用户路径的，如：完成某条路径的提交订单数/访客数。<br>　　试着找一条路径，想想转化率的数据怎么得来的吧，埋点都收集了什么样的数据吧？参与度参与度并不是一个指标，而是一系列的指标的统称，例如访问深度，访问频次，针对电商的下单次数，针对内容服务商的播放次数，及用户行为序列这些都可以是衡量参与度的指标。之所以把参与度列为一个指标，是希望大家明白把指标结合业务，产生化学反应，活学活用去发现事物的本质。</p>
+<h4 id="埋点的内容"><a href="#埋点的内容" class="headerlink" title="埋点的内容"></a>埋点的内容</h4><p>　　看完关键的这些指标后，其实埋点大致分为两部分，一部分是统计应用页面访问情况，即页面统计，随页面访问动作发生时进行上报；另外一部分是统计应用内的操作行为，在页面中操作时进行上报（例如：组件曝光时，组件点击时，上滑，下滑时）。<br>　　为了统计到所需要的指标，应用中的所有页面，事件都被唯一标记，用户的信息，设备的信息，时间参数以及符合业务需要的参数具体内容被附加上报，就是埋点。</p>
+<h3 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h3><h4 id="1、提高网站的转化率"><a href="#1、提高网站的转化率" class="headerlink" title="1、提高网站的转化率"></a>1、提高网站的转化率</h4><p>　　根据页面埋点可得到一些重要信息，它告诉你用户对网站的反应，以及如何<code>提高网站流量</code>、<code>改进网站性能</code>，<code>了解用户访问网站的行为</code>，<code>为更好地满足用户需求提供支持</code>。 </p>
+<h4 id="2、反应用户黏度"><a href="#2、反应用户黏度" class="headerlink" title="2、反应用户黏度"></a>2、反应用户黏度</h4><p>　　即使网站吸引了很多用户访问，但是通过流量分析发现，用户停留的时间非常短，重复访问用户不多，用户平均浏览的页面也少，这样的网站用户黏度不够，有流量但是没有忠实的用户，一旦有其它可替代网站，用户随时可能流失。这样的网站，如果不采取有效的运营措施，很难有长期发展的后劲。</p>
+<h4 id="3、为网站内容管理和网站的产品策划提供方向"><a href="#3、为网站内容管理和网站的产品策划提供方向" class="headerlink" title="3、为网站内容管理和网站的产品策划提供方向"></a>3、为网站内容管理和网站的产品策划提供方向</h4><p>　　通过流量分析，可以挖掘出整个网站哪个频道最有人气，频道之间的流量比例是多少，每个页面的流量是多少，哪个页面最受欢迎，每个页面中具体的哪个栏目点击 量最高，这样通过对频道、栏目、页面的具体流量分析和对比，可以挖掘出用户的需求，发现用户最关心什么内容，这对评估网站频道、内容、页面的价值有重要的 参考作用，也对网站内容下一步的优化有直接的参考意义。</p>
+<blockquote>
+<p>转载：<br><a href="https://zhuanlan.zhihu.com/p/25195217" target="_blank" rel="noopener">数据埋点是什么？设置埋点的意义是什么？</a></p>
+</blockquote>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/09/23/JavaScript/数据埋点/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
     <article class="postShorten postShorten--thumbnailimg-bottom">
         <div class="postShorten-wrap">
             
@@ -603,92 +710,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/04/15/Vue/Vue双向绑定原理及实现/">
-                            Vue双向绑定原理及实现
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-04-15T14:33:31+08:00">
-	
-		    4月 15, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端框架/">前端框架</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-                    
-                        <a href="/2019/04/15/Vue/Vue双向绑定原理及实现/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/04/15/JavaScript/函数节流与防抖/">
-                            函数节流与防抖
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-04-15T08:09:39+08:00">
-	
-		    4月 15, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端/">前端</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt">
-                    <!-- toc -->
-                    
-                        <a href="/2019/04/15/JavaScript/函数节流与防抖/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -714,7 +735,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：122.5k</span>
+		<span class="post-count">字数统计：125.9k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -836,25 +857,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
                             <h3 class="media-heading">语义化标签</h3>
                         </a>
@@ -877,8 +879,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -896,8 +898,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -928,6 +930,25 @@ setInterval("createtime()",250);
                         <div class="media-content hide-xs font-merryweather"><!-- toc -->
 <p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
 <h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1037,7 +1058,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 87 篇文章
+                找到 88 篇文章
             </p>
         </div>
     </div>
