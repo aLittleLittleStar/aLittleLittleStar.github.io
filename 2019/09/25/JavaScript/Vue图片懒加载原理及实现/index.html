@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="昨夜小楼又东风">
-    <title>H5新特性 - 昨夜小楼又东风</title>
+    <title>Vue图片懒加载原理及实现 - 昨夜小楼又东风</title>
     <meta name="author" content="LittleStar">
     
     
@@ -15,19 +15,19 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"语义化标签: header footer nav section article aside 等增强型表单：HTML4: text、checkbox、password、radio、submit、reset、FileHTML5： date(从一个日期选择器选择一个日期) email(包含 e-mail 地址的输入域) number(数值的输入域) range(一定范围内数字值的输入域) search(用于搜索域) tel(定义输入电话号码字段) url、 color、 month、week等\n视频和音频：audiovideoCanvas绘图SVG绘图\n地理定位：Geolocation拖放API：dragweb worker：是运行在后台的JavaScript,独立于其他脚本，不会影响页面的性能web storage:localStorage sessionStorageWebSocket:HTML5开始提供的一种在单个TCP` 连接上进行全双工通讯的协议\n","dateCreated":"2018-11-06T20:10:06+08:00","dateModified":"2019-03-18T15:15:04+08:00","datePublished":"2018-11-06T20:10:06+08:00","description":"","headline":"H5新特性","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2018/11/06/H5/HTML5/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2018/11/06/H5/HTML5/","keywords":"HTML5"}</script>
-    <meta name="description" content="语义化标签: header footer nav section article aside 等增强型表单：HTML4: text、checkbox、password、radio、submit、reset、FileHTML5： date(从一个日期选择器选择一个日期) email(包含 e-mail 地址的输入域) number(数值的输入域) range(一定范围内数字值的输入域) search">
-<meta name="keywords" content="HTML5">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"转：　　Vue图片懒加载原理和实现　　Vue 中实现图片预加载 + 懒加载原理实现\nVue图片懒加载原理及实现原理分析　　先将img标签的src链接设为同一张图片(默认图片)，当js监听到该图片进入可视窗口时，再将实际地址应用。\n实现方法1.判断元素是否在可视范围123456789101112/** * 判断元素是否在可视范围 */function isVisible(ele)&#123;  let windowHeight = window.innerHeight  let position = ele.getBoundingClientRect()  // 当元素的top偏移量小于页面大小并且大于高度的负数  if(position.top&lt;windowHeight &amp;&amp; position.top&gt;-position.height)&#123;    return true  &#125;  return false&#125;\n2.对图片实现懒加载12345678910/** * 对图片进行懒加载 */function lazyLoad(img, src)&#123;  if(img &amp;&amp; src &amp;&amp; isVisible(img))&#123; // 元素存在，元素未被加载，元素可见    setTimeout(function()&#123;      img.setAttribute('src', src)    &#125;, 1000) // 模拟网络请求  &#125;&#125;\n3.添加滚动监听1234// 窗口滚动window.addEventListener('scroll', function()&#123;  lazyLoad(img, src)&#125;)\nVue插件实现代码123456789101112131415161718192021222324252627282930313233343536373839/** * 判断元素可见 */function isVisible(el)&#123;  let windowHeight = window.innerHeight  let position = el.getBoundingClientRect()  // 当元素的top偏移量小于页面大小并且大于高度的负数  if(position.top&lt;windowHeight &amp;&amp; position.top&gt;-position.height)&#123;    return true  &#125;  return false&#125;/** * 对图片进行懒加载 */function lazyLoad(img, src)&#123;  if(img &amp;&amp; src &amp;&amp; isVisible(img))&#123; // 元素存在，元素未被加载，元素可见    setTimeout(function()&#123;      img.setAttribute('src', src)    &#125;, 1000) // 模拟网络请求慢的情况  &#125;&#125;export default &#123;  install(Vue, options)&#123;    Vue.directive('lazy', &#123;      bind: function(el, binding, vnode)&#123;        el.setAttribute('src', options.loading)        window.addEventListener('scroll', function()&#123;          lazyLoad(el, binding.value)        &#125;)      &#125;,      inserted: function(el, binding, vnode)&#123;        lazyLoad(el)      &#125;    &#125;)  &#125;&#125;\n　　main.jsVue.use(myPlugin, {loading: defaultImg})\n在Vue中使用 vue-lazyload插件1234567891011121314151617181920211.安装插件npm install vue-lazyload --save-dev2.在入口文件main.js中引入并使用import VueLazyload from 'vue-lazyload'直接使用Vue.use(VueLazyload)或者添加自定义选项Vue.use(VueLazyload, &#123;  preLoad: 1.3,  error: 'dist/error.png',  loading: 'dist/loading.gif',  attempt: 1&#125;)3.修改图片显示方式为懒加载（将 :src 属性直接改为v-lazy）&lt;a href=\"javascript:;\"&gt;  &lt;img v-lazy=\"'/static/img/' + item.productImage\"&gt;&lt;/a&gt;","dateCreated":"2019-09-25T09:22:32+08:00","dateModified":"2019-09-25T09:32:33+08:00","datePublished":"2019-09-25T09:22:32+08:00","description":"","headline":"Vue图片懒加载原理及实现","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/","keywords":"JavaScript"}</script>
+    <meta name="description" content="转：　　Vue图片懒加载原理和实现　　Vue 中实现图片预加载 + 懒加载原理实现 Vue图片懒加载原理及实现原理分析　　先将img标签的src链接设为同一张图片(默认图片)，当js监听到该图片进入可视窗口时，再将实际地址应用。 实现方法1.判断元素是否在可视范围123456789101112/** * 判断元素是否在可视范围 */function isVisible(ele)&amp;#123;  le">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="H5新特性">
-<meta property="og:url" content="http://yoursite.com/2018/11/06/H5/HTML5/index.html">
+<meta property="og:title" content="Vue图片懒加载原理及实现">
+<meta property="og:url" content="http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="语义化标签: header footer nav section article aside 等增强型表单：HTML4: text、checkbox、password、radio、submit、reset、FileHTML5： date(从一个日期选择器选择一个日期) email(包含 e-mail 地址的输入域) number(数值的输入域) range(一定范围内数字值的输入域) search">
+<meta property="og:description" content="转：　　Vue图片懒加载原理和实现　　Vue 中实现图片预加载 + 懒加载原理实现 Vue图片懒加载原理及实现原理分析　　先将img标签的src链接设为同一张图片(默认图片)，当js监听到该图片进入可视窗口时，再将实际地址应用。 实现方法1.判断元素是否在可视范围123456789101112/** * 判断元素是否在可视范围 */function isVisible(ele)&amp;#123;  le">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-18T07:15:04.482Z">
+<meta property="og:updated_time" content="2019-09-25T01:32:33.599Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="H5新特性">
-<meta name="twitter:description" content="语义化标签: header footer nav section article aside 等增强型表单：HTML4: text、checkbox、password、radio、submit、reset、FileHTML5： date(从一个日期选择器选择一个日期) email(包含 e-mail 地址的输入域) number(数值的输入域) range(一定范围内数字值的输入域) search">
+<meta name="twitter:title" content="Vue图片懒加载原理及实现">
+<meta name="twitter:description" content="转：　　Vue图片懒加载原理和实现　　Vue 中实现图片预加载 + 懒加载原理实现 Vue图片懒加载原理及实现原理分析　　先将img标签的src链接设为同一张图片(默认图片)，当js监听到该图片进入可视窗口时，再将实际地址应用。 实现方法1.判断元素是否在可视范围123456789101112/** * 判断元素是否在可视范围 */function isVisible(ele)&amp;#123;  le">
     
     
         
@@ -222,14 +222,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            H5新特性
+            Vue图片懒加载原理及实现
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2018-11-06T20:10:06+08:00">
+    <time datetime="2019-09-25T09:22:32+08:00">
 	
-		    11月 06, 2018
+		    9月 25, 2019
     	
     </time>
     
@@ -244,7 +244,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：164字
+        字数统计：538字
     </span>
 </div>
 
@@ -252,10 +252,14 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>语义化标签: <code>header</code> <code>footer</code> <code>nav</code> <code>section</code> <code>article</code> <code>aside</code> 等<br>增强型表单：<br><code>HTML4</code>: <code>text</code>、<code>checkbox</code>、<code>password</code>、<code>radio</code>、<code>submit</code>、<code>reset</code>、<code>File</code><br><code>HTML5</code>： <code>date</code>(从一个日期选择器选择一个日期) <code>email</code>(包含 <code>e-mail</code> 地址的输入域) <code>number</code>(数值的输入域) <code>range</code>(一定范围内数字值的输入域) <code>search</code>(用于搜索域) <code>tel</code>(定义输入电话号码字段) <code>url</code>、 <code>color</code>、 <code>month</code>、week<code>等
-视频和音频：</code>audio<code></code>video<code></code>Canvas<code>绘图</code>SVG<code>绘图
-地理定位：</code>Geolocation<code>拖放API：</code>drag<code></code>web worker<code>：是运行在后台的</code>JavaScript<code>,独立于其他脚本，不会影响页面的性能</code>web storage<code>:</code>localStorage sessionStorage<code></code>WebSocket<code>:</code>HTML5<code>开始提供的一种在单个</code>TCP` 连接上进行全双工通讯的协议</p>
-
+            <p>转：<br>　　<a href="https://www.jianshu.com/p/57e1055cc3fb" target="_blank" rel="noopener">Vue图片懒加载原理和实现</a><br>　　<a href="https://blog.csdn.net/Tom__cy/article/details/90299757" target="_blank" rel="noopener">Vue 中实现图片预加载 + 懒加载原理实现</a></p>
+<h3 id="Vue图片懒加载原理及实现"><a href="#Vue图片懒加载原理及实现" class="headerlink" title="Vue图片懒加载原理及实现"></a>Vue图片懒加载原理及实现</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p>　　<code>先将img标签的src链接设为同一张图片(默认图片)，当js监听到该图片进入可视窗口时，再将实际地址应用。</code></p>
+<h4 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h4><h5 id="1-判断元素是否在可视范围"><a href="#1-判断元素是否在可视范围" class="headerlink" title="1.判断元素是否在可视范围"></a>1.判断元素是否在可视范围</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 判断元素是否在可视范围</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> isVisible(ele)&#123;</span><br><span class="line">  <span class="built_in">let</span> windowHeight = window.innerHeight</span><br><span class="line">  <span class="built_in">let</span> position = ele.getBoundingClientRect()</span><br><span class="line">  // 当元素的top偏移量小于页面大小并且大于高度的负数</span><br><span class="line">  <span class="keyword">if</span>(position.top&lt;windowHeight &amp;&amp; position.top&gt;-position.height)&#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-对图片实现懒加载"><a href="#2-对图片实现懒加载" class="headerlink" title="2.对图片实现懒加载"></a>2.对图片实现懒加载</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 对图片进行懒加载</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> lazyLoad(img, src)&#123;</span><br><span class="line">  <span class="keyword">if</span>(img &amp;&amp; src &amp;&amp; isVisible(img))&#123; // 元素存在，元素未被加载，元素可见</span><br><span class="line">    setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      img.setAttribute(<span class="string">'src'</span>, src)</span><br><span class="line">    &#125;, 1000) // 模拟网络请求</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-添加滚动监听"><a href="#3-添加滚动监听" class="headerlink" title="3.添加滚动监听"></a>3.添加滚动监听</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 窗口滚动</span><br><span class="line">window.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">  lazyLoad(img, src)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="Vue插件实现代码"><a href="#Vue插件实现代码" class="headerlink" title="Vue插件实现代码"></a>Vue插件实现代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 判断元素可见</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> isVisible(el)&#123;</span><br><span class="line">  <span class="built_in">let</span> windowHeight = window.innerHeight</span><br><span class="line">  <span class="built_in">let</span> position = el.getBoundingClientRect()</span><br><span class="line">  // 当元素的top偏移量小于页面大小并且大于高度的负数</span><br><span class="line">  <span class="keyword">if</span>(position.top&lt;windowHeight &amp;&amp; position.top&gt;-position.height)&#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 对图片进行懒加载</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> lazyLoad(img, src)&#123;</span><br><span class="line">  <span class="keyword">if</span>(img &amp;&amp; src &amp;&amp; isVisible(img))&#123; // 元素存在，元素未被加载，元素可见</span><br><span class="line">    setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">      img.setAttribute(<span class="string">'src'</span>, src)</span><br><span class="line">    &#125;, 1000) // 模拟网络请求慢的情况</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  install(Vue, options)&#123;</span><br><span class="line">    Vue.directive(<span class="string">'lazy'</span>, &#123;</span><br><span class="line">      <span class="built_in">bind</span>: <span class="keyword">function</span>(el, binding, vnode)&#123;</span><br><span class="line">        el.setAttribute(<span class="string">'src'</span>, options.loading)</span><br><span class="line">        window.addEventListener(<span class="string">'scroll'</span>, <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">          lazyLoad(el, binding.value)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      inserted: <span class="keyword">function</span>(el, binding, vnode)&#123;</span><br><span class="line">        lazyLoad(el)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　main.js<br><code>Vue.use(myPlugin, {loading: defaultImg})</code></p>
+<h4 id="在Vue中使用-vue-lazyload插件"><a href="#在Vue中使用-vue-lazyload插件" class="headerlink" title="在Vue中使用 vue-lazyload插件"></a>在Vue中使用 vue-lazyload插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1.安装插件</span><br><span class="line">npm install vue-lazyload --save-dev</span><br><span class="line"></span><br><span class="line">2.在入口文件main.js中引入并使用</span><br><span class="line">import VueLazyload from <span class="string">'vue-lazyload'</span></span><br><span class="line"></span><br><span class="line">直接使用</span><br><span class="line">Vue.use(VueLazyload)</span><br><span class="line"></span><br><span class="line">或者添加自定义选项</span><br><span class="line">Vue.use(VueLazyload, &#123;</span><br><span class="line">  preLoad: 1.3,</span><br><span class="line">  error: <span class="string">'dist/error.png'</span>,</span><br><span class="line">  loading: <span class="string">'dist/loading.gif'</span>,</span><br><span class="line">  attempt: 1</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">3.修改图片显示方式为懒加载（将 :src 属性直接改为v-lazy）</span><br><span class="line">&lt;a href=<span class="string">"javascript:;"</span>&gt;</span><br><span class="line">  &lt;img v-lazy=<span class="string">"'/static/img/' + item.productImage"</span>&gt;</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure>
             
 
         </div>
@@ -265,7 +269,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/HTML5/">HTML5</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/JavaScript/">JavaScript</a>
 
             </div>
         
@@ -275,8 +279,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/盒子模型/" data-tooltip="盒子模型" aria-label="上一篇: 盒子模型">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -285,7 +288,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/块级元素行内元素/" data-tooltip="块级元素行内元素" aria-label="下一篇: 块级元素行内元素">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/23/JavaScript/移动端适配/" data-tooltip="移动端适配" aria-label="下一篇: 移动端适配">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -303,7 +306,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/11/06/H5/HTML5/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -311,7 +314,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/11/06/H5/HTML5/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -319,7 +322,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/11/06/H5/HTML5/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -389,8 +392,7 @@ setInterval("createtime()",250);
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/盒子模型/" data-tooltip="盒子模型" aria-label="上一篇: 盒子模型">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -399,7 +401,7 @@ setInterval("createtime()",250);
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/06/CSS3/块级元素行内元素/" data-tooltip="块级元素行内元素" aria-label="下一篇: 块级元素行内元素">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/23/JavaScript/移动端适配/" data-tooltip="移动端适配" aria-label="下一篇: 移动端适配">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -417,7 +419,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/11/06/H5/HTML5/" title="分享到 Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/" title="分享到 Facebook">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
@@ -425,7 +427,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/11/06/H5/HTML5/" title="分享到 Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/" title="分享到 Twitter">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -433,7 +435,7 @@ setInterval("createtime()",250);
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/11/06/H5/HTML5/" title="分享到 Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/" title="分享到 Google+">
                     <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -466,7 +468,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/11/06/H5/HTML5/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/">
                     <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
@@ -474,7 +476,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2018/11/06/H5/HTML5/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/">
                     <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
@@ -482,7 +484,7 @@ setInterval("createtime()",250);
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2018/11/06/H5/HTML5/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/">
                     <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
@@ -811,7 +813,7 @@ setInterval("createtime()",250);
             (function() {
                 function render() {
                     new Gitment({
-                        id: 'http://yoursite.com/2018/11/06/H5/HTML5/',
+                        id: 'http://yoursite.com/2019/09/25/JavaScript/Vue图片懒加载原理及实现/',
                         owner: 'alittlelittlestar',
                         repo: 'alittlelittlestar.github.io',
                         oauth: {
