@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>Vue 之 Mixin理解与使用 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转：【Vue原理】Mixin - 白话版Vue 中mixin 的用法详解\nMixin理解　　说下我对vue中mixin的一点理解　　vue中提供了一种混合机制–mixins，用来更高效的实现组件内容的复用。最开始我一度认为这个和组件好像没啥区别。。后来发现错了。下面我们来看看mixins和普通情况下引入组件有什么区别？　　组件在引用之后相当于在父组件内开辟了一块单独的空间，来根据父组件props过来的值进行相应的操作，单本质上两者还是泾渭分明，相对独立。　　而mixins则是在引入组件之后，则是将组件内部的内容如data等方法、method等属性与父组件相应内容进行合并。相当于在引入后，父组件的各种属性方法都被扩充了。\n1234单纯组件引用：　　父组件 + 子组件 &gt;&gt;&gt; 父组件 + 子组件mixins：　　父组件 + 子组件 &gt;&gt;&gt; new父组件\n　　作用：多个组件可以共享数据和方法，在使用mixin的组件中引入后，mixin中的方法和属性也就并入到该组件中，可以直接使用。钩子函数会两个都被调用，mixin中的钩子首先执行。\n什么时候合并　　什么是全局选项？ 就是 全局组件，全局过滤器，全局指令，全局mixin12341、Vue.component 注册的 【全局组件】2、Vue.filter 注册的 【全局过滤器】3、Vue.directive 注册的 【全局指令】4、Vue.mixin 注册的 【全局mixin】\n　　也就是说，你全局注册的选项，其实会被传递引用到你的每个组件中，这样，全局选项 和 组件选项 就会合并起来，之后组件便能访问到全局选项，然后你就可以在组件内使用全局注册的选项，比如使用 全局过滤器　　其实就是像你在 自己的组件声明 components 一样，只是全局注册的话，Vue 背后偷偷给你的每个组件 都合并多一个全局选项的引用　　但是为了保证全局选项不被污染，又不可能每个组件都深度克隆一份全局选项导致开销过大，所以会根据不同的选项，做不同的处理。下面会详细讲解\n怎么合并权重1、组件选项\n2、组件 - mixin\n3、组件 - mixin - mixin\n4、…省略无数可能存在的嵌套 mixin\nx、全局 选项\n权重 从 1 到最后 依次减少\n其实没有权重这个东西，但是结果是一样的，是我觉得这样好理解，加上的一个概念\n下面的讲解，会使用 四种选项代号 作为例子\n　　mixin 里面嵌套mixin 太深 很少见，而且也 难以维护，所以就只嵌套一层为例\n1、组件选项：代号为 A\n2、组件-mixin：代号为 B\n3、组件-mixin-mixin ：代号为 C\n4、全局选项 ：代号为 D\n1、函数合并叠加包括选项：data，provide\n把两个函数合并加到一个新函数中，并返回这个函数。在函数里面，会执行 那两个方法。\n按照这个流程，使用代号12345671、D 和 C 合并成一个函数 (CD)，函数执行时，会执行 C ，再执行 D2、(CD) 和 B 合并成 一个函数 (B(CD))，函数执行时，会执行 B ，再执行 (CD)3、(B(CD)) 和 A 合并成一个函数，函数执行时，会执行 B ，再执行 (B(CD))有点绕，简化执行流程是： A-&gt;B-&gt;C-&gt;D\n　　data 中数据有重复的，权重大的优先，比如下面123456789101112var test_mixins=&#123;    data()&#123;                return &#123;name:34&#125;    &#125;&#125;var a=new Vue(&#123;        mixins:[test_mixins],    data()&#123;                return &#123;name:12&#125;    &#125;&#125;)\n　　可以看到，mixin 和 组件本身 的 data 都有 name 这个数据，很显然会以组件本身的为主，因为组件本身权重大\n2、数组叠加生命周期函数\n权重越大的越放后面，会合并成一个数组，比如created\n[    全局 mixin - created，    组件 mixin-mixin - created，    组件 mixin - created，    组件 options - created]\n执行流程是 \n\n全局mixin-created -&gt; 组件mixin-mixin-created -&gt; 组件mixin-created -&gt; 组件options-created\n\n生命周期，权重小的 先执行\nwatch合并成一个下面这样的数组，权重越大的越放后面123456[     全局 mixin - watch，    组件 mixin-mixin - watch，    组件 mixin - watch，    组件 options - watch ]\n执行流程是\n\n全局mixin-watch -&gt;组件mixin-mixin-watch -&gt; 组件mixin-watch -&gt; 组件options-watch\n\n监听回调，权重小的 先执行\n3、原型叠加包括选项：components，filters，directives\n两个对象合并的时候，不会相互覆盖，而是 权重小的 被放到 权重大 的 的原型上\n这样权重大的，访问快些，因为作用域链短了123A.__proto__ = B  B.__proto__ = C  C.__proto__ = D\n两个对象合并的时候，不会\n以 filter 为例，下面是四种 filter 合并123456789101112131415161718192021222324// 全局 filterVue.filter(\"global_filter\",function (params) &#123;&#125;)// mixin 的 mixinvar mixin_mixin=&#123;        filters:&#123;        mixin_mixin_filter()&#123;&#125;    &#125;&#125;// mixin filtervar test_mixins=&#123;        filters:&#123;        mixin_filter()&#123;&#125;    &#125;&#125;// 组件 filtervar a=new Vue(&#123;        mixins:[test_mixins],        filters:&#123;        self_filter()&#123;&#125;    &#125;&#125;)\n结果就系这样…\n4、覆盖叠加包括选项：props，methods，computed，inject\n两个对象合并，如果有重复key，权重大的覆盖权重小的\n比如　　组件的 props：{ name:&quot;&quot;}　　组件mixin 的 props：{ name:&quot;&quot;, age: “” }那么 把两个对象合并，有相同属性，以 权重大的为主，组件的 name 会替换 mixin 的name\n5、直接替换　　这是默认的处理方式，当选项不属于上面的处理方式的时候，就会像这样处理，包含选项：el，template，propData 等　　两个数据只替换，不合并，权重大的，会一直替换 权重小的，因为这些属于只允许存在一个，所有只使用权重大的选项　　组件 设置 template，mixin 也设置 template，不用怕，组件的肯定优先　　这个好像跟 覆盖叠加 很像，其实不一样，覆盖叠加会把两个数据合并，重复的才覆盖。而这个不会合并，直接替换掉整个选项\n使用","dateCreated":"2019-09-29T09:17:02+08:00","dateModified":"2019-09-29T09:40:58+08:00","datePublished":"2019-09-29T09:17:02+08:00","description":"","headline":"Vue 之 Mixin理解与使用","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/","keywords":"Vue"}</script>
+    <meta name="keywords" content="Vue">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Vue 之 Mixin理解与使用">
+<meta property="og:url" content="http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-09-29T01:40:58.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 之 Mixin理解与使用">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Vue 之 Mixin理解与使用
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-09-29T09:17:02+08:00">
+	
+		    9月 29, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端框架/">前端框架</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：1.6k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mixin"><span class="toc-text">Mixin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#理解"><span class="toc-text">理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么时候合并"><span class="toc-text">什么时候合并</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎么合并"><span class="toc-text">怎么合并</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#权重"><span class="toc-text">权重</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1、函数合并叠加"><span class="toc-text">1、函数合并叠加</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2、数组叠加"><span class="toc-text">2、数组叠加</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3、原型叠加"><span class="toc-text">3、原型叠加</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li></ol></li></ol>
+<a id="more"></a>
+<p>转：<br><a href="https://blog.csdn.net/qq_27460969/article/details/88688073" target="_blank" rel="noopener">【Vue原理】Mixin - 白话版</a><br><a href="https://blog.csdn.net/qq_36838191/article/details/81004590" target="_blank" rel="noopener">Vue 中mixin 的用法详解</a></p>
+<h3 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h3><h4 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h4><p>　　说下我对vue中mixin的一点理解<br>　　vue中提供了一种混合机制–<code>mixins</code>，用来更高效的实现组件内容的复用。最开始我一度认为这个和组件好像没啥区别。。后来发现错了。下面我们来看看mixins和普通情况下引入组件有什么区别？<br>　　组件在引用之后相当于在父组件内开辟了一块单独的空间，来根据父组件props过来的值进行相应的操作，单本质上两者还是泾渭分明，相对独立。<br>　　而<code>mixins</code>则是在引入组件之后，则是<code>将组件内部的内容如data等方法、method等属性与父组件相应内容进行合并</code>。相当于在引入后，父组件的各种属性方法都被扩充了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">单纯组件引用：</span><br><span class="line">　　父组件 + 子组件 &gt;&gt;&gt; 父组件 + 子组件</span><br><span class="line">mixins：</span><br><span class="line">　　父组件 + 子组件 &gt;&gt;&gt; new父组件</span><br></pre></td></tr></table></figure>
+<p>　　作用：<code>多个组件可以共享数据和方法，在使用mixin的组件中引入后，mixin中的方法和属性也就并入到该组件中，可以直接使用。钩子函数会两个都被调用，mixin中的钩子首先执行</code>。</p>
+<h4 id="什么时候合并"><a href="#什么时候合并" class="headerlink" title="什么时候合并"></a>什么时候合并</h4><p>　　什么是全局选项？ 就是 全局组件，全局过滤器，全局指令，全局mixin<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、Vue.component 注册的 【全局组件】</span><br><span class="line">2、Vue.filter 注册的 【全局过滤器】</span><br><span class="line">3、Vue.directive 注册的 【全局指令】</span><br><span class="line">4、Vue.mixin 注册的 【全局mixin】</span><br></pre></td></tr></table></figure></p>
+<p>　　也就是说，你全局注册的选项，其实会被传递引用到你的每个组件中，这样，全局选项 和 组件选项 就会合并起来，之后组件便能访问到全局选项，然后你就可以在组件内使用全局注册的选项，比如使用 全局过滤器<br>　　其实就是像你在 自己的组件声明 components 一样，只是全局注册的话，Vue 背后偷偷给你的每个组件 都合并多一个全局选项的引用<br>　　但是为了保证全局选项不被污染，又不可能每个组件都深度克隆一份全局选项导致开销过大，所以会根据不同的选项，做不同的处理。下面会详细讲解</p>
+<h4 id="怎么合并"><a href="#怎么合并" class="headerlink" title="怎么合并"></a>怎么合并</h4><h5 id="权重"><a href="#权重" class="headerlink" title="权重"></a>权重</h5><p>1、组件选项</p>
+<p>2、组件 - mixin</p>
+<p>3、组件 - mixin - mixin</p>
+<p>4、…省略无数可能存在的嵌套 mixin</p>
+<p>x、全局 选项</p>
+<p>权重 从 1 到最后 依次减少</p>
+<p>其实没有权重这个东西，但是结果是一样的，是我觉得这样好理解，加上的一个概念</p>
+<p>下面的讲解，会使用 四种选项代号 作为例子</p>
+<p>　　<code>mixin</code> 里面嵌套<code>mixin</code> 太深 很少见，而且也 难以维护，所以就只嵌套一层为例</p>
+<p>1、组件选项：代号为 A</p>
+<p>2、组件-mixin：代号为 B</p>
+<p>3、组件-mixin-mixin ：代号为 C</p>
+<p>4、全局选项 ：代号为 D</p>
+<h6 id="1、函数合并叠加"><a href="#1、函数合并叠加" class="headerlink" title="1、函数合并叠加"></a>1、函数合并叠加</h6><p>包括选项：<code>data，provide</code></p>
+<p>把两个函数合并加到一个新函数中，并返回这个函数。在函数里面，会执行 那两个方法。</p>
+<p>按照这个流程，使用代号<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、D 和 C 合并成一个函数 (CD)，函数执行时，会执行 C ，再执行 D</span><br><span class="line"></span><br><span class="line">2、(CD) 和 B 合并成 一个函数 (B(CD))，函数执行时，会执行 B ，再执行 (CD)</span><br><span class="line"></span><br><span class="line">3、(B(CD)) 和 A 合并成一个函数，函数执行时，会执行 B ，再执行 (B(CD))</span><br><span class="line"></span><br><span class="line">有点绕，简化执行流程是： A-&gt;B-&gt;C-&gt;D</span><br></pre></td></tr></table></figure></p>
+<p>　　data 中数据有重复的，权重大的优先，比如下面<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var test_mixins=&#123;</span><br><span class="line">    <span class="function"><span class="title">data</span></span>()&#123;        </span><br><span class="line">        <span class="built_in">return</span> &#123;name:34&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a=new Vue(&#123;    </span><br><span class="line">    mixins:[test_mixins],</span><br><span class="line">    <span class="function"><span class="title">data</span></span>()&#123;        </span><br><span class="line">        <span class="built_in">return</span> &#123;name:12&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>　　可以看到，mixin 和 组件本身 的 data 都有 name 这个数据，很显然会以组件本身的为主，因为组件本身权重大</p>
+<h6 id="2、数组叠加"><a href="#2、数组叠加" class="headerlink" title="2、数组叠加"></a>2、数组叠加</h6><p>生命周期函数</p>
+<p>权重越大的越放后面，会合并成一个数组，比如created</p>
+<p>[<br>    全局 mixin - created，<br>    组件 mixin-mixin - created，<br>    组件 mixin - created，<br>    组件 options - created<br>]</p>
+<p>执行流程是 </p>
+<blockquote>
+<p>全局mixin-created -&gt; 组件mixin-mixin-created -&gt; 组件mixin-created -&gt; 组件options-created</p>
+</blockquote>
+<p>生命周期，权重小的 先执行</p>
+<p>watch<br>合并成一个下面这样的数组，权重越大的越放后面<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[ </span><br><span class="line">    全局 mixin - watch，</span><br><span class="line">    组件 mixin-mixin - watch，</span><br><span class="line">    组件 mixin - watch，</span><br><span class="line">    组件 options - watch </span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>执行流程是</p>
+<blockquote>
+<p>全局mixin-watch -&gt;组件mixin-mixin-watch -&gt; 组件mixin-watch -&gt; 组件options-watch</p>
+</blockquote>
+<p>监听回调，权重小的 先执行</p>
+<h6 id="3、原型叠加"><a href="#3、原型叠加" class="headerlink" title="3、原型叠加"></a>3、原型叠加</h6><p>包括选项：<code>components，filters，directives</code></p>
+<p>两个对象合并的时候，不会相互覆盖，而是 权重小的 被放到 权重大 的 的原型上</p>
+<p>这样权重大的，访问快些，因为作用域链短了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.__proto__ = B  </span><br><span class="line">B.__proto__ = C  </span><br><span class="line">C.__proto__ = D</span><br></pre></td></tr></table></figure></p>
+<p>两个对象合并的时候，不会</p>
+<p>以 filter 为例，下面是四种 filter 合并<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 全局 filter</span><br><span class="line">Vue.filter(<span class="string">"global_filter"</span>,<span class="keyword">function</span> (params) &#123;&#125;)</span><br><span class="line"></span><br><span class="line">// mixin 的 mixin</span><br><span class="line">var mixin_mixin=&#123;    </span><br><span class="line">    filters:&#123;</span><br><span class="line">        <span class="function"><span class="title">mixin_mixin_filter</span></span>()&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// mixin filter</span><br><span class="line">var test_mixins=&#123;    </span><br><span class="line">    filters:&#123;</span><br><span class="line">        <span class="function"><span class="title">mixin_filter</span></span>()&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 组件 filter</span><br><span class="line">var a=new Vue(&#123;    </span><br><span class="line">    mixins:[test_mixins],    </span><br><span class="line">    filters:&#123;</span><br><span class="line">        <span class="function"><span class="title">self_filter</span></span>()&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>结果就系这样…</p>
+<p>4、覆盖叠加<br>包括选项：<code>props，methods，computed，inject</code></p>
+<p>两个对象合并，如果有重复key，权重大的覆盖权重小的</p>
+<p>比如<br>　　组件的 <code>props：{ name:&quot;&quot;}</code><br>　　组件mixin 的 <code>props：{ name:&quot;&quot;, age: “” }</code><br>那么 把两个对象合并，有相同属性，以 权重大的为主，组件的 name 会替换 mixin 的name</p>
+<p>5、直接替换<br>　　这是默认的处理方式，当选项不属于上面的处理方式的时候，就会像这样处理，包含选项：el，template，propData 等<br>　　两个数据只替换，不合并，权重大的，会一直替换 权重小的，因为这些属于只允许存在一个，所有只使用权重大的选项<br>　　组件 设置 template，mixin 也设置 template，不用怕，组件的肯定优先<br>　　这个好像跟 覆盖叠加 很像，其实不一样，覆盖叠加会把两个数据合并，重复的才覆盖。而这个不会合并，直接替换掉整个选项</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4>
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Vue/">Vue</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/29/JavaScript/New干了什么/" data-tooltip="New干了什么" aria-label="上一篇: New干了什么">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/29/H5/微信小程序和H5区别/" data-tooltip="微信小程序和H5区别" aria-label="下一篇: 微信小程序和H5区别">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：137.7k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/29/JavaScript/New干了什么/" data-tooltip="New干了什么" aria-label="上一篇: New干了什么">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/29/H5/微信小程序和H5区别/" data-tooltip="微信小程序和H5区别" aria-label="下一篇: 微信小程序和H5区别">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 94 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/09/29/Vue/Vue 之 Mixin理解与使用/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,912 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="昨夜小楼又东风">
+    <title>微信小程序和H5区别 - 昨夜小楼又东风</title>
+    <meta name="author" content="LittleStar">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n转：微信小程序开发和h5的区别小程序 与 App 与 H5 之间的区别\n微信小程序和H5区别规则\n\n\nHTML\n微信小程序\n\n\n\n\n&lt;div&gt;&lt;/div&gt;\n&lt;view&gt;&lt;/view&gt;\n\n\n&lt;h1&gt;&lt;/h1&gt;...&lt;h6&gt;&lt;/h6&gt;  &lt;p&gt;&lt;/p&gt; &lt;span&gt;&lt;/span&gt;\n&lt;view&gt;&lt;/view&gt;\n\n\n&lt;i class=&quot;icon&quot;&gt;&lt;/i&gt;\n&lt;icon&gt;&lt;/icon&gt;\n\n\n&lt;input type=&quot;text&quot;&gt;\n&lt;input/&gt;\n\n\n&lt;input type=&quot;checkbox&quot;&gt;\n&lt;checkbox/&gt;\n\n\n&lt;input type=&quot;radio&quot;&gt;\n&lt;radio/&gt;\n\n\n&lt;input type=&quot;file&quot;&gt;\n&lt;view bindtab=&quot;chooseImage&quot;&gt;\n\n\n&lt;a href=&quot;#&quot;&gt;&lt;/a&gt;\n&lt;navigator url=&quot;#&quot; redirect&gt;&lt;/navigator&gt;\n\n\n&lt;img src=&quot;&quot;&gt;\n&lt;image src=&quot;&quot;&gt;&lt;/image&gt;\n\n\n\n开发注意\n开发小程序时，每个页面一定要在app.json文件中注册，页面文件夹和其包含的四个文件的名字要保持一致。\n小程序发起的都是HTTPS网络请求，在开发调试的过程中可以不校验协议和TLS版本，但在实际上线后必须进行HTTPS协议通信。\n小程序可以进行组件化开发以及数据绑定，所有对于DOM的操作都是基于数据驱动的，并没有直接进行DOM操作的做法，换言之，小程序内没有document对象，原生js和jQuery里的DOM操作思维要舍弃掉。\n小程序的网络请求wx.request()是不自带Cookies的，这和浏览器上的网络请求不同，因此基于Cookies实现的会话管理不适用于小程序。\n小程序的脚本文件中，内置对象是page，而非传统浏览器里的window，因此所有基于window对象来写的库(例如jQuery)都不适用于小程序。\n小程序提供模板功能，模板拥有自己的作用域，它只能使用从data属性传入的数据。\n每一个页面文件夹下的.json文件是用来写配置项的，如果该页面无需添加相关配置，.json文件也要写上一对大括号（“{ }”），否则会报错。\n在同一个tab里的页面可以跳转，并且允许携带参数。不同tab的页面之间无法跳转，使用wx.navigateTo()接口会报错。同时，tab之间的跳转可以用wx.switchTab()实现，但是路径后不能带参数。\n脚本文件里data的数据，在更新的时候要通过this.setData()方法来更新，而不能直接用“=”来做。\n在组件标签里，可以通过“data-属性值”的方式绑定我们需要的数据，然后在事件内置event对象里进行获取。\n小程序里也存在事件的冒泡，具体的冒泡事件可以参考官方文档，如果希望事件向上冒泡，则使用bind来绑定事件，若希望阻止事件冒泡，就使用catch来进行事件绑定。\n小程序支持文件引用，有import和include两种方式，import有作用域，也就是引入的目标文件里import的模板不会被引入；而include等于是将目标文件除以外的整个代码进行引入。\nwx.login()和wx.getUserInfo()是两个独立的接口，前者可以实现用户登录，这个过程是悄无声息的，不需要用户授权，登录后可以拿到用户的openid和session_key；而wx.getUserInfo()可以拿到用户的具体信息，这个过程需要获得用户的授权，开发时也必须考虑用户拒绝授权的场景。\n目前小程序可以分享给微信好友和微信群，但小程序默认是没有这个功能的，只有在Page里定义了onShareAppMessage事件处理函数，点击小程序右上角才可以看到分享按钮。\n微信小程序还在不断的成长中，定期会有相关的API修改和增加、以及废弃，开发者需要及时关注每一次重大的版本更新，同时对于一些新出的API要进行兼容处理，考虑兼容的场景，因为某些API只在高版本的微信app里有效。\n\n技术　　微信小程序就是微信支持的一种第三方插件，微信向这种第三方插件开放了更多的功能接口，从丰富的界面控制到多种框架，特别合适提供了更多的对移动设备的访问能力。　\n运行环境　　原生 App 直接运行在操作系统的单独进程中（在 Android 中还可以开启多进程），而小程序只能运行在微信的进程中。开发成本　　原生 App 的开发涉及到 Android/iOS 多个平台、开发工具、开发语言、不同设备的适配等问题；而小程序只需要开发一个就可以在 Android/iOS 等不同平台不同设备上运行。　　原生 App 需要在商店上架（Android 需要上架各种商店）；小程序只能在微信平台发布。\n系统权限　　原生 App 调用的是系统资源，也就是说系统提供给开发的的 API 都可以使用；而小程序是基于微信的，小程序所有的功能都受限于微信，也就是说微信给开发者提供 API 才可以使用，不能绕过微信直接使用系统提供的 API。　　原生 App 可以给用户推送消息；小程序不允许主动给用户发送消息，只能回复模版消息 。　　原生 App 有独立的数据库，可以做离线存储；小程序只能存储到 LocalStorage，无法做离线存储。　　原生 App 需要下载，安装包比较大；小程序无需下载，可以通过小程序码等方式通过微信直接打开。\n运行流畅度　　原生 App 运行在操作系统中，所有的原生组件可以直接调用 GPU 进行渲染；而小程序运行在微信的进程中，只能通过 WebView 进行渲染。小程序与 H5 的区别\n规范　　H5是由W3C做的一个开放标准规范，小程序是腾讯自己的封闭规范。\n运行环境　　简单来说，小程序是一种应用，运行的环境是微信（App）；H5 是一种技术，依附的外壳是是浏览器。H5 的运行环境是浏览器，包括 WebView，而微信小程序的运行环境并非完整的浏览器，因为小程序的开发过程中只用到一部分H5 技术。小程序的运行环境是微信开发团队基于浏览器内核完全重构的一个内置解析器，针对性做了优化，配合自己定义的开发语言标准，提升了小程序的性能。　　小程序中无法使用浏览器中常用的 window 对象和 document 对象，H5 可以随意使用。\n开发成本　　H5 的开发，涉及开发工具（vscode、Atom等）、前端框架（Angular、react等）、模块管理工具（Webpack 、Browserify 等）、任务管理工具（Grunt、Gulp等），还有 UI 库选择、接口调用工具（ajax、Fetch Api等）、浏览器兼容性等等。尽管这些工具可定制化非常高，大部分开发者也有自己的配置模板，但对于项目中各种外部库的版本迭代、版本升级，这些成本加在一起那就是个不小数目了。　　而开发一个微信小程序，由于微信团队提供了开发者工具，并且规范了开发标准，则简单得多。前端常见的 HTML、CSS 变成了微信自定义的 WXML、WXSS，官方文档中都有明确的使用介绍，开发者按照说明专注写程序就可以了。需要调用后端接口时，调用发起请求API；需要上传下载时，调用上传下载API；需要数据缓存时，调用本地存储API；引入地图、使用罗盘、调用支付、调用扫码等等功能都可以直接使用；UI 库方面，框架带有自家 weui 库加成。并且在使用这些 API 时，不用考虑浏览器兼容性，不用担心出现 BUG，显而易见微信小程序的开发成本相对低很多。\n系统权限　　获取到的权限不一样，H5作为一个网页，被封闭在浏览器这个沙箱内。但是微信可以赋予微信小程序更多特殊权限，比如录音，视频，罗盘，扫一扫，模板消息，客服消息，分享等，这些都是和微信无缝衔接的。在微信里，微信小程序毫无疑问要比H5的体验好很多，除了不能支持长按识别二维码外。而这一点恰巧是 H5 被诟病的地方，这也是 H5 的大多应用场景被定位在业务逻辑简单、功能单一的原因。\n运行流畅度　　这条无论对于用户还是开发者来说，都是最直观的感受。长久以来，当HTML5应用面对复杂的业务逻辑或者丰富的页面交互时，它的体验总是不尽人意，需要不断的对项目优化来提升用户体验。但是由于微信小程序运行环境独立，尽管同样用 HTML +CSS + JS 去开发，但配合微信的解析器最终渲染出来的是原生组件的效果，自然体验上将会更进一步。\n","dateCreated":"2019-09-29T08:30:01+08:00","dateModified":"2019-09-29T09:08:35+08:00","datePublished":"2019-09-29T08:30:01+08:00","description":"","headline":"微信小程序和H5区别","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/","keywords":"H5"}</script>
+    <meta name="keywords" content="H5">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="微信小程序和H5区别">
+<meta property="og:url" content="http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/index.html">
+<meta property="og:site_name" content="昨夜小楼又东风">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-09-29T01:08:35.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小程序和H5区别">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://yoursite.com/assets/images/user-photo/user.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-du2xmrqdqrl2ollgeiw050kpl6l4nbyz7bumjuurjgsxyopifvukebxc9lqe.min.css">
+    <!--STYLES END-->
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">昨夜小楼又东风</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">LittleStar</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aLittleLittleStar" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/mailto"
+                            title="邮箱"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            微信小程序和H5区别
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-09-29T08:30:01+08:00">
+	
+		    9月 29, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+    
+    <i class="fas fa-chart-area"></i> 
+    <span class="post-count">
+        字数统计：2.4k字
+    </span>
+</div>
+
+    
+
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#微信小程序和H5区别"><span class="toc-text">微信小程序和H5区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#规则"><span class="toc-text">规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发注意"><span class="toc-text">开发注意</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#技术"><span class="toc-text">技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行环境"><span class="toc-text">运行环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#系统权限"><span class="toc-text">系统权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行流畅度"><span class="toc-text">运行流畅度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#规范"><span class="toc-text">规范</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行环境-1"><span class="toc-text">运行环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开发成本"><span class="toc-text">开发成本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#系统权限-1"><span class="toc-text">系统权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行流畅度-1"><span class="toc-text">运行流畅度</span></a></li></ol></li></ol></li></ol>
+<a id="more"></a>
+<p>转：<br><a href="https://www.cnblogs.com/wxcbg/p/10538997.html" target="_blank" rel="noopener">微信小程序开发和h5的区别</a><br><a href="https://blog.csdn.net/freekiteyu/article/details/84316183" target="_blank" rel="noopener">小程序 与 App 与 H5 之间的区别</a></p>
+<h2 id="微信小程序和H5区别"><a href="#微信小程序和H5区别" class="headerlink" title="微信小程序和H5区别"></a>微信小程序和H5区别</h2><h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">HTML</th>
+<th style="text-align:left">微信小程序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt;div&gt;&lt;/div&gt;</code></td>
+<td style="text-align:left"><code>&lt;view&gt;&lt;/view&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;h1&gt;&lt;/h1&gt;...&lt;h6&gt;&lt;/h6&gt;  &lt;p&gt;&lt;/p&gt; &lt;span&gt;&lt;/span&gt;</code></td>
+<td style="text-align:left"><code>&lt;view&gt;&lt;/view&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;i class=&quot;icon&quot;&gt;&lt;/i&gt;</code></td>
+<td style="text-align:left"><code>&lt;icon&gt;&lt;/icon&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;input type=&quot;text&quot;&gt;</code></td>
+<td style="text-align:left"><code>&lt;input/&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;input type=&quot;checkbox&quot;&gt;</code></td>
+<td style="text-align:left"><code>&lt;checkbox/&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;input type=&quot;radio&quot;&gt;</code></td>
+<td style="text-align:left"><code>&lt;radio/&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;input type=&quot;file&quot;&gt;</code></td>
+<td style="text-align:left"><code>&lt;view bindtab=&quot;chooseImage&quot;&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;a href=&quot;#&quot;&gt;&lt;/a&gt;</code></td>
+<td style="text-align:left"><code>&lt;navigator url=&quot;#&quot; redirect&gt;&lt;/navigator&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;img src=&quot;&quot;&gt;</code></td>
+<td style="text-align:left"><code>&lt;image src=&quot;&quot;&gt;&lt;/image&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="开发注意"><a href="#开发注意" class="headerlink" title="开发注意"></a>开发注意</h3><ol>
+<li>开发小程序时，每个页面一定要在app.json文件中注册，页面文件夹和其包含的四个文件的名字要保持一致。</li>
+<li>小程序发起的都是HTTPS网络请求，在开发调试的过程中可以不校验协议和TLS版本，但在实际上线后必须进行HTTPS协议通信。</li>
+<li>小程序可以进行组件化开发以及数据绑定，所有对于DOM的操作都是基于数据驱动的，并没有直接进行DOM操作的做法，换言之，小程序内没有document对象，原生js和jQuery里的DOM操作思维要舍弃掉。</li>
+<li>小程序的网络请求wx.request()是不自带Cookies的，这和浏览器上的网络请求不同，因此基于Cookies实现的会话管理不适用于小程序。</li>
+<li>小程序的脚本文件中，内置对象是page，而非传统浏览器里的window，因此所有基于window对象来写的库(例如jQuery)都不适用于小程序。</li>
+<li>小程序提供模板功能，模板拥有自己的作用域，它只能使用从data属性传入的数据。</li>
+<li>每一个页面文件夹下的.json文件是用来写配置项的，如果该页面无需添加相关配置，.json文件也要写上一对大括号（“{ }”），否则会报错。</li>
+<li>在同一个tab里的页面可以跳转，并且允许携带参数。不同tab的页面之间无法跳转，使用wx.navigateTo()接口会报错。同时，tab之间的跳转可以用wx.switchTab()实现，但是路径后不能带参数。</li>
+<li>脚本文件里data的数据，在更新的时候要通过this.setData()方法来更新，而不能直接用“=”来做。</li>
+<li>在组件标签里，可以通过“data-属性值”的方式绑定我们需要的数据，然后在事件内置event对象里进行获取。</li>
+<li>小程序里也存在事件的冒泡，具体的冒泡事件可以参考官方文档，如果希望事件向上冒泡，则使用bind来绑定事件，若希望阻止事件冒泡，就使用catch来进行事件绑定。</li>
+<li>小程序支持文件引用，有import和include两种方式，import有作用域，也就是引入的目标文件里import的模板不会被引入；而include等于是将目标文件除<template>以外的整个代码进行引入。</template></li>
+<li>wx.login()和wx.getUserInfo()是两个独立的接口，前者可以实现用户登录，这个过程是悄无声息的，不需要用户授权，登录后可以拿到用户的openid和session_key；而wx.getUserInfo()可以拿到用户的具体信息，这个过程需要获得用户的授权，开发时也必须考虑用户拒绝授权的场景。</li>
+<li>目前小程序可以分享给微信好友和微信群，但小程序默认是没有这个功能的，只有在Page里定义了onShareAppMessage事件处理函数，点击小程序右上角才可以看到分享按钮。</li>
+<li>微信小程序还在不断的成长中，定期会有相关的API修改和增加、以及废弃，开发者需要及时关注每一次重大的版本更新，同时对于一些新出的API要进行兼容处理，考虑兼容的场景，因为某些API只在高版本的微信app里有效。</li>
+</ol>
+<h4 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h4><p>　　微信小程序就是微信支持的一种第三方插件，微信向这种第三方插件开放了更多的功能接口，从丰富的界面控制到多种框架，特别合适提供了更多的对移动设备的访问能力。　</p>
+<h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><p>　　原生 App 直接运行在操作系统的单独进程中（在 Android 中还可以开启多进程），而小程序只能运行在微信的进程中。<br>开发成本<br>　　原生 App 的开发涉及到 Android/iOS 多个平台、开发工具、开发语言、不同设备的适配等问题；而小程序只需要开发一个就可以在 Android/iOS 等不同平台不同设备上运行。<br>　　原生 App 需要在商店上架（Android 需要上架各种商店）；小程序只能在微信平台发布。</p>
+<h4 id="系统权限"><a href="#系统权限" class="headerlink" title="系统权限"></a>系统权限</h4><p>　　原生 App 调用的是系统资源，也就是说系统提供给开发的的 API 都可以使用；而小程序是基于微信的，小程序所有的功能都受限于微信，也就是说微信给开发者提供 API 才可以使用，不能绕过微信直接使用系统提供的 API。<br>　　原生 App 可以给用户推送消息；小程序不允许主动给用户发送消息，只能回复模版消息 。<br>　　原生 App 有独立的数据库，可以做离线存储；小程序只能存储到 LocalStorage，无法做离线存储。<br>　　原生 App 需要下载，安装包比较大；小程序无需下载，可以通过小程序码等方式通过微信直接打开。</p>
+<h4 id="运行流畅度"><a href="#运行流畅度" class="headerlink" title="运行流畅度"></a>运行流畅度</h4><p>　　原生 App 运行在操作系统中，所有的原生组件可以直接调用 GPU 进行渲染；而小程序运行在微信的进程中，只能通过 WebView 进行渲染。<br>小程序与 H5 的区别</p>
+<h4 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h4><p>　　H5是由W3C做的一个开放标准规范，小程序是腾讯自己的封闭规范。</p>
+<h4 id="运行环境-1"><a href="#运行环境-1" class="headerlink" title="运行环境"></a>运行环境</h4><p>　　简单来说，小程序是一种应用，运行的环境是微信（App）；H5 是一种技术，依附的外壳是是浏览器。<br>H5 的运行环境是浏览器，包括 WebView，而微信小程序的运行环境并非完整的浏览器，因为小程序的开发过程中只用到一部分H5 技术。<br>小程序的运行环境是微信开发团队基于浏览器内核完全重构的一个内置解析器，针对性做了优化，配合自己定义的开发语言标准，提升了小程序的性能。<br>　　小程序中无法使用浏览器中常用的 window 对象和 document 对象，H5 可以随意使用。</p>
+<h4 id="开发成本"><a href="#开发成本" class="headerlink" title="开发成本"></a>开发成本</h4><p>　　H5 的开发，涉及开发工具（vscode、Atom等）、前端框架（Angular、react等）、模块管理工具（Webpack 、Browserify 等）、任务管理工具（Grunt、Gulp等），还有 UI 库选择、接口调用工具（ajax、Fetch Api等）、浏览器兼容性等等。<br>尽管这些工具可定制化非常高，大部分开发者也有自己的配置模板，但对于项目中各种外部库的版本迭代、版本升级，这些成本加在一起那就是个不小数目了。<br>　　而开发一个微信小程序，由于微信团队提供了开发者工具，并且规范了开发标准，则简单得多。前端常见的 HTML、CSS 变成了微信自定义的 WXML、WXSS，官方文档中都有明确的使用介绍，开发者按照说明专注写程序就可以了。<br>需要调用后端接口时，调用发起请求API；需要上传下载时，调用上传下载API；需要数据缓存时，调用本地存储API；引入地图、使用罗盘、调用支付、调用扫码等等功能都可以直接使用；UI 库方面，框架带有自家 weui 库加成。<br>并且在使用这些 API 时，不用考虑浏览器兼容性，不用担心出现 BUG，显而易见微信小程序的开发成本相对低很多。</p>
+<h4 id="系统权限-1"><a href="#系统权限-1" class="headerlink" title="系统权限"></a>系统权限</h4><p>　　获取到的权限不一样，H5作为一个网页，被封闭在浏览器这个沙箱内。但是微信可以赋予微信小程序更多特殊权限，比如录音，视频，罗盘，扫一扫，模板消息，客服消息，分享等，这些都是和微信无缝衔接的。在微信里，微信小程序毫无疑问要比H5的体验好很多，除了不能支持长按识别二维码外。<br>而这一点恰巧是 H5 被诟病的地方，这也是 H5 的大多应用场景被定位在业务逻辑简单、功能单一的原因。</p>
+<h4 id="运行流畅度-1"><a href="#运行流畅度-1" class="headerlink" title="运行流畅度"></a>运行流畅度</h4><p>　　这条无论对于用户还是开发者来说，都是最直观的感受。长久以来，当HTML5应用面对复杂的业务逻辑或者丰富的页面交互时，它的体验总是不尽人意，需要不断的对项目优化来提升用户体验。但是由于微信小程序运行环境独立，尽管同样用 HTML +CSS + JS 去开发，但配合微信的解析器最终渲染出来的是原生组件的效果，自然体验上将会更进一步。</p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/H5/">H5</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/29/Vue/Vue 之 Mixin理解与使用/" data-tooltip="Vue 之 Mixin理解与使用" aria-label="上一篇: Vue 之 Mixin理解与使用">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/27/Vue/vue-router使用及实现原理/" data-tooltip="vue-router 使用方法及实现原理" aria-label="下一篇: vue-router 使用方法及实现原理">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="gitment"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 LittleStar. All Rights Reserved.
+    </span>
+		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+		<br/>
+		<i class="fas fa-chart-area"></i>
+		<span class="post-count">字数统计：137.7k</span>
+</footer>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("10/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/29/Vue/Vue 之 Mixin理解与使用/" data-tooltip="Vue 之 Mixin理解与使用" aria-label="上一篇: Vue 之 Mixin理解与使用">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2019/09/27/Vue/vue-router使用及实现原理/" data-tooltip="vue-router 使用方法及实现原理" aria-label="下一篇: vue-router 使用方法及实现原理">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/" title="分享到 Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/" title="分享到 Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/" title="分享到 Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#gitment">
+                         <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents" aria-label="目录">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/">
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/">
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/user-photo/user.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">LittleStar</h4>
+        
+            <div id="about-card-bio"><p>纵豆蔻词工，青楼好梦，难赋深情</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-times"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">没有找到文章</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/前端本地储存/">
+                            <h3 class="media-heading">前端本地储存</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>本地存储主要有以下几种，<code>cookie</code>，<code>localStorage</code>和<code>sessionStorage</code>，<code>WebSql</code>和<code>IndexDB</code>主要用在前端有大容量存储需求的页面上，例如，在线编辑浏览器或者网页邮箱。他们都可以将数据存储在浏览器，应该根据不同的场景进行使用。本文主要讲前三个。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/跨域的方法/跨域的方法/">
+                            <h3 class="media-heading">跨域的方法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/清除浮动/">
+                            <h3 class="media-heading">清除浮动</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
+<h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/get和post请求/">
+                            <h3 class="media-heading">GET和POST请求</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h5 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h5><p>　　HTTP（即超文本传输协议）是现代网络中最常见和常用的协议之一，设计它的目的是保证客户机和服务器之间的通信。<br>　　HTTP 的工作方式是客户机与服务器之间的 “请求-应答” 协议。<br>　　在HTTP中，与服务器交互的方法，最常用的有4种：即Put（增）、Delete（删）、Post（改）、Get（查）。<br>get是获取数据，post是修改数据。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/冒泡和捕获/">
+                            <h3 class="media-heading">冒泡和捕获</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/HTTP/常见的状态响应码/">
+                            <h3 class="media-heading">常用的状态响应码</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- 设置目录 -->
+<!-- toc -->
+<h3 id="状态码大类"><a href="#状态码大类" class="headerlink" title="状态码大类"></a>状态码大类</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:right">说明</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1XX</td>
+<td style="text-align:right"><strong>响应中</strong>——表示请求已经接受，继续处理</td>
+<td style="text-align:center">消息：一般是告诉<strong>客户端请求已经收到了</strong>，正在处理，别急</td>
+</tr>
+<tr>
+<td style="text-align:left">2XX</td>
+<td style="text-align:right"><strong>成功</strong>——表示请求已经被成功接收、理解、接受。</td>
+<td style="text-align:center"><strong> 处理成功</strong>：一般表示请求收悉、我明白你要的、请求已受理、已经处理完成等信息</td>
+</tr>
+<tr>
+<td style="text-align:left">3XX</td>
+<td style="text-align:right"><strong> 重定向</strong>——要完成请求必须进行更进一步的操作</td>
+<td style="text-align:center">重定向到其它地方：它让客户端再发起一个请求以完成整个处理</td>
+</tr>
+<tr>
+<td style="text-align:left">4XX</td>
+<td style="text-align:right"><strong>客户端错误</strong>——请求有语法错误或请求无法实现</td>
+<td style="text-align:center">处理发生错误，责任在客户端：如客户端的请求一个不存在的资源，客户端未被授权，禁止访问等。</td>
+</tr>
+<tr>
+<td style="text-align:left">5XX</td>
+<td style="text-align:right"><strong> 服务器端错误</strong>——服务器未能实现合法的请求。</td>
+<td style="text-align:center">处理发生错误，责任在服务端：如服务端抛出异常，路由出错，HTTP版本不支持等</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>HTTP响应状态码有很多，但是实际经常使用的大概只有14个。<br></p></blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="没有找到文章"
+                data-message-one="找到 1 篇文章"
+                data-message-other="找到 {n} 篇文章">
+                找到 94 篇文章
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-vufjrm3fmbuttogo1hxuu0w9w0sesk5iyysjuguc2hdhufot9szxg8twijry.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            (function() {
+                function render() {
+                    new Gitment({
+                        id: 'http://yoursite.com/2019/09/29/H5/微信小程序和H5区别/',
+                        owner: 'alittlelittlestar',
+                        repo: 'alittlelittlestar.github.io',
+                        oauth: {
+                            client_id: '87f258443d550d64eaaa',
+                            client_secret: '49270712544e561ed30982cdc22b5cc35c180e31',
+                        }
+                    }).render('gitment');
+                }
+                var gc = document.createElement('script');
+                gc.type = 'text/javascript';
+                gc.src = '//imsun.github.io/gitment/dist/gitment.browser.js';
+                gc.charset = 'UTF-8';
+                gc.onload = render;
+                gc.async = true;
+                document.querySelector('body').appendChild(gc);
+                var gcs = document.createElement('link');
+                gcs.href = '//imsun.github.io/gitment/style/default.css';
+                gcs.type = 'text/css';
+                gcs.rel = 'stylesheet';
+                gcs.media = 'screen,print';
+                document.querySelector('head').appendChild(gcs);
+            })();
+	    </script>
+    
+
+
+
+    </body>
+</html>
