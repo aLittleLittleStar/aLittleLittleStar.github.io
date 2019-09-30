@@ -15,7 +15,7 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n概述摘自JavaScript高级程序设计:　　继承是OO语言中的一个最为人津津乐道的概念.许多OO语言都支持两种继承方式: 接口继承 和 实现继承 .接口继承只继承方法签名,而实现继承则继承实际的方法.由于js中方法没有签名,在ECMAScript中无法实现接口继承.ECMAScript只支持实现继承,而且其 实现继承 主要是依靠原型链来实现的.　　在 JavaScript 中，是一种面向对象的程序设计语言，但是 JS 本身是没有 “类” 的概念，JS 是靠原型和原型链实现对象属性的继承。　　在理解原型前，需要先知道对象的构造函数是什么，构造函数都有什么特点？\n构造函数123456789101112// 构造函数 Person()function Person(name, gender) &#123;  this.name = name;  this.gender = gender;&#125;var person = new Person(\"周杰伦\", \"男\");// 最后创建出来的对象实例 personperson&#123;  name: \"周杰伦\",  gender: \"男\"&#125;\n以上代码，普通函数 Person()，加上 new 关键字后，就构造了一个对象 person所以构造函数的定义就是普通函数加上 new 关键字，并总会返回一个对象。\n函数对象　　同时，JS 中的对象分为一般对象和函数对象。那什么是一般对象，什么又是函数对象呢？　　JavaScript 的类型分为基本数据类型和引用数据类型，基本数据类型目前有 6 种（null, undefined, string, number, boolean, Symbol）。 其余的数据类型都统称为 object 数据类型，其中，包括 Array, Date, Function等，所以函数可以称为函数对象。12345let foo = function()&#123;&#125;foo.name = \"bar\";foo.age = 24;console.log(foo instanceof Function)  //trueconsole.log(foo.age)  // 24\n以上代码就说明了函数其实是一个对象，也可以具有属性。\n原型链　　JavaScript 中的对象，有一个特殊的 [[prototype]] 属性, 其实就是对于其他对象的引用（委托）。当我们在获取一个对象的属性时，如果这个对象上没有这个属性，那么 JS 会沿着对象的 [[prototype]]链 一层一层地去找，最后如果没找到就返回 undefined;这条一层一层的查找属性的方式，就叫做原型链。123var o1 = &#123;  age: 6&#125;\n　　那么，为什么一个对象要引用，或者说要委托另外一个对象来寻找属性呢？　　本文开篇的第一句话，就指出来的，JavaScript 中，和一般的 OOP 语言不同，它没有 ‘类’的概念，也就没有 ‘模板’ 来创建对象，而是通过字面量或者构造函数的方式直接创建对象。那么也就不存在所谓的类的复制继承。\n原型　　那什么又是原型呢？　　既然我们没有类，就用其他的方式实现类的行为吧，看下面这句话↓↓。\n每个函数都有一个原型属性 prototype 对象123456789function Person() &#123;&#125;Person.prototype.name = 'JayChou';// person1 和 person2 都是空对象var person1 = new Person();var person2 = new Person();console.log(person1.name) // JayChouconsole.log(person2.name) // JayChou\n　　通过构造函数创造的对象，对象在寻找 name 属性时，找到了 构造函数的 prototype 对象上。　　这个构造函数的 prototype 对象，就是 原型用示意图来表示：　　查找对象实例属性时，会沿着原型链向上找，在现代浏览器中，标准让每个对象都有一个 __proto__ 属性，指向原型对象。那么，我们可以知道对象实例和函数原型对象之间的关系。\n每个原型对象都有一个 constructor 属性指向关联的构造函数为了验证这一说话，举个例子。12function Person() &#123;&#125;Person === Person.prototype.constructor; // true\n那么对象实例是构造函数构造而来，那么对象实例是不是也应该有一个 constructor 呢？1234function Person() &#123;&#125;const person = new Person();person.constructor === Person // true\n但事实上，对象实例本身并没有 constructor 属性，对象实例的 constructor 属性来自于引用了原型对象的 constructor 属性person.constructor === Person.prototype.constructor // true\n原型链顶层：Object.prototype.__proto__== null　　既然 JS 通过原型链查找属性，那么链的顶层是什么呢，答案就是 Object 对象，Object 对象其实也有 __proto__属性，比较特殊的是 Object.prototype.__proto__ 指向 null, 也就是空。Object.prototype.__proto__ === null我们回过头来看函数对象：\n\n所有函数对象的proto都指向Function.prototype，它是一个空函数（Empty function）\n\n123456789101112131415161718192021222324252627282930Number.__proto__ === Function.prototype  // trueNumber.constructor == Function //trueBoolean.__proto__ === Function.prototype // trueBoolean.constructor == Function //trueString.__proto__ === Function.prototype  // trueString.constructor == Function //true// 所有的构造器都来自于Function.prototype,// 甚至包括根构造器Object及Function自身Object.__proto__ === Function.prototype  // trueObject.constructor == Function // true// 所有的构造器都来自于Function.prototype，// 甚至包括根构造器Object及Function自身Function.__proto__ === Function.prototype // trueFunction.constructor == Function //trueArray.__proto__ === Function.prototype   // trueArray.constructor == Function //trueRegExp.__proto__ === Function.prototype  // trueRegExp.constructor == Function //trueError.__proto__ === Function.prototype   // trueError.constructor == Function //trueDate.__proto__ === Function.prototype    // trueDate.constructor == Function //true\n\n所有的构造器都来自于 Function.prototype，甚至包括根构造器Object及Function自身。所有构造器都继承了·Function.prototype·的属性及方法。如length、call、apply、bind\n\n以图会友，这就是网上经常看到的 JS 原型和原型链关系图：\n对于以上看似很复杂的关系图，只需要理解 5 点：　　每个函数都有一个原型属性 prototype 对象　　普通对象的构造函数是 Object()，所以 Person.prototype.__proto__ === Object.prototype　　函数对象都来自于 Function.prototype　　函数对象也是对象，所有 Function.prototype.__proto__ === Object.prototype　　记住，所有函数原型的都是 Object() 的实例　　Object.prototype.__proto__ 是 null\n转载：　　JavaScript原型与原型链参考：　　2019 面试准备 - JS 原型与原型链　　JS原型链与继承别再被问倒了　　三张图搞懂JavaScript的原型对象与原型链　　JavaScript原型及原型链\n","dateCreated":"2019-04-10T15:34:11+08:00","dateModified":"2019-04-22T09:14:52+08:00","datePublished":"2019-04-10T15:34:11+08:00","description":"","headline":"原型&&原型链","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/10/JavaScript/原型&&原型链/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/10/JavaScript/原型&&原型链/","keywords":"JavaScript"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n\n概述摘自JavaScript高级程序设计:　　继承是OO语言中的一个最为人津津乐道的概念.许多OO语言都支持两种继承方式: 接口继承 和 实现继承 .接口继承只继承方法签名,而实现继承则继承实际的方法.由于js中方法没有签名,在ECMAScript中无法实现接口继承.ECMAScript只支持实现继承,而且其 实现继承 主要是依靠原型链来实现的.　　在 JavaScript 中，是一种面向对象的程序设计语言，但是 JS 本身是没有 “类” 的概念，JS 是靠原型和原型链实现对象属性的继承。　　在理解原型前，需要先知道对象的构造函数是什么，构造函数都有什么特点？\n构造函数123456789101112// 构造函数 Person()function Person(name, gender) &#123;  this.name = name;  this.gender = gender;&#125;var person = new Person(\"周杰伦\", \"男\");// 最后创建出来的对象实例 personperson&#123;  name: \"周杰伦\",  gender: \"男\"&#125;\n以上代码，普通函数 Person()，加上 new 关键字后，就构造了一个对象 person所以构造函数的定义就是普通函数加上 new 关键字，并总会返回一个对象。\n函数对象　　同时，JS 中的对象分为一般对象和函数对象。那什么是一般对象，什么又是函数对象呢？　　JavaScript 的类型分为基本数据类型和引用数据类型，基本数据类型目前有 6 种（null, undefined, string, number, boolean, Symbol）。 其余的数据类型都统称为 object 数据类型，其中，包括 Array, Date, Function等，所以函数可以称为函数对象。12345let foo = function()&#123;&#125;foo.name = \"bar\";foo.age = 24;console.log(foo instanceof Function)  //trueconsole.log(foo.age)  // 24\n以上代码就说明了函数其实是一个对象，也可以具有属性。\n原型链　　JavaScript 中的对象，有一个特殊的 [[prototype]] 属性, 其实就是对于其他对象的引用（委托）。当我们在获取一个对象的属性时，如果这个对象上没有这个属性，那么 JS 会沿着对象的 [[prototype]]链 一层一层地去找，最后如果没找到就返回 undefined;这条一层一层的查找属性的方式，就叫做原型链。123var o1 = &#123;  age: 6&#125;\n　　那么，为什么一个对象要引用，或者说要委托另外一个对象来寻找属性呢？　　本文开篇的第一句话，就指出来的，JavaScript 中，和一般的 OOP 语言不同，它没有 ‘类’的概念，也就没有 ‘模板’ 来创建对象，而是通过字面量或者构造函数的方式直接创建对象。那么也就不存在所谓的类的复制继承。\n原型　　那什么又是原型呢？　　既然我们没有类，就用其他的方式实现类的行为吧，看下面这句话↓↓。\n每个函数都有一个原型属性 prototype 对象123456789function Person() &#123;&#125;Person.prototype.name = 'JayChou';// person1 和 person2 都是空对象var person1 = new Person();var person2 = new Person();console.log(person1.name) // JayChouconsole.log(person2.name) // JayChou\n　　通过构造函数创造的对象，对象在寻找 name 属性时，找到了 构造函数的 prototype 对象上。　　这个构造函数的 prototype 对象，就是 原型用示意图来表示：　　查找对象实例属性时，会沿着原型链向上找，在现代浏览器中，标准让每个对象都有一个 __proto__ 属性，指向原型对象。那么，我们可以知道对象实例和函数原型对象之间的关系。\n每个原型对象都有一个 constructor 属性指向关联的构造函数为了验证这一说话，举个例子。12function Person() &#123;&#125;Person === Person.prototype.constructor; // true\n那么对象实例是构造函数构造而来，那么对象实例是不是也应该有一个 constructor 呢？1234function Person() &#123;&#125;const person = new Person();person.constructor === Person // true\n但事实上，对象实例本身并没有 constructor 属性，对象实例的 constructor 属性来自于引用了原型对象的 constructor 属性person.constructor === Person.prototype.constructor // true\n原型链顶层：Object.prototype.__proto__== null　　既然 JS 通过原型链查找属性，那么链的顶层是什么呢，答案就是 Object 对象，Object 对象其实也有 __proto__属性，比较特殊的是 Object.prototype.__proto__ 指向 null, 也就是空。Object.prototype.__proto__ === null我们回过头来看函数对象：\n\n所有函数对象的proto都指向Function.prototype，它是一个空函数（Empty function）\n\n123456789101112131415161718192021222324252627282930Number.__proto__ === Function.prototype  // trueNumber.constructor == Function //trueBoolean.__proto__ === Function.prototype // trueBoolean.constructor == Function //trueString.__proto__ === Function.prototype  // trueString.constructor == Function //true// 所有的构造器都来自于Function.prototype,// 甚至包括根构造器Object及Function自身Object.__proto__ === Function.prototype  // trueObject.constructor == Function // true// 所有的构造器都来自于Function.prototype，// 甚至包括根构造器Object及Function自身Function.__proto__ === Function.prototype // trueFunction.constructor == Function //trueArray.__proto__ === Function.prototype   // trueArray.constructor == Function //trueRegExp.__proto__ === Function.prototype  // trueRegExp.constructor == Function //trueError.__proto__ === Function.prototype   // trueError.constructor == Function //trueDate.__proto__ === Function.prototype    // trueDate.constructor == Function //true\n\n所有的构造器都来自于 Function.prototype，甚至包括根构造器Object及Function自身。所有构造器都继承了·Function.prototype·的属性及方法。如length、call、apply、bind\n\n以图会友，这就是网上经常看到的 JS 原型和原型链关系图：\n对于以上看似很复杂的关系图，只需要理解 5 点：　　每个函数都有一个原型属性 prototype 对象　　普通对象的构造函数是 Object()，所以 Person.prototype.__proto__ === Object.prototype　　函数对象都来自于 Function.prototype　　函数对象也是对象，所有 Function.prototype.__proto__ === Object.prototype　　记住，所有函数原型的都是 Object() 的实例　　Object.prototype.__proto__ 是 null\n第二版原型　　原型对象只存在于函数对象。也就是本质上只要是通过new Function创建的函数对象会有一个原型对象。　　而对于其他非Function的引用类型归根结底也是通过new Function创建的。　　如上面提到的Array类型、Object类型。　　实际上，在每个函数对象创建的时候，都会自带一个prototype的属性，这个属性相当于一个指针，指向他本身的原型对象，这个原型对象里包含着自定义的方法属性，现假设创建了函数对象a123456function a()&#123;    this.name='xiaoming';    this.sayName=function () &#123;        console.log(this.name);    &#125;&#125;\n则会有如下所示的结构\n　　在默认情况下，a.prototype下会带有一个constructor属性，这个属性指向创建当前函数对象的构造函数，比如这里constructor指向构造函数a本身也就是说1a.prototypr.constructor==a   //true\n　　另外默认还有一个_proto_属性，这个属性指向由创建这个函数对象的引用类型中继承而来的属性和方法。　　当通过构造函数实例化一个对象b时，即new a();则会产生如图所示结构\n　　首先这个new出来的对象属于普通对象，所以没有prototype属性。但他有_proto_这个属性，这个属性指向创建它的引用类型的原型对象，在这个例子中指向a.prototype,从而继承来自引用类型a的属性和方法。　　而原型的很大一部分作用是用来继承的，在上面的例子中，b就继承了a中的属性name,和方法sayName总结一下要点就是：121、原型对象只存在于函数对象中；2、prototype为函数对象的一个属性，这个属性指向原型对象;(a.prototype);\n原型链　　上面原型说的继承是指当前引用类型的实例继承来自引用类型的属性方法。而通过原型链我们可以进行两个类型之间的继承。假设当前有两个aa、AA：1234567891011121314151617  function aa()&#123;      a.prototype.name='xiaoming';      a.prototype.sayName=function () &#123;          console.log(this.name);      &#125;  &#125;  function AA() &#123;      A.prototype.age=15;      A.prototype.sayAge=function()&#123;          console.log(this.age);      &#125;  &#125;//AA继承aaAA.prototype=new aa();var BB=new AA();console.log(BB);console.log(BB.sayName())     //\"xiaoming\"\n打印出的结果为　　大致流程就是通过AA.prototype=new aa();使得AA.prototype(原型对象)下的proto指向aa.prototype，当创建引用类型AA的实例化对象BB时，BB内部会产生一个proto属性指向AA的原型对象，再通过AA原型对象中的proto指向aa的原型对象，从而实现实例对象BB对aa的继承，整个链向：BB的proto —-&gt;AA.prototype—-&gt;aa.prototype，这就是一条原型链，如果在继续延伸的话，aa的原型对象下的proto属性会指向Function本身。整个结构图大致如图所示：\n转载：　　JavaScript原型与原型链参考：　　2019 面试准备 - JS 原型与原型链　　JS原型链与继承别再被问倒了　　三张图搞懂JavaScript的原型对象与原型链　　JavaScript原型及原型链　　温故js系列（15）-原型&amp;原型链&amp;原型继承　　继承与原型链\n","dateCreated":"2019-04-10T15:34:11+08:00","dateModified":"2019-09-30T09:08:41+08:00","datePublished":"2019-04-10T15:34:11+08:00","description":"","headline":"原型&&原型链","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/04/10/JavaScript/原型&&原型链/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/04/10/JavaScript/原型&&原型链/","keywords":"JavaScript"}</script>
     <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="原型&amp;&amp;原型链">
@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://yoursite.com/assets/images/原型2.png">
 <meta property="og:image" content="http://yoursite.com/assets/images/原型3.png">
 <meta property="og:image" content="http://yoursite.com/assets/images/原型4.png">
-<meta property="og:updated_time" content="2019-04-22T01:14:52.133Z">
+<meta property="og:updated_time" content="2019-09-30T01:08:41.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型&amp;&amp;原型链">
 <meta name="twitter:image" content="http://yoursite.com/assets/images/原型.png">
@@ -247,7 +247,7 @@
     
     <i class="fas fa-chart-area"></i> 
     <span class="post-count">
-        字数统计：1.5k字
+        字数统计：2.2k字
     </span>
 </div>
 
@@ -255,7 +255,7 @@
 
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数对象"><span class="toc-text">函数对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链"><span class="toc-text">原型链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型"><span class="toc-text">原型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#每个函数都有一个原型属性-prototype-对象"><span class="toc-text">每个函数都有一个原型属性 prototype 对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#每个原型对象都有一个-constructor-属性指向关联的构造函数"><span class="toc-text">每个原型对象都有一个 constructor 属性指向关联的构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型链顶层：Object-prototype-proto-null"><span class="toc-text">原型链顶层：Object.prototype.__proto__== null</span></a></li></ol></li></ol>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数对象"><span class="toc-text">函数对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链"><span class="toc-text">原型链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型"><span class="toc-text">原型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#每个函数都有一个原型属性-prototype-对象"><span class="toc-text">每个函数都有一个原型属性 prototype 对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#每个原型对象都有一个-constructor-属性指向关联的构造函数"><span class="toc-text">每个原型对象都有一个 constructor 属性指向关联的构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型链顶层：Object-prototype-proto-null"><span class="toc-text">原型链顶层：Object.prototype.__proto__== null</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二版"><span class="toc-text">第二版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原型-1"><span class="toc-text">原型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链-1"><span class="toc-text">原型链</span></a></li></ol>
 <a id="more"></a>
 <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>摘自JavaScript高级程序设计:<br>　　继承是OO语言中的一个最为人津津乐道的概念.许多OO语言都支持两种继承方式: <code>接口继承</code> 和 <code>实现继承</code> .<code>接口继承只继承方法签名</code>,而<code>实现继承则继承实际的方法</code>.由于js中方法没有签名,在ECMAScript中无法实现接口继承.ECMAScript只支持实现继承,而且其 实现继承 主要是依靠<code>原型链</code>来实现的.<br>　　在 JavaScript 中，是一种面向对象的程序设计语言，但是 JS 本身是没有 “类” 的概念，JS 是靠原型和原型链实现对象属性的继承。<br>　　在理解原型前，需要先知道对象的构造函数是什么，构造函数都有什么特点？</p>
 <h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 构造函数 Person()</span><br><span class="line"><span class="keyword">function</span> Person(name, gender) &#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.gender = gender;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Person(<span class="string">"周杰伦"</span>, <span class="string">"男"</span>);</span><br><span class="line">// 最后创建出来的对象实例 person</span><br><span class="line">person</span><br><span class="line">&#123;</span><br><span class="line">  name: <span class="string">"周杰伦"</span>,</span><br><span class="line">  gender: <span class="string">"男"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -280,7 +280,14 @@
 </blockquote>
 <p>以图会友，这就是网上经常看到的 JS 原型和原型链关系图：<br><img src="/assets/images/原型4.png" alt="原型"></p>
 <p>对于以上看似很复杂的关系图，只需要理解 5 点：<br>　　每个函数都有一个原型属性 <code>prototype</code> 对象<br>　　普通对象的构造函数是 <code>Object()</code>，所以 <code>Person.prototype.__proto__ === Object.prototype</code><br>　　函数对象都来自于 <code>Function.prototype</code><br>　　函数对象也是对象，所有 <code>Function.prototype.__proto__ === Object.prototype</code><br>　　记住，所有函数原型的都是 <code>Object()</code> 的实例<br>　　<code>Object.prototype.__proto__</code> 是 <code>null</code></p>
-<p>转载：<br>　　<a href="https://juejin.im/post/5bc755b15188255c89015f39" target="_blank" rel="noopener">JavaScript原型与原型链</a><br>参考：<br>　　<a href="https://juejin.im/post/5c72a1766fb9a049ea3993e6#chapter-one" target="_blank" rel="noopener">2019 面试准备 - JS 原型与原型链</a><br>　　<a href="https://juejin.im/post/58f94c9bb123db411953691b#heading-2" target="_blank" rel="noopener">JS原型链与继承别再被问倒了</a><br>　　<a href="https://juejin.im/post/5835853f570c35005e413b19#heading-0" target="_blank" rel="noopener">三张图搞懂JavaScript的原型对象与原型链</a><br>　　<a href="https://hexianzhi.github.io/2017/04/27/JavaScript%E5%8E%9F%E5%9E%8B/" target="_blank" rel="noopener">JavaScript原型及原型链</a></p>
+<h2 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h2><h3 id="原型-1"><a href="#原型-1" class="headerlink" title="原型"></a>原型</h3><p>　　原型对象只存在于函数对象。也就是本质上只要是通过<code>new Function</code>创建的函数对象会有一个原型对象。<br>　　而对于其他非Function的引用类型归根结底也是通过new Function创建的。<br>　　如上面提到的Array类型、Object类型。<br>　　实际上，在每个函数对象创建的时候，都会自带一个prototype的属性，这个属性相当于一个指针，指向他本身的原型对象，这个原型对象里包含着自定义的方法属性，<br>现假设创建了函数对象a<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">a</span></span>()&#123;</span><br><span class="line">    this.name=<span class="string">'xiaoming'</span>;</span><br><span class="line">    this.sayName=<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>则会有如下所示的结构</p>
+<p>　　在默认情况下，<code>a.prototype</code>下会带有一个<code>constructor</code>属性，这个属性指向创建当前函数对象的构造函数，比如这里<br>constructor指向构造函数a本身也就是说<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a.prototypr.constructor==a   //<span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>　　另外默认还有一个<code>_proto_</code>属性，这个属性指向由创建这个函数对象的引用类型中继承而来的属性和方法。<br>　　当通过构造函数实例化一个对象b时，即<code>new a()</code>;<br>则会产生如图所示结构</p>
+<p>　　首先这个new出来的对象属于普通对象，所以没有prototype属性。但他有<code>_proto_</code>这个属性，这个属性指向创建它的引用类型的原型对象，在这个例子中指向<code>a.prototype</code>,从而继承来自引用类型a的属性和方法。<br>　　而原型的很大一部分作用是用来继承的，在上面的例子中，b就继承了a中的属性name,和方法sayName<br>总结一下要点就是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、原型对象只存在于函数对象中；</span><br><span class="line">2、prototype为函数对象的一个属性，这个属性指向原型对象;(a.prototype);</span><br></pre></td></tr></table></figure></p>
+<h3 id="原型链-1"><a href="#原型链-1" class="headerlink" title="原型链"></a>原型链</h3><p>　　上面原型说的继承是指当前引用类型的实例继承来自引用类型的属性方法。而通过原型链我们可以进行两个类型之间的继承。假设当前有两个aa、AA：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">aa</span></span>()&#123;</span><br><span class="line">      a.prototype.name=<span class="string">'xiaoming'</span>;</span><br><span class="line">      a.prototype.sayName=<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">          console.log(this.name);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">AA</span></span>() &#123;</span><br><span class="line">      A.prototype.age=15;</span><br><span class="line">      A.prototype.sayAge=<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">          console.log(this.age);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">//AA继承aa</span><br><span class="line">AA.prototype=new aa();</span><br><span class="line">var BB=new AA();</span><br><span class="line">console.log(BB);</span><br><span class="line">console.log(BB.sayName())     //<span class="string">"xiaoming"</span></span><br></pre></td></tr></table></figure></p>
+<p>打印出的结果为<br>　　大致流程就是通过<code>AA.prototype=new aa();</code>使得AA.prototype(原型对象)下的<em>proto</em>指向aa.prototype，当创建引用类型AA的实例化对象BB时，BB内部会产生一个<em>proto</em>属性指向AA的原型对象，再通过AA原型对象中的<em>proto</em>指向aa的原型对象，从而实现实例对象BB对aa的继承，整个链向：BB的<em>proto</em> —-&gt;AA.prototype—-&gt;aa.prototype，这就是一条原型链，如果在继续延伸的话，aa的原型对象下的<em>proto</em>属性会指向Function本身。<br>整个结构图大致如图所示：</p>
+<p>转载：<br>　　<a href="https://juejin.im/post/5bc755b15188255c89015f39" target="_blank" rel="noopener">JavaScript原型与原型链</a><br>参考：<br>　　<a href="https://juejin.im/post/5c72a1766fb9a049ea3993e6#chapter-one" target="_blank" rel="noopener">2019 面试准备 - JS 原型与原型链</a><br>　　<a href="https://juejin.im/post/58f94c9bb123db411953691b#heading-2" target="_blank" rel="noopener">JS原型链与继承别再被问倒了</a><br>　　<a href="https://juejin.im/post/5835853f570c35005e413b19#heading-0" target="_blank" rel="noopener">三张图搞懂JavaScript的原型对象与原型链</a><br>　　<a href="https://hexianzhi.github.io/2017/04/27/JavaScript%E5%8E%9F%E5%9E%8B/" target="_blank" rel="noopener">JavaScript原型及原型链</a><br>　　<a href="https://segmentfault.com/a/1190000006876041" target="_blank" rel="noopener">温故js系列（15）-原型&amp;原型链&amp;原型继承</a><br>　　<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="noopener">继承与原型链</a></p>
 
             
 
@@ -321,7 +328,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -388,7 +395,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：137.7k</span>
+		<span class="post-count">字数统计：139.5k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -435,7 +442,7 @@ setInterval("createtime()",250);
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -618,25 +625,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
-                            <h3 class="media-heading">bind、apply和call的区别</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
                             <h3 class="media-heading">CSS模块化</h3>
                         </a>
@@ -675,8 +663,8 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
-                            <h3 class="media-heading">语义化标签</h3>
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
+                            <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -685,10 +673,7 @@ setInterval("createtime()",250);
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
-<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
-<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
-<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc --></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -710,6 +695,28 @@ setInterval("createtime()",250);
                         <div class="media-content hide-xs font-merryweather"><!-- toc -->
 <p>转载：<a href="https://segmentfault.com/a/1190000004865198" target="_blank" rel="noopener">CSS-清除浮动</a></p>
 <h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>　　浮动的元素是<code>脱离文档标准流</code>的，如果我们不清楚浮动，那么就会造成<code>父元素高度塌陷</code>，<code>影响页面布局</code>。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/H5/语义化标签/">
+                            <h3 class="media-heading">语义化标签</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><!-- toc -->
+<h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
+<h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
+<h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
