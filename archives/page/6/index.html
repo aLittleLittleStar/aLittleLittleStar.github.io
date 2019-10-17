@@ -223,6 +223,124 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2019/03/25/JavaScript/面试题/">
+                            (无标题)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-03-25T15:11:32+08:00">
+	
+		    3月 25, 2019
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>一行代码实现数组去重？<br><code>[...new Set([1,2,3,1,&#39;a&#39;,1,&#39;a&#39;])]</code><br>怎么判断两个对象相等？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">obj=&#123;</span><br><span class="line">    a:1,</span><br><span class="line">    b:2</span><br><span class="line">&#125;</span><br><span class="line">obj2=&#123;</span><br><span class="line">    a:1,</span><br><span class="line">    b:2</span><br><span class="line">&#125;</span><br><span class="line">obj3=&#123;</span><br><span class="line">    a:1,</span><br><span class="line">    b:&apos;2&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">JSON.stringify(obj)==JSON.stringify(obj2);//true</span><br><span class="line">JSON.stringify(obj)==JSON.stringify(obj3);//false</span><br></pre></td></tr></table></figure></p>
+<p>CommonJS 中的 require/exports 和 ES6 中的 import/export 区别？</p>
+<p>CommonJS 模块的重要特性是加载时执行，即脚本代码在 require 的时候，就会全部执行。一旦出现某个模块被”循环加载”，就只输出已经执行的部分，还未执行的部分不会输出。<br>ES6 模块是动态引用，如果使用 import 从一个模块加载变量，那些变量不会被缓存，而是成为一个指向被加载模块的引用，需要开发者自己保证，真正取值的时候能够取到值。<br>import/export 最终都是编译为 require/exports 来执行的。<br>CommonJS 规范规定，每个模块内部，module 变量代表当前模块。这个变量是一个对象，它的 exports 属性（即 module.exports ）是对外的接口。加载某个模块，其实是加载该模块的 module.exports 属性。<br>export 命令规定的是对外的接口，必须与模块内部的变量建立一一对应关系。</p>
+<p>浏览器缓存<br>浏览器缓存分为强缓存和协商缓存。当客户端请求某个资源时，获取缓存的流程如下：</p>
+<p>先根据这个资源的一些 http header 判断它是否命中强缓存，如果命中，则直接从本地获取缓存资源，不会发请求到服务器；<br>当强缓存没有命中时，客户端会发送请求到服务器，服务器通过另一些request header验证这个资源是否命中协商缓存，称为http再验证，如果命中，服务器将请求返回，但不返回资源，而是告诉客户端直接从缓存中获取，客户端收到返回后就会从缓存中获取资源；<br>强缓存和协商缓存共同之处在于，如果命中缓存，服务器都不会返回资源；<br>区别是，强缓存不对发送请求到服务器，但协商缓存会。<br>当协商缓存也没命中时，服务器就会将资源发送回客户端。<br>当 ctrl+f5 强制刷新网页时，直接从服务器加载，跳过强缓存和协商缓存；<br>当 f5 刷新网页时，跳过强缓存，但是会检查协商缓存；</p>
+<p>强缓存</p>
+<p>Expires（该字段是 http1.0 时的规范，值为一个绝对时间的 GMT 格式的时间字符串，代表缓存资源的过期时间）<br>Cache-Control:max-age（该字段是 http1.1 的规范，强缓存利用其 max-age 值来判断缓存资源的最大生命周期，它的值单位为秒）</p>
+<p>协商缓存</p>
+<p>Last-Modified（值为资源最后更新时间，随服务器response返回）<br>If-Modified-Since（通过比较两个时间来判断资源在两次请求期间是否有过修改，如果没有修改，则命中协商缓存）<br>ETag（表示资源内容的唯一标识，随服务器response返回）<br>If-None-Match（服务器通过比较请求头部的If-None-Match与当前资源的ETag是否一致来判断资源是否在两次请求之间有过修改，如果没有修改，则命中协商缓存）</p>
+<p>页面渲染的完整流程是怎样的？</p>
+<h3 id="图片里的-alt-属性是做什么的？"><a href="#图片里的-alt-属性是做什么的？" class="headerlink" title="图片里的 alt 属性是做什么的？"></a>图片里的 alt 属性是做什么的？</h3><p>查看答案<br>如果用户看不到图像，alt 属性可以提供替代信息。alt 属性应该用于描述，而那些仅仅是装饰目的图像，可以为空</p>
+<p>小贴士<br>装饰性的图像应该有一个空的 alt 属性<br>web 爬虫可以通过 alt 属性理解图像的信息，因此认为它对于搜索引擎优化（SEO）非常重要<br>在 alt 末尾加 . 可以提高访问性</p>
+<h3 id="不采用缓存的目的是什么，你如何实现它？"><a href="#不采用缓存的目的是什么，你如何实现它？" class="headerlink" title="不采用缓存的目的是什么，你如何实现它？"></a>不采用缓存的目的是什么，你如何实现它？</h3><p>查看答案<br>浏览器有一个临时的存储网站文件的缓存，所以他们不需要在切换或重新加载同一个页面时再次重新下载。服务器设置发送头信息告诉浏览器在给定的一段时间内使用存储文件。这极大加快了网站的速度和节省了带宽</p>
+<p>然而，当开发人员网站更新时，因为用户的缓存依然指向旧的文件，这会造成问题。如果缓存的 CSS 和 JavaScript 文件引用的元素不再存在，已移除或已重命名时，它会保留原有功能或破坏网站</p>
+<p>禁用缓存是一个强制浏览器下载新文件的过程。通过命名来区分于旧文件</p>
+<p>一个常用的强制浏览器重新下载文件的技术是在文件的结尾处增加一个查询字符串</p>
+<p>src=”js/script.js” =&gt; src=”js/script.js?v=2”<br>浏览器认为这是一个不同的文件但是避免了修改文件名的必要</p>
+<h3 id="一个页面里是否可以包含多个-元素，-元素呢？"><a href="#一个页面里是否可以包含多个-元素，-元素呢？" class="headerlink" title="一个页面里是否可以包含多个  元素，  元素呢？"></a>一个页面里是否可以包含多个 <header> 元素， <footer> 元素呢？</footer></header></h3><p>查看答案<br>都可以。W3C 文档声明这些标签代表离它们最近祖先区域的页眉（<header>）和页脚（<footer>）。因此，不只是可以在页面的 <body> 里包含页眉和页脚，而且每一个 <article> 和 <section> 元素都可以包含</section></article></body></footer></header></p>
+<p>小贴士<br>W3C 推荐你想用多少就用多少，但是每一个页面的区域只能有一个，即，body，section 等等</p>
+<h3 id="lt-script-gt-标签的-defer-和-async-是什么？"><a href="#lt-script-gt-标签的-defer-和-async-是什么？" class="headerlink" title="&lt;script&gt; 标签的 defer 和 async 是什么？"></a><code>&lt;script&gt;</code> 标签的 defer 和 async 是什么？</h3><p>查看答案<br>如果两个属性都没有的话，脚本将同步下载和执行，并且会阻塞 document 解析，直到脚本执行完成（默认行为）。脚本下载和执行按它们书写的顺序进行</p>
+<p>defer 属性在 document 解析的过程中下载脚本，但是在 document 解析完成之前执行，等价于执行了一个内置的事件监听器 DOMContentLoaded。defer 脚本顺序执行</p>
+<p>async 属性在 document 解析过程中下载脚本，但是会暂停解析器，直到脚本解析执行完成。async 不一定按顺序执行</p>
+<p>注意：两个属性必须在脚本拥有 src 属性时才起作用（即，在内联脚本不起作用）</p>
+<p><script src="myscript.js"></script></p>
+<p><script src="myscript.js" defer></script></p>
+<p><script src="myscript.js" async></script><br>小贴士<br>请用 <head> 中放置一个 defer，允许浏览器在页面还在解析过程中下载脚本，因此把脚本放到 body 之前是更好的选择<br>如果脚本之间相互依赖，请用 defer.<br>如果脚本是独立的，请用 async.<br>如果 DOM 必须加载完并且内容还未放置到 DOMContentLoaded 监听器中时，请用 defer</head></p>
+<h3 id="相比-HTML，XHTML-有哪些不同？"><a href="#相比-HTML，XHTML-有哪些不同？" class="headerlink" title="相比 HTML，XHTML 有哪些不同？"></a>相比 HTML，XHTML 有哪些不同？</h3><p>查看答案<br>有一些关键区别：</p>
+<p>一个 XHTML 元素必须要有一个 XHTML <doctype><br>属性值必须用引号包裹<br>禁止属性简写（例如，checked=”checked” 不能简写为 checked）<br>元素必须正确的被嵌套<br>元素必须闭合<br>特殊字符必须被转义<br>小贴士<br>任何被标签都是自闭合<br>标签和属性区分大小写，通常小写</doctype></p>
+<h3 id="你能说出-media-属性的四种类型吗？"><a href="#你能说出-media-属性的四种类型吗？" class="headerlink" title="你能说出 @media 属性的四种类型吗？"></a>你能说出 @media 属性的四种类型吗？</h3><p>查看答案<br>all，适用于所有媒体设备<br>print，仅适用于打印机<br>screen，仅适用于屏幕设备（台式电脑、平板电脑、移动设备等）<br>speech，仅适用于屏幕阅读器</p>
+<p>如何统计网页里出现多少种html标签<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取所有标签</span></span><br><span class="line">var doms = document.getElementsByTagName(<span class="string">"*"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#去重</span></span><br><span class="line">var obj = &#123;&#125;</span><br><span class="line">var ret = []</span><br><span class="line"><span class="keyword">for</span> (var j = 0; j &lt; doms.length; i++) &#123;</span><br><span class="line">  var name = doms[j].nodeName</span><br><span class="line">  <span class="keyword">if</span>(!obj[name]) &#123;</span><br><span class="line">    ret.push(name)</span><br><span class="line">    obj[name] = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(ret.length);</span><br><span class="line"></span><br><span class="line"><span class="comment"># ES6方法</span></span><br><span class="line">const names = [...document.getElementsByTagName(<span class="string">"*"</span>)].map(v=&gt;v.nodeName)</span><br><span class="line"></span><br><span class="line">console.log(new Set(names).size);</span><br></pre></td></tr></table></figure></p>
+<p>手写bind call<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.call = <span class="keyword">function</span>(context) &#123;</span><br><span class="line">  context = context || window</span><br><span class="line">  context.fn = this</span><br><span class="line">  const args = [...arguments].slice(1)</span><br><span class="line">  const result = context.fn(...args)</span><br><span class="line">  delete context.fn</span><br><span class="line">  <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Function.prototype.bind = <span class="keyword">function</span>(context) &#123;</span><br><span class="line">  const _this = this</span><br><span class="line">  const args = [...arguments].slice(1)</span><br><span class="line">  // 返回一个高阶函数</span><br><span class="line">  <span class="built_in">return</span> <span class="keyword">function</span> <span class="function"><span class="title">F</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span>(this instanceof F) &#123;</span><br><span class="line">      <span class="built_in">return</span> new _this(...args, ...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> _this.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如何提升渲染性能<br>服务端渲染<br>为什么要进行服务端渲染</p>
+<p>JS<br>回收机制<br>String、Array类型的方法使用<br>原型与原型链<br>构造函数模型/原型模型<br>闭包/递归<br>BOM<br>操作BOM结构<br>事件冒泡/捕获<br>AJAX请求</p>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2019/03/25/JavaScript/面试题/#post-footer" class="postShorten-excerpt_link link">
+                                评论和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2019/03/22/CSS3/定位/">
+                            定位
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2019-03-22T18:09:02+08:00">
+	
+		    3月 22, 2019
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/前端/">前端</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-excerpt">
+                    <p>position<br>static<br>表示没有定位，元素出现在正常的文档流中。<br>为静态定位的元素设置 top|bottom|left|right 不起作用。</p>
+                    
+                        <a href="/2019/03/22/CSS3/定位/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2019/03/22/Vue/Vue生命周期/">
                             (无标题)
                         </a>
@@ -522,7 +640,7 @@
             
                 <div class="postShorten-excerpt">
                     <!-- toc -->
-<p>转载:<br>　　<a href="https://segmentfault.com/a/1190000012469713" target="_blank" rel="noopener">ajax跨域，这应该是最全的解决方案了</a><br>参考:<br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a><br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></p>
+<p>转载:<br>　　<a href="https://segmentfault.com/a/1190000012469713" target="_blank" rel="noopener">ajax跨域，这应该是最全的解决方案了</a><br>参考:<br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a><br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a><br><a href="https://juejin.im/post/5a2f92c65188253e2470f16d" target="_blank" rel="noopener">正确面对跨域，别慌</a><br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a></p>
 <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>同源即指：协议相同、域名相同、端口号相同。<br></p>
                     
                         <a href="/2019/03/17/Ajax/同源策略和跨域/" class="postShorten-excerpt_link link">
@@ -742,257 +860,6 @@ console.log(new Date, i);
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/03/15/JavaScript/学习知识点/">
-                            (无标题)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-03-15T09:02:08+08:00">
-	
-		    3月 15, 2019
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h3 id="JavaScript简介"><a href="#JavaScript简介" class="headerlink" title="JavaScript简介"></a>JavaScript简介</h3><h3 id="在HTML中使用JavaScript"><a href="#在HTML中使用JavaScript" class="headerlink" title="在HTML中使用JavaScript"></a>在HTML中使用JavaScript</h3><h4 id="混杂模式与标准模式"><a href="#混杂模式与标准模式" class="headerlink" title="混杂模式与标准模式"></a>混杂模式与标准模式</h4><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>变量、函数名和操作符都区分大小写</p>
-<p>标识符，就是指变量、函数、属性的名字，或者函数的参数。ECMAScript标识符采用驼峰大小写格式，也就是第一个字母小写，剩下的每个单词的<br>首字母大写</p>
-<p>严格模式： “use strict”; </p>
-<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><blockquote>
-<p>简单数据类型(基本数据类型)：Undefined、Null、Boolean、Number、String  <br><br>复杂数据类型：Object      <br><br>typeof 操作符来区分函数和其他对象是有必要的  <br></p>
-</blockquote>
-<h5 id="Undefind"><a href="#Undefind" class="headerlink" title="Undefind"></a>Undefind</h5><p>　　即便未初始化的变量会自动被赋予 undefined 值，但显式地初始化变量依然是<br>明智的选择。如果能够做到这一点，那么当 typeof 操作符返回”undefined”值时，<br>我们就知道被检测的变量还没有被声明，而不是尚未初始化。</p>
-<h5 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h5><h5 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h5><h5 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h5><h6 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h6><h6 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h6><h6 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h6><p>即非数值（Not a Number）<br>ECMAScript 定义了 isNaN()函数。这个函数接受一个参数，该参数可以<br>是任何类型，而函数会帮我们确定这个参数是否“不是数值”。</p>
-<h6 id="数值转换"><a href="#数值转换" class="headerlink" title="数值转换"></a>数值转换</h6><p>把非数值转换为数值：Number()、parseInt()和 parseFloat()。</p>
-<h5 id="String"><a href="#String" class="headerlink" title="String"></a>String</h5><h4 id="流控制语句"><a href="#流控制语句" class="headerlink" title="流控制语句"></a>流控制语句</h4><h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><h3 id="变量、作用域和内存问题"><a href="#变量、作用域和内存问题" class="headerlink" title="变量、作用域和内存问题"></a>变量、作用域和内存问题</h3><h4 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h4><p>基本类型值指的是<br>简单的数据段，而引用类型值指那些可能由多个值构成的对象</p>
-<h5 id="复制变量值"><a href="#复制变量值" class="headerlink" title="复制变量值"></a>复制变量值</h5><p>如果从一个变量向另一个变量复制<strong>基本类型</strong>的值，会在变量对象上创建一个新值，然后把该值复制<br>到为新变量分配的位置上.<br><br>当从一个变量向另一个变量复制<strong>引用类型</strong>的值时，同样也会将存储在变量对象中的值复制一份放到<br>为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一<br>个对象。复制操作结束后，两个变量实际上将引用同一个对象。因此，改变其中一个变量，就会影响另<br>一个变量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object(); </span><br><span class="line">var obj2 = obj1; </span><br><span class="line">obj1.name = <span class="string">"Nicholas"</span>; </span><br><span class="line">alert(obj2.name); //<span class="string">"Nicholas"</span></span><br></pre></td></tr></table></figure></p>
-<h5 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h5><p>typeof 操作符是确定一个变量是字符串、数值、布尔值，还是 undefined 的最佳工具 <br></p>
-<p>虽然在检测基本数据类型时 typeof 是非常得力的助手，但在检测引用类型的值时，这个操作符的<br>用处不大。通常，我们并不是想知道某个值是对象，而是想知道它是什么类型的对象。为此，ECMAScript<br>提供了 instanceof 操作符，其语法如下所示：<br><code>result = variable instanceof constructor</code></p>
-<h4 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h4><h4 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h4><h5 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h5><h5 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h5><h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ol>
-<li>基本类型值在内存中占据固定大小的空间，因此被保存在栈内存中；</li>
-<li>从一个变量向另一个变量复制基本类型的值，会创建这个值的一个副本；</li>
-<li>引用类型的值是对象，保存在堆内存中；</li>
-<li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针；</li>
-<li>从一个变量向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同<br>一个对象；</li>
-<li>确定一个值是哪种基本类型可以使用 typeof 操作符，而确定一个值是哪种引用类型可以使用<br>instanceof 操作符。</li>
-<li>所有变量（包括基本类型和引用类型）都存在于一个执行环境（也称为作用域）当中，这个执<br>行环境决定了变量的生命周期，以及哪一部分代码可以访问其中的变量。</li>
-</ol>
-<h5 id="以下是关于执行环境的几点总结："><a href="#以下是关于执行环境的几点总结：" class="headerlink" title="以下是关于执行环境的几点总结："></a>以下是关于执行环境的几点总结：</h5><ul>
-<li>执行环境有全局执行环境（也称为全局环境）和函数执行环境之分；</li>
-<li>每次进入一个新执行环境，都会创建一个用于搜索变量和函数的作用域链；<br>函数的局部环境不仅有权访问函数作用域中的变量，而且有权访问其包含（父）环境，乃至全<br>局环境；</li>
-<li>全局环境只能访问在全局环境中定义的变量和函数，而不能直接访问局部环境中的任何数据；</li>
-<li>变量的执行环境有助于确定应该何时释放内存。</li>
-<li>JavaScript 是一门具有自动垃圾收集机制的编程语言，开发人员不必关心内存分配和回收问题。</li>
-</ul>
-<h5 id="可以对-JavaScript-的垃圾收集例程作如下总结："><a href="#可以对-JavaScript-的垃圾收集例程作如下总结：" class="headerlink" title="可以对 JavaScript 的垃圾收集例程作如下总结："></a>可以对 JavaScript 的垃圾收集例程作如下总结：</h5><ul>
-<li>离开作用域的值将被自动标记为可以回收，因此将在垃圾收集期间被删除。<br>“标记清除”是目前主流的垃圾收集算法，这种算法的思想是给当前不使用的值加上标记，然<br>后再回收其内存。</li>
-<li>另一种垃圾收集算法是“引用计数”，这种算法的思想是跟踪记录所有值被引用的次数。JavaScript<br>引擎目前都不再使用这种算法；但在 IE 中访问非原生 JavaScript 对象（如 DOM 元素）时，这种<br>算法仍然可能会导致问题。</li>
-<li>当代码中存在循环引用现象时，“引用计数”算法就会导致问题。</li>
-<li>解除变量的引用不仅有助于消除循环引用现象，而且对垃圾收集也有好处。为了确保有效地回<br>收内存，应该及时解除不再使用的全局对象、全局对象属性以及循环引用变量的引用。</li>
-</ul>
-<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><h4 id="使用对象"><a href="#使用对象" class="headerlink" title="使用对象"></a>使用对象</h4><h5 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h5><ul>
-<li>Array类型<ul>
-<li>检测数组  value instanceof Array、 Array.isArray()方</li>
-<li>转换方法 toLocaleString()、toString()和 valueOf()</li>
-<li>栈方法 后进先出 push()、pop()</li>
-<li>队列方法 后进先出 shift()、unshift()</li>
-<li>重排序方法 reverse()、sort()</li>
-<li>操作方法 concat() 连接数组、splice()</li>
-<li>位置方法 indexOf()、lastIndexOf()</li>
-<li>迭代方法<ul>
-<li>every()  全部</li>
-<li>filter() 筛选</li>
-<li>forEach()</li>
-<li>map() </li>
-<li>some() 存在</li>
-</ul>
-</li>
-<li>归并方法<ul>
-<li>reduce()</li>
-<li>reduceRight()</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Date类型<ul>
-<li>new Date()、Date.parse() 、Date.UTC()</li>
-<li>继承的方法</li>
-<li>日期格式化方法<ul>
-<li>toDateString()——以特定于实现的格式显示星期几、月、日和年</li>
-<li>toTimeString()——以特定于实现的格式显示时、分、秒和时区；</li>
-<li>toLocaleDateString()——以特定于地区的格式显示星期几、月、日和年</li>
-<li>toLocaleTimeString()——以特定于实现的格式显示时、分、秒</li>
-<li>toUTCString()——以特定于实现的格式完整的 UTC 日期</li>
-</ul>
-</li>
-<li>日期/时间组件<ul>
-<li>getTime() 返回表示日期的毫秒数；与valueOf()方法返回的值相同</li>
-<li>setTime(毫秒) 以毫秒数设置日期，会改变整个日期</li>
-<li>getFullYear() 取得4位数的年份（如2007而非仅07）</li>
-<li>getUTCFullYear() 返回UTC日期的4位数年份</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>RegExp()类型</li>
-<li>Function类型<ul>
-<li>没有重载</li>
-<li>函数声明与函数表达式<ul>
-<li>解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问）</li>
-<li>至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真<br>正被解释执行。</li>
-</ul>
-</li>
-<li>作为值的函数</li>
-<li>函数内部属性<ul>
-<li>arguments</li>
-<li>this</li>
-<li>callee</li>
-</ul>
-</li>
-<li>函数属性和方法<ul>
-<li>length</li>
-<li>prototype</li>
-<li>apply()</li>
-<li>call()</li>
-</ul>
-</li>
-<li>基本包装类型<ul>
-<li>Boolean类型</li>
-<li>Number<ul>
-<li>toFixed()方法会按照指定的小数位返回数值的字符串表示</li>
-<li>toExponential()</li>
-</ul>
-</li>
-<li>String<ul>
-<li>trim()方法： 这个方法会创建一个字符串的副本，删除前置及<br>后缀的所有空格，然后返回结果</li>
-<li>字符串大小写转换方法<ul>
-<li>toLowerCase()</li>
-<li>toLocaleLowerCase()</li>
-<li>toUpperCase()</li>
-<li>toLocaleUpperCase()。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>字符串的模式匹配方法</li>
-<li>localeCompare()</li>
-<li>localeCompare()</li>
-<li>fromCharCode()</li>
-</ul>
-</li>
-<li>单体内置对象<ul>
-<li>Global对象</li>
-<li>Math对象<ul>
-<li>Math对象的属性</li>
-<li>min()、max()</li>
-<li>舍入方法<ul>
-<li>Math.ceil()执行向上舍入，即它总是将数值向上舍入为最接近的整数</li>
-<li>Math.floor()执行向下舍入，即它总是将数值向下舍入为最接近的整数</li>
-<li>Math.round()执行标准舍入，即它总是将数值四舍五入为最接近的整数</li>
-</ul>
-</li>
-<li>random() Math.radom()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>160</p>
-<h4 id="创建并操作数组"><a href="#创建并操作数组" class="headerlink" title="创建并操作数组"></a>创建并操作数组</h4><h4 id="基本的JavaScript类型"><a href="#基本的JavaScript类型" class="headerlink" title="基本的JavaScript类型"></a>基本的JavaScript类型</h4><h4 id="基本类型和基本包装类型"><a href="#基本类型和基本包装类型" class="headerlink" title="基本类型和基本包装类型"></a>基本类型和基本包装类型</h4><h3 id="面向对象的程序设计"><a href="#面向对象的程序设计" class="headerlink" title="面向对象的程序设计"></a>面向对象的程序设计</h3><h4 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h4><h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><h3 id="客户端检测"><a href="#客户端检测" class="headerlink" title="客户端检测"></a>客户端检测</h3><h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><h3 id="DOM扩展"><a href="#DOM扩展" class="headerlink" title="DOM扩展"></a>DOM扩展</h3><h3 id="DOM2和DOM3"><a href="#DOM2和DOM3" class="headerlink" title="DOM2和DOM3"></a>DOM2和DOM3</h3><h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><h3 id="表单脚本"><a href="#表单脚本" class="headerlink" title="表单脚本"></a>表单脚本</h3><h3 id="使用Canvas绘图"><a href="#使用Canvas绘图" class="headerlink" title="使用Canvas绘图"></a>使用Canvas绘图</h3><h3 id="HTML5脚本编程"><a href="#HTML5脚本编程" class="headerlink" title="HTML5脚本编程"></a>HTML5脚本编程</h3><h3 id="错误处理与调试"><a href="#错误处理与调试" class="headerlink" title="错误处理与调试"></a>错误处理与调试</h3><h3 id="JavaScript与XML"><a href="#JavaScript与XML" class="headerlink" title="JavaScript与XML"></a>JavaScript与XML</h3><h3 id="E4X"><a href="#E4X" class="headerlink" title="E4X"></a>E4X</h3><h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h3 id="Ajax与Comet"><a href="#Ajax与Comet" class="headerlink" title="Ajax与Comet"></a>Ajax与Comet</h3><h3 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h3><h3 id="离线应用和客户端储存"><a href="#离线应用和客户端储存" class="headerlink" title="离线应用和客户端储存"></a>离线应用和客户端储存</h3><h3 id="最佳实战"><a href="#最佳实战" class="headerlink" title="最佳实战"></a>最佳实战</h3><h3 id="新兴的API"><a href="#新兴的API" class="headerlink" title="新兴的API"></a>新兴的API</h3>
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/03/15/JavaScript/学习知识点/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2019/03/14/前端性能优化/SSR和客户端渲染/">
-                            客户端渲染和服务端渲染详细执行流程
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2019-03-14T21:09:08+08:00">
-	
-		    3月 14, 2019
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/前端优化/">前端优化</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <ol>
-<li><p>客户端渲染：CSR (client side render)<br>在服务端放了一个html 页面，里面有<script>//发请求，拿数据，模版引擎渲染等，$.ajax  ,</script><br>客户端发起请求，服务端把页面（响应的是字符串）发送过去，客户端从上到下依次解析，如果在解析的过程中，发现ajax<br>请求，再次像服务器发送新的请求，客户端拿到ajax 响应结果，模板引擎渲染。<br>过程至少和服务端发起两次请求</p>
-</li>
-<li><p>服务端渲染：SSR (server side render)<br>sever 端页面+数据，服务端过程：<br>1.读取index.html<br>2.模版进行渲染，在发送给客户端之前，在服务端已经把index.html 渲染处理了。var 渲染结果 = tempeter.render(模板字符串，｛解析替换对象｝)   response.end(渲染结果)，服务端响应的就是最总的结果<br>服务端只请求一次<br>多数网站既有服务端渲染又有客户端渲染</p>
-</li>
-<li><p>服务端渲染和客户端渲染的区别</p>
-<ul>
-<li>客户端渲染不利于 SEO 搜索引擎优化</li>
-<li>服务端渲染是可以被爬虫抓取到的，客户端异步渲染是很难被爬虫抓取到的</li>
-<li>所以你会发现真正的网站既不是纯异步也不是纯服务端渲染出来的</li>
-<li>而是两者结合来做的</li>
-<li>例如京东的商品列表就采用的是服务端渲染，目的了为了 SEO 搜索引擎优化</li>
-<li>而它的商品评论列表为了用户体验，而且也不需要 SEO 优化，所以采用是客户端渲染</li>
-</ul>
-</li>
-</ol>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2019/03/14/前端性能优化/SSR和客户端渲染/#post-footer" class="postShorten-excerpt_link link">
-                                评论和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1026,7 +893,7 @@ console.log(new Date, i);
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：139.5k</span>
+		<span class="post-count">字数统计：145.1k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -1148,44 +1015,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
                             <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
@@ -1240,6 +1069,44 @@ setInterval("createtime()",250);
 <h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
 <h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
 <h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -1349,7 +1216,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 94 篇文章
+                找到 96 篇文章
             </p>
         </div>
     </div>

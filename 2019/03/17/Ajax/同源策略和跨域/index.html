@@ -15,23 +15,23 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解\n同源策略概念同源即指：协议相同、域名相同、端口号相同。举例来说，http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。1234http://www.example.com/dir2/other.html：同源http://example.com/dir/other.html：不同源（域名不同）http://v2.www.example.com/dir/other.html：不同源（域名不同）http://www.example.com:81/dir/other.html：不同源（端口不同）\n目的　　同源政策的目的，是为了为了保证使用者信息的安全，防止恶意网站篡改用户数据。　　设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的Cookie，会发生什么？　　很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。　　由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。\n限制范围　　随着互联网的发展，”同源政策”越来越严格。目前，非同源的网站之间，共有四种行为受到限制。1234（1） Cookie、LocalStorage 和 IndexDB 无法读取。（2） DOM 无法获得。（3） AJAX 请求不能发送。（4）无法通过 flash 发送 http 请求\n跨域　　同源策略做了很严格的限制，但是在实际的场景中，又确实有很多地方需要突破同源策略的限制，也就是我们常说的跨域。\nCookie　　同源策略最早被提出的时候，为的就是防止不同域名的网页之间共享 cookie。Cookie是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享Cookie。举个例子，https://market.douban.com和https://book.douban.com，这两个网页的一级域名都是 douban.com，如果我在 market.douban.com中执行了12345678#A、B页面设置相同的document.domaindocument.domain = 'douban.com'# A页面通过脚本设置一个Cookiedocument.cookie = 'cross=yes'或document.cookie = 'cross=yes;path=/;domain=douban.com'# B页面就可以读取到Cookievar allCookie = document.cookie\n这样设置了 cookie之后，在book.douban.com中是可以取到这个cookie的。除了在前端设置之外，也可以直接在response里将cookie的domain设置成 .douban.com。\nAjax什么是Ajax跨域ajax跨域的原理　　ajax出现请求跨域错误问题,主要原因就是因为浏览器的“同源策略”,可以参考\najax跨域的表现　　ajax请求时,如果存在跨域现象,并且没有进行解决,会有如下表现:(注意，是ajax请求，请不要说为什么http请求可以，而ajax不行，因为ajax是伴随着跨域的，所以仅仅是http请求ok是不行的)第一种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 404出现这种情况的原因如下：　　本次ajax请求是“非简单请求”,所以请求前会发送一次预检请求(OPTIONS)　　服务器端后台接口没有允许OPTIONS请求,导致无法找到对应接口地址解决方案: 后端允许options请求第二种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 405这种现象和第一种有区别,这种情况下，后台方法允许OPTIONS请求,但是一些配置文件中(如安全配置),阻止了OPTIONS请求,才会导致这个现象解决方案: 后端关闭对应的安全配置第三种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且status 200这种现象和第一种和第二种有区别,这种情况下，服务器端后台允许OPTIONS请求,并且接口也允许OPTIONS请求,但是头部匹配时出现不匹配现象比如origin头部检查不匹配,比如少了一些头部的支持(如常见的X-Requested-With头部),然后服务端就会将response返回给前端,前端检测到这个后就触发XHR.onerror,导致前端控制台报错解决方案: 后端增加对应的头部支持第四种现象:heade contains multiple values &#39;*,*&#39;表现现象是，后台响应的http头部信息有两个Access-Control-Allow-Origin:*说实话，这种问题出现的主要原因就是进行跨域配置的人不了解原理，导致了重复配置，如:常见于.net后台(一般在web.config中配置了一次origin,然后代码中又手动添加了一次origin(比如代码手动设置了返回*))常见于.net后台(在IIS和项目的webconfig中同时设置Origin:*)解决方案(一一对应):　　建议删除代码中手动添加的*，只用项目配置中的即可　　建议删除IIS下的配置*，只用项目配置中的即可\n如何解决ajax跨域　　一般ajax跨域解决就是通过JSONP解决或者CORS解决,如以下:(注意，现在已经几乎不会再使用JSONP了，所以JSONP了解下即可)\nJSONPjsonp 其实算是一种 hack 形式的请求。jsonp 的本质其实是请求一段 js 代码，是对静态文件资源的请求，所以并不遵循同源策略。但是因为是对静态文件资源的请求，所以只能支持 GET 请求，对于其他方法没有办法支持。\n设置CORS　　CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。本文详细介绍CORS的内部机制。\nCORS简介　　CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。　　整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。\nCORS两种请求浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。只要同时满足以下两大条件，就属于简单请求。12345678910111213（1）请求方法是以下三种方法之一：  HEAD  GET  POST（2）HTTP的头信息不超出以下几种字段：  Accept  Accept-Language  Content-Language  Last-Event-ID  Content-Type：只限于三个值                application/x-www-form-urlencoded、                multipart/form-data、                text/plain\n凡是不同时满足上面两个条件，就属于非简单请求。浏览器对这两种请求的处理，是不一样的。\nCORS简单请求对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin(protocal + host + path + port)字段,来标明这个请求是来自哪里。下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。1234567GET /cors HTTP/1.1Origin: http://api.bob.comHost: api.alice.comAccept-Language: en-USConnection: keep-aliveUser-Agent: Mozilla/5.0...`\n上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。　　如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段（详见下文），就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。　　如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。\n1234Access-Control-Allow-Origin: http://api.bob.comAccess-Control-Allow-Credentials: trueAccess-Control-Expose-Headers: FooBarContent-Type: text/html; charset=utf-8\n上面的头信息之中，有三个与CORS请求相关的字段，都以Access-Control-开头。（1）Access-Control-Allow-Origin该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。（2）Access-Control-Allow-Credentials该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。（3）Access-Control-Expose-Headers该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。withCredentials 属性上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。Access-Control-Allow-Credentials: true另一方面，开发者必须在AJAX请求中打开withCredentials属性。12var xhr = new XMLHttpRequest();xhr.withCredentials = true;\n否则，即使服务器同意发送Cookie，浏览器也不会发送。或者，服务器要求设置Cookie，浏览器也不会处理。但是，如果省略withCredentials设置，有的浏览器还是会一起发送Cookie。这时，可以显式关闭withCredentials。1xhr.withCredentials = false;\n　　需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。\nCORS非简单请求与简单请求最大的不同在于，非简单请求实际上是发送了两个请求。预请求首先，在正式请求之前，会先发送一个预请求(preflight-request)，这个请求的作用是尽可能少的携带信息，供服务端判断是否响应该请求。浏览器浏览器发送预请求，请求的 Request Method 会设置为 options。另外，还会带上这几个字段：123Origin: 同简单请求的originAccess-Control-Request-Method: 请求将要使用的方法Access-Control-Request-Headers: 浏览器会额外发送哪些头信息\n服务端服务端收到预请求之后会根据request中的origin,Access-Control-Request-Method和Access-Control-Request-Headers判断是否响应该请求。如果判断响应这个请求，返回的response中将会携带：123Access-Control-Allow-Origin: originAccess-Control-Allow-Methods: like requestAccess-Control-Allow-Headers: like request\n如果否定这个请求，直接返回不带这三个字段的response就可以，浏览器将会把这种返回判断为失败的返回，触发onerror方法正式响应如果预请求被正确响应，接下来就会发送正式请求，正式请求的request和正常的 ajax 请求基本没有区别，只是会携带 origin 字段；response和简单请求一样，会携带上Access-Control-*这些字段\nWebScoketwebsocket 不遵循同源策略。\n但是在 websocket 请求头中会带上 origin 这个字段，服务端可以通过这个字段来判断是否需要响应，在浏览器端并没有做任何限制。\niframe代理请求方式","dateCreated":"2019-03-17T16:56:03+08:00","dateModified":"2019-04-16T08:37:18+08:00","datePublished":"2019-03-17T16:56:03+08:00","description":"\n转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解\n同源策略概念同源即指：协议相同、域名相同、端口号相同。","headline":"同源策略和跨域","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/","keywords":"AJAX"}</script>
-    <meta name="description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg"},"articleBody":"\n转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解正确面对跨域，别慌前端常见跨域解决方案（全）\n同源策略概念同源即指：协议相同、域名相同、端口号相同。举例来说，http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略）。它的同源情况如下。1234http://www.example.com/dir2/other.html：同源http://example.com/dir/other.html：不同源（域名不同）http://v2.www.example.com/dir/other.html：不同源（域名不同）http://www.example.com:81/dir/other.html：不同源（端口不同）\n目的　　同源政策的目的，是为了为了保证使用者信息的安全，防止恶意网站篡改用户数据。　　设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的Cookie，会发生什么？　　很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。　　由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。\n限制范围　　随着互联网的发展，”同源政策”越来越严格。目前，非同源的网站之间，共有四种行为受到限制。1234（1） Cookie、LocalStorage 和 IndexDB 无法读取。（2） DOM 无法获得。（3） AJAX 请求不能发送。（4）无法通过 flash 发送 http 请求\n跨域　　同源策略做了很严格的限制，但是在实际的场景中，又确实有很多地方需要突破同源策略的限制，也就是我们常说的跨域。\nCookie　　同源策略最早被提出的时候，为的就是防止不同域名的网页之间共享 cookie。Cookie是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享Cookie。举个例子，https://market.douban.com和https://book.douban.com，这两个网页的一级域名都是 douban.com，如果我在 market.douban.com中执行了12345678#A、B页面设置相同的document.domaindocument.domain = 'douban.com'# A页面通过脚本设置一个Cookiedocument.cookie = 'cross=yes'或document.cookie = 'cross=yes;path=/;domain=douban.com'# B页面就可以读取到Cookievar allCookie = document.cookie\n这样设置了 cookie之后，在book.douban.com中是可以取到这个cookie的。除了在前端设置之外，也可以直接在response里将cookie的domain设置成 .douban.com。\nAjax什么是Ajax跨域ajax跨域的原理　　ajax出现请求跨域错误问题,主要原因就是因为浏览器的“同源策略”,可以参考\najax跨域的表现　　ajax请求时,如果存在跨域现象,并且没有进行解决,会有如下表现:(注意，是ajax请求，请不要说为什么http请求可以，而ajax不行，因为ajax是伴随着跨域的，所以仅仅是http请求ok是不行的)第一种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 404出现这种情况的原因如下：　　本次ajax请求是“非简单请求”,所以请求前会发送一次预检请求(OPTIONS)　　服务器端后台接口没有允许OPTIONS请求,导致无法找到对应接口地址解决方案: 后端允许options请求第二种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且The response had HTTP status code 405这种现象和第一种有区别,这种情况下，后台方法允许OPTIONS请求,但是一些配置文件中(如安全配置),阻止了OPTIONS请求,才会导致这个现象解决方案: 后端关闭对应的安全配置第三种现象:No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource,并且status 200这种现象和第一种和第二种有区别,这种情况下，服务器端后台允许OPTIONS请求,并且接口也允许OPTIONS请求,但是头部匹配时出现不匹配现象比如origin头部检查不匹配,比如少了一些头部的支持(如常见的X-Requested-With头部),然后服务端就会将response返回给前端,前端检测到这个后就触发XHR.onerror,导致前端控制台报错解决方案: 后端增加对应的头部支持第四种现象:heade contains multiple values &#39;*,*&#39;表现现象是，后台响应的http头部信息有两个Access-Control-Allow-Origin:*说实话，这种问题出现的主要原因就是进行跨域配置的人不了解原理，导致了重复配置，如:常见于.net后台(一般在web.config中配置了一次origin,然后代码中又手动添加了一次origin(比如代码手动设置了返回*))常见于.net后台(在IIS和项目的webconfig中同时设置Origin:*)解决方案(一一对应):　　建议删除代码中手动添加的*，只用项目配置中的即可　　建议删除IIS下的配置*，只用项目配置中的即可\n如何解决ajax跨域　　一般ajax跨域解决就是通过JSONP解决或者CORS解决,如以下:(注意，现在已经几乎不会再使用JSONP了，所以JSONP了解下即可)\nJSONPjsonp 其实算是一种 hack 形式的请求。jsonp 的本质其实是请求一段 js 代码，是对静态文件资源的请求，所以并不遵循同源策略。但是因为是对静态文件资源的请求，所以只能支持 GET 请求，对于其他方法没有办法支持。\n设置CORS　　CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。本文详细介绍CORS的内部机制。\nCORS简介　　CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。　　整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。\nCORS两种请求浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。只要同时满足以下两大条件，就属于简单请求。12345678910111213（1）请求方法是以下三种方法之一：  HEAD  GET  POST（2）HTTP的头信息不超出以下几种字段：  Accept  Accept-Language  Content-Language  Last-Event-ID  Content-Type：只限于三个值                application/x-www-form-urlencoded、                multipart/form-data、                text/plain\n凡是不同时满足上面两个条件，就属于非简单请求。浏览器对这两种请求的处理，是不一样的。\nCORS简单请求对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin(protocal + host + path + port)字段,来标明这个请求是来自哪里。下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。1234567GET /cors HTTP/1.1Origin: http://api.bob.comHost: api.alice.comAccept-Language: en-USConnection: keep-aliveUser-Agent: Mozilla/5.0...`\n上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。　　如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段（详见下文），就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。　　如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。\n1234Access-Control-Allow-Origin: http://api.bob.comAccess-Control-Allow-Credentials: trueAccess-Control-Expose-Headers: FooBarContent-Type: text/html; charset=utf-8\n上面的头信息之中，有三个与CORS请求相关的字段，都以Access-Control-开头。（1）Access-Control-Allow-Origin该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。（2）Access-Control-Allow-Credentials该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。（3）Access-Control-Expose-Headers该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。withCredentials 属性上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。Access-Control-Allow-Credentials: true另一方面，开发者必须在AJAX请求中打开withCredentials属性。12var xhr = new XMLHttpRequest();xhr.withCredentials = true;\n否则，即使服务器同意发送Cookie，浏览器也不会发送。或者，服务器要求设置Cookie，浏览器也不会处理。但是，如果省略withCredentials设置，有的浏览器还是会一起发送Cookie。这时，可以显式关闭withCredentials。1xhr.withCredentials = false;\n　　需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。\nCORS非简单请求与简单请求最大的不同在于，非简单请求实际上是发送了两个请求。预请求首先，在正式请求之前，会先发送一个预请求(preflight-request)，这个请求的作用是尽可能少的携带信息，供服务端判断是否响应该请求。浏览器浏览器发送预请求，请求的 Request Method 会设置为 options。另外，还会带上这几个字段：123Origin: 同简单请求的originAccess-Control-Request-Method: 请求将要使用的方法Access-Control-Request-Headers: 浏览器会额外发送哪些头信息\n服务端服务端收到预请求之后会根据request中的origin,Access-Control-Request-Method和Access-Control-Request-Headers判断是否响应该请求。如果判断响应这个请求，返回的response中将会携带：123Access-Control-Allow-Origin: originAccess-Control-Allow-Methods: like requestAccess-Control-Allow-Headers: like request\n如果否定这个请求，直接返回不带这三个字段的response就可以，浏览器将会把这种返回判断为失败的返回，触发onerror方法正式响应如果预请求被正确响应，接下来就会发送正式请求，正式请求的request和正常的 ajax 请求基本没有区别，只是会携带 origin 字段；response和简单请求一样，会携带上Access-Control-*这些字段\nWebScoketwebsocket 不遵循同源策略。\n但是在 websocket 请求头中会带上 origin 这个字段，服务端可以通过这个字段来判断是否需要响应，在浏览器端并没有做任何限制。\niframe代理请求方式","dateCreated":"2019-03-17T16:56:03+08:00","dateModified":"2019-10-17T09:17:48+08:00","datePublished":"2019-03-17T16:56:03+08:00","description":"\n转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解正确面对跨域，别慌前端常见跨域解决方案（全）\n同源策略概念同源即指：协议相同、域名相同、端口号相同。","headline":"同源策略和跨域","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/"},"publisher":{"@type":"Organization","name":"LittleStar","sameAs":["https://github.com/aLittleLittleStar","mailto"],"image":"/user-photo/user.jpg","logo":{"@type":"ImageObject","url":"/user-photo/user.jpg"}},"url":"http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/","keywords":"AJAX"}</script>
+    <meta name="description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解正确面对跨域，别慌前端常见跨域解决方案（全） 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
 <meta name="keywords" content="AJAX">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="同源策略和跨域">
 <meta property="og:url" content="http://yoursite.com/2019/03/17/Ajax/同源策略和跨域/index.html">
 <meta property="og:site_name" content="昨夜小楼又东风">
-<meta property="og:description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
+<meta property="og:description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解正确面对跨域，别慌前端常见跨域解决方案（全） 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://yoursite.com/assets/images/ajax001.png">
 <meta property="og:image" content="http://yoursite.com/assets/images/ajax002.png">
 <meta property="og:image" content="http://yoursite.com/assets/images/ajax003.png">
 <meta property="og:image" content="http://yoursite.com/assets/images/ajax004.jpg">
-<meta property="og:updated_time" content="2019-04-16T00:37:18.784Z">
+<meta property="og:updated_time" content="2019-10-17T01:17:48.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="同源策略和跨域">
-<meta name="twitter:description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
+<meta name="twitter:description" content="转载:　　ajax跨域，这应该是最全的解决方案了参考:　　浏览器同源政策及其规避方法　　跨域资源共享 CORS 详解正确面对跨域，别慌前端常见跨域解决方案（全） 同源策略概念同源即指：协议相同、域名相同、端口号相同。">
 <meta name="twitter:image" content="http://yoursite.com/assets/images/ajax001.png">
     
     
@@ -258,7 +258,7 @@
     <div class="post-content markdown">
         <div class="main-content-wrap">
             <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-text">同源策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目的"><span class="toc-text">目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制范围"><span class="toc-text">限制范围</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域"><span class="toc-text">跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookie"><span class="toc-text">Cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ajax"><span class="toc-text">Ajax</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是Ajax跨域"><span class="toc-text">什么是Ajax跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ajax跨域的原理"><span class="toc-text">ajax跨域的原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ajax跨域的表现"><span class="toc-text">ajax跨域的表现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何解决ajax跨域"><span class="toc-text">如何解决ajax跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JSONP"><span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置CORS"><span class="toc-text">设置CORS</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS简介"><span class="toc-text">CORS简介</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS两种请求"><span class="toc-text">CORS两种请求</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS简单请求"><span class="toc-text">CORS简单请求</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#CORS非简单请求"><span class="toc-text">CORS非简单请求</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#WebScoket"><span class="toc-text">WebScoket</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#iframe"><span class="toc-text">iframe</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代理请求方式"><span class="toc-text">代理请求方式</span></a></li></ol></li></ol></li></ol></li></ol>
-<p>转载:<br>　　<a href="https://segmentfault.com/a/1190000012469713" target="_blank" rel="noopener">ajax跨域，这应该是最全的解决方案了</a><br>参考:<br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a><br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></p>
+<p>转载:<br>　　<a href="https://segmentfault.com/a/1190000012469713" target="_blank" rel="noopener">ajax跨域，这应该是最全的解决方案了</a><br>参考:<br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a><br>　　<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a><br><a href="https://juejin.im/post/5a2f92c65188253e2470f16d" target="_blank" rel="noopener">正确面对跨域，别慌</a><br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a></p>
 <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>同源即指：协议相同、域名相同、端口号相同。<br><a id="more"></a><br>举例来说，<code>http://www.example.com/dir/page.html</code>这个网址，协议是<code>http://</code>，域名是<code>www.example.com</code>，端口是<code>80</code>（默认端口可以省略）。它的同源情况如下。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com/dir2/other.html：同源</span><br><span class="line">http://example.com/dir/other.html：不同源（域名不同）</span><br><span class="line">http://v2.www.example.com/dir/other.html：不同源（域名不同）</span><br><span class="line">http://www.example.com:81/dir/other.html：不同源（端口不同）</span><br></pre></td></tr></table></figure></p>
 <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>　　同源政策的目的，是为了<strong>为了保证使用者信息的安全，防止恶意网站篡改用户数据</strong>。<br>　　设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的<code>Cookie</code>，会发生什么？<br>　　很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，<code>Cookie</code> 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。<br>　　由此可见，”同源政策”是必需的，否则 <code>Cookie</code> 可以共享，互联网就毫无安全可言了。</p>
 <h3 id="限制范围"><a href="#限制范围" class="headerlink" title="限制范围"></a>限制范围</h3><p>　　随着互联网的发展，”同源政策”越来越严格。目前，非同源的网站之间，共有四种行为受到限制。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（1） Cookie、LocalStorage 和 IndexDB 无法读取。</span><br><span class="line">（2） DOM 无法获得。</span><br><span class="line">（3） AJAX 请求不能发送。</span><br><span class="line">（4）无法通过 flash 发送 http 请求</span><br></pre></td></tr></table></figure></p>
@@ -391,7 +391,7 @@
 		<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
 		<br/>
 		<i class="fas fa-chart-area"></i>
-		<span class="post-count">字数统计：139.5k</span>
+		<span class="post-count">字数统计：145.1k</span>
 </footer>
 <script>
     var now = new Date(); 
@@ -621,44 +621,6 @@ setInterval("createtime()",250);
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
-                            <h3 class="media-heading">CSS模块化</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
-                            <h3 class="media-heading">渐进增强和优雅降级</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2018年10月10日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2018/10/10/JavaScript/bind和call/">
                             <h3 class="media-heading">bind、apply和call的区别</h3>
                         </a>
@@ -713,6 +675,44 @@ setInterval("createtime()",250);
 <h4 id="H5中关于语义化的标签"><a href="#H5中关于语义化的标签" class="headerlink" title="H5中关于语义化的标签"></a>H5中关于语义化的标签</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>　　语义化是指根据内容的结构化（<code>内容语义化</code>），选择合适的标签（<code>代码语义化</code>），便于开发者阅读和写出更优雅的代码的同时，让浏览器的爬虫和机器很好的解析。</p>
 <h5 id="为什么要语义化"><a href="#为什么要语义化" class="headerlink" title="为什么要语义化"></a>为什么要语义化</h5><p>　　1. 有利于SEO，有助于爬虫抓取更多的有效信息，爬虫是依赖于标签来确定上下文和各个关键字的权重。<br>　　2. 语义化的HTML在没有CSS的情况下也能呈现较好的内容结构与代码结构<br>　　3. 方便其他设备解析（如移动设备、盲人阅读器等）<br>　　4. 比div标签有更加丰富的含义，便于团队开发和维护</p>
 <h5 id="关于语义化的标签有哪些"><a href="#关于语义化的标签有哪些" class="headerlink" title="关于语义化的标签有哪些"></a>关于语义化的标签有哪些</h5><p><code>title</code> 简短、描述性、唯一（提升搜索引擎排名）<br><code>header</code> 页眉通常包括网站标志、主导航、全站链接以及搜索框。<br><code>section</code> 具有相似主题的一组内容，比如网站的主页可以分成介绍、新闻条目、联系信息等条块。<br></p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/CSS3模块化/">
+                            <h3 class="media-heading">CSS模块化</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2018/10/10/CSS3/渐进增强和优雅降级/">
+                            <h3 class="media-heading">渐进增强和优雅降级</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    2018年10月10日
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -822,7 +822,7 @@ setInterval("createtime()",250);
                 data-message-zero="没有找到文章"
                 data-message-one="找到 1 篇文章"
                 data-message-other="找到 {n} 篇文章">
-                找到 94 篇文章
+                找到 96 篇文章
             </p>
         </div>
     </div>
